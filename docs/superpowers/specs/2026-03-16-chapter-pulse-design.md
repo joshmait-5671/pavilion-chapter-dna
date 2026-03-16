@@ -19,7 +19,7 @@ Boston chapter. Manual trigger. Prove the full pipeline on one chapter before sc
 Four pieces, in sequence:
 
 ```
-Slack API → JSON → Claude → Script JSON → HTML Template → pyppeteer + ffmpeg → MP4
+Slack API → JSON → Claude → Script JSON → HTML Template → Playwright + ffmpeg → MP4
 ```
 
 ### 1. Data Pipeline
@@ -137,19 +137,21 @@ New chapters are added by adding a line to this file. No code changes needed.
 
 **How it works:**
 1. Claude's JSON script injected into HTML template (placeholder replacement via Python string templating)
-2. Python uses `pyppeteer` (Python port of Puppeteer) to open the HTML at 1080x1080
+2. Python uses `playwright` (sync API) to open the HTML at 1080x1080 in headless Chromium
 3. For each frame: advance CSS animation to the exact time position using JavaScript (`document.getAnimations().forEach(a => a.currentTime = frameTime)`), then capture a screenshot as PNG
 4. 30 seconds at 30fps = 900 frames captured as PNGs in a temp directory
 5. `ffmpeg` stitches PNGs into MP4 (H.264, high quality): `ffmpeg -framerate 30 -i frame_%04d.png -c:v libx264 -pix_fmt yuv420p output.mp4`
 6. Temp PNGs deleted. Final MP4 saved to `output/boston-2026-03.mp4`
 
 **Dependencies:**
-- Python 3.10+
-- `pyppeteer` (Python, handles headless Chrome)
+- Python 3.9+
+- `playwright` (Python, handles headless Chromium — actively maintained by Microsoft)
 - `anthropic` (Python, Claude API)
 - `slack_sdk` (Python, Slack API)
 - `ffmpeg` (system install, must be on PATH). Install: `brew install ffmpeg`
 - No Node.js required. Everything is Python + ffmpeg.
+
+**Note on Google Fonts:** The template loads Poppins via Google Fonts URL. Playwright's `wait_until="networkidle"` ensures the font loads before frame capture begins. If network is unavailable, the system font fallback will render instead.
 
 **Review flow:** MP4 opens in default video player after render. Three options:
 - **Approve** — ready to post
@@ -173,7 +175,7 @@ New chapters are added by adding a line to this file. No code changes needed.
   src/
     pull_messages.py       # Slack data pipeline
     generate_script.py     # Claude summarization
-    render_video.py        # pyppeteer frame capture + ffmpeg stitch
+    render_video.py        # Playwright frame capture + ffmpeg stitch
     main.py                # Orchestrator (manual trigger)
 ```
 

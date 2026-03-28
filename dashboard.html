@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Josh · Mission Control</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', system-ui, sans-serif;
+      background: #080808;
+      color: #fff;
+      min-height: 100vh;
+      padding: 32px 24px 60px;
+    }
+
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 900px;
+      margin: 0 auto 8px;
+    }
+
+    .masthead-logo {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .masthead-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(223,40,91,0.85);
+      color: #fff;
+    }
+
+    .rule { height: 1px; background: rgba(255,255,255,0.07); max-width: 900px; margin: 0 auto 32px; }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      max-width: 900px;
+      margin: 0 auto 4px;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.04em;
+      max-width: 900px;
+      margin: 0 auto 32px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .card:hover { background: #161616; border-color: rgba(255,255,255,0.13); }
+
+    .card-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .card-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    .status {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .status-live { background: rgba(91,184,156,0.12); color: #5BB89C; border: 1px solid rgba(91,184,156,0.25); }
+    .status-local { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.1); }
+    .status-railway { background: rgba(139,127,212,0.12); color: #8B7FD4; border: 1px solid rgba(139,127,212,0.25); }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 14px 0; }
+
+    .links { display: flex; flex-direction: column; gap: 6px; }
+
+    .link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      padding: 7px 10px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.12s, border-color 0.12s;
+    }
+
+    .link:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.1); }
+
+    .link-icon { font-size: 12px; width: 16px; text-align: center; flex-shrink: 0; }
+
+    .link-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .link-arrow { font-size: 10px; color: rgba(255,255,255,0.2); flex-shrink: 0; }
+
+    .link:hover .link-text { color: rgba(255,255,255,0.95); }
+    .link:hover .link-arrow { color: rgba(255,255,255,0.5); }
+
+    .footer {
+      text-align: center;
+      margin-top: 48px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="masthead">
+    <span class="masthead-logo">Pavilion</span>
+    <span class="masthead-badge">Mission Control</span>
+  </div>
+  <div class="rule"></div>
+
+  <h1>Josh's Projects</h1>
+  <p class="subtitle">All links, one place. Updated automatically.</p>
+
+  <div class="grid">
+
+    <!-- Chapter DNA -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #DF285B, #2B1887);"></div>
+      <div class="card-header">
+        <span class="card-label">Chapter DNA</span>
+        <span class="status status-live">Live</span>
+      </div>
+      <div class="card-title">Chapter DNA</div>
+      <div class="card-desc">10-question survey → archetype identity card. Shareable magazine cover output.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://chapter-dna.vercel.app" target="_blank">
+          <span class="link-icon">🌐</span>
+          <span class="link-text">chapter-dna.vercel.app</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://chapter-dna.vercel.app/leaderboard" target="_blank">
+          <span class="link-icon">📊</span>
+          <span class="link-text">Leaderboard</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://docs.google.com/spreadsheets/d/1pnf3F59thyTnL78WpmzyPnsXBUZvXZO1YRE_wkjsK-o/edit" target="_blank">
+          <span class="link-icon">📋</span>
+          <span class="link-text">Google Sheet (responses)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://vercel.com/pavilion2/chapter-dna" target="_blank">
+          <span class="link-icon">▲</span>
+          <span class="link-text">Vercel dashboard</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AI Pulse -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #2B1887, #8B7FD4);"></div>
+      <div class="card-header">
+        <span class="card-label">AI Pulse</span>
+        <span class="status status-live">Live</span>
+      </div>
+      <div class="card-title">AI Pulse</div>
+      <div class="card-desc">15-question weekly survey. Google Form → Sheets → pipeline → data.json → Netlify dashboard.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://pavilion-ai-weekly.netlify.app" target="_blank">
+          <span class="link-icon">🌐</span>
+          <span class="link-text">pavilion-ai-weekly.netlify.app</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://docs.google.com/forms/d/1PLZ1EKMeQWJQkZuTfZQOiA5wvd-DhHY7cZ_1HxfPL60/edit" target="_blank">
+          <span class="link-icon">📝</span>
+          <span class="link-text">Google Form (edit)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://docs.google.com/spreadsheets/d/1qmH_CU0BTRLQKF2Yw_wKh7nGNBh1fGLd_p087zsZmds/edit" target="_blank">
+          <span class="link-icon">📋</span>
+          <span class="link-text">Google Sheet (responses)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://app.netlify.com/projects/pavilion-ai-weekly" target="_blank">
+          <span class="link-icon">◈</span>
+          <span class="link-text">Netlify dashboard</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://docs.google.com/forms/d/1PLZ1EKMeQWJQkZuTfZQOiA5wvd-DhHY7cZ_1HxfPL60/viewform" target="_blank">
+          <span class="link-icon">📨</span>
+          <span class="link-text">Survey link (share this)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Recapper -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #5BB89C, #4A9EDB);"></div>
+      <div class="card-header">
+        <span class="card-label">Recapper</span>
+        <span class="status status-live">Live · 8pm ET daily</span>
+      </div>
+      <div class="card-title">Recapper</div>
+      <div class="card-desc">Reads #ai_in_gtm Slack → Claude summary → posts to Slack + updates Netlify page.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://recapper.netlify.app" target="_blank">
+          <span class="link-icon">🌐</span>
+          <span class="link-text">recapper.netlify.app</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://app.netlify.com/projects/recapper" target="_blank">
+          <span class="link-icon">◈</span>
+          <span class="link-text">Netlify dashboard</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://railway.app" target="_blank">
+          <span class="link-icon">🚂</span>
+          <span class="link-text">Railway (recapper)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://github.com/joshmait/pavilion-recapper" target="_blank">
+          <span class="link-icon">⌥</span>
+          <span class="link-text">GitHub repo</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Outreach Agent -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #8B7FD4, #C57FD9);"></div>
+      <div class="card-header">
+        <span class="card-label">Outreach Agent</span>
+        <span class="status status-railway">Railway · 9am ET</span>
+      </div>
+      <div class="card-title">Outreach Agent</div>
+      <div class="card-desc">Sends podcast booking emails for Sam Jacobs. Monitors replies every 4 hours.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://railway.app" target="_blank">
+          <span class="link-icon">🚂</span>
+          <span class="link-text">Railway (outreach-agent)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Funded & Found Out -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #F4A742, #DF285B);"></div>
+      <div class="card-header">
+        <span class="card-label">Funded & Found Out</span>
+        <span class="status status-railway">Railway · Mon/Wed</span>
+      </div>
+      <div class="card-title">Funded &amp; Found Out</div>
+      <div class="card-desc">Weekly AI marketing report. Runs Mon 9am (build) + Wed 5pm (emails PDF to Gmail).</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://railway.app" target="_blank">
+          <span class="link-icon">🚂</span>
+          <span class="link-text">Railway (funded-and-found-out)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Chapter Pulse -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #DF285B, #7C3AED);"></div>
+      <div class="card-header">
+        <span class="card-label">Chapter Pulse</span>
+        <span class="status status-local">Local CLI</span>
+      </div>
+      <div class="card-title">Chapter Pulse</div>
+      <div class="card-desc">Slack channel → 30-sec promo video. Pulls messages, generates script via Claude, renders MP4 with Playwright + ffmpeg.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/chapter-pulse/output/" target="_blank">
+          <span class="link-icon">🎬</span>
+          <span class="link-text">Output videos</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/chapter-pulse/config.json" target="_blank">
+          <span class="link-icon">⚙️</span>
+          <span class="link-text">Chapter config</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AI GTM Ad -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #DF285B, #7C3AED);"></div>
+      <div class="card-header">
+        <span class="card-label">AI GTM Ad</span>
+        <span class="status status-local">Local CLI</span>
+      </div>
+      <div class="card-title">AI GTM Ad</div>
+      <div class="card-desc">30-sec promo video for AI in GTM Bundle. Hardcoded content, same Playwright + ffmpeg render engine.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/ai-gtm-ad/output/ai-gtm-ad.mp4" target="_blank">
+          <span class="link-icon">📺</span>
+          <span class="link-text">Latest video</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/ai-gtm-ad/output/" target="_blank">
+          <span class="link-icon">🎬</span>
+          <span class="link-text">Output folder</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://www.joinpavilion.com/ai-in-gtm" target="_blank">
+          <span class="link-icon">🌐</span>
+          <span class="link-text">Landing page (source)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Applicant to Member -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #4A9EDB, #2B1887);"></div>
+      <div class="card-header">
+        <span class="card-label">Applicant to Member</span>
+        <span class="status status-local">Local</span>
+      </div>
+      <div class="card-title">Applicant → Member</div>
+      <div class="card-desc">Pavilion conversion journey. Single self-contained HTML file, no backend.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/applicant-to-member/index.html" target="_blank">
+          <span class="link-icon">📄</span>
+          <span class="link-text">Open local file</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ROI Calculator -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #DF285B, #2B1887);"></div>
+      <div class="card-header">
+        <span class="card-label">ROI Calculator</span>
+        <span class="status status-local">Local</span>
+      </div>
+      <div class="card-title">Membership ROI Calculator</div>
+      <div class="card-desc">Interactive calculator showing estimated annual value of Pavilion membership. Passcode-gated with PDF export.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/ROI Calculator/roi-calculator.html" target="_blank">
+          <span class="link-icon">📄</span>
+          <span class="link-text">Open local file</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Relationship Radar -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #DF285B, #8B7FD4);"></div>
+      <div class="card-header">
+        <span class="card-label">Relationship Radar</span>
+        <span class="status status-local">Local</span>
+      </div>
+      <div class="card-title">Relationship Radar</div>
+      <div class="card-desc">Relationship intelligence mockup — three tiers (Friends, Contacts, On Radar) with profile modal, mutual connections, warm intros, and decay indicators.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/relationship-radar/index.html" target="_blank">
+          <span class="link-icon">📄</span>
+          <span class="link-text">Open local file</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Shape The Room -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #F4A742, #DF285B);"></div>
+      <div class="card-header">
+        <span class="card-label">Shape The Room</span>
+        <span class="status status-live">Live</span>
+      </div>
+      <div class="card-title">Shape The Room</div>
+      <div class="card-desc">Leadership coaching program for Pavilion members. Learn to command presence in any room.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://poetic-gumdrop-1b3415.netlify.app" target="_blank">
+          <span class="link-icon">🌐</span>
+          <span class="link-text">poetic-gumdrop-1b3415.netlify.app</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://app.netlify.com/projects/poetic-gumdrop-1b3415" target="_blank">
+          <span class="link-icon">◈</span>
+          <span class="link-text">Netlify dashboard</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/Shape The Room/shape-the-room.html" target="_blank">
+          <span class="link-icon">📄</span>
+          <span class="link-text">Open local file</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AI GTM Bundle -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #5BB89C, #4A9EDB);"></div>
+      <div class="card-header">
+        <span class="card-label">AI Offer</span>
+        <span class="status status-live">Live</span>
+      </div>
+      <div class="card-title">AI GTM Bundle</div>
+      <div class="card-desc">AI GTM Acceleration Bundle landing page. Buddy matching + school + Slack + roundtables.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://brilliant-capybara-476a67.netlify.app" target="_blank">
+          <span class="link-icon">🌐</span>
+          <span class="link-text">brilliant-capybara-476a67.netlify.app</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://app.netlify.com/projects/brilliant-capybara-476a67" target="_blank">
+          <span class="link-icon">◈</span>
+          <span class="link-text">Netlify dashboard</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/AI Offer/index.html" target="_blank">
+          <span class="link-icon">📄</span>
+          <span class="link-text">Open local file</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- AI Buddy -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #8B7FD4, #4A9EDB);"></div>
+      <div class="card-header">
+        <span class="card-label">AI Buddy Program</span>
+        <span class="status status-local">Local</span>
+      </div>
+      <div class="card-title">AI Buddy</div>
+      <div class="card-desc">Peer matching system for Pavilion members sharing AI knowledge. Standalone sign-up page.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/AI Buddy Program/ai-buddy.html" target="_blank">
+          <span class="link-icon">📄</span>
+          <span class="link-text">Open local file</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Slack Profile Mockup -->
+    <div class="card">
+      <div class="card-accent" style="background: linear-gradient(90deg, #E8583E, #F2C94C);"></div>
+      <div class="card-header">
+        <span class="card-label">Slack Profile</span>
+        <span class="status status-live">Live</span>
+      </div>
+      <div class="card-title">Slack Profile Mockup</div>
+      <div class="card-desc">Custom profile fields mockup for Pavilion Executive Slack. Meshon-style profile photo + 8 proposed features.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://pavilion-slack-profile.netlify.app" target="_blank">
+          <span class="link-icon">🎨</span>
+          <span class="link-text">Live mockup</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://app.netlify.com/projects/pavilion-slack-profile" target="_blank">
+          <span class="link-icon">▲</span>
+          <span class="link-text">Netlify dashboard</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/slack-profile-mockup/index.html" target="_blank">
+          <span class="link-icon">📁</span>
+          <span class="link-text">Local files</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 100 YARDS Section -->
+  <div style="max-width: 900px; margin: 48px auto 0;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px;">
+      <h1 style="font-size: 22px; font-weight: 900; letter-spacing: -0.02em; color: rgba(255,255,255,0.9);">100 YARDS</h1>
+      <span style="font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: rgba(9,112,197,0.2); color: #2EB1FF; border: 1px solid rgba(46,177,255,0.25);">Client Work</span>
+    </div>
+    <p class="subtitle" style="margin-bottom: 20px;">100 Yards To Go — client projects and deliverables.</p>
+    <div style="height: 1px; background: rgba(46,177,255,0.15); margin-bottom: 24px;"></div>
+  </div>
+
+  <div class="grid" style="margin-top: 0;">
+
+    <!-- HealthSherpa ICHRA -->
+    <div class="card" style="border-color: rgba(46,177,255,0.15);">
+      <div class="card-accent" style="background: linear-gradient(90deg, #0970C5, #2EB1FF);"></div>
+      <div class="card-header">
+        <span class="card-label">HealthSherpa</span>
+        <span class="status status-live">Live</span>
+      </div>
+      <div class="card-title">ICHRA Strategy Discovery</div>
+      <div class="card-desc">7-question discovery questionnaire for HealthSherpa ICHRA engagement. Client fills out, downloads responses.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://mellifluous-pasca-aab124.netlify.app" target="_blank">
+          <span class="link-icon">🌐</span>
+          <span class="link-text">mellifluous-pasca-aab124.netlify.app</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://app.netlify.com/projects/mellifluous-pasca-aab124" target="_blank">
+          <span class="link-icon">◈</span>
+          <span class="link-text">Netlify dashboard</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/100yards/ichra-discovery/index.html" target="_blank">
+          <span class="link-icon">📄</span>
+          <span class="link-text">Open local file</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Marketing is Dead Deck -->
+    <div class="card" style="border-color: rgba(232,93,38,0.2);">
+      <div class="card-accent" style="background: linear-gradient(90deg, #e85d26, #0a0a0a);"></div>
+      <div class="card-header">
+        <span class="card-label">German Accelerator</span>
+        <span class="status status-live">Live</span>
+      </div>
+      <div class="card-title">Marketing is Dead</div>
+      <div class="card-desc">30-slide HTML presentation for German Accelerator workshop. 100 YARDS branded, arrow-key navigation.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://gilded-gecko-23197f.netlify.app" target="_blank">
+          <span class="link-icon">🌐</span>
+          <span class="link-text">Live deck</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="file:///Users/joshmait/Desktop/Claude/100yards/marketing-is-dead/index.html" target="_blank">
+          <span class="link-icon">📄</span>
+          <span class="link-text">Open local file</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Services Section (back to Pavilion grid) -->
+  <div class="grid" style="margin-top: 12px;">
+
+    <!-- Quick Links -->
+    <div class="card">
+      <div class="card-accent" style="background: rgba(255,255,255,0.1);"></div>
+      <div class="card-header">
+        <span class="card-label">Services</span>
+        <span class="status status-local">Accounts</span>
+      </div>
+      <div class="card-title">Quick Links</div>
+      <div class="card-desc">Tokens, dashboards, and API consoles.</div>
+      <div class="divider"></div>
+      <div class="links">
+        <a class="link" href="https://console.anthropic.com" target="_blank">
+          <span class="link-icon">🤖</span>
+          <span class="link-text">Anthropic Console (API keys)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://api.slack.com/apps" target="_blank">
+          <span class="link-icon">💬</span>
+          <span class="link-text">Slack API (tokens)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://github.com/settings/tokens" target="_blank">
+          <span class="link-icon">🔑</span>
+          <span class="link-text">GitHub tokens</span>
+          <span class="link-arrow">↗</span>
+        </a>
+        <a class="link" href="https://railway.app" target="_blank">
+          <span class="link-icon">🚂</span>
+          <span class="link-text">Railway (all agents)</span>
+          <span class="link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">joinpavilion.com · josh.mait@joinpavilion.com</div>
+
+</body>
+</html>

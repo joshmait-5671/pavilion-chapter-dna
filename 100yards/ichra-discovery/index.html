@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICHRA Strategy Discovery | HealthSherpa</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #f0f4f8;
+            color: #1a2b3c;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #0970C5;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-logo svg { width: 32px; height: 32px; }
+        .header-brand {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        .header-sub {
+            color: rgba(255,255,255,0.7);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .progress-container {
+            background: #e2e8f0;
+            height: 4px;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, #0970C5, #2EB1FF);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .welcome {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .welcome h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0970C5;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .welcome .subtitle {
+            font-size: 18px;
+            color: #64748b;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+        .welcome .context {
+            background: white;
+            border: 1px solid #D3E0E8;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: left;
+            margin-bottom: 32px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #475569;
+        }
+        .welcome .context strong { color: #0970C5; }
+
+        .question-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #D3E0E8;
+            padding: 40px;
+            box-shadow: 0 4px 24px rgba(9, 112, 197, 0.06);
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+        .question-card.active { display: block; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-number {
+            font-size: 13px;
+            font-weight: 600;
+            color: #2EB1FF;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+        .question-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0D61A6;
+            margin-bottom: 8px;
+            line-height: 1.35;
+            letter-spacing: -0.3px;
+        }
+        .question-context {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .answer-input {
+            width: 100%;
+            min-height: 140px;
+            padding: 16px;
+            border: 2px solid #D3E0E8;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1a2b3c;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+        .answer-input:focus {
+            outline: none;
+            border-color: #2EB1FF;
+            box-shadow: 0 0 0 3px rgba(46, 177, 255, 0.15);
+        }
+        .answer-input::placeholder { color: #c0cdd8; }
+
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+        }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #0970C5;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #0D61A6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(9, 112, 197, 0.3);
+        }
+        .btn-back {
+            background: transparent;
+            color: #94a3b8;
+            padding: 12px 16px;
+        }
+        .btn-back:hover { color: #0970C5; }
+        .btn-start {
+            background: #0970C5;
+            color: white;
+            padding: 16px 40px;
+            font-size: 17px;
+            border-radius: 10px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-start:hover {
+            background: #0D61A6;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(9, 112, 197, 0.3);
+        }
+
+        .skip-link {
+            font-size: 13px;
+            color: #c0cdd8;
+            cursor: pointer;
+            transition: color 0.2s;
+            margin-right: 16px;
+        }
+        .skip-link:hover { color: #0970C5; }
+
+        .completion {
+            text-align: center;
+            padding: 60px 20px;
+            display: none;
+        }
+        .completion.active { display: block; }
+        .completion .check-circle {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0970C5, #2EB1FF);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        .completion h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0970C5;
+            margin-bottom: 12px;
+        }
+        .completion p {
+            color: #64748b;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .review-panel {
+            background: white;
+            border: 1px solid #D3E0E8;
+            border-radius: 12px;
+            text-align: left;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .review-item {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .review-item:last-child { border-bottom: none; }
+        .review-item .review-q {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0970C5;
+            margin-bottom: 6px;
+        }
+        .review-item .review-a {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        .review-item .review-a.empty {
+            color: #c0cdd8;
+            font-style: italic;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-action {
+            padding: 14px 32px;
+            font-size: 15px;
+            border-radius: 8px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-download {
+            background: #0970C5;
+            color: white;
+        }
+        .btn-download:hover { background: #0D61A6; }
+        .btn-copy {
+            background: white;
+            color: #0970C5;
+            border: 2px solid #0970C5 !important;
+        }
+        .btn-copy:hover { background: #f0f7ff; }
+        .btn-action.success {
+            background: #10b981 !important;
+            color: white !important;
+            border-color: #10b981 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-logo">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" rx="8" fill="white" fill-opacity="0.15"/>
+                <path d="M8 16C8 11.6 11.6 8 16 8s8 3.6 8 8-3.6 8-8 8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M13 16h6M16 13v6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <div>
+                <div class="header-brand">HealthSherpa</div>
+                <div class="header-sub">ICHRA Strategy Discovery</div>
+            </div>
+        </div>
+    </div>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <!-- Welcome -->
+        <div class="welcome" id="welcomeScreen">
+            <h1>ICHRA Strategy Discovery</h1>
+            <p class="subtitle">7 questions to shape how we build this together.</p>
+            <div class="context">
+                We're exploring how to build a set of digital tools and experiences that help carriers lean into ICHRA with confidence. Before we design anything, we want to ground ourselves in <strong>your perspective</strong> on the market, the challenges, and where the real opportunities are.
+                <br><br>
+                Your answers will directly inform <strong>what we prioritize</strong>, <strong>how we position it</strong>, and <strong>what we build first</strong>.
+                <br><br>
+                Takes about 10 minutes. Skip anything you'd rather discuss live.
+            </div>
+            <button class="btn-start" onclick="startQuestions()">Let's Go &rarr;</button>
+        </div>
+
+        <!-- Q1 -->
+        <div class="question-card" id="q0">
+            <div class="question-number">Question 1 of 7</div>
+            <div class="question-text">When you're talking to a carrier about ICHRA, who are you actually talking to?</div>
+            <div class="question-context">We know ICHRA often falls between groups internally — the individual team, the group team, strategy, growth. Help us understand who owns this conversation at the carriers you're engaging, and who ultimately makes the call.</div>
+            <textarea class="answer-input" id="a0" placeholder="e.g., Usually we start with the VP of Individual Markets, but the decision gets pulled into..."></textarea>
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goBack(0)">&larr; Back</button>
+                <div>
+                    <span class="skip-link" onclick="skip(0)">Skip</span>
+                    <button class="btn btn-primary" onclick="next(0)">Next &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card" id="q1">
+            <div class="question-number">Question 2 of 7</div>
+            <div class="question-text">How do carriers perceive the HealthSherpa brand in the context of ICHRA?</div>
+            <div class="question-context">We want to be honest about how the brand lands with carriers today. Is there any baggage from past pricing changes or marketplace dynamics that we should factor into how we go to market? Would a movement-oriented brand (like "The ICHRAverse") resonate differently?</div>
+            <textarea class="answer-input" id="a1" placeholder="Be candid — this directly impacts whether we lead with HealthSherpa branding or something broader..."></textarea>
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goBack(1)">&larr; Back</button>
+                <div>
+                    <span class="skip-link" onclick="skip(1)">Skip</span>
+                    <button class="btn btn-primary" onclick="next(1)">Next &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card" id="q2">
+            <div class="question-number">Question 3 of 7</div>
+            <div class="question-text">How does the business model work today — and how should it work?</div>
+            <div class="question-context">Understanding who pays (carriers, platforms, or both) and how that's structured today helps us frame value correctly in everything we build. Where do you see the model heading?</div>
+            <textarea class="answer-input" id="a2" placeholder="Walk us through the current model and where you think it needs to evolve..."></textarea>
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goBack(2)">&larr; Back</button>
+                <div>
+                    <span class="skip-link" onclick="skip(2)">Skip</span>
+                    <button class="btn btn-primary" onclick="next(2)">Next &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-card" id="q3">
+            <div class="question-number">Question 4 of 7</div>
+            <div class="question-text">Where do brokers fit into this picture?</div>
+            <div class="question-context">Brokers are a major force in employer benefits, and ICHRA changes their world significantly. Are they an audience we should be designing for now, or is this carrier-first with brokers coming later?</div>
+            <textarea class="answer-input" id="a3" placeholder="Are brokers a priority right now, or something we layer in later?"></textarea>
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goBack(3)">&larr; Back</button>
+                <div>
+                    <span class="skip-link" onclick="skip(3)">Skip</span>
+                    <button class="btn btn-primary" onclick="next(3)">Next &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-card" id="q4">
+            <div class="question-number">Question 5 of 7</div>
+            <div class="question-text">Should these tools be self-serve or sales-assisted?</div>
+            <div class="question-context">We're imagining things like strategy builders, ROI calculators, implementation roadmaps. Are these things a carrier would explore on their own (like landing on a site), or would your team walk them through it on a call? Or both? This fundamentally changes how we design.</div>
+            <textarea class="answer-input" id="a4" placeholder="Self-serve, rep-guided, or a mix depending on the tool?"></textarea>
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goBack(4)">&larr; Back</button>
+                <div>
+                    <span class="skip-link" onclick="skip(4)">Skip</span>
+                    <button class="btn btn-primary" onclick="next(4)">Next &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question-card" id="q5">
+            <div class="question-number">Question 6 of 7</div>
+            <div class="question-text">Are carriers thinking about building ICHRA infrastructure themselves?</div>
+            <div class="question-context">With the rapid pace of AI, the build-vs-buy calculus is shifting everywhere. HealthSherpa's real moat is regulatory relationships and marketplace enrollment volume — but do carriers understand that? Are any of them asking "why can't we just build this?"</div>
+            <textarea class="answer-input" id="a5" placeholder="Is build-vs-buy coming up in conversations, or are carriers not even thinking about it yet?"></textarea>
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goBack(5)">&larr; Back</button>
+                <div>
+                    <span class="skip-link" onclick="skip(5)">Skip</span>
+                    <button class="btn btn-primary" onclick="next(5)">Next &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question-card" id="q6">
+            <div class="question-number">Question 7 of 7</div>
+            <div class="question-text">What does a carrier need to see or experience to go from "interested" to "yes, let's connect"?</div>
+            <div class="question-context">We're thinking about things like ROI calculators, implementation roadmaps, strategy builders, even a content hub. What would actually move the needle with a carrier who's on the fence? What would make them feel like ICHRA is something they can confidently act on?</div>
+            <textarea class="answer-input" id="a6" placeholder="What would actually get a carrier off the fence — a tool, a proof point, a case study, something else?"></textarea>
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goBack(6)">&larr; Back</button>
+                <div>
+                    <span class="skip-link" onclick="skip(6)">Skip</span>
+                    <button class="btn btn-primary" onclick="next(6)">Submit &check;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div class="completion" id="completionScreen">
+            <div class="check-circle">
+                <svg width="36" height="36" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h2>Thanks — we've got what we need.</h2>
+            <p>Here's a summary of your responses. Download the file and send it back to us, or just copy and paste into an email or Slack message.</p>
+            <div class="review-panel" id="reviewPanel"></div>
+            <div class="btn-group">
+                <button class="btn-action btn-download" onclick="downloadFile()">Download Responses</button>
+                <button class="btn-action btn-copy" id="copyBtn" onclick="copyAll()">Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const totalQuestions = 7;
+        let current = -1;
+
+        const questions = [
+            "When you're talking to a carrier about ICHRA, who are you actually talking to?",
+            "How do carriers perceive the HealthSherpa brand in the context of ICHRA?",
+            "How does the business model work today — and how should it work?",
+            "Where do brokers fit into this picture?",
+            "Should these tools be self-serve or sales-assisted?",
+            "Are carriers thinking about building ICHRA infrastructure themselves?",
+            "What does a carrier need to see or experience to go from 'interested' to 'yes, let's connect'?"
+        ];
+
+        function updateProgress() {
+            const pct = current < 0 ? 0 : ((current + 1) / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = pct + '%';
+        }
+
+        function hideAll() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('completionScreen').classList.remove('active');
+            for (let i = 0; i < totalQuestions; i++) {
+                document.getElementById('q' + i).classList.remove('active');
+            }
+        }
+
+        function startQuestions() {
+            current = 0;
+            hideAll();
+            document.getElementById('q0').classList.add('active');
+            document.getElementById('a0').focus();
+            updateProgress();
+        }
+
+        function next(idx) {
+            if (idx === totalQuestions - 1) {
+                showCompletion();
+                return;
+            }
+            current = idx + 1;
+            hideAll();
+            document.getElementById('q' + current).classList.add('active');
+            document.getElementById('a' + current).focus();
+            updateProgress();
+        }
+
+        function skip(idx) {
+            document.getElementById('a' + idx).value = '';
+            next(idx);
+        }
+
+        function goBack(idx) {
+            if (idx === 0) {
+                current = -1;
+                hideAll();
+                document.getElementById('welcomeScreen').style.display = 'block';
+                updateProgress();
+                return;
+            }
+            current = idx - 1;
+            hideAll();
+            document.getElementById('q' + current).classList.add('active');
+            updateProgress();
+        }
+
+        function showCompletion() {
+            current = totalQuestions;
+            hideAll();
+            const panel = document.getElementById('reviewPanel');
+            panel.innerHTML = '';
+            for (let i = 0; i < totalQuestions; i++) {
+                const answer = document.getElementById('a' + i).value.trim();
+                const item = document.createElement('div');
+                item.className = 'review-item';
+                item.innerHTML = `
+                    <div class="review-q">${questions[i]}</div>
+                    <div class="review-a ${answer ? '' : 'empty'}">${answer || 'Skipped'}</div>
+                `;
+                panel.appendChild(item);
+            }
+            document.getElementById('completionScreen').classList.add('active');
+            document.getElementById('progressBar').style.width = '100%';
+        }
+
+        function buildText() {
+            const now = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            let text = `ICHRA STRATEGY DISCOVERY — RESPONSES\n`;
+            text += `Submitted: ${now}\n`;
+            text += `${"=".repeat(50)}\n\n`;
+            for (let i = 0; i < totalQuestions; i++) {
+                const answer = document.getElementById('a' + i).value.trim();
+                text += `Q${i + 1}: ${questions[i]}\n`;
+                text += `A: ${answer || '(Skipped)'}\n\n`;
+            }
+            return text;
+        }
+
+        function downloadFile() {
+            const text = buildText();
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ichra-discovery-responses.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            const btn = document.querySelector('.btn-download');
+            btn.textContent = 'Downloaded!';
+            btn.classList.add('success');
+            setTimeout(() => {
+                btn.textContent = 'Download Responses';
+                btn.classList.remove('success');
+            }, 2000);
+        }
+
+        function copyAll() {
+            const text = buildText();
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = 'Copied!';
+                btn.classList.add('success');
+                setTimeout(() => {
+                    btn.textContent = 'Copy to Clipboard';
+                    btn.classList.remove('success');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

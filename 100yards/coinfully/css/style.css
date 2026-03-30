@@ -151,7 +151,7 @@ img { max-width: 100%; display: block; }
 .nav__links {
   display: flex;
   list-style: none;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   align-items: center;
 }
 .nav__links a {

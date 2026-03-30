@@ -1,0 +1,167 @@
+/* TRAVIS COMPONENT */
+.travis-block {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--black);
+  border-radius: var(--radius-lg);
+  margin: var(--space-xl) 0;
+  color: var(--white);
+  max-width: 780px;
+}
+.travis-block--dark {
+  background: var(--gray-dark);
+}
+.travis-block__avatar {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+}
+.travis-block__avatar img,
+.travis-block__avatar svg {
+  width: 100%;
+  height: 100%;
+}
+.travis-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+.travis-block__content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.travis-block__prompt {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.travis-block__name {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--yellow);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.travis-block__desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin-bottom: var(--space-sm);
+}
+
+/* TRAVIS MODAL */
+.travis-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+}
+.travis-modal.active { display: flex; }
+.travis-modal__inner {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  max-width: 520px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+.travis-modal__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+.travis-modal__avatar { width: 56px; height: 56px; flex-shrink: 0; border-radius: 50%; overflow: hidden; }
+.travis-modal__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.travis-modal__name { font-size: 18px; font-weight: 800; }
+.travis-modal__title { font-size: 13px; color: var(--gray-mid); }
+.travis-modal__close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--gray-mid);
+  line-height: 1;
+  padding: 4px;
+}
+.travis-modal__close:hover { color: var(--black); }
+.travis-modal__question {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: var(--space-md);
+  color: var(--black);
+}
+.travis-modal__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.travis-option {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  border: 2px solid rgba(0,0,0,0.1);
+  background: var(--cream);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  color: var(--black);
+  font-family: var(--font-body);
+}
+.travis-option:hover {
+  border-color: var(--yellow-dark);
+  background: rgba(245,195,66,0.1);
+}
+.travis-modal__response {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--gray-dark);
+  margin-bottom: var(--space-md);
+}
+.travis-modal__progress {
+  font-size: 12px;
+  color: var(--gray-mid);
+  margin-bottom: var(--space-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.travis-modal__back {
+  background: none;
+  border: none;
+  color: var(--gray-mid);
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: var(--space-sm);
+  font-family: var(--font-body);
+}
+.travis-modal__back:hover { color: var(--black); }
+
+@media (max-width: 640px) {
+  .travis-block {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-md);
+  }
+}

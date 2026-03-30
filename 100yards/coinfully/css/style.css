@@ -326,6 +326,51 @@ img { max-width: 100%; display: block; }
   align-items: center;
   gap: var(--space-xs);
 }
+/* G2 Badge */
+.trust-bar__g2 {
+  text-decoration: none;
+  color: inherit;
+  gap: 12px;
+}
+.trust-bar__g2:hover { opacity: 0.8; }
+.g2-logo {
+  background: #FF492C;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.trust-bar__g2-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.trust-bar__g2-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.trust-bar__g2-score {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--black);
+}
+.trust-bar__g2-stars {
+  color: var(--yellow-dark);
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+.trust-bar__g2-count {
+  font-size: 11px;
+  color: var(--gray-mid);
+  font-weight: 500;
+}
+
 .trust-bar__stars {
   color: var(--yellow-dark);
   font-size: 18px;

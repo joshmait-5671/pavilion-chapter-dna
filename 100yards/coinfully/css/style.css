@@ -775,8 +775,53 @@ img { max-width: 100%; display: block; }
 }
 .video-embed iframe { width: 100%; height: 100%; border: none; }
 
-/* CHARLOTTE VIDEO */
-.charlotte-video {}
+/* TEAM SECTION */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+.team-card { text-align: center; }
+.team-card__photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin: 0 auto var(--space-md);
+  overflow: hidden;
+  border: 3px solid rgba(245, 195, 66, 0.4);
+  background: rgba(255,255,255,0.08);
+}
+.team-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(15%);
+}
+.team-card__name {
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.team-card__role {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 14px;
+}
+.team-card__bio {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.58);
+}
+@media (max-width: 767px) {
+  .team-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .team-card__photo { width: 120px; height: 120px; }
+}
 
 /* STORIES */
 .stories-grid {
@@ -1001,4 +1046,434 @@ img { max-width: 100%; display: block; }
 @media (max-width: 768px) {
   .content-grid { grid-template-columns: 1fr; }
   .estate-band__inner { flex-direction: column; }
+}
+
+/* ============================================================
+   OFFICE TOUR
+   ============================================================ */
+
+.office-tour {
+  padding: var(--space-xl) 0 0;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.office-tour__head {
+  margin-bottom: var(--space-md);
+}
+
+.office-tour__head .headline-md {
+  margin: var(--space-xs) 0 var(--space-xs);
+}
+
+.office-tour__sub {
+  font-size: 0.9rem;
+  color: var(--gray-mid);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Inline hotspot example in the subtitle */
+.hotspot-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Scrollable strip */
+.office-tour__scroll-wrap {
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-lg);
+  /* fade edges */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 94%, transparent 100%);
+}
+
+.office-tour__scroll-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.office-tour__track {
+  display: flex;
+  gap: 16px;
+  padding: 0 calc((100vw - min(1200px, 100vw - 48px)) / 2);
+  width: max-content;
+}
+
+/* Individual photo */
+.office-photo {
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.office-photo__frame {
+  position: relative;
+  width: 420px;
+  height: 320px;
+  border-radius: var(--radius-md);
+  overflow: visible; /* allow tooltip to overflow */
+}
+
+.office-photo__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+/* Hotspot button */
+.hotspot {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 2px solid rgba(0,0,0,0.15);
+  color: var(--black);
+  font-size: 0.7rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  /* subtle pulse on load */
+  animation: hotspot-pulse 2s ease-in-out 0.8s 2;
+}
+
+@keyframes hotspot-pulse {
+  0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+  50% { box-shadow: 0 2px 16px rgba(245,195,66,0.6), 0 0 0 4px rgba(245,195,66,0.2); }
+}
+
+.hotspot:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.hotspot.is-open {
+  background: var(--black);
+  color: var(--yellow);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Tooltip */
+.hotspot__tip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--black);
+  color: var(--white);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  width: 200px;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* Arrow */
+.hotspot__tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--black);
+}
+
+/* Tooltip below variant */
+.hotspot__tip--below {
+  bottom: auto;
+  top: calc(100% + 10px);
+}
+
+.hotspot__tip--below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--black);
+}
+
+.hotspot.is-open .hotspot__tip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .office-photo__frame {
+    width: 300px;
+    height: 230px;
+  }
+
+  .office-tour__track {
+    gap: 12px;
+  }
+}
+
+/* ============================================================
+   COIN SCANNER WIDGET
+   ============================================================ */
+
+.coin-scan {
+  background: var(--black);
+  color: var(--white);
+  padding: var(--space-xl) 0;
+}
+
+.coin-scan__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.coin-scan__label {
+  color: var(--yellow);
+  opacity: 1;
+}
+
+.coin-scan__headline {
+  color: var(--white);
+  margin: var(--space-xs) 0 var(--space-sm);
+}
+
+.coin-scan__desc {
+  color: rgba(255,255,255,0.75);
+  font-size: 1rem;
+  line-height: 1.65;
+  margin-bottom: var(--space-sm);
+}
+
+.coin-scan__fine {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.4);
+}
+
+/* Upload drop zone */
+.coin-drop {
+  background: rgba(255,255,255,0.05);
+  border: 2px dashed rgba(255,255,255,0.2);
+  border-radius: var(--radius-md);
+  min-height: 200px;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  margin-bottom: var(--space-sm);
+  overflow: hidden;
+}
+
+.coin-drop:hover,
+.coin-drop.is-dragover {
+  border-color: var(--yellow);
+  background: rgba(245,195,66,0.06);
+}
+
+.coin-drop__input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.coin-drop__face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: var(--space-md);
+  min-height: 200px;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.coin-drop__icon {
+  color: rgba(255,255,255,0.4);
+}
+
+.coin-drop__prompt {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.coin-drop__prompt span {
+  color: var(--yellow);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.coin-drop__hint {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.3);
+  margin: 0;
+}
+
+/* Selected confirmation state */
+.coin-drop__selected {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: var(--space-md);
+  min-height: 200px;
+  text-align: center;
+  width: 100%;
+}
+
+.coin-drop__selected-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(245,195,66,0.15);
+  border: 2px solid var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--yellow);
+  font-weight: 700;
+}
+
+.coin-drop__selected-name {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.6);
+  margin: 0;
+  word-break: break-all;
+}
+
+.coin-drop__remove {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-pill);
+  color: rgba(255,255,255,0.5);
+  font-size: 0.78rem;
+  padding: 5px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  margin-top: 4px;
+}
+
+.coin-drop__remove:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.85);
+}
+
+/* Form */
+.coin-form__label {
+  display: block;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 8px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.coin-form__input {
+  width: 100%;
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-size: 1rem;
+  padding: 14px 16px;
+  margin-bottom: var(--space-sm);
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  box-sizing: border-box;
+}
+
+.coin-form__input::placeholder {
+  color: rgba(255,255,255,0.25);
+}
+
+.coin-form__input:focus {
+  border-color: var(--yellow);
+  background: rgba(255,255,255,0.12);
+}
+
+.coin-form__submit {
+  width: 100%;
+  font-size: 1rem;
+  padding: 16px;
+}
+
+.coin-form__error {
+  font-size: 0.82rem;
+  color: #ff6b6b;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Success */
+.coin-success {
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.coin-success__check {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 1.5rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-sm);
+}
+
+.coin-success__title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--white);
+  margin: 0 0 8px;
+}
+
+.coin-success__msg {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .coin-scan__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
 }

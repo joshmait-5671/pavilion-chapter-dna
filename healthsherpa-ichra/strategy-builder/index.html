@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICHRA Strategy Builder — HealthSherpa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --hs-blue: #0970C5;
+      --hs-navy: #074294;
+      --hs-border: #D3E0E8;
+      --hs-text: #344054;
+      --hs-text-light: #475467;
+      --hs-bg: #F8FAFC;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--hs-bg);
+      color: var(--hs-text);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #fff;
+      border-bottom: 1px solid var(--hs-border);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-back {
+      color: var(--hs-blue);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .header-back:hover { text-decoration: underline; }
+    .header-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--hs-navy);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .header-cta {
+      background: var(--hs-blue);
+      color: #fff;
+      border: none;
+      border-radius: 90px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .header-cta:hover { background: var(--hs-navy); }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 48px 24px 32px;
+    }
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--hs-navy);
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--hs-text-light);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* STEP INDICATOR */
+    .step-indicator-wrap {
+      max-width: 720px;
+      margin: 0 auto 32px;
+      padding: 0 24px;
+    }
+    .step-nodes {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .step-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      position: relative;
+    }
+    .step-node:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: calc(50% + 16px);
+      right: calc(-50% + 16px);
+      height: 2px;
+      background: var(--hs-border);
+      z-index: 0;
+    }
+    .step-node.completed:not(:last-child)::after {
+      background: var(--hs-navy);
+    }
+    .step-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--hs-border);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--hs-text-light);
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .step-node.active .step-circle {
+      background: var(--hs-blue);
+      border-color: var(--hs-blue);
+      color: #fff;
+    }
+    .step-node.completed .step-circle {
+      background: var(--hs-navy);
+      border-color: var(--hs-navy);
+      color: #fff;
+    }
+    .step-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--hs-text-light);
+      text-align: center;
+      line-height: 1.3;
+      max-width: 72px;
+    }
+    .step-node.active .step-label { color: var(--hs-blue); font-weight: 600; }
+    .step-node.completed .step-label { color: var(--hs-navy); }
+
+    .progress-bar-track {
+      height: 4px;
+      background: var(--hs-border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--hs-blue);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    /* WIZARD CARD */
+    .wizard-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px 48px;
+    }
+    .wizard-card {
+      background: #fff;
+      border: 1px solid var(--hs-border);
+      border-radius: 16px;
+      padding: 40px;
+    }
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    .step-question {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--hs-navy);
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    /* OPTION CARDS */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .option-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      border: 1.5px solid var(--hs-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .option-card:hover {
+      border-color: var(--hs-blue);
+      background: #F0F7FF;
+    }
+    .option-card input[type="radio"],
+    .option-card input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .option-card.selected {
+      border-color: var(--hs-blue);
+      background: #EBF4FF;
+    }
+    .custom-radio {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--hs-border);
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s;
+    }
+    .option-card.selected .custom-radio {
+      border-color: var(--hs-blue);
+    }
+    .custom-radio-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--hs-blue);
+      display: none;
+    }
+    .option-card.selected .custom-radio-dot { display: block; }
+
+    .custom-checkbox {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid var(--hs-border);
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .option-card.selected .custom-checkbox {
+      border-color: var(--hs-blue);
+      background: var(--hs-blue);
+    }
+    .custom-checkbox-check {
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: none;
+    }
+    .option-card.selected .custom-checkbox-check { display: block; }
+
+    .option-text { flex: 1; }
+    .option-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--hs-text);
+      margin-bottom: 3px;
+    }
+    .option-desc {
+      font-size: 13px;
+      color: var(--hs-text-light);
+      line-height: 1.5;
+    }
+
+    /* STEP 6 NOTE */
+    .timeline-note {
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #EBF4FF;
+      border-left: 3px solid var(--hs-blue);
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--hs-text-light);
+      line-height: 1.5;
+    }
+
+    /* NAV BUTTONS */
+    .wizard-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      gap: 12px;
+    }
+    .btn {
+      border-radius: 90px;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .btn-back {
+      background: transparent;
+      color: var(--hs-text-light);
+      border: 1.5px solid var(--hs-border);
+    }
+    .btn-back:hover { background: var(--hs-bg); }
+    .btn-next {
+      background: var(--hs-blue);
+      color: #fff;
+      margin-left: auto;
+    }
+    .btn-next:hover { background: var(--hs-navy); }
+    .btn-hidden { visibility: hidden; }
+
+    /* RESULTS PAGE */
+    #results-page {
+      display: none;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+    }
+    .results-success {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #D1FAE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 24px;
+    }
+    .results-headline {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--hs-navy);
+      margin-bottom: 8px;
+    }
+    .results-sub {
+      font-size: 15px;
+      color: var(--hs-text-light);
+    }
+
+    .company-name-wrap {
+      max-width: 400px;
+      margin: 0 auto 28px;
+    }
+    .company-name-wrap label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--hs-text);
+      margin-bottom: 6px;
+    }
+    .company-name-wrap input {
+      width: 100%;
+      border: 1.5px solid var(--hs-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      color: var(--hs-text);
+      outline: none;
+    }
+    .company-name-wrap input:focus { border-color: var(--hs-blue); }
+
+    /* SUMMARY CARD */
+    #summary-card {
+      background: #fff;
+      border: 1px solid var(--hs-border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    .summary-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--hs-navy);
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--hs-border);
+    }
+    .summary-answers {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .summary-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .summary-step-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--hs-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 130px;
+      padding-top: 1px;
+    }
+    .summary-answer-text {
+      font-size: 14px;
+      color: var(--hs-text);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .next-steps-section {
+      background: var(--hs-bg);
+      border: 1px solid var(--hs-border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .next-steps-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--hs-navy);
+      margin-bottom: 12px;
+    }
+    .next-steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .next-steps-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 14px;
+      color: var(--hs-text);
+      line-height: 1.5;
+    }
+    .next-steps-list li::before {
+      content: '→';
+      color: var(--hs-blue);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .hs-contact-block {
+      background: var(--hs-navy);
+      border-radius: 12px;
+      padding: 20px 24px;
+      color: #fff;
+    }
+    .hs-contact-block p {
+      font-size: 14px;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+    .hs-contact-block strong {
+      font-size: 15px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* RESULT ACTIONS */
+    .result-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-download {
+      background: var(--hs-blue);
+      color: #fff;
+      border: none;
+      border-radius: 90px;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-download:hover { background: var(--hs-navy); }
+    .btn-download:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .result-cta-block {
+      text-align: center;
+    }
+    .result-cta-block p {
+      font-size: 14px;
+      color: var(--hs-text-light);
+      margin-bottom: 10px;
+    }
+    .btn-review {
+      display: inline-block;
+      background: transparent;
+      border: 1.5px solid var(--hs-blue);
+      color: var(--hs-blue);
+      border-radius: 90px;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-review:hover { background: var(--hs-blue); color: #fff; }
+
+    .start-over {
+      font-size: 13px;
+      color: var(--hs-text-light);
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .start-over:hover { color: var(--hs-navy); }
+
+    .validation-msg {
+      color: #DC2626;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+    .validation-msg.visible { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="../index.html" class="header-back">← Back to ICHRAverse</a>
+  <div class="header-logo">HealthSherpa</div>
+  <a href="https://info.healthsherpa.com/ICHRA" target="_blank" class="header-cta">Talk to a Strategist</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Build Your ICHRA Strategy</h1>
+  <p>Answer 6 questions. Get a personalized strategy brief you can take into any room.</p>
+</section>
+
+<!-- WIZARD SECTION -->
+<div id="wizard-section">
+  <!-- STEP INDICATOR -->
+  <div class="step-indicator-wrap">
+    <div class="step-nodes" id="step-nodes">
+      <div class="step-node active" data-step="1">
+        <div class="step-circle" id="circle-1">1</div>
+        <div class="step-label">Market Position</div>
+      </div>
+      <div class="step-node" data-step="2">
+        <div class="step-circle" id="circle-2">2</div>
+        <div class="step-label">Employer Segments</div>
+      </div>
+      <div class="step-node" data-step="3">
+        <div class="step-circle" id="circle-3">3</div>
+        <div class="step-label">Product Design</div>
+      </div>
+      <div class="step-node" data-step="4">
+        <div class="step-circle" id="circle-4">4</div>
+        <div class="step-label">Integration</div>
+      </div>
+      <div class="step-node" data-step="5">
+        <div class="step-circle" id="circle-5">5</div>
+        <div class="step-label">Broker Strategy</div>
+      </div>
+      <div class="step-node" data-step="6">
+        <div class="step-circle" id="circle-6">6</div>
+        <div class="step-label">Timeline</div>
+      </div>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- WIZARD CARD -->
+  <div class="wizard-wrap">
+    <div class="wizard-card">
+
+      <!-- STEP 1 -->
+      <div class="step-panel active" id="step-1">
+        <div class="step-question">How does your carrier currently think about individual market vs. group?</div>
+        <div class="options-list">
+          <label class="option-card" data-step="1" data-value="individual-leader">
+            <input type="radio" name="step1" value="individual-leader" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Individual Market Leader</div>
+              <div class="option-desc">We have strong ACA/marketplace presence and want ICHRA to extend it</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="1" data-value="group-with-exposure">
+            <input type="radio" name="step1" value="group-with-exposure" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Strong Group with Individual Exposure</div>
+              <div class="option-desc">Group is our core but we've dabbled in individual — ICHRA is our bridge</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="1" data-value="primarily-group">
+            <input type="radio" name="step1" value="primarily-group" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Primarily Group</div>
+              <div class="option-desc">We're a group carrier looking to expand — individual is new territory</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="1" data-value="exploring">
+            <input type="radio" name="step1" value="exploring" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Exploring Individual</div>
+              <div class="option-desc">We're evaluating the market before committing to a direction</div>
+            </div>
+          </label>
+        </div>
+        <div class="validation-msg" id="val-1">Please select an option before continuing.</div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-panel" id="step-2">
+        <div class="step-question">Which employer segments are in scope for ICHRA?</div>
+        <div class="options-list">
+          <label class="option-card" data-step="2" data-value="1-50">
+            <input type="checkbox" name="step2" value="1-50" />
+            <div class="custom-checkbox"><div class="custom-checkbox-check">✓</div></div>
+            <div class="option-text">
+              <div class="option-title">1–50 Employees</div>
+              <div class="option-desc">Small employers — highest ICHRA adoption today, pure defined contribution play</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="2" data-value="51-100">
+            <input type="checkbox" name="step2" value="51-100" />
+            <div class="custom-checkbox"><div class="custom-checkbox-check">✓</div></div>
+            <div class="option-text">
+              <div class="option-title">51–100 Employees</div>
+              <div class="option-desc">Mid-small — often ALE-adjacent, strong interest in cost predictability</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="2" data-value="100-500">
+            <input type="checkbox" name="step2" value="100-500" />
+            <div class="custom-checkbox"><div class="custom-checkbox-check">✓</div></div>
+            <div class="option-text">
+              <div class="option-title">100–500 Employees</div>
+              <div class="option-desc">Mid-market — evaluating ICHRA as supplement or full replacement</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="2" data-value="500-plus">
+            <input type="checkbox" name="step2" value="500-plus" />
+            <div class="custom-checkbox"><div class="custom-checkbox-check">✓</div></div>
+            <div class="option-text">
+              <div class="option-title">500+ Employees</div>
+              <div class="option-desc">Large employers — often complex, may require custom network and support</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="2" data-value="all">
+            <input type="checkbox" name="step2" value="all" />
+            <div class="custom-checkbox"><div class="custom-checkbox-check">✓</div></div>
+            <div class="option-text">
+              <div class="option-title">All Segments</div>
+              <div class="option-desc">We want full market coverage — prioritization TBD</div>
+            </div>
+          </label>
+        </div>
+        <div class="validation-msg" id="val-2">Please select at least one option before continuing.</div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-panel" id="step-3">
+        <div class="step-question">What's your ICHRA product approach?</div>
+        <div class="options-list">
+          <label class="option-card" data-step="3" data-value="off-shelf-aca">
+            <input type="radio" name="step3" value="off-shelf-aca" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Off-the-Shelf ACA Plans</div>
+              <div class="option-desc">Use existing marketplace plans as-is — fastest to market, lowest lift</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="3" data-value="curated-tier">
+            <input type="radio" name="step3" value="curated-tier" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Curated Plan Tier</div>
+              <div class="option-desc">Subset of plans curated for ICHRA employers — quality over breadth</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="3" data-value="white-label">
+            <input type="radio" name="step3" value="white-label" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">White-Label Plans</div>
+              <div class="option-desc">Plans branded and structured specifically for ICHRA employer relationships</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="3" data-value="employer-custom">
+            <input type="radio" name="step3" value="employer-custom" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Employer-Specific Custom</div>
+              <div class="option-desc">Bespoke plan designs per employer — maximum flexibility, maximum complexity</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="3" data-value="not-decided">
+            <input type="radio" name="step3" value="not-decided" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Not Decided Yet</div>
+              <div class="option-desc">We need to understand the tradeoffs before committing to a product approach</div>
+            </div>
+          </label>
+        </div>
+        <div class="validation-msg" id="val-3">Please select an option before continuing.</div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-panel" id="step-4">
+        <div class="step-question">How do you want to connect to ICHRA platforms and administrators?</div>
+        <div class="options-list">
+          <label class="option-card" data-step="4" data-value="direct-api">
+            <input type="radio" name="step4" value="direct-api" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Direct API Integrations</div>
+              <div class="option-desc">Build point-to-point connections with each major ICHRA platform — full control</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="4" data-value="aggregator">
+            <input type="radio" name="step4" value="aggregator" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Third-Party Aggregator</div>
+              <div class="option-desc">Use an aggregator layer to reach multiple platforms through one integration</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="4" data-value="ichraX">
+            <input type="radio" name="step4" value="ichraX" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Neutral Standards Body (ICHRAx)</div>
+              <div class="option-desc">Align to the emerging industry standard for interoperability across the ecosystem</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="4" data-value="healthsherpa-infra">
+            <input type="radio" name="step4" value="healthsherpa-infra" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">HealthSherpa Infrastructure</div>
+              <div class="option-desc">Leverage HealthSherpa's existing carrier and administrator connections</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="4" data-value="undecided-integration">
+            <input type="radio" name="step4" value="undecided-integration" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Undecided</div>
+              <div class="option-desc">We haven't evaluated integration options in depth yet</div>
+            </div>
+          </label>
+        </div>
+        <div class="validation-msg" id="val-4">Please select an option before continuing.</div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-panel" id="step-5">
+        <div class="step-question">What role will brokers play in your ICHRA distribution model?</div>
+        <div class="options-list">
+          <label class="option-card" data-step="5" data-value="primary-distribution">
+            <input type="radio" name="step5" value="primary-distribution" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Primary Distribution Channel</div>
+              <div class="option-desc">Brokers are central — we'll invest in broker tools, training, and comp structures</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="5" data-value="supplemental">
+            <input type="radio" name="step5" value="supplemental" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Supplemental Channel</div>
+              <div class="option-desc">Brokers complement direct and platform channels — important but not primary</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="5" data-value="direct-only">
+            <input type="radio" name="step5" value="direct-only" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Direct to Employer Only</div>
+              <div class="option-desc">We're going direct — no broker layer in the ICHRA model</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="5" data-value="undecided-broker">
+            <input type="radio" name="step5" value="undecided-broker" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Undecided</div>
+              <div class="option-desc">We need to evaluate broker appetite and market dynamics before deciding</div>
+            </div>
+          </label>
+        </div>
+        <div class="validation-msg" id="val-5">Please select an option before continuing.</div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step-panel" id="step-6">
+        <div class="step-question">When do you need to be ICHRA-ready?</div>
+        <div class="options-list">
+          <label class="option-card" data-step="6" data-value="within-6mo">
+            <input type="radio" name="step6" value="within-6mo" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Within 6 Months</div>
+              <div class="option-desc">We have a committed date — need to move fast and make decisions now</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="6" data-value="6-12mo">
+            <input type="radio" name="step6" value="6-12mo" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">6–12 Months</div>
+              <div class="option-desc">We have a planning horizon — building the roadmap and sequencing work</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="6" data-value="12-24mo">
+            <input type="radio" name="step6" value="12-24mo" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">12–24 Months</div>
+              <div class="option-desc">We're building deliberately — plenty of time but want to get the strategy right</div>
+            </div>
+          </label>
+          <label class="option-card" data-step="6" data-value="exploring-only">
+            <input type="radio" name="step6" value="exploring-only" />
+            <div class="custom-radio"><div class="custom-radio-dot"></div></div>
+            <div class="option-text">
+              <div class="option-title">Exploring Only (No Committed Date)</div>
+              <div class="option-desc">We're in research mode — no hard date, but want to understand the landscape</div>
+            </div>
+          </label>
+        </div>
+        <div class="timeline-note">
+          Regardless of your timeline, your strategy brief will include a recommended sequencing for your first 90 days.
+        </div>
+        <div class="validation-msg" id="val-6">Please select an option before continuing.</div>
+      </div>
+
+    </div><!-- /wizard-card -->
+
+    <!-- NAV -->
+    <div class="wizard-nav">
+      <button class="btn btn-back btn-hidden" id="btn-back">← Back</button>
+      <button class="btn btn-next" id="btn-next">Next →</button>
+    </div>
+  </div><!-- /wizard-wrap -->
+</div><!-- /wizard-section -->
+
+<!-- RESULTS PAGE -->
+<div id="results-page">
+  <div class="results-success">
+    <div class="success-icon">✓</div>
+    <div class="results-headline">Your ICHRA Strategy Brief is Ready</div>
+    <div class="results-sub">Review your answers below and download your personalized strategy brief.</div>
+  </div>
+
+  <div class="company-name-wrap">
+    <label for="company-name">Company Name (for PDF)</label>
+    <input type="text" id="company-name" placeholder="Your Carrier" maxlength="80" />
+  </div>
+
+  <div id="summary-card">
+    <div class="summary-title">ICHRA Strategy Brief</div>
+    <div class="summary-answers" id="summary-answers"></div>
+    <div class="next-steps-section">
+      <div class="next-steps-title">Recommended Next Steps</div>
+      <ul class="next-steps-list" id="next-steps-list"></ul>
+    </div>
+    <div class="hs-contact-block">
+      <strong>HealthSherpa Carrier Partnerships</strong>
+      <p>This brief is a starting point. HealthSherpa's carrier strategy team works with health plans at every stage of ICHRA readiness — from initial market assessment to full platform integration.</p>
+    </div>
+  </div>
+
+  <div class="result-actions">
+    <button class="btn-download" id="btn-download">⬇ Download Strategy Brief (PDF)</button>
+    <div class="result-cta-block">
+      <p>Want us to review your strategy?</p>
+      <a href="https://info.healthsherpa.com/ICHRA" target="_blank" class="btn-review">Request a Strategy Review →</a>
+    </div>
+    <button class="start-over" id="btn-start-over">← Start over</button>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  const TOTAL_STEPS = 6;
+  const state = { currentStep: 1, answers: {} };
+
+  const stepLabels = [
+    'Market Position',
+    'Employer Segments',
+    'Product Design',
+    'Integration Approach',
+    'Broker Strategy',
+    'Timeline'
+  ];
+
+  const optionTitles = {
+    'individual-leader': 'Individual Market Leader',
+    'group-with-exposure': 'Strong Group with Individual Exposure',
+    'primarily-group': 'Primarily Group',
+    'exploring': 'Exploring Individual',
+    '1-50': '1–50 Employees',
+    '51-100': '51–100 Employees',
+    '100-500': '100–500 Employees',
+    '500-plus': '500+ Employees',
+    'all': 'All Segments',
+    'off-shelf-aca': 'Off-the-Shelf ACA Plans',
+    'curated-tier': 'Curated Plan Tier',
+    'white-label': 'White-Label Plans',
+    'employer-custom': 'Employer-Specific Custom',
+    'not-decided': 'Not Decided Yet',
+    'direct-api': 'Direct API Integrations',
+    'aggregator': 'Third-Party Aggregator',
+    'ichraX': 'Neutral Standards Body (ICHRAx)',
+    'healthsherpa-infra': 'HealthSherpa Infrastructure',
+    'undecided-integration': 'Undecided',
+    'primary-distribution': 'Primary Distribution Channel',
+    'supplemental': 'Supplemental Channel',
+    'direct-only': 'Direct to Employer Only',
+    'undecided-broker': 'Undecided',
+    'within-6mo': 'Within 6 Months',
+    '6-12mo': '6–12 Months',
+    '12-24mo': '12–24 Months',
+    'exploring-only': 'Exploring Only (No Committed Date)'
+  };
+
+  function saveAnswer(step) {
+    if (step === 2) {
+      const checked = Array.from(document.querySelectorAll('input[name="step2"]:checked')).map(i => i.value);
+      state.answers[step] = checked;
+    } else {
+      const radio = document.querySelector(`input[name="step${step}"]:checked`);
+      state.answers[step] = radio ? radio.value : null;
+    }
+  }
+
+  function validateStep(step) {
+    if (step === 2) {
+      return state.answers[2] && state.answers[2].length > 0;
+    }
+    return !!state.answers[step];
+  }
+
+  function updateStepIndicator() {
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
+      const node = document.querySelector(`.step-node[data-step="${i}"]`);
+      const circle = document.getElementById(`circle-${i}`);
+      node.classList.remove('active', 'completed');
+      if (i < state.currentStep) {
+        node.classList.add('completed');
+        circle.innerHTML = '✓';
+      } else if (i === state.currentStep) {
+        node.classList.add('active');
+        circle.innerHTML = i;
+      } else {
+        circle.innerHTML = i;
+      }
+    }
+    const pct = ((state.currentStep - 1) / TOTAL_STEPS) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  }
+
+  function showStep(step) {
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`step-${step}`).classList.add('active');
+    const backBtn = document.getElementById('btn-back');
+    const nextBtn = document.getElementById('btn-next');
+    backBtn.classList.toggle('btn-hidden', step === 1);
+    nextBtn.textContent = step === TOTAL_STEPS ? 'Build My Strategy Brief →' : 'Next →';
+    updateStepIndicator();
+  }
+
+  // Option card click handlers
+  document.querySelectorAll('.option-card').forEach(card => {
+    card.addEventListener('click', function() {
+      const step = parseInt(this.dataset.step);
+      const value = this.dataset.value;
+      const input = this.querySelector('input');
+
+      if (input.type === 'radio') {
+        document.querySelectorAll(`.option-card[data-step="${step}"]`).forEach(c => c.classList.remove('selected'));
+        input.checked = true;
+        this.classList.add('selected');
+      } else {
+        input.checked = !input.checked;
+        this.classList.toggle('selected', input.checked);
+      }
+
+      saveAnswer(step);
+      const valMsg = document.getElementById(`val-${step}`);
+      if (valMsg) valMsg.classList.remove('visible');
+    });
+  });
+
+  document.getElementById('btn-next').addEventListener('click', function() {
+    saveAnswer(state.currentStep);
+    if (!validateStep(state.currentStep)) {
+      const valMsg = document.getElementById(`val-${state.currentStep}`);
+      if (valMsg) valMsg.classList.add('visible');
+      return;
+    }
+    if (state.currentStep < TOTAL_STEPS) {
+      state.currentStep++;
+      showStep(state.currentStep);
+    } else {
+      showResults();
+    }
+  });
+
+  document.getElementById('btn-back').addEventListener('click', function() {
+    if (state.currentStep > 1) {
+      state.currentStep--;
+      showStep(state.currentStep);
+    }
+  });
+
+  function generateNextSteps(answers) {
+    const step1 = answers[1];
+    const step2 = answers[2] || [];
+    const step3 = answers[3];
+    const step4 = answers[4];
+    const step5 = answers[5];
+    const step6 = answers[6];
+
+    const candidates = [];
+
+    if (step1 === 'individual-leader') {
+      candidates.push("Leverage your existing ACA book to lead employer groups toward ICHRA migration");
+    }
+    if (step1 === 'primarily-group' || step1 === 'exploring') {
+      candidates.push("Start with a pilot segment (1–50 employees) to build ICHRA operational muscle before scaling");
+    }
+    if (step2.includes('1-50')) {
+      candidates.push("Prioritize small group ICHRA — the market is live today and growing quarter over quarter");
+    }
+    if (step3 === 'not-decided') {
+      candidates.push("Run a 2-week product design sprint to select your initial plan approach before committing to integration");
+    }
+    if (step4 === 'healthsherpa-infra') {
+      candidates.push("Engage HealthSherpa's carrier integration team for an accelerated onboarding assessment");
+    }
+    if (step4 === 'ichraX') {
+      candidates.push("Align your technical roadmap to ICHRAx standards for maximum long-term interoperability");
+    }
+    if (step5 === 'primary-distribution') {
+      candidates.push("Build broker portal and comp structures in parallel with product — distribution readiness gates launch");
+    }
+    if (step6 === 'within-6mo') {
+      candidates.push("With a 6-month horizon, week-by-week sequencing is critical — start integration conversations this week");
+    }
+    if (step6 === 'exploring-only') {
+      candidates.push("Commission a carrier readiness assessment to identify your critical path before committing to a timeline");
+    }
+
+    const fallback = "Schedule a strategy review with HealthSherpa to pressure-test your approach before execution";
+
+    while (candidates.length < 3) candidates.push(fallback);
+    return candidates.slice(0, 3);
+  }
+
+  function showResults() {
+    document.getElementById('wizard-section').style.display = 'none';
+    const resultsPage = document.getElementById('results-page');
+    resultsPage.style.display = 'block';
+
+    // Build summary answers
+    const summaryAnswersEl = document.getElementById('summary-answers');
+    summaryAnswersEl.innerHTML = '';
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
+      const ans = state.answers[i];
+      let ansText = '';
+      if (Array.isArray(ans)) {
+        ansText = ans.map(v => optionTitles[v] || v).join(', ');
+      } else {
+        ansText = optionTitles[ans] || ans || '—';
+      }
+      const row = document.createElement('div');
+      row.className = 'summary-row';
+      row.innerHTML = `<div class="summary-step-label">${stepLabels[i - 1]}</div><div class="summary-answer-text">${ansText}</div>`;
+      summaryAnswersEl.appendChild(row);
+    }
+
+    // Build next steps
+    const steps = generateNextSteps(state.answers);
+    const nextStepsList = document.getElementById('next-steps-list');
+    nextStepsList.innerHTML = '';
+    steps.forEach(step => {
+      const li = document.createElement('li');
+      li.textContent = step;
+      nextStepsList.appendChild(li);
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.getElementById('btn-download').addEventListener('click', async function() {
+    const btn = this;
+    btn.disabled = true;
+    btn.textContent = 'Generating PDF…';
+
+    const companyName = document.getElementById('company-name').value.trim() || 'Your Carrier';
+    const card = document.getElementById('summary-card');
+
+    try {
+      const canvas = await html2canvas(card, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+      const imgData = canvas.toDataURL('image/png');
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+      // Blue header band
+      pdf.setFillColor(9, 112, 197);
+      pdf.rect(0, 0, 210, 22, 'F');
+
+      // Header text
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(13);
+      pdf.text('ICHRA Strategy Brief', 12, 14);
+
+      // Company name right-aligned
+      pdf.setFontSize(11);
+      pdf.setFont('helvetica', 'normal');
+      const companyTextWidth = pdf.getTextWidth(companyName);
+      pdf.text(companyName, 198 - companyTextWidth, 14);
+
+      // Date below header
+      const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      pdf.setTextColor(100, 100, 100);
+      pdf.setFontSize(9);
+      pdf.text(`Generated ${today}`, 12, 29);
+
+      // Image of summary card
+      const pageWidth = 210;
+      const margin = 12;
+      const imgW = pageWidth - margin * 2;
+      const imgH = (canvas.height / canvas.width) * imgW;
+      pdf.addImage(imgData, 'PNG', margin, 34, imgW, imgH);
+
+      // Blue footer band
+      pdf.setFillColor(9, 112, 197);
+      pdf.rect(0, 282, 210, 15, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(9);
+      pdf.setFont('helvetica', 'normal');
+      const footerText = 'HealthSherpa Carrier Partnerships  ·  info.healthsherpa.com/ICHRA';
+      const ftw = pdf.getTextWidth(footerText);
+      pdf.text(footerText, (210 - ftw) / 2, 291);
+
+      const safeCompany = companyName.replace(/[^a-zA-Z0-9-_]/g, '-');
+      pdf.save(`ICHRA-Strategy-Brief-${safeCompany}.pdf`);
+    } catch (err) {
+      console.error('PDF generation error:', err);
+      alert('PDF generation failed. Please try again.');
+    }
+
+    btn.disabled = false;
+    btn.textContent = '⬇ Download Strategy Brief (PDF)';
+  });
+
+  document.getElementById('btn-start-over').addEventListener('click', function() {
+    state.currentStep = 1;
+    state.answers = {};
+
+    // Reset all option cards
+    document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(i => i.checked = false);
+    document.querySelectorAll('.validation-msg').forEach(m => m.classList.remove('visible'));
+    document.getElementById('company-name').value = '';
+
+    document.getElementById('results-page').style.display = 'none';
+    document.getElementById('wizard-section').style.display = 'block';
+    showStep(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Initialize
+  showStep(1);
+</script>
+</body>
+</html>

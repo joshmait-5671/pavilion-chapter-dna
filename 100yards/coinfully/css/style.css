@@ -239,6 +239,75 @@ img { max-width: 100%; display: block; }
   .hero__subhead { font-size: 17px; }
 }
 
+/* LIFESTYLE BRIDGE */
+.lifestyle-bridge {
+  position: relative;
+  background: var(--black);
+  margin-top: -2px;
+}
+.lifestyle-bridge__img {
+  position: relative;
+  width: 100%;
+  max-height: 520px;
+  overflow: hidden;
+}
+.lifestyle-bridge__img img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.lifestyle-bridge__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10,10,10,0.85) 0%,
+    rgba(10,10,10,0.5) 50%,
+    rgba(10,10,10,0.2) 100%
+  );
+}
+.lifestyle-bridge__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: var(--space-xl);
+  padding-top: var(--space-xl);
+  max-width: 600px;
+}
+.lifestyle-bridge__kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: var(--space-xs);
+}
+.lifestyle-bridge__headline {
+  font-size: clamp(24px, 3.5vw, 40px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: var(--space-sm);
+}
+.lifestyle-bridge__sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  .lifestyle-bridge__img img { height: 380px; }
+  .lifestyle-bridge__overlay {
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.4) 100%);
+  }
+  .lifestyle-bridge__content {
+    padding-bottom: var(--space-lg);
+  }
+}
+
 /* PERSONA CARDS */
 .persona-cards {
   background: var(--black);
@@ -1046,6 +1115,82 @@ img { max-width: 100%; display: block; }
 @media (max-width: 768px) {
   .content-grid { grid-template-columns: 1fr; }
   .estate-band__inner { flex-direction: column; }
+}
+
+/* GOLD TICKER */
+.gold-ticker {
+  background: linear-gradient(135deg, #1a1400 0%, #2a1f00 50%, #1a1400 100%);
+  border-top: 2px solid var(--yellow);
+  border-bottom: 2px solid rgba(245,195,66,0.3);
+  padding: var(--space-md) 0;
+}
+.gold-ticker__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+.gold-ticker__prices {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+.gold-ticker__metal {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.gold-ticker__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+.gold-ticker__price {
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.gold-ticker__unit {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+}
+.gold-ticker__sep {
+  width: 1px;
+  height: 32px;
+  background: rgba(245,195,66,0.3);
+}
+.gold-ticker__updated {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  margin-left: var(--space-xs);
+}
+.gold-ticker__cta-wrap {
+  text-align: right;
+  flex-shrink: 0;
+}
+.gold-ticker__hook {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.gold-ticker__btn {
+  white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .gold-ticker__inner {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-sm);
+  }
+  .gold-ticker__prices { justify-content: center; }
+  .gold-ticker__cta-wrap { text-align: center; }
 }
 
 /* ============================================================

@@ -131,12 +131,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Resize image to max 1200px and convert to base64 before sending
         const { base64, type } = await resizeImage(selectedFile, 1200);
 
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 30000);
+
         const res = await fetch('/.netlify/functions/coin-scan', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, imageBase64: base64, imageType: type })
+          body: JSON.stringify({ email, imageBase64: base64, imageType: type }),
+          signal: controller.signal
         });
 
+        clearTimeout(timeout);
         if (!res.ok) throw new Error('Server error');
 
         // Success
@@ -148,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         coinSubmit.querySelector('.coin-form__submit-text').style.display = 'inline';
         coinSubmit.querySelector('.coin-form__submit-loading').style.display = 'none';
         coinSubmit.disabled = false;
-        coinError.textContent = 'Something went wrong. Please try again or call us directly.';
+        coinError.innerHTML = 'Our scanner is warming up. In the meantime, email your coin photo to <a href="mailto:wyatt@coinfully.com" style="color:var(--yellow);font-weight:700">wyatt@coinfully.com</a> and we\'ll get right back to you.';
         coinError.style.display = 'block';
       }
     });
@@ -210,6 +215,21 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', () => {
     document.querySelectorAll('.hotspot.is-open').forEach(h => h.classList.remove('is-open'));
   });
+
+  // ── Gold/Silver Ticker ──────────────────────────────────
+  (async function loadMetalPrices() {
+    try {
+      const res = await fetch('/.netlify/functions/metals-price');
+      if (!res.ok) return; // keep static fallback prices
+      const data = await res.json();
+      const goldEl = document.getElementById('goldPrice');
+      const silverEl = document.getElementById('silverPrice');
+      const updatedEl = document.getElementById('goldUpdated');
+      if (data.gold && goldEl) goldEl.textContent = '$' + Number(data.gold).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+      if (data.silver && silverEl) silverEl.textContent = '$' + Number(data.silver).toFixed(2);
+      if (updatedEl) updatedEl.textContent = 'Updated ' + new Date(data.timestamp).toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+    } catch(e) { /* static fallback is fine */ }
+  })();
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(a => {

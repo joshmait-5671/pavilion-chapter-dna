@@ -1,0 +1,29 @@
+/* ICHRAverse Shared Design System */
+:root {
+  --hs-blue: #0970C5;
+  --hs-blue-light: #2EB6FF;
+  --hs-blue-dark: #0D61A6;
+  --hs-navy: #074294;
+  --hs-border: #D3E0E8;
+  --hs-text: #344054;
+  --hs-text-light: #475467;
+  --hs-bg: #F8FAFC;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', Helvetica, sans-serif; color: var(--hs-text); background: white; }
+.hs-btn {
+  padding: 12px 28px; border-radius: 90px; border: none;
+  background: var(--hs-blue); color: white; font-weight: 600;
+  font-size: 15px; cursor: pointer; transition: background 0.2s;
+  font-family: inherit;
+}
+.hs-btn:hover { background: var(--hs-blue-dark); }
+.hs-btn-outline {
+  background: white; color: var(--hs-blue);
+  border: 2px solid var(--hs-blue);
+}
+.hs-btn-outline:hover { background: #f0f7ff; }
+.hs-card {
+  border: 1px solid var(--hs-border); border-radius: 12px;
+  padding: 24px; background: white;
+}

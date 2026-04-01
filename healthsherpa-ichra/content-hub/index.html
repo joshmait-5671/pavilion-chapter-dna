@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICHRAverse Intelligence — HealthSherpa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --hs-blue: #0970C5;
+      --hs-navy: #074294;
+      --hs-border: #D3E0E8;
+      --hs-text: #344054;
+      --hs-text-light: #475467;
+      --hs-bg: #F8FAFC;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--hs-text);
+      background: var(--hs-bg);
+    }
+
+    /* HS HEADER */
+    .hs-header {
+      background: white;
+      border-bottom: 1px solid var(--hs-border);
+      padding: 12px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hs-header-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--hs-blue);
+      text-decoration: none;
+    }
+
+    .hs-header-back {
+      font-size: 14px;
+      color: var(--hs-text-light);
+      text-decoration: none;
+    }
+
+    .hs-header-back:hover {
+      color: var(--hs-blue);
+    }
+
+    /* EDITORIAL MASTHEAD */
+    .masthead {
+      background: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .masthead h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--hs-navy);
+    }
+
+    .masthead-tagline {
+      color: var(--hs-text-light);
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .masthead-divider {
+      border: none;
+      border-top: 1px solid var(--hs-border);
+      margin-top: 1.5rem;
+    }
+
+    /* HERO SUBSCRIBE */
+    .subscribe-section {
+      background: var(--hs-navy);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .subscribe-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .subscribe-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .subscribe-subhead {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 0.75rem;
+      line-height: 1.6;
+    }
+
+    .subscribe-social-proof {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin-top: 1rem;
+    }
+
+    /* ARTICLE FEED */
+    .articles-section {
+      padding: 3rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .articles-section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--hs-navy);
+    }
+
+    .sample-note {
+      font-size: 0.8rem;
+      color: #6B7280;
+      margin-top: 0.35rem;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .filter-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--hs-border);
+      background: white;
+      color: var(--hs-text);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--hs-blue);
+      color: var(--hs-blue);
+    }
+
+    .filter-btn.active {
+      background: var(--hs-blue);
+      color: white;
+      border-color: var(--hs-blue);
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .article-card {
+      background: white;
+      border: 1px solid var(--hs-border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .article-card:hover {
+      box-shadow: 0 8px 24px rgba(7, 66, 148, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .tag-pill {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      align-self: flex-start;
+    }
+
+    .tag-market-data {
+      background: #EFF6FF;
+      color: #1D4ED8;
+    }
+
+    .tag-strategy {
+      background: #F0FDF4;
+      color: #15803D;
+    }
+
+    .tag-compliance {
+      background: #FFF7ED;
+      color: #C2410C;
+    }
+
+    .tag-carriers {
+      background: #FAF5FF;
+      color: #7E22CE;
+    }
+
+    .article-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .article-title a {
+      color: var(--hs-navy);
+      text-decoration: none;
+    }
+
+    .article-title a:hover {
+      color: var(--hs-blue);
+    }
+
+    .article-summary {
+      font-size: 0.9rem;
+      color: var(--hs-text-light);
+      line-height: 1.6;
+    }
+
+    .article-meta {
+      font-size: 0.8rem;
+      color: #9CA3AF;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .read-more {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--hs-blue);
+      text-decoration: none;
+      margin-top: auto;
+    }
+
+    .read-more:hover {
+      text-decoration: underline;
+    }
+
+    /* MARKET PULSE */
+    .pulse-section {
+      padding: 3rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .pulse-section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--hs-navy);
+    }
+
+    .pulse-subhead {
+      color: var(--hs-text-light);
+      font-size: 0.95rem;
+      margin-top: 0.35rem;
+    }
+
+    .pulse-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .pulse-card {
+      background: var(--hs-navy);
+      color: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .pulse-stat {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .pulse-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0.9;
+      margin-top: 0.4rem;
+    }
+
+    .pulse-source {
+      font-size: 0.7rem;
+      opacity: 0.6;
+      margin-top: 0.5rem;
+    }
+
+    .pulse-footnote {
+      font-size: 0.8rem;
+      color: var(--hs-text-light);
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    /* FOOTER CTA */
+    .footer-cta {
+      background: var(--hs-navy);
+      color: white;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .footer-cta-eyebrow {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.08em;
+    }
+
+    .footer-cta h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: white;
+      margin-top: 0.75rem;
+    }
+
+    .footer-cta p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 500px;
+      margin: 0.75rem auto 0;
+      line-height: 1.6;
+    }
+
+    .footer-cta-btn {
+      display: inline-block;
+      margin-top: 1.75rem;
+      padding: 0.875rem 2rem;
+      background: white;
+      color: var(--hs-navy);
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .footer-cta-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* PAGE FOOTER */
+    .page-footer {
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--hs-border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--hs-text-light);
+      background: white;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .masthead h1 {
+        font-size: 1.75rem;
+      }
+
+      .article-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pulse-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hs-header {
+        padding: 12px 16px;
+      }
+
+      .articles-section,
+      .pulse-section {
+        padding: 2rem 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .pulse-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HS HEADER -->
+  <header class="hs-header">
+    <a href="#" class="hs-header-logo">HealthSherpa</a>
+    <a href="../index.html" class="hs-header-back">← Back to ICHRAverse</a>
+  </header>
+
+  <!-- EDITORIAL MASTHEAD -->
+  <div class="masthead">
+    <h1>ICHRAverse Intelligence</h1>
+    <p class="masthead-tagline">The pulse of the ICHRA ecosystem.</p>
+    <hr class="masthead-divider" />
+  </div>
+
+  <!-- HERO SUBSCRIBE SECTION -->
+  <section class="subscribe-section">
+    <div class="subscribe-inner">
+      <h2>Stay ahead of the ICHRA market.</h2>
+      <p class="subscribe-subhead">Weekly intelligence for carrier executives and ICHRA professionals. Curated by the HealthSherpa ICHRA team.</p>
+      <form name="ichra-newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="margin-top: 2rem; display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+        <input type="hidden" name="form-name" value="ichra-newsletter" />
+        <input type="hidden" name="source" value="content-hub" />
+        <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+        <input type="email" name="email" placeholder="your@email.com" required style="padding: 0.75rem 1rem; border-radius: 6px; border: none; font-size: 1rem; min-width: 260px; color: #344054;" />
+        <button type="submit" style="padding: 0.75rem 1.5rem; background: #0970C5; color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer;">Subscribe</button>
+      </form>
+      <p class="subscribe-social-proof">Join 200+ carrier and platform leaders — [SAMPLE]</p>
+    </div>
+  </section>
+
+  <!-- ARTICLE FEED SECTION -->
+  <section class="articles-section">
+    <h2>Latest ICHRA Intelligence</h2>
+    <p class="sample-note">All articles are sample content for illustration purposes.</p>
+    <div class="filter-row">
+      <button class="filter-btn active" data-tag="All">All</button>
+      <button class="filter-btn" data-tag="Market Data">Market Data</button>
+      <button class="filter-btn" data-tag="Strategy">Strategy</button>
+      <button class="filter-btn" data-tag="Compliance">Compliance</button>
+      <button class="filter-btn" data-tag="Carriers">Carriers</button>
+    </div>
+    <div class="article-grid" id="article-grid">
+      <!-- Articles injected by JS -->
+    </div>
+  </section>
+
+  <!-- MARKET PULSE SECTION -->
+  <section class="pulse-section">
+    <h2>Market Pulse</h2>
+    <p class="pulse-subhead">Key metrics shaping the ICHRA landscape.</p>
+    <div class="pulse-grid">
+      <div class="pulse-card">
+        <div class="pulse-stat">124%</div>
+        <div class="pulse-label">YoY Growth</div>
+        <div class="pulse-source">HRA Council, 2025</div>
+      </div>
+      <div class="pulse-card">
+        <div class="pulse-stat">500K–1M Lives</div>
+        <div class="pulse-label">Currently on ICHRA</div>
+        <div class="pulse-source">Industry estimate</div>
+      </div>
+      <div class="pulse-card">
+        <div class="pulse-stat">40+ Platforms</div>
+        <div class="pulse-label">Connected to HealthSherpa</div>
+        <div class="pulse-source">HealthSherpa internal</div>
+      </div>
+      <div class="pulse-card">
+        <div class="pulse-stat">52% CAGR</div>
+        <div class="pulse-label">Projected through 2028</div>
+        <div class="pulse-source">Oliver Wyman</div>
+      </div>
+    </div>
+    <p class="pulse-footnote">Data updated quarterly by the ICHRAverse research team. All figures are sample/illustrative values.</p>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <div class="footer-cta">
+    <p class="footer-cta-eyebrow">Ready to go deeper?</p>
+    <h2>Working on your ICHRA carrier strategy?</h2>
+    <p>Talk to the HealthSherpa ICHRA team about distribution, platform integration, and market intelligence.</p>
+    <a href="https://info.healthsherpa.com/ICHRA" target="_blank" class="footer-cta-btn">Talk to our ICHRA team</a>
+  </div>
+
+  <!-- PAGE FOOTER -->
+  <footer class="page-footer">
+    &copy; 2026 HealthSherpa &middot; ICHRAverse Intelligence &middot; Sample content for illustration purposes
+  </footer>
+
+  <script>
+    async function loadArticles(activeTag = 'All') {
+      try {
+        const res = await fetch('../data/articles.json');
+        const data = await res.json();
+        const articles = activeTag === 'All' ? data.articles : data.articles.filter(a => a.tag === activeTag);
+        renderArticles(articles);
+      } catch(e) {
+        document.getElementById('article-grid').innerHTML = '<p style="color:#666;padding:2rem;">Articles could not be loaded. Serve via a local server to preview.</p>';
+      }
+    }
+
+    function renderArticles(articles) {
+      const grid = document.getElementById('article-grid');
+      grid.innerHTML = articles.map(a => `
+        <div class="article-card">
+          <span class="tag-pill tag-${slugify(a.tag)}">${a.tag}</span>
+          <h3 class="article-title"><a href="#">${a.title}</a></h3>
+          <p class="article-summary">${a.summary}</p>
+          <div class="article-meta">
+            <span>${a.author}</span>
+            <span>${formatDate(a.date)}</span>
+            <span>${a.read_time}</span>
+          </div>
+          <a href="#" class="read-more">Read more →</a>
+        </div>
+      `).join('');
+    }
+
+    function slugify(tag) { return tag.toLowerCase().replace(/\s+/g, '-'); }
+    function formatDate(d) { return new Date(d).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}); }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        loadArticles(btn.dataset.tag);
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => loadArticles());
+  </script>
+
+</body>
+</html>

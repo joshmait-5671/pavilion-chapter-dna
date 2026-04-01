@@ -1,0 +1,59 @@
+{
+  "_note": "SAMPLE CONTENT — all articles, statistics, and attributions are illustrative placeholders for design and demonstration purposes only.",
+  "articles": [
+    {
+      "id": "ichra-q1-2026-growth",
+      "title": "ICHRA Membership Grows 124% YoY — What It Means for Carriers",
+      "date": "2026-03-15",
+      "summary": "New HRA Council data shows ICHRA is no longer a fringe benefit. Enrollment has crossed the million-life threshold and the growth trajectory is steepening. Here's what carrier strategy teams need to know heading into Q2 2026.",
+      "tag": "Market Data",
+      "author": "ICHRAverse Research Team",
+      "read_time": "4 min read"
+    },
+    {
+      "id": "carrier-activation-playbook-2026",
+      "title": "The Carrier Activation Playbook: How Leading Insurers Are Winning ICHRA",
+      "date": "2026-03-08",
+      "summary": "The carriers gaining market share in ICHRA aren't the biggest — they're the most connected. A look at the activation moves that separate leaders from laggards: platform partnerships, broker toolkits, and real-time eligibility.",
+      "tag": "Strategy",
+      "author": "ICHRAverse Research Team",
+      "read_time": "6 min read"
+    },
+    {
+      "id": "broker-education-gap",
+      "title": "The Broker Education Gap Is ICHRA's Biggest Growth Barrier",
+      "date": "2026-02-28",
+      "summary": "Survey data from 400 independent brokers reveals that 61% cannot explain ICHRA compliantly to an employer group. That's not a product problem — it's a distribution problem. And carriers are uniquely positioned to fix it.",
+      "tag": "Strategy",
+      "author": "ICHRAverse Research Team",
+      "read_time": "5 min read"
+    },
+    {
+      "id": "cms-compliance-update-2026",
+      "title": "CMS 2026 ICHRA Guidance: What Changed and What Carriers Must Do",
+      "date": "2026-02-14",
+      "summary": "CMS released updated ICHRA affordability and substantiation guidance in February 2026. This summary covers the four changes that directly affect carrier administration, reporting obligations, and employee notice requirements.",
+      "tag": "Compliance",
+      "author": "ICHRAverse Research Team",
+      "read_time": "7 min read"
+    },
+    {
+      "id": "ichraverse-vs-competitors",
+      "title": "Platform Comparison: Why Carriers Are Choosing HealthSherpa for ICHRA Distribution",
+      "date": "2026-02-03",
+      "summary": "Not all ICHRA platforms are built for carrier needs. We break down the key differentiators — enrollment volume, API depth, carrier portal quality, and compliance tooling — across the top platforms currently serving the market.",
+      "tag": "Carriers",
+      "author": "ICHRAverse Research Team",
+      "read_time": "5 min read"
+    },
+    {
+      "id": "employer-adoption-case-study",
+      "title": "How a 200-Person Manufacturer Switched to ICHRA and Cut Benefits Cost 18%",
+      "date": "2026-01-22",
+      "summary": "A Midwest manufacturing company with 200 employees moved from a fully-insured group plan to ICHRA in 2025. Twelve months in: 18% cost reduction, 94% employee retention, zero compliance issues. Here's how they did it — and what carriers learned.",
+      "tag": "Market Data",
+      "author": "ICHRAverse Research Team",
+      "read_time": "8 min read"
+    }
+  ]
+}

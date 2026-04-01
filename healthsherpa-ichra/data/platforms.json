@@ -1,0 +1,19 @@
+{
+  "platforms": [
+    { "id": "remodel", "name": "Remodel Health", "states": ["IN","OH","TN","TX","FL","GA","PA","NC","CO","MN"], "hs_connected": true },
+    { "id": "takecommand", "name": "Take Command Health", "states": ["TX","CO","CA","FL","NY","OH","PA","WA","GA","IL"], "hs_connected": true },
+    { "id": "venteur", "name": "Venteur", "states": ["CA","TX","NY","FL","WA","CO","MA","VA"], "hs_connected": true },
+    { "id": "nexben", "name": "Nexben", "states": ["MN","WI","IA","ND","SD","NE","IL","IN","OH"], "hs_connected": true },
+    { "id": "thatch", "name": "Thatch", "states": ["CA","NY","TX","WA","CO","MA","FL","IL"], "hs_connected": true },
+    { "id": "zorro", "name": "Zorro", "states": ["TX","FL","CA","NY","OH","PA","IL","GA"], "hs_connected": true },
+    { "id": "gravie", "name": "Gravie", "states": ["MN","CO","TX","IL","WI","IN","OH","PA"], "hs_connected": true },
+    { "id": "benefitbay", "name": "BenefitBay", "states": ["TX","OH","PA","FL","GA","TN","VA","NC"], "hs_connected": true },
+    { "id": "zizzl", "name": "zizzl", "states": ["IN","OH","TN","TX","GA","FL","KY","MI"], "hs_connected": false },
+    { "id": "alegeus", "name": "Alegeus", "states": ["TX","CA","FL","NY","OH","IL","PA","WA","CO","GA","NC","VA","MA","MN"], "hs_connected": false },
+    { "id": "benefitfocus", "name": "Benefitfocus", "states": ["TX","CA","FL","NY","OH","IL","PA","NC","GA","VA","TN","MA"], "hs_connected": false },
+    { "id": "peoplekeep", "name": "PeopleKeep", "states": ["TX","CA","FL","NY","WA","CO","OR","MA","GA","NC","VA","OH"], "hs_connected": true },
+    { "id": "ichra_shop", "name": "ICHRA.shop", "states": ["TX","FL","GA","NC","TN","AL","SC","MS","AR","LA"], "hs_connected": true },
+    { "id": "hrbenefit", "name": "HR Benefit Advisors", "states": ["TX","CO","NM","KS","OK","AR","NE"], "hs_connected": false },
+    { "id": "decisely", "name": "Decisely", "states": ["GA","FL","NC","SC","TN","AL","TX","VA"], "hs_connected": true }
+  ]
+}

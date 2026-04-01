@@ -1,0 +1,14 @@
+{
+  "carriers": [
+    { "id": "centene", "name": "Centene / Ambetter", "states": ["TX","FL","GA","OH","AZ","NV","WA","KY","MS","NM"], "ichra_status": "active", "hs_connected": true },
+    { "id": "molina", "name": "Molina Healthcare", "states": ["TX","FL","CA","OH","WA","IL","SC","UT","WI","ID"], "ichra_status": "active", "hs_connected": true },
+    { "id": "oscar", "name": "Oscar Health", "states": ["TX","NY","CA","FL","TN","GA","OH","AZ","CO","VA"], "ichra_status": "active", "hs_connected": true },
+    { "id": "bright", "name": "Bright Health", "states": ["TX","FL","CO","OH","AL","NC","OK","SC","IN","MN"], "ichra_status": "active", "hs_connected": true },
+    { "id": "friday", "name": "Friday Health Plans", "states": ["TX","CO","NM","OK","ND","WY","GA","AL","SC","NV"], "ichra_status": "active", "hs_connected": false },
+    { "id": "medica", "name": "Medica", "states": ["MN","ND","SD","NE","WI","IA","KS"], "ichra_status": "active", "hs_connected": true },
+    { "id": "bcbsil", "name": "BCBS Illinois", "states": ["IL","MT","NM","OK","TX"], "ichra_status": "active", "hs_connected": true },
+    { "id": "caresource", "name": "CareSource", "states": ["OH","GA","IN","KY","WV","NC","WI"], "ichra_status": "active", "hs_connected": true },
+    { "id": "commonspirit", "name": "CommonSpirit Health Plans", "states": ["CA","CO","AZ","IA","KY"], "ichra_status": "exploring", "hs_connected": false },
+    { "id": "premera", "name": "Premera Blue Cross", "states": ["WA","AK"], "ichra_status": "active", "hs_connected": true }
+  ]
+}

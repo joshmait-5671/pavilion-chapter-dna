@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICHRAverse | HealthSherpa ICHRA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --hs-blue: #0970C5;
+      --hs-blue-light: #2EB6FF;
+      --hs-blue-dark: #0D61A6;
+      --hs-navy: #074294;
+      --hs-border: #D3E0E8;
+      --hs-text: #344054;
+      --hs-text-light: #475467;
+      --hs-bg: #F8FAFC;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', Helvetica, sans-serif; color: var(--hs-text); background: white; }
+
+    /* HEADER */
+    .header {
+      background: var(--hs-blue);
+      padding: 0 48px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+    .header-brand {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .header-brand-name {
+      color: white;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.3px;
+    }
+    .header-brand-sub {
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      font-weight: 400;
+    }
+    .header-cta {
+      background: white;
+      color: var(--hs-blue);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 90px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .header-cta:hover { opacity: 0.9; }
+
+    /* STATS BAR */
+    .stats-bar {
+      background: white;
+      border-bottom: 1px solid var(--hs-border);
+      padding: 20px 48px;
+      display: flex;
+      gap: 0;
+      justify-content: space-around;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 0 24px;
+      border-right: 1px solid var(--hs-border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--hs-blue);
+      letter-spacing: -0.5px;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--hs-text-light);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .stat-source {
+      font-size: 10px;
+      color: #9BA7B4;
+      font-style: italic;
+      margin-top: 2px;
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--hs-bg);
+      padding: 72px 48px 48px;
+      text-align: center;
+      border-bottom: 1px solid var(--hs-border);
+    }
+    .hero-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--hs-blue);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--hs-navy);
+      letter-spacing: -1px;
+      line-height: 1.15;
+      max-width: 760px;
+      margin: 0 auto 20px;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--hs-text-light);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* TOOL CARDS */
+    .tools-section {
+      padding: 56px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .tools-heading {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--hs-text-light);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .tool-card {
+      border: 1px solid var(--hs-border);
+      border-radius: 12px;
+      padding: 28px;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .tool-card:hover {
+      box-shadow: 0 4px 20px rgba(9, 112, 197, 0.1);
+      border-color: var(--hs-blue);
+    }
+    .tool-icon {
+      width: 44px;
+      height: 44px;
+      background: #EBF4FF;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tool-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--hs-blue);
+    }
+    .tool-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--hs-navy);
+    }
+    .tool-desc {
+      font-size: 14px;
+      color: var(--hs-text-light);
+      line-height: 1.5;
+      flex: 1;
+    }
+    .tool-kills {
+      display: inline-block;
+      background: #EBF4FF;
+      color: var(--hs-blue);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.2px;
+    }
+    .tool-btn {
+      display: inline-block;
+      margin-top: 4px;
+      color: var(--hs-blue);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid var(--hs-blue);
+      padding: 8px 18px;
+      border-radius: 90px;
+      transition: background 0.2s, color 0.2s;
+      align-self: flex-start;
+    }
+    .tool-btn:hover {
+      background: var(--hs-blue);
+      color: white;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: var(--hs-navy);
+      padding: 64px 48px;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: 30px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .cta-section p {
+      color: rgba(255,255,255,0.75);
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: white;
+      color: var(--hs-navy);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 36px;
+      border-radius: 90px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.9; }
+
+    /* FOOTER */
+    .footer {
+      background: #0A1929;
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand {
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .footer-copy {
+      color: rgba(255,255,255,0.4);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,0.5);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: white; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .header { padding: 0 24px; }
+      .stats-bar { padding: 16px 24px; flex-wrap: wrap; gap: 16px; }
+      .stat-item { border-right: none; }
+      .hero { padding: 48px 24px 36px; }
+      .hero h1 { font-size: 30px; }
+      .tools-section { padding: 40px 24px; }
+    }
+    @media (max-width: 600px) {
+      .tools-grid { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-logo">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="8" fill="rgba(255,255,255,0.15)"/>
+        <path d="M16 6L8 10V18C8 22.4 11.6 26 16 27C20.4 26 24 22.4 24 18V10L16 6Z" fill="white" fill-opacity="0.9"/>
+        <path d="M13 16H19M16 13V19" stroke="#0970C5" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div class="header-brand">
+        <span class="header-brand-name">ICHRAverse</span>
+        <span class="header-brand-sub">by HealthSherpa</span>
+      </div>
+    </div>
+    <a href="https://info.healthsherpa.com/ICHRA" class="header-cta">Talk to our ICHRA team →</a>
+  </header>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-number">40+</div>
+      <div class="stat-label">ICHRA Platforms Connected</div>
+      <div class="stat-source">HealthSherpa</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">500K–1M</div>
+      <div class="stat-label">Lives on ICHRA</div>
+      <div class="stat-source">HRA Council 2025</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">124%</div>
+      <div class="stat-label">YoY Membership Growth</div>
+      <div class="stat-source">HRA Council 2025</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">52%</div>
+      <div class="stat-label">Projected CAGR</div>
+      <div class="stat-source">Oliver Wyman</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">ICHRAverse</div>
+    <h1>The ICHRA infrastructure layer. Built for carriers.</h1>
+    <p class="hero-sub">A suite of tools to help you understand the market, build your strategy, and activate your ICHRA channel — powered by the platform processing 50%+ of Federal Marketplace enrollments.</p>
+  </section>
+
+  <!-- TOOL CARDS -->
+  <section class="tools-section">
+    <div class="tools-heading">6 tools. One activation journey.</div>
+    <div class="tools-grid">
+
+      <!-- Card 1: ICHRA Adoption Map -->
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+            <line x1="9" y1="3" x2="9" y2="18"/>
+            <line x1="15" y1="6" x2="15" y2="21"/>
+          </svg>
+        </div>
+        <div class="tool-name">ICHRA Adoption Map</div>
+        <div class="tool-desc">See where ICHRA is growing, state by state. Visualize enrollment density, top platforms, and carrier white space.</div>
+        <span class="tool-kills">Kills: "Feels too small"</span>
+        <a href="map/index.html" class="tool-btn">Open tool →</a>
+      </div>
+
+      <!-- Card 2: Strategy Builder -->
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 20h20M6 20V10l6-8 6 8v10"/>
+            <path d="M10 20v-5h4v5"/>
+          </svg>
+        </div>
+        <div class="tool-name">Strategy Builder</div>
+        <div class="tool-desc">Build your carrier ICHRA strategy in 10 minutes. Answer a few questions, get a custom action plan.</div>
+        <span class="tool-kills">Kills: "No strategy yet"</span>
+        <a href="strategy-builder/index.html" class="tool-btn">Open tool →</a>
+      </div>
+
+      <!-- Card 3: ROI Calculator -->
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="18" rx="2"/>
+            <path d="M7 10h2v7H7zM11 7h2v10h-2zM15 13h2v4h-2z"/>
+          </svg>
+        </div>
+        <div class="tool-name">ROI Calculator</div>
+        <div class="tool-desc">Model your 3-year return on ICHRA investment. Input your book of business, see the revenue upside.</div>
+        <span class="tool-kills">Kills: "No clear ROI"</span>
+        <a href="roi-calculator/index.html" class="tool-btn">Open tool →</a>
+      </div>
+
+      <!-- Card 4: Build vs. Buy Guide -->
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <div class="tool-name">Build vs. Buy Guide</div>
+        <div class="tool-desc">Why AI won't save you from CMS compliance. A clear-eyed look at what it actually takes to build in-house.</div>
+        <span class="tool-kills">Kills: "We'll just build it"</span>
+        <a href="build-vs-buy/index.html" class="tool-btn">Open tool →</a>
+      </div>
+
+      <!-- Card 5: ICHRA Content Hub -->
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div class="tool-name">ICHRA Content Hub</div>
+        <div class="tool-desc">The pulse of the ICHRA ecosystem. Curated research, case studies, and regulatory updates in one place.</div>
+        <span class="tool-kills">Kills: "Market awareness"</span>
+        <a href="content-hub/index.html" class="tool-btn">Open tool →</a>
+      </div>
+
+      <!-- Card 6: Discovery Assessment -->
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+            <path d="M11 8v6M8 11h6"/>
+          </svg>
+        </div>
+        <div class="tool-name">Discovery Assessment</div>
+        <div class="tool-desc">Answer 7 questions. Get a custom ICHRA brief tailored to your carrier's size, state footprint, and readiness.</div>
+        <span class="tool-kills">Kills: "Don't know where to start"</span>
+        <a href="#" class="tool-btn">Open tool →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="cta-section">
+    <h2>Ready to activate your ICHRA channel?</h2>
+    <p>Our team can walk you through the platform, the data, and the path to go-live.</p>
+    <a href="https://info.healthsherpa.com/ICHRA" class="cta-btn">Talk to our ICHRA team →</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>
+      <div class="footer-brand">HealthSherpa ICHRAverse</div>
+      <div class="footer-copy">© 2026 HealthSherpa. ICHRA infrastructure for carriers and platforms.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.healthsherpa.com" target="_blank">HealthSherpa.com</a>
+      <a href="https://www.healthsherpa.com/ichra" target="_blank">ICHRA docs</a>
+      <a href="https://www.healthsherpa.com/privacy" target="_blank">Privacy</a>
+    </div>
+  </footer>
+
+</body>
+</html>

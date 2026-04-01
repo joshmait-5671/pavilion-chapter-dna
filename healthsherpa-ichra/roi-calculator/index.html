@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICHRA ROI Calculator — ICHRAverse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --hs-blue: #0970C5;
+      --hs-navy: #074294;
+      --hs-border: #D3E0E8;
+      --hs-text: #344054;
+      --hs-text-light: #475467;
+      --hs-bg: #F8FAFC;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--hs-bg);
+      color: var(--hs-text);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--hs-navy);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .site-header a.back-link {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.9;
+      transition: opacity 0.15s;
+    }
+    .site-header a.back-link:hover { opacity: 1; }
+
+    .site-header .wordmark {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--hs-navy) 0%, var(--hs-blue) 100%);
+      padding: 48px 32px;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; }
+    .hero h1 { color: #fff; font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .hero p { color: rgba(255,255,255,0.85); font-size: 16px; max-width: 600px; }
+
+    /* ── DISCLAIMER BANNER ── */
+    .disclaimer-banner {
+      background: #FFFAEB;
+      border-bottom: 1px solid #FEC84B;
+      padding: 12px 32px;
+      text-align: center;
+      font-size: 13px;
+      color: #B54708;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main-wrap {
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #fff;
+      border: 1px solid var(--hs-border);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    /* ── LEFT PANEL ── */
+    .panel-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--hs-navy);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--hs-border);
+    }
+
+    .input-group { margin-bottom: 24px; }
+
+    .label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .label-row label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--hs-text);
+    }
+    .label-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--hs-blue);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 4px;
+      appearance: none;
+      background: var(--hs-border);
+      border-radius: 99px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--hs-blue);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px var(--hs-blue);
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--hs-blue);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px var(--hs-blue);
+      cursor: pointer;
+    }
+
+    .amber-badge {
+      margin-top: 8px;
+      background: #FFFAEB;
+      border: 1px solid #FEC84B;
+      color: #B54708;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── RADIO PILLS ── */
+    .radio-pills {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .radio-pills label {
+      flex: 1;
+      text-align: center;
+      padding: 8px 12px;
+      border: 1px solid var(--hs-border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--hs-text-light);
+      background: var(--hs-bg);
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .radio-pills input[type="radio"] { display: none; }
+    .radio-pills input[type="radio"]:checked + label {
+      background: var(--hs-navy);
+      color: #fff;
+      border-color: var(--hs-navy);
+      font-weight: 600;
+    }
+
+    .cost-model-note {
+      font-size: 12px;
+      color: var(--hs-text-light);
+      background: var(--hs-bg);
+      border: 1px solid var(--hs-border);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+
+    /* ── TOOLTIP ── */
+    .tooltip-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .tooltip-icon {
+      width: 16px;
+      height: 16px;
+      background: var(--hs-border);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--hs-text-light);
+      cursor: default;
+    }
+    .tooltip-box {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1D2939;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 400;
+      padding: 8px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      z-index: 10;
+      pointer-events: none;
+      max-width: 220px;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .tooltip-wrap:hover .tooltip-box { display: block; }
+
+    /* ── RIGHT PANEL ── */
+    .right-panel { display: flex; flex-direction: column; gap: 24px; }
+
+    .result-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--hs-navy);
+      margin-bottom: 16px;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .result-card {
+      background: #fff;
+      border: 1px solid var(--hs-border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .result-card.accent {
+      border-color: var(--hs-blue);
+      background: linear-gradient(135deg, #EBF5FF 0%, #F0F8FF 100%);
+    }
+    .result-card .card-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--hs-text-light);
+      margin-bottom: 8px;
+    }
+    .result-card .card-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--hs-navy);
+      line-height: 1.1;
+    }
+    .result-card.accent .card-value { color: var(--hs-blue); }
+
+    /* ── BAR CHART ── */
+    .chart-card { background: #fff; border: 1px solid var(--hs-border); border-radius: 12px; padding: 24px; }
+    .chart-heading { font-size: 15px; font-weight: 700; color: var(--hs-navy); margin-bottom: 20px; }
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 24px;
+      height: 200px;
+    }
+    .bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .bar-label-top {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--hs-navy);
+      margin-bottom: 4px;
+    }
+    .bar-track {
+      width: 100%;
+      background: var(--hs-bg);
+      border-radius: 6px 6px 0 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .bar-fill {
+      border-radius: 6px 6px 0 0;
+      transition: height 0.4s ease;
+    }
+    .bar-fill.y1 { background: linear-gradient(180deg, var(--hs-blue) 0%, var(--hs-navy) 100%); }
+    .bar-fill.y2 { background: linear-gradient(180deg, var(--hs-blue) 0%, var(--hs-navy) 100%); }
+    .bar-fill.y3 { background: linear-gradient(180deg, #34D399 0%, var(--hs-blue) 100%); }
+    .bar-group-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--hs-text-light);
+      margin-top: 8px;
+    }
+    .chart-note { font-size: 12px; color: var(--hs-text-light); margin-top: 12px; font-style: italic; }
+
+    /* ── CANNIBALIZATION ── */
+    .retention-card {
+      background: #ECFDF3;
+      border: 1px solid #A6F4C5;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .retention-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: #027A48;
+      margin-bottom: 16px;
+    }
+    .retention-stats {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .retention-stat {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #A6F4C5;
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+    .retention-stat .stat-val {
+      font-size: 22px;
+      font-weight: 700;
+      color: #027A48;
+      line-height: 1.1;
+    }
+    .retention-stat .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #065F46;
+      margin-top: 4px;
+    }
+    .retention-narrative {
+      font-size: 14px;
+      color: #065F46;
+      line-height: 1.6;
+    }
+
+    /* ── PRINT BUTTON ── */
+    .print-row { display: flex; justify-content: flex-end; }
+    .btn-print {
+      background: transparent;
+      border: 1px solid var(--hs-border);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--hs-text-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-print:hover { background: var(--hs-bg); color: var(--hs-navy); border-color: var(--hs-navy); }
+
+    /* ── CTA ── */
+    .cta-section { max-width: 1100px; margin: 0 auto 48px; padding: 0 32px; }
+    .cta-card {
+      background: linear-gradient(135deg, var(--hs-navy) 0%, var(--hs-blue) 100%);
+      border-radius: 16px;
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .cta-card h2 { color: #fff; font-size: 22px; font-weight: 700; }
+    .cta-card p { color: rgba(255,255,255,0.8); font-size: 14px; margin-top: 6px; }
+    .btn-cta {
+      background: #fff;
+      color: var(--hs-navy);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-cta:hover { opacity: 0.9; }
+
+    /* ── PRINT ONLY HEADER ── */
+    .print-only-header {
+      display: none;
+      padding: 16px 0;
+      border-bottom: 2px solid var(--hs-navy);
+      margin-bottom: 24px;
+    }
+    .print-only-header h1 { font-size: 20px; color: var(--hs-navy); }
+    .print-only-header p { font-size: 12px; color: var(--hs-text-light); margin-top: 4px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      .main-wrap {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+      }
+      .hero { padding: 32px 16px; }
+      .hero h1 { font-size: 24px; }
+      .cta-section { padding: 0 16px; }
+      .cta-card { flex-direction: column; text-align: center; padding: 28px 24px; }
+      .result-grid { grid-template-columns: 1fr 1fr; }
+      .retention-stats { flex-direction: column; }
+    }
+
+    @media (max-width: 480px) {
+      .result-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── PRINT STYLES ── */
+    @media print {
+      .site-header, .hero, .disclaimer-banner, .btn-print, .cta-section, .print-row { display: none !important; }
+      .print-only-header { display: block !important; }
+      body { background: #fff; }
+      .main-wrap { grid-template-columns: 1fr; max-width: 100%; padding: 0; margin: 0; }
+      .card, .chart-card, .result-card, .retention-card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a class="back-link" href="../index.html">← ICHRAverse Suite</a>
+    <span class="wordmark">HealthSherpa</span>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>ICHRA ROI Calculator</h1>
+      <p>Build the financial case for your ICHRA investment — model revenue, break-even, and retention impact in real time.</p>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER BANNER -->
+  <div class="disclaimer-banner">
+    <strong>All figures are illustrative.</strong> Consult your HS account team for validated PMPM rates and integration costs before using in financial planning.
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="main-wrap">
+
+    <!-- LEFT PANEL -->
+    <div class="card">
+      <div class="print-only-header">
+        <h1>ICHRA ROI Calculator — HealthSherpa</h1>
+        <p id="print-date">Generated on —</p>
+      </div>
+
+      <div class="panel-heading">Your Numbers</div>
+
+      <!-- 1. Group Book Size -->
+      <div class="input-group">
+        <div class="label-row">
+          <label for="book-size">Group Book Size</label>
+          <span class="label-val" id="book-size-display">50,000</span>
+        </div>
+        <input type="range" id="book-size" min="10000" max="500000" step="5000" value="50000"
+               oninput="updateDisplay('book-size', 'book-size-display', formatNumber); render()" />
+      </div>
+
+      <!-- 2. ICHRA-Eligible Segment -->
+      <div class="input-group">
+        <div class="label-row">
+          <label for="eligible-pct">ICHRA-Eligible Segment (%)</label>
+          <span class="label-val" id="eligible-pct-display">15%</span>
+        </div>
+        <input type="range" id="eligible-pct" min="5" max="40" step="1" value="15"
+               oninput="updateDisplay('eligible-pct', 'eligible-pct-display', v => v + '%'); render()" />
+      </div>
+
+      <!-- 3. PMPM Rate -->
+      <div class="input-group">
+        <div class="label-row">
+          <label for="pmpm">PMPM Rate ($)</label>
+          <span class="label-val" id="pmpm-display">$2.50</span>
+        </div>
+        <input type="range" id="pmpm" min="1" max="10" step="0.25" value="2.5"
+               oninput="updateDisplay('pmpm', 'pmpm-display', v => '$' + parseFloat(v).toFixed(2)); render()" />
+        <div class="amber-badge">
+          ⚠️ Placeholder rate — validate with HS sales team before use
+        </div>
+      </div>
+
+      <!-- 4. Integration Cost Model -->
+      <div class="input-group">
+        <div class="label-row">
+          <label>Integration Cost Model</label>
+        </div>
+        <div class="radio-pills">
+          <input type="radio" id="cost-build" name="cost-model" value="build" onchange="render()" />
+          <label for="cost-build">Build In-House</label>
+          <input type="radio" id="cost-partner" name="cost-model" value="partner" onchange="render()" checked />
+          <label for="cost-partner">Partner with HS</label>
+        </div>
+        <div class="cost-model-note" id="cost-model-note">
+          Contact HealthSherpa for integration pricing.
+        </div>
+      </div>
+
+      <!-- 5. Time to Revenue -->
+      <div class="input-group">
+        <div class="label-row">
+          <label for="time-to-revenue">Time to Revenue (months)</label>
+          <span class="label-val" id="time-to-revenue-display">6 months</span>
+        </div>
+        <input type="range" id="time-to-revenue" min="3" max="24" step="1" value="6"
+               oninput="updateDisplay('time-to-revenue', 'time-to-revenue-display', v => v + ' months'); render()" />
+      </div>
+
+      <!-- 6. Group Retention Rate -->
+      <div class="input-group" style="margin-bottom: 0;">
+        <div class="label-row">
+          <div class="tooltip-wrap">
+            <label for="retention">Group Retention Rate</label>
+            <span class="tooltip-icon">ⓘ
+              <span class="tooltip-box">% of group members who stay as individual market members after ICHRA switch</span>
+            </span>
+          </div>
+          <span class="label-val" id="retention-display">70%</span>
+        </div>
+        <input type="range" id="retention" min="50" max="95" step="5" value="70"
+               oninput="updateDisplay('retention', 'retention-display', v => v + '%'); render()" />
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+      <!-- Result Cards -->
+      <div>
+        <div class="result-heading">Your Revenue Model</div>
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="card-label">ICHRA-Eligible Lives</div>
+            <div class="card-value" id="card-eligible-lives">—</div>
+          </div>
+          <div class="result-card">
+            <div class="card-label">Year 1 Revenue</div>
+            <div class="card-value" id="card-year1">—</div>
+          </div>
+          <div class="result-card accent">
+            <div class="card-label">3-Year Total Revenue</div>
+            <div class="card-value" id="card-3yr">—</div>
+          </div>
+          <div class="result-card">
+            <div class="card-label">Break-Even (Build)</div>
+            <div class="card-value" id="card-breakeven">N/A</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bar Chart -->
+      <div class="chart-card">
+        <div class="chart-heading">3-Year Revenue Projection</div>
+        <div class="chart-bars">
+          <div class="bar-group">
+            <div class="bar-label-top" id="chart-label-y1">—</div>
+            <div class="bar-track" style="height: 160px;" id="bar-track-y1">
+              <div class="bar-fill y1" id="bar-y1" style="height: 0%;"></div>
+            </div>
+            <div class="bar-group-label">Year 1</div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-label-top" id="chart-label-y2">—</div>
+            <div class="bar-track" style="height: 160px;" id="bar-track-y2">
+              <div class="bar-fill y2" id="bar-y2" style="height: 0%;"></div>
+            </div>
+            <div class="bar-group-label">Year 2</div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-label-top" id="chart-label-y3">—</div>
+            <div class="bar-track" style="height: 160px;" id="bar-track-y3">
+              <div class="bar-fill y3" id="bar-y3" style="height: 0%;"></div>
+            </div>
+            <div class="bar-group-label">Year 3</div>
+          </div>
+        </div>
+        <div class="chart-note">Year 3 includes 15% growth assumption. All figures illustrative.</div>
+      </div>
+
+      <!-- Retention / Cannibalization -->
+      <div class="retention-card">
+        <div class="retention-heading">The Retention Argument</div>
+        <div class="retention-stats">
+          <div class="retention-stat">
+            <div class="stat-val" id="retained-lives-val">—</div>
+            <div class="stat-label">Retained Lives</div>
+          </div>
+          <div class="retention-stat">
+            <div class="stat-val" id="ichra-eligible-val">—</div>
+            <div class="stat-label">ICHRA-Eligible</div>
+          </div>
+          <div class="retention-stat">
+            <div class="stat-val" id="retention-pct-display">—</div>
+            <div class="stat-label">Retention Rate</div>
+          </div>
+        </div>
+        <p class="retention-narrative" id="retention-narrative">—</p>
+      </div>
+
+      <!-- Print Button -->
+      <div class="print-row">
+        <button class="btn-print" onclick="window.print()">⬇ Save as PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA SECTION -->
+  <div class="cta-section">
+    <div class="cta-card">
+      <div>
+        <h2>Ready to validate these numbers with our team?</h2>
+        <p>Get real PMPM rates, integration cost estimates, and a custom revenue model for your book.</p>
+      </div>
+      <a class="btn-cta" href="https://info.healthsherpa.com/ICHRA" target="_blank" rel="noopener">Talk to the Team</a>
+    </div>
+  </div>
+
+  <script>
+    /* ── CALCULATION ENGINE ── */
+    function calculate() {
+      const bookSize = parseInt(document.getElementById('book-size').value);
+      const eligiblePct = parseFloat(document.getElementById('eligible-pct').value);
+      const pmpm = parseFloat(document.getElementById('pmpm').value);
+      const costModel = document.querySelector('input[name="cost-model"]:checked').value;
+      const timeToRevenue = parseInt(document.getElementById('time-to-revenue').value);
+      const retentionRate = parseFloat(document.getElementById('retention').value);
+
+      const ichraEligibleLives = Math.round(bookSize * (eligiblePct / 100));
+      const annualRevenue = ichraEligibleLives * pmpm * 12;
+      const year1Revenue = annualRevenue * ((12 - timeToRevenue) / 12);
+      const year2Revenue = annualRevenue;
+      const year3Revenue = annualRevenue * 1.15;
+      const total3yr = year1Revenue + year2Revenue + year3Revenue;
+      const buildCost = 375000;
+      const breakevenMonths = costModel === 'build'
+        ? (annualRevenue > 0 ? Math.ceil(buildCost / (annualRevenue / 12)) : null)
+        : null;
+      const retainedLives = Math.round(bookSize * (eligiblePct / 100) * (retentionRate / 100));
+
+      return { ichraEligibleLives, annualRevenue, year1Revenue, year2Revenue, year3Revenue, total3yr, buildCost, breakevenMonths, retainedLives, costModel, bookSize, eligiblePct, retentionRate, pmpm, timeToRevenue };
+    }
+
+    function shortMoney(n) {
+      if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
+      if (n >= 1000) return '$' + (n / 1000).toFixed(0) + 'K';
+      return '$' + Math.round(n);
+    }
+
+    function formatMoney(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+    function formatNumber(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    /* ── DISPLAY HELPERS ── */
+    function updateDisplay(inputId, displayId, formatter) {
+      const val = document.getElementById(inputId).value;
+      document.getElementById(displayId).textContent = formatter(val);
+    }
+
+    function set(id, text) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    }
+
+    /* ── BAR CHART ── */
+    function updateBars(y1, y2, y3) {
+      const maxVal = Math.max(y1, y2, y3, 1);
+      const trackHeight = 160;
+
+      const pct1 = (y1 / maxVal) * 100;
+      const pct2 = (y2 / maxVal) * 100;
+      const pct3 = (y3 / maxVal) * 100;
+
+      document.getElementById('bar-y1').style.height = pct1 + '%';
+      document.getElementById('bar-y2').style.height = pct2 + '%';
+      document.getElementById('bar-y3').style.height = pct3 + '%';
+
+      set('chart-label-y1', shortMoney(y1));
+      set('chart-label-y2', shortMoney(y2));
+      set('chart-label-y3', shortMoney(y3));
+    }
+
+    /* ── RENDER ── */
+    function render() {
+      const d = calculate();
+
+      /* Result cards */
+      set('card-eligible-lives', formatNumber(d.ichraEligibleLives));
+      set('card-year1', shortMoney(d.year1Revenue));
+      set('card-3yr', shortMoney(d.total3yr));
+      if (d.costModel === 'build') {
+        if (d.breakevenMonths !== null) {
+          set('card-breakeven', d.breakevenMonths + ' mo');
+        } else {
+          set('card-breakeven', '—');
+        }
+      } else {
+        set('card-breakeven', 'N/A');
+      }
+
+      /* Cost model note */
+      const noteEl = document.getElementById('cost-model-note');
+      if (d.costModel === 'build') {
+        noteEl.textContent = 'Estimated cost: $250K–$500K (midpoint $375K used for break-even)';
+      } else {
+        noteEl.textContent = 'Contact HealthSherpa for integration pricing.';
+      }
+
+      /* Bar chart */
+      updateBars(d.year1Revenue, d.year2Revenue, d.year3Revenue);
+
+      /* Retention / Cannibalization */
+      set('retained-lives-val', formatNumber(d.retainedLives));
+      set('ichra-eligible-val', formatNumber(d.ichraEligibleLives));
+      set('retention-pct-display', d.retentionRate + '%');
+
+      const narrative = `Of your ${formatNumber(d.ichraEligibleLives)} ICHRA-eligible members, approximately ${formatNumber(d.retainedLives)} (${d.retentionRate}%) are projected to remain as individual market members after the ICHRA switch — creating a recurring revenue stream worth ${shortMoney(d.annualRevenue)} per year. ICHRA isn't cannibalization; it's a retention bridge.`;
+      set('retention-narrative', narrative);
+
+      /* Print date */
+      const now = new Date();
+      const printDate = document.getElementById('print-date');
+      if (printDate) {
+        printDate.textContent = 'Generated on ' + now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      }
+    }
+
+    /* ── INIT ── */
+    document.addEventListener('DOMContentLoaded', function () {
+      /* Set initial display values */
+      document.getElementById('book-size-display').textContent = formatNumber(50000);
+      document.getElementById('eligible-pct-display').textContent = '15%';
+      document.getElementById('pmpm-display').textContent = '$2.50';
+      document.getElementById('time-to-revenue-display').textContent = '6 months';
+      document.getElementById('retention-display').textContent = '70%';
+
+      render();
+    });
+  </script>
+</body>
+</html>

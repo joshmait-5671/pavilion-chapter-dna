@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Webinar → Seven Assets | ICHRAverse Content Engine</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #074294; color: #1a1a1a; }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    max-width: 700px;
+    margin: 0 auto 16px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat-num {
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+  }
+  .hero-stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+
+  /* SECTION NAV */
+  .section-nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .nav-pill {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .nav-pill:hover { background: rgba(255,255,255,0.2); color: #fff; }
+
+  /* ASSET SECTIONS */
+  .asset-section {
+    max-width: 900px;
+    margin: 0 auto 48px;
+    padding: 0 24px;
+  }
+  .asset-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .asset-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .asset-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .asset-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    margin-left: 44px;
+    margin-bottom: 20px;
+  }
+
+  /* CARDS */
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .card-body { padding: 28px 32px; }
+
+  /* QUOTE CARDS */
+  .quote-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .quote-card {
+    border-radius: 12px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .quote-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  .quote-card::after {
+    content: '"';
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.1);
+    line-height: 1;
+  }
+  .quote-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.3;
+    position: relative;
+    z-index: 2;
+    letter-spacing: -0.3px;
+  }
+  .quote-attr {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    margin-top: 12px;
+    position: relative;
+    z-index: 2;
+  }
+  .quote-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.15);
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* BLOG POSTS */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .blog-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .blog-card-img {
+    height: 140px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+  }
+  .blog-card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(7,66,148,0.7) 0%, rgba(7,66,148,0.2) 100%);
+  }
+  .blog-card-tag {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    z-index: 2;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .blog-card-body { padding: 20px; }
+  .blog-card-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .blog-card-excerpt {
+    font-size: 13px;
+    color: #475467;
+    line-height: 1.5;
+  }
+  .blog-card-meta {
+    font-size: 11px;
+    color: #9CA3AF;
+    margin-top: 12px;
+  }
+
+  /* EXEC SUMMARY */
+  .exec-summary { font-size: 15px; line-height: 1.75; color: #344054; }
+  .exec-summary h3 { font-size: 16px; font-weight: 800; color: #074294; margin: 20px 0 8px; }
+  .exec-summary h3:first-child { margin-top: 0; }
+  .exec-summary p { margin-bottom: 12px; }
+  .exec-summary .stat-row {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .exec-summary .stat-box {
+    flex: 1;
+    background: #F0F7FF;
+    border: 1px solid #BFD9F2;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .exec-summary .stat-big {
+    font-size: 28px;
+    font-weight: 900;
+    color: #074294;
+  }
+  .exec-summary .stat-label {
+    font-size: 12px;
+    color: #475467;
+    margin-top: 4px;
+  }
+  .exec-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: #074294;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  /* CLIPS */
+  .clip-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .clip-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .clip-time {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0970C5;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    min-width: 55px;
+  }
+  .clip-info { flex: 1; }
+  .clip-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .clip-desc {
+    font-size: 12px;
+    color: #9CA3AF;
+    margin-top: 2px;
+  }
+  .clip-duration {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9CA3AF;
+    background: #F3F4F6;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+
+  /* EMAIL */
+  .email-preview {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .email-header {
+    background: #F3F4F6;
+    padding: 16px 24px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  .email-field {
+    font-size: 13px;
+    color: #6B7280;
+    margin-bottom: 4px;
+  }
+  .email-field strong { color: #1a1a1a; }
+  .email-body { padding: 28px 32px; }
+  .email-body p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #344054;
+    margin-bottom: 14px;
+  }
+  .email-body ul {
+    margin: 12px 0;
+    padding-left: 20px;
+  }
+  .email-body li {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #344054;
+    margin-bottom: 6px;
+  }
+  .email-body li strong { color: #074294; }
+  .email-cta {
+    display: inline-block;
+    padding: 10px 24px;
+    background: #0970C5;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 8px 0;
+  }
+
+  /* CARRIER VERSION */
+  .carrier-card {
+    background: linear-gradient(135deg, #0B1829, #162D50);
+    border-radius: 12px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .carrier-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .carrier-card h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
+  }
+  .carrier-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .carrier-card strong { color: rgba(255,255,255,0.9); }
+  .carrier-stat-row {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+    position: relative;
+    z-index: 2;
+  }
+  .carrier-stat {
+    flex: 1;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .carrier-stat-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: #2EB6FF;
+  }
+  .carrier-stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+
+  /* CAROUSEL */
+  .carousel-strip {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+  }
+  .carousel-strip::-webkit-scrollbar { height: 4px; }
+  .carousel-strip::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+  .carousel-slide {
+    flex-shrink: 0;
+    width: 320px;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    scroll-snap-align: start;
+  }
+  .carousel-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 25px 25px;
+  }
+  .carousel-slide-num {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+  }
+  .carousel-slide-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
+  }
+  .carousel-slide h3 {
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    position: relative;
+    z-index: 2;
+  }
+  .carousel-slide p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 8px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 2;
+  }
+  .carousel-big-num {
+    font-size: 72px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.08);
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    line-height: 1;
+    z-index: 0;
+  }
+
+  /* FOOTER */
+  .page-footer {
+    text-align: center;
+    padding: 60px 24px 40px;
+  }
+  .page-footer p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+  }
+  .page-footer a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+  }
+
+  @media (max-width: 700px) {
+    .hero h1 { font-size: 32px; }
+    .quote-grid, .blog-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; gap: 20px; }
+    .exec-summary .stat-row { flex-direction: column; }
+    .carrier-stat-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">ICHRAverse Content Engine</div>
+  <h1>One Webinar.<br>Seven Assets.</h1>
+  <p>Mike's 2026 ICHRA Roadmap webinar (55 min, 89 attendees) — automatically transformed into a full content suite. Zero additional hours.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">1</div>
+      <div class="hero-stat-label">Source Asset</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">7</div>
+      <div class="hero-stat-label">Asset Types</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">20+</div>
+      <div class="hero-stat-label">Individual Pieces</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">0</div>
+      <div class="hero-stat-label">Hours of Work</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="section-nav">
+  <a href="#quotes" class="nav-pill">Quote Cards</a>
+  <a href="#blogs" class="nav-pill">Blog Posts</a>
+  <a href="#exec" class="nav-pill">Executive Summary</a>
+  <a href="#clips" class="nav-pill">Video Clips</a>
+  <a href="#email" class="nav-pill">Partner Email</a>
+  <a href="#carrier" class="nav-pill">Carrier Version</a>
+  <a href="#carousel" class="nav-pill">LinkedIn Carousel</a>
+</div>
+
+<!-- 1. QUOTE CARDS -->
+<div class="asset-section" id="quotes">
+  <div class="asset-header">
+    <div class="asset-number">1</div>
+    <div class="asset-title">Quote Cards</div>
+  </div>
+  <div class="asset-desc">Shareable graphics for LinkedIn, Twitter, and internal decks. Each one stands alone.</div>
+  <div class="quote-grid">
+    <div class="quote-card" style="background: linear-gradient(135deg, #074294, #0B8AD9);">
+      <div class="quote-tag">Positioning</div>
+      <div class="quote-text">Our goal is to enable all of you, and compete with none.</div>
+      <div class="quote-attr">Mike Levin, HealthSherpa — 2026 ICHRA Roadmap</div>
+    </div>
+    <div class="quote-card" style="background: linear-gradient(135deg, #92400E, #D97706);">
+      <div class="quote-tag">Hot Take</div>
+      <div class="quote-text">In 3 to 5 years, carriers will not accept credit cards for ICHRA.</div>
+      <div class="quote-attr">Mike Levin, HealthSherpa — 2026 ICHRA Roadmap</div>
+    </div>
+    <div class="quote-card" style="background: linear-gradient(135deg, #065F46, #10B981);">
+      <div class="quote-tag">Market Data</div>
+      <div class="quote-text">There's a good case to be made that we have now broken through a million ICHRA members.</div>
+      <div class="quote-attr">Mike Levin, HealthSherpa — 2026 ICHRA Roadmap</div>
+    </div>
+    <div class="quote-card" style="background: linear-gradient(135deg, #1E1B4B, #6366F1);">
+      <div class="quote-tag">Infrastructure</div>
+      <div class="quote-text">Today, the industry is subscale. We think about what the market needs over the next 3 years to scale.</div>
+      <div class="quote-attr">Mike Levin, HealthSherpa — 2026 ICHRA Roadmap</div>
+    </div>
+    <div class="quote-card" style="background: linear-gradient(135deg, #7C2D12, #EA580C);">
+      <div class="quote-tag">Risk Pools</div>
+      <div class="quote-text">Carriers that can segment their OFX base see ICHRA performing more along the lines of OnX — not the bad risk they feared.</div>
+      <div class="quote-attr">Mike Levin, HealthSherpa — 2026 ICHRA Roadmap</div>
+    </div>
+    <div class="quote-card" style="background: linear-gradient(135deg, #0F172A, #334155);">
+      <div class="quote-tag">Product</div>
+      <div class="quote-text">One prompt produced an entire working integration on its first attempt.</div>
+      <div class="quote-attr">Julian Ferdman, HealthSherpa — on AI-powered API integration</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. BLOG POSTS -->
+<div class="asset-section" id="blogs">
+  <div class="asset-header">
+    <div class="asset-number">2</div>
+    <div class="asset-title">Blog Posts</div>
+  </div>
+  <div class="asset-desc">Four standalone articles, each pulling a different angle from the webinar. Ready to publish.</div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-card-img" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80');">
+        <div class="blog-card-tag">Market Data</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-title">ICHRA Just Crossed 1 Million Members. Here's What the Data Actually Says.</div>
+        <div class="blog-card-excerpt">HealthSherpa's horizontal view of 40+ platforms reveals the real market size — and it's both smaller and growing faster than anyone thought. 400K-800K enrolled as of 1/1/26, 28% YTD growth, and a 3X year-over-year trajectory.</div>
+        <div class="blog-card-meta">5 min read · Market Analysis</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img" style="background-image:url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80');">
+        <div class="blog-card-tag">Payments</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-title">The Last Mile Problem: Why ICHRA Payments Are Still Stuck in Manual Mode</div>
+        <div class="blog-card-excerpt">Manual binder entries. Twice. Timing fragmentation across carriers. Nearly 100% credit card usage killing carrier margins at 4% transaction fees. PayConnect is HealthSherpa's answer to the industry's most unglamorous bottleneck.</div>
+        <div class="blog-card-meta">6 min read · Infrastructure</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img" style="background-image:url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80');">
+        <div class="blog-card-tag">Risk Pools</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-title">ICHRA Risk Pools Aren't What Carriers Feared — They're Better</div>
+        <div class="blog-card-excerpt">64% of ICHRA members are under 45 vs. 58% of the broader ACA. Carriers that segment their off-exchange book see ICHRA performing like on-exchange, not the adverse selection nightmare they expected.</div>
+        <div class="blog-card-meta">4 min read · Carrier Strategy</div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80');">
+        <div class="blog-card-tag">Product</div>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-title">EnrollConnect: The API That Eliminates Carrier-by-Carrier ICHRA Integrations</div>
+        <div class="blog-card-excerpt">One canonical schema. Every carrier. HealthSherpa's new programmatic enrollment API means platforms build once and get access to 65+ carriers without maintaining separate integrations. Think Stripe for ICHRA enrollment.</div>
+        <div class="blog-card-meta">5 min read · Product Launch</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. EXECUTIVE SUMMARY -->
+<div class="asset-section" id="exec">
+  <div class="asset-header">
+    <div class="asset-number">3</div>
+    <div class="asset-title">Executive Summary</div>
+  </div>
+  <div class="asset-desc">One-page recap for the 89 attendees and everyone who couldn't make it.</div>
+  <div class="card">
+    <div class="card-body">
+      <div class="exec-badge">2026 ICHRA Roadmap — Executive Summary</div>
+      <div class="exec-summary">
+        <h3>Market State</h3>
+        <p>HealthSherpa estimates the ICHRA market at <strong>400,000–800,000 enrolled members</strong> as of January 1, 2026, growing roughly 3X year-over-year. With 28% growth year-to-date (through March 2026), there's a strong case the market has now crossed 1 million members. Notably, 82–83% of ICHRA enrollment is off-exchange, and ICHRA members are buying up on metal levels compared to on-exchange enrollees.</p>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-big">400K–800K</div>
+            <div class="stat-label">Enrolled members (1/1/26)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-big">~3X</div>
+            <div class="stat-label">Year-over-year growth</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-big">28%</div>
+            <div class="stat-label">YTD growth (Q1 2026)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-big">64%</div>
+            <div class="stat-label">Members under 45</div>
+          </div>
+        </div>
+
+        <h3>Risk Pool Insight</h3>
+        <p>ICHRA members skew younger (64% under 45 vs. 58% for broader ACA). Carriers that can segment their off-exchange base report that <strong>ICHRA risk performs more like on-exchange than the broader off-exchange pool</strong> — a critical finding for carriers concerned about adverse selection.</p>
+
+        <h3>2026 Product Roadmap</h3>
+        <p><strong>EnrollConnect</strong> (launching April 13): Full programmatic enrollment API. One canonical schema, every carrier. Platforms build once and get all carriers — no more carrier-by-carrier integrations. 67% reduction in application time proven via DeepLinks.</p>
+        <p><strong>PayConnect</strong> (late 2026): ACH-only premium clearinghouse. HealthSherpa collects, aggregates, and remits to carriers in bulk. Eliminates manual binder entry and insulates carriers from credit card fees (up to 4%).</p>
+        <p><strong>StatusConnect</strong>: Webhook-based policy lifecycle tracking. Effectuation, payment status, termination — daily carrier feeds delivered programmatically.</p>
+        <p><strong>QuoteConnect</strong>: Quoting API available now. Shop by Doc coming summer 2026. Formulary search scoped for 2027. Goal: substantially all plans, all carriers before OE27.</p>
+
+        <h3>Carrier Expansion</h3>
+        <p>Current: 21 live off-exchange carrier integrations (~40% market footprint). Goal: <strong>65 carriers by OE27</strong> (~65–70% market coverage). Medical Mutual, Samford, Security, and CareSource of Wisconsin going live this week.</p>
+
+        <h3>Key Positioning</h3>
+        <p>"Our goal is to enable all of you, and compete with none." HealthSherpa is infrastructure — a many-to-one-to-many solution. 40+ administrator partners through a single integration, at no cost, and not AOR.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. CLIP HIGHLIGHTS -->
+<div class="asset-section" id="clips">
+  <div class="asset-header">
+    <div class="asset-number">4</div>
+    <div class="asset-title">Video Clip Highlights</div>
+  </div>
+  <div class="asset-desc">8 short clips with timestamps — ready to pull from the Zoom recording.</div>
+  <div class="clip-list">
+    <div class="clip-item">
+      <div class="clip-time">3:05</div>
+      <div class="clip-info">
+        <div class="clip-title">The real ICHRA market size: 400K–800K</div>
+        <div class="clip-desc">Mike stakes out HealthSherpa's market sizing and calls out frothy 2–5M estimates</div>
+      </div>
+      <div class="clip-duration">~90s</div>
+    </div>
+    <div class="clip-item">
+      <div class="clip-time">5:30</div>
+      <div class="clip-info">
+        <div class="clip-title">"We may have broken through a million members"</div>
+        <div class="clip-desc">28% YTD growth math reveals the million-member milestone</div>
+      </div>
+      <div class="clip-duration">~45s</div>
+    </div>
+    <div class="clip-item">
+      <div class="clip-time">6:50</div>
+      <div class="clip-info">
+        <div class="clip-title">ICHRA risk pools outperform carrier fears</div>
+        <div class="clip-desc">64% under 45, performing like OnX — the data carriers need to see</div>
+      </div>
+      <div class="clip-duration">~75s</div>
+    </div>
+    <div class="clip-item">
+      <div class="clip-time">10:15</div>
+      <div class="clip-info">
+        <div class="clip-title">"Enable all of you, compete with none"</div>
+        <div class="clip-desc">Mike's clearest articulation of HealthSherpa's ICHRA positioning</div>
+      </div>
+      <div class="clip-duration">~60s</div>
+    </div>
+    <div class="clip-item">
+      <div class="clip-time">22:13</div>
+      <div class="clip-info">
+        <div class="clip-title">EnrollConnect: the Stripe of ICHRA enrollment</div>
+        <div class="clip-desc">Julian walks through the API — one schema, every carrier</div>
+      </div>
+      <div class="clip-duration">~120s</div>
+    </div>
+    <div class="clip-item">
+      <div class="clip-time">36:00</div>
+      <div class="clip-info">
+        <div class="clip-title">The last mile payment problem</div>
+        <div class="clip-desc">Manual entry, timing fragmentation, 4% credit card fees — and the PayConnect solution</div>
+      </div>
+      <div class="clip-duration">~150s</div>
+    </div>
+    <div class="clip-item">
+      <div class="clip-time">38:30</div>
+      <div class="clip-info">
+        <div class="clip-title">"Carriers will stop accepting credit cards for ICHRA"</div>
+        <div class="clip-desc">Mike's hot take on the 3–5 year payment trajectory</div>
+      </div>
+      <div class="clip-duration">~45s</div>
+    </div>
+    <div class="clip-item">
+      <div class="clip-time">30:30</div>
+      <div class="clip-info">
+        <div class="clip-title">AI coding assistant builds a full integration in one prompt</div>
+        <div class="clip-desc">Julian on packaging the API as a skill for Cursor and Claude</div>
+      </div>
+      <div class="clip-duration">~60s</div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. PLATFORM PARTNER EMAIL -->
+<div class="asset-section" id="email">
+  <div class="asset-header">
+    <div class="asset-number">5</div>
+    <div class="asset-title">Platform Partner Email</div>
+  </div>
+  <div class="asset-desc">"In case you missed it" recap for attendees and no-shows.</div>
+  <div class="email-preview">
+    <div class="email-header">
+      <div class="email-field"><strong>From:</strong> Mike Levin &lt;mike@healthsherpa.com&gt;</div>
+      <div class="email-field"><strong>To:</strong> ICHRA Platform Partners</div>
+      <div class="email-field"><strong>Subject:</strong> Recap: 2026 ICHRA Roadmap — EnrollConnect, PayConnect, and Market Data</div>
+    </div>
+    <div class="email-body">
+      <p>Hi everyone,</p>
+      <p>Thank you to the 89 of you who joined Tuesday's roadmap webinar. For those who couldn't make it, here's the 2-minute version.</p>
+      <p><strong>Market update:</strong> We're estimating 400K–800K enrolled ICHRA members as of January 1. With 28% growth since then, we've likely crossed a million. The risk pool data is encouraging — ICHRA members skew younger and perform more like on-exchange than the broader off-exchange pool.</p>
+      <p><strong>What's launching:</strong></p>
+      <ul>
+        <li><strong>EnrollConnect (April 13)</strong> — Full programmatic enrollment API. One schema, every carrier. Build once, get all 65+ carriers.</li>
+        <li><strong>DeepLinks V2 (May)</strong> — Same canonical schema as EnrollConnect. Your migration path when you're ready.</li>
+        <li><strong>QuoteConnect</strong> — Available now. Shop by Doc coming this summer. Formulary search in 2027.</li>
+        <li><strong>PayConnect (late 2026)</strong> — ACH-only premium clearinghouse. Zero-touch payment entry. Complements Echo/Lynx.</li>
+        <li><strong>StatusConnect</strong> — Webhook-based policy lifecycle tracking. Payment status, effectuation, terminations.</li>
+      </ul>
+      <p><strong>Carrier expansion:</strong> Medical Mutual, Samford, Security, and CareSource of Wisconsin went live this week. On track for 65 carriers by OE27.</p>
+      <p><a href="#" class="email-cta">Watch the recording →</a></p>
+      <p>Julian and I are scheduling one-on-ones to walk you through EnrollConnect. Expect to hear from us this week.</p>
+      <p>— Mike</p>
+    </div>
+  </div>
+</div>
+
+<!-- 6. CARRIER-FACING VERSION -->
+<div class="asset-section" id="carrier">
+  <div class="asset-header">
+    <div class="asset-number">6</div>
+    <div class="asset-title">Carrier-Facing Version</div>
+  </div>
+  <div class="asset-desc">Same data, reframed for carrier sales VPs and product leaders.</div>
+  <div class="carrier-card">
+    <h3>ICHRA Is Outperforming Carrier Expectations. Here's the Proof.</h3>
+    <p>Data from HealthSherpa's horizontal view across <strong>40+ ICHRA administrator platforms</strong> shows a market that's both healthier and growing faster than most carrier projections assumed.</p>
+
+    <div class="carrier-stat-row">
+      <div class="carrier-stat">
+        <div class="carrier-stat-num">64%</div>
+        <div class="carrier-stat-label">ICHRA members under 45</div>
+      </div>
+      <div class="carrier-stat">
+        <div class="carrier-stat-num">~3X</div>
+        <div class="carrier-stat-label">Year-over-year growth</div>
+      </div>
+      <div class="carrier-stat">
+        <div class="carrier-stat-num">83%</div>
+        <div class="carrier-stat-label">Enrolled off-exchange</div>
+      </div>
+    </div>
+
+    <p><strong>Risk pool reality:</strong> Carriers that can segment their off-exchange base report that ICHRA risk performs more like on-exchange than the broader OFX pool. This directly counters the adverse selection concern that's kept many carriers on the sideline.</p>
+    <p><strong>Metal level signal:</strong> ICHRA members are buying up — enrolling in higher silver levels off-exchange than on-exchange, driven by lower rate increases and better value propositions without silver loading.</p>
+    <p><strong>The payment problem you already know about:</strong> Nearly 100% credit card adoption is costing carriers up to 4% in transaction fees on unsubsidized premiums. CMS won't allow convenience fees. HealthSherpa's PayConnect (late 2026) offers an ACH-only clearinghouse — bulk daily remittance with full reconciliation, insulating carriers from both credit card fees and ACH clawbacks.</p>
+    <p><strong>The infrastructure question:</strong> HealthSherpa now provides a single integration point to 40+ ICHRA platforms. For carriers, that's one integration instead of 40 — and it scales as the market scales.</p>
+  </div>
+</div>
+
+<!-- 7. LINKEDIN CAROUSEL -->
+<div class="asset-section" id="carousel">
+  <div class="asset-header">
+    <div class="asset-number">7</div>
+    <div class="asset-title">LinkedIn Carousel</div>
+  </div>
+  <div class="asset-desc">Swipeable data story — the key charts and insights as slides. Scroll horizontally →</div>
+  <div class="carousel-strip">
+    <div class="carousel-slide" style="background: linear-gradient(135deg, #074294, #0B8AD9);">
+      <div class="carousel-slide-num">1 / 8</div>
+      <div class="carousel-slide-eyebrow">2026 ICHRA Roadmap</div>
+      <h3>ICHRA just crossed<br>1 million members.</h3>
+      <p>Here's what the data says — and what it means for carriers, platforms, and brokers.</p>
+    </div>
+    <div class="carousel-slide" style="background: linear-gradient(135deg, #065F46, #10B981);">
+      <div class="carousel-slide-num">2 / 8</div>
+      <div class="carousel-big-num">3X</div>
+      <div class="carousel-slide-eyebrow">Growth</div>
+      <h3>The market grew 3X year-over-year.</h3>
+      <p>400K–800K enrolled members as of Jan 1. 28% more since. The trajectory is exponential.</p>
+    </div>
+    <div class="carousel-slide" style="background: linear-gradient(135deg, #7C2D12, #EA580C);">
+      <div class="carousel-slide-num">3 / 8</div>
+      <div class="carousel-big-num">64%</div>
+      <div class="carousel-slide-eyebrow">Risk Pools</div>
+      <h3>ICHRA members are younger than expected.</h3>
+      <p>64% under 45 vs. 58% for the broader ACA. The adverse selection narrative doesn't hold.</p>
+    </div>
+    <div class="carousel-slide" style="background: linear-gradient(135deg, #1E1B4B, #6366F1);">
+      <div class="carousel-slide-num">4 / 8</div>
+      <div class="carousel-big-num">83%</div>
+      <div class="carousel-slide-eyebrow">Off-Exchange</div>
+      <h3>ICHRA lives off-exchange.</h3>
+      <p>83% of enrollment is OFX. Members are buying higher metal levels than on-exchange — and finding better value.</p>
+    </div>
+    <div class="carousel-slide" style="background: linear-gradient(135deg, #0F172A, #334155);">
+      <div class="carousel-slide-num">5 / 8</div>
+      <div class="carousel-slide-eyebrow">Product</div>
+      <h3>EnrollConnect launches April 13.</h3>
+      <p>One API. One schema. Every carrier. Think Stripe for ICHRA enrollment. Build once, get 65+ carriers.</p>
+    </div>
+    <div class="carousel-slide" style="background: linear-gradient(135deg, #92400E, #D97706);">
+      <div class="carousel-slide-num">6 / 8</div>
+      <div class="carousel-big-num">4%</div>
+      <div class="carousel-slide-eyebrow">Payments</div>
+      <h3>Credit card fees are killing carrier margins.</h3>
+      <p>Nearly 100% CC adoption on unsubsidized $1K/mo premiums. CMS won't allow convenience fees. Something has to give.</p>
+    </div>
+    <div class="carousel-slide" style="background: linear-gradient(135deg, #074294, #0D61A6);">
+      <div class="carousel-slide-num">7 / 8</div>
+      <div class="carousel-slide-eyebrow">Infrastructure</div>
+      <h3>40+ platforms. 65 carriers. One integration.</h3>
+      <p>HealthSherpa is the many-to-one-to-many layer. No AOR. No cost. Enable all, compete with none.</p>
+    </div>
+    <div class="carousel-slide" style="background: linear-gradient(135deg, #0B1829, #162D50);">
+      <div class="carousel-slide-num">8 / 8</div>
+      <div class="carousel-slide-eyebrow">Follow</div>
+      <h3>The ICHRA ecosystem is moving fast.</h3>
+      <p>Follow ICHRAverse Weekly for market signals, analysis, and broker tools — the ICHRA industry's first dedicated publication.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <p>Generated by <a href="../preview/">ICHRAverse</a> Content Engine from the 2026 ICHRA Roadmap Webinar (March 29, 2026)</p>
+</div>
+
+</body>
+</html>

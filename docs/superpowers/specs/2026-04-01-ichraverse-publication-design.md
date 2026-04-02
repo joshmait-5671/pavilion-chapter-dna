@@ -30,10 +30,10 @@ Each issue lives at its own URL. The existing Content Hub page (`content-hub/ind
 
 ## Issue Structure (7 sections)
 
-### 1. Mike's Note
-**Purpose:** Brief editorial from Mike Levin (HealthSherpa CEO). Sets the week's frame.
+### 1. Editor's Note
+**Purpose:** Brief editorial perspective. Sets the week's frame.
 **Length:** 2-3 sentences.
-**Source:** Mike's LinkedIn posts + AI synthesis of the week's themes. Mike's time commitment = zero.
+**Source:** AI synthesis of the week's themes.
 **Tone:** Opinionated, forward-looking. Not a summary — a perspective.
 
 ### 2. TL;DR — This Week in 30 Seconds
@@ -150,7 +150,7 @@ Email notification to subscriber list via Resend
 
 **Human review gate:** Pipeline deploys each issue to a Netlify Deploy Preview (branch deploy). Josh gets a Slack/email notification with the preview URL. He clicks "approve" (merges the branch) to promote to production. Once confidence is established after ~4 weeks, can switch to auto-publish.
 
-**Mike's time commitment:** Zero. His LinkedIn posts are scraped for tone/perspective via HTML scrape (not LinkedIn API — avoids OAuth complexity). The "Mike's Note" is AI-generated in his voice based on his recent public posts. He can optionally review/edit, but the system runs without him.
+**Editorial voice:** The Editor's Note is AI-generated from the week's themes. No individual attribution needed — ICHRAverse speaks as a publication, not a person.
 
 ## Subscribe / Mailing List Strategy
 
@@ -161,16 +161,9 @@ Email notification to subscriber list via Resend
 - **Landing page** serves as archive of all past issues + subscribe CTA
 - **No email deliverability risk** — the publication lives on the web, email just pings subscribers
 
-## Mike Levin Review Plan
+## Review Plan
 
-Build a **guided overlay** on the prototype that walks Mike through the publication in 5 stops:
-1. Overall concept + positioning
-2. Issue structure + sections
-3. Content sourcing + automation
-4. Visual direction
-5. Next steps + timeline
-
-Each stop has: brief explanation, the actual content to review, and approve/comment/disapprove buttons. This replaces a slide deck and lets him interact with the real thing.
+ICHRAverse is broader than HealthSherpa — it's an independent industry publication. Share the v5 mockup and spec directly with stakeholders. No guided overlay needed; the prototype speaks for itself.
 
 ## Success Metrics
 

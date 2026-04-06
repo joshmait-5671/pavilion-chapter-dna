@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gary Miller — Mood Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #111;
+    font-family: 'DM Sans', sans-serif;
+    padding: 40px 32px;
+    color: #fff;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .sub {
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 36px;
+    letter-spacing: 0.5px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 12px;
+    max-width: 1100px;
+  }
+
+  .tile {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background: #222;
+  }
+
+  .tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.88);
+    transition: filter 0.3s;
+  }
+  .tile:hover img { filter: brightness(1); }
+
+  .tile .caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.82));
+    padding: 20px 14px 12px;
+  }
+  .tile .caption .tag {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #f5c842;
+    margin-bottom: 3px;
+  }
+  .tile .caption .label {
+    font-size: 12px;
+    color: #fff;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  /* SPAN VARIANTS */
+  .span-2 { grid-column: span 2; }
+  .tall { grid-row: span 2; }
+
+  /* TEXT TILES */
+  .text-tile {
+    border-radius: 10px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px;
+  }
+  .text-tile .quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.4;
+    color: #fff;
+  }
+  .text-tile .attribution {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 12px;
+  }
+
+  .tone-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 28px;
+    max-width: 1100px;
+  }
+  .tone-chip {
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #555;
+    margin: 28px 0 14px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Gary Miller — Mood</h1>
+<p class="sub">References for tone, feel, and visual direction. Not a brief — a vibe.</p>
+
+<div class="grid">
+
+  <!-- TILE 1: Big portrait — warm, human, real person energy -->
+  <div class="tile tall" style="min-height: 320px;">
+    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=500&q=80" alt="warm portrait" loading="lazy">
+    <div class="caption">
+      <div class="tag">Energy</div>
+      <div class="label">Real person. Not a headshot. Gary's face is the brand.</div>
+    </div>
+  </div>
+
+  <!-- TILE 2: Dog — Hazel energy -->
+  <div class="tile" style="min-height: 160px;">
+    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=500&q=80" alt="dog outdoors" loading="lazy">
+    <div class="caption">
+      <div class="tag">Hazel</div>
+      <div class="label">She's in the brand. Not a prop — a co-founder.</div>
+    </div>
+  </div>
+
+  <!-- TILE 3: Vermont — not a postcard -->
+  <div class="tile" style="min-height: 160px;">
+    <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=500&q=80" alt="vermont" loading="lazy">
+    <div class="caption">
+      <div class="tag">Vermont</div>
+      <div class="label">Not a postcard. Quiet, real, a little rough around the edges.</div>
+    </div>
+  </div>
+
+  <!-- TILE 4: Bold type — Liquid Death energy -->
+  <div class="text-tile span-2" style="background: #1a1a1a; border: 1px solid #2a2a2a; min-height: 160px;">
+    <div class="quote">"I have a metal rod in my leg and a dog named Hazel. I make your brand famous anyway."</div>
+    <div class="attribution">Copy direction — Gary's voice, unfiltered</div>
+  </div>
+
+  <!-- TILE 5: Filmmaker warmth — cinematic -->
+  <div class="tile span-2" style="min-height: 200px;">
+    <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=700&q=80" alt="filmmaking" loading="lazy">
+    <div class="caption">
+      <div class="tag">Cinematic Reference</div>
+      <div class="label">The work looks like this. Stories with light and texture — not stock footage energy.</div>
+    </div>
+  </div>
+
+  <!-- TILE 6: Small business owner — the customer -->
+  <div class="tile" style="min-height: 180px;">
+    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&q=80" alt="small business owner" loading="lazy">
+    <div class="caption">
+      <div class="tag">The Customer</div>
+      <div class="label">SMB founder. They don't have a marketing team. They have a story.</div>
+    </div>
+  </div>
+
+  <!-- TILE 7: Coffee shop — like the actual client -->
+  <div class="tile" style="min-height: 180px;">
+    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&q=80" alt="coffee shop" loading="lazy">
+    <div class="caption">
+      <div class="tag">Client Reference</div>
+      <div class="label">The coffee shop. Real place, real story. Gary found the Juan Valdez in it.</div>
+    </div>
+  </div>
+
+  <!-- TILE 8: Type mood — warm editorial -->
+  <div class="text-tile" style="background: #f2ede3; min-height: 180px;">
+    <div class="quote" style="color: #1c1c1c; font-size: 22px;">Your brand story,<br><em>told like a movie.</em></div>
+    <div class="attribution" style="color: #8b6f3a;">Headline direction — Fraunces serif, warm paper bg</div>
+  </div>
+
+  <!-- TILE 9: Color reference row placeholder -->
+  <div class="text-tile span-2" style="background: linear-gradient(135deg, #8b6f3a 0%, #c9a96e 35%, #f2ede3 65%, #1c1c1c 100%); min-height: 120px;">
+    <div class="quote" style="font-size: 14px; color: rgba(255,255,255,0.9); font-family: 'DM Sans'; font-style: normal; font-weight: 600;">Warm Paper Direction →</div>
+    <div class="attribution">Tobacco brown · Aged cream · Film black</div>
+  </div>
+
+  <div class="text-tile span-2" style="background: linear-gradient(135deg, #0f2318 0%, #2d6a45 50%, #4a9e6a 100%); min-height: 120px;">
+    <div class="quote" style="font-size: 14px; color: rgba(255,255,255,0.9); font-family: 'DM Sans'; font-style: normal; font-weight: 600;">Vermont Green Direction →</div>
+    <div class="attribution">Forest night · Vermont green · Sage light</div>
+  </div>
+
+</div>
+
+<p class="section-label">Tone words</p>
+<div class="tone-row">
+  <div class="tone-chip" style="background:#f5c842;color:#111;">Warm</div>
+  <div class="tone-chip" style="background:#2d6a45;color:#fff;">Real</div>
+  <div class="tone-chip" style="background:#8b6f3a;color:#fff;">Cinematic</div>
+  <div class="tone-chip" style="background:#222;color:#fff;border:1px solid #444;">Weird (the good kind)</div>
+  <div class="tone-chip" style="background:#ff4d2e;color:#fff;">Direct</div>
+  <div class="tone-chip" style="background:#f2ede3;color:#333;">Human</div>
+  <div class="tone-chip" style="background:#1c1c1c;color:#fff;border:1px solid #333;">Not an agency</div>
+</div>
+
+</body>
+</html>

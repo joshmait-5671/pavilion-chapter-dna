@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gary Miller — Visual Direction</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Fraunces:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; font-family: 'DM Sans', sans-serif; padding: 40px 20px; }
+
+  .question {
+    text-align: center;
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.6;
+  }
+  .subq {
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 48px;
+    opacity: 0.85;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+
+  .options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto 48px;
+  }
+
+  .option {
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    outline: 3px solid transparent;
+  }
+  .option:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .option.selected { outline: 3px solid #f5c842; }
+
+  .mockup { width: 100%; }
+  .label-bar {
+    padding: 16px 20px;
+    background: #2a2a2a;
+  }
+  .label-bar h3 { color: #fff; font-size: 15px; margin-bottom: 4px; }
+  .label-bar p { color: #999; font-size: 12px; line-height: 1.5; }
+
+  /* ===== OPTION A: NEIGHBORHOOD FILMMAKER ===== */
+  .option-a .mockup {
+    background: #f2ede3;
+    padding: 32px 28px;
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .option-a .film-strip {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 18px;
+    background: repeating-linear-gradient(90deg, #2c2c2c 0px, #2c2c2c 20px, #f2ede3 20px, #f2ede3 30px);
+  }
+  .option-a .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #8b6f3a;
+    margin-top: 8px;
+  }
+  .option-a .headline {
+    font-family: 'Fraunces', serif;
+    font-size: 34px;
+    line-height: 1.1;
+    color: #1c1c1c;
+    font-weight: 700;
+  }
+  .option-a .headline em {
+    font-style: italic;
+    color: #8b6f3a;
+  }
+  .option-a .body {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+  }
+  .option-a .gary-tag {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+  }
+  .option-a .avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c9a96e, #8b6f3a);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .option-a .gary-info { font-size: 12px; color: #555; line-height: 1.4; }
+  .option-a .gary-info strong { color: #1c1c1c; font-size: 13px; }
+  .option-a .cta {
+    display: inline-block;
+    background: #1c1c1c;
+    color: #f2ede3;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    width: fit-content;
+  }
+  .option-a .price-badge {
+    position: absolute;
+    top: 28px; right: 20px;
+    background: #8b6f3a;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* ===== OPTION B: HAZEL LEADS ===== */
+  .option-b .mockup {
+    background: #0f2318;
+    padding: 0;
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .option-b .hero-zone {
+    background: linear-gradient(160deg, #1a3d28 0%, #0f2318 60%);
+    padding: 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+  }
+  .option-b .dog-stamp {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: #2d6a45;
+    border: 3px solid #4a9e6a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .option-b .tag {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #4a9e6a;
+  }
+  .option-b .headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    line-height: 1.15;
+    color: #f0f0e8;
+    font-weight: 900;
+    max-width: 200px;
+  }
+  .option-b .body {
+    font-size: 12px;
+    color: #7ab892;
+    line-height: 1.7;
+  }
+  .option-b .bottom-bar {
+    background: #4a9e6a;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .option-b .bottom-bar .price {
+    color: #0f2318;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .option-b .bottom-bar .cta {
+    background: #0f2318;
+    color: #4a9e6a;
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .option-b .weird-line {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: #4a9e6a;
+    margin-top: auto;
+  }
+
+  /* ===== OPTION C: STRAIGHT TALK ===== */
+  .option-c .mockup {
+    background: #fff;
+    padding: 0;
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
+  }
+  .option-c .top-bar {
+    background: #ff4d2e;
+    padding: 10px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .option-c .top-bar .name {
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .option-c .top-bar .hazel {
+    color: rgba(255,255,255,0.8);
+    font-size: 11px;
+  }
+  .option-c .hero {
+    padding: 28px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .option-c .headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    line-height: 1.2;
+    color: #1a1a1a;
+    font-weight: 900;
+  }
+  .option-c .headline span {
+    background: #ff4d2e;
+    color: #fff;
+    padding: 0 4px;
+    border-radius: 3px;
+  }
+  .option-c .body {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.7;
+  }
+  .option-c .gary-line {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+    border-left: 3px solid #ff4d2e;
+    padding-left: 12px;
+    line-height: 1.5;
+    margin-top: auto;
+  }
+  .option-c .cta-row {
+    background: #ff4d2e;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .option-c .cta-row .price {
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .option-c .cta-row .btn {
+    background: #fff;
+    color: #ff4d2e;
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .selection-hint {
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="question">Visual Direction</div>
+<div class="subq">Which one feels like Gary Miller?</div>
+
+<div class="options">
+
+  <!-- OPTION A -->
+  <div class="option option-a" onclick="this.classList.toggle('selected')">
+    <div class="mockup">
+      <div class="film-strip"></div>
+      <div class="eyebrow">Gary Miller — Manchester, VT</div>
+      <div class="headline">Your brand story,<br><em>told like a movie.</em></div>
+      <div class="body">Two 60-second films a month.<br>A form, not a meeting. Delivered in 48 hours.</div>
+      <div class="price-badge">$299/mo</div>
+      <div class="gary-tag">
+        <div class="avatar">🐕</div>
+        <div class="gary-info">
+          <strong>Gary + Hazel</strong><br>
+          Black sheep. Great stories.
+        </div>
+      </div>
+      <div class="cta">Tell me your story →</div>
+    </div>
+    <div class="label-bar">
+      <h3>A — Warm Paper</h3>
+      <p>Cream background, film-strip detail, Fraunces serif. Handcrafted and warm. Feels like a creative you'd actually want to hire. Gary and Hazel are present but the work leads.</p>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="option option-b" onclick="this.classList.toggle('selected')">
+    <div class="mockup">
+      <div class="hero-zone">
+        <div class="dog-stamp">🐕</div>
+        <div class="tag">Gary Miller Films — Vermont</div>
+        <div class="headline">Stories that make people stop scrolling.</div>
+        <div class="body">Two brand films a month. One about who you are. One about what you sell. Gary makes them. Hazel approves them.</div>
+        <div class="weird-line">"I used to help people buy cars.<br>Now I help them sell themselves."</div>
+      </div>
+      <div class="bottom-bar">
+        <div class="price">$299 / month</div>
+        <div class="cta">Get started →</div>
+      </div>
+    </div>
+    <div class="label-bar">
+      <h3>B — Vermont Green</h3>
+      <p>Deep forest green, Hazel gets the stamp of approval literally. Gary's car-business line in the hero. Warm but a little unexpected — not what you think a video business looks like.</p>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="option option-c" onclick="this.classList.toggle('selected')">
+    <div class="mockup">
+      <div class="top-bar">
+        <div class="name">Gary Miller</div>
+        <div class="hazel">& Hazel 🐕</div>
+      </div>
+      <div class="hero">
+        <div class="headline">The <span>weird guy</span> from Vermont<br>who makes your brand famous.</div>
+        <div class="body">AI-generated brand films. Two a month. $299. Fill out a form and get your story back in 48 hours. No agencies. No calls. Just Gary.</div>
+        <div class="gary-line">"I have a metal rod in my leg, a dog named Hazel, and I've been telling stories my whole life. This is the first time someone's paying me for it."</div>
+      </div>
+      <div class="cta-row">
+        <div class="price">$299/month · 2 films</div>
+        <div class="btn">Tell my story →</div>
+      </div>
+    </div>
+    <div class="label-bar">
+      <h3>C — Red & Raw</h3>
+      <p>Tomato red accent, Gary's actual voice in the copy including the metal rod line. Leans all the way into the character. Disarming, funny, confident. Could repel the wrong clients — which is the point.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="selection-hint">Click to select · Click again to deselect</div>
+
+<script>
+document.querySelectorAll('.option').forEach(el => {
+  el.addEventListener('click', () => {
+    const choice = el.classList.contains('option-a') ? 'A' : el.classList.contains('option-b') ? 'B' : 'C';
+    const selected = el.classList.contains('selected');
+    if (window.parent && window.parent.postMessage) {
+      window.parent.postMessage({type:'choice', choice, selected}, '*');
+    }
+  });
+});
+</script>
+</body>
+</html>

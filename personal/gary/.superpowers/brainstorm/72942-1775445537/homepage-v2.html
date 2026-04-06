@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gary Miller Films</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=DM+Sans:wght@400;500;600;700;800&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --cream: #f2ede3;
+  --cream2: #ede5d3;
+  --brown: #8b6f3a;
+  --gold: #c9a96e;
+  --ink: #1a1508;
+  --ink2: #4a3f2a;
+  --black: #0f0e0b;
+  --red: #d4432a;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+/* ─── FILM STRIP ─── */
+.film-strip {
+  background: var(--black);
+  height: 28px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.film-run {
+  display: flex;
+  gap: 24px;
+  padding: 0 12px;
+  animation: filmroll 10s linear infinite;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.film-run span {
+  display: inline-block;
+  width: 14px; height: 14px;
+  background: var(--cream);
+  border-radius: 3px;
+  opacity: 0.25;
+  flex-shrink: 0;
+}
+@keyframes filmroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ─── NAV ─── */
+nav {
+  padding: 18px 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1.5px solid rgba(139,111,58,0.18);
+  background: var(--cream);
+  position: sticky; top: 0; z-index: 100;
+}
+.logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo em { font-style: italic; color: var(--brown); }
+.logo .hazel-badge {
+  font-family: 'Caveat', cursive;
+  font-size: 13px;
+  color: var(--brown);
+  font-weight: 700;
+  background: rgba(139,111,58,0.1);
+  padding: 2px 10px;
+  border-radius: 100px;
+}
+.nav-cta {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 11px 26px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--brown); transform: translateY(-1px); }
+
+/* ─── HERO ─── */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  min-height: 88vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-left {
+  padding: 64px 52px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* GIANT STACKED TYPE */
+.stack-type {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 0.92;
+  margin-bottom: 36px;
+}
+.t-outline {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(72px, 9vw, 118px);
+  color: transparent;
+  -webkit-text-stroke: 2.5px var(--ink);
+  letter-spacing: -2px;
+  text-transform: uppercase;
+}
+.t-filled {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(72px, 9vw, 118px);
+  color: var(--ink);
+  letter-spacing: -2px;
+  text-transform: uppercase;
+}
+.t-italic {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(60px, 7vw, 96px);
+  color: var(--brown);
+  letter-spacing: -2px;
+}
+.t-small {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(20px, 2.2vw, 30px);
+  color: var(--ink2);
+  font-weight: 400;
+  margin-top: 6px;
+  letter-spacing: -0.5px;
+}
+
+.hero-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink2);
+  max-width: 440px;
+  margin-bottom: 28px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.btn-hero {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 16px 34px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-hero:hover { background: var(--brown); transform: translateY(-2px); }
+.hero-price {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  color: var(--brown);
+  font-weight: 700;
+}
+
+/* HAZEL ZONE */
+.hazel-strip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+  padding: 18px 20px;
+  background: rgba(139,111,58,0.08);
+  border-radius: 16px;
+  border: 1.5px dashed rgba(139,111,58,0.3);
+  max-width: 440px;
+}
+.hazel-svg-wrap {
+  flex-shrink: 0;
+  animation: hazelbounce 2.8s ease-in-out infinite;
+}
+@keyframes hazelbounce {
+  0%,100% { transform: translateY(0) rotate(-3deg); }
+  40% { transform: translateY(-8px) rotate(2deg); }
+  70% { transform: translateY(-4px) rotate(-1deg); }
+}
+.hazel-words {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink2);
+}
+.hazel-words strong {
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  color: var(--brown);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* HERO RIGHT */
+.hero-right {
+  position: relative;
+  background: var(--cream2);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.gary-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: sepia(18%) contrast(1.08) brightness(0.93);
+  display: block;
+}
+/* Film frame corners */
+.corner { position: absolute; width: 32px; height: 32px; border-color: var(--gold); border-style: solid; opacity: 0.7; }
+.c-tl { top: 20px; left: 20px; border-width: 2.5px 0 0 2.5px; }
+.c-tr { top: 20px; right: 20px; border-width: 2.5px 2.5px 0 0; }
+.c-bl { bottom: 20px; left: 20px; border-width: 0 0 2.5px 2.5px; }
+.c-br { bottom: 20px; right: 20px; border-width: 0 2.5px 2.5px 0; }
+
+/* Clapperboard illustration */
+.clapper {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  opacity: 0.85;
+}
+
+/* Decorative rotated text */
+.hero-side-text {
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: rgba(139,111,58,0.5);
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+/* Gradient blend left edge */
+.hero-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--cream) 0%, transparent 18%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ─── MARQUEE ─── */
+.marquee {
+  background: var(--brown);
+  padding: 14px 0;
+  overflow: hidden;
+}
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: marq 22s linear infinite;
+  white-space: nowrap;
+}
+.marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 28px;
+  flex-shrink: 0;
+  color: var(--cream);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.marquee-item .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.marquee-item em {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 15px;
+}
+@keyframes marq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ─── WORK SECTION ─── */
+.section-work {
+  padding: 96px 52px;
+  background: var(--cream);
+}
+.section-eyebrow {
+  font-size: 11px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--brown);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.section-h {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(34px, 4.5vw, 58px);
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1.05;
+  max-width: 640px;
+  margin-bottom: 52px;
+}
+.section-h em { font-style: italic; color: var(--brown); }
+
+.video-wrap {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  align-items: start;
+  max-width: 1000px;
+}
+.video-card {
+  background: var(--black);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+.video-thumb {
+  width: 100%; aspect-ratio: 16/9; object-fit: cover;
+  display: block;
+  filter: sepia(25%) contrast(1.1) brightness(0.88);
+}
+.play-btn {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+  transition: all 0.2s;
+}
+.play-btn:hover { transform: translate(-50%,-50%) scale(1.1); background: var(--gold); }
+.play-btn svg { margin-left: 5px; }
+.video-meta {
+  padding: 18px 24px;
+  color: rgba(242,237,227,0.55);
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+}
+.video-meta strong { color: var(--gold); font-style: normal; font-family: 'DM Sans'; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 6px; }
+
+/* GARY QUOTE CARD */
+.gary-quote-card {
+  background: var(--cream2);
+  border-radius: 20px;
+  padding: 36px 28px;
+  border: 1.5px solid rgba(139,111,58,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.gary-quote-card .photo-wrap {
+  position: relative;
+  display: inline-flex;
+}
+.gary-quote-card img {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--gold);
+  filter: sepia(15%);
+}
+.gary-quote-card .film-stamp {
+  position: absolute;
+  bottom: -4px; right: -4px;
+  background: var(--ink);
+  border-radius: 50%;
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+}
+.gary-quote-card blockquote {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--ink);
+  font-weight: 400;
+}
+.gary-quote-card blockquote strong { font-style: normal; color: var(--brown); font-weight: 900; }
+.gary-name {
+  font-size: 13px;
+  color: var(--ink2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.gary-name strong { color: var(--ink); font-size: 15px; }
+
+/* ─── TWO FILMS ─── */
+.section-films {
+  background: var(--black);
+  padding: 96px 52px;
+}
+.section-films .section-eyebrow { color: var(--gold); }
+.section-films .section-h { color: var(--cream); max-width: 780px; }
+.films-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 900px;
+  margin-top: 56px;
+}
+.film-card {
+  border-radius: 20px;
+  padding: 40px 34px;
+  position: relative;
+  overflow: hidden;
+}
+.film-card.card-1 { background: #1f1a10; border: 1px solid rgba(201,169,110,0.25); }
+.film-card.card-2 { background: #0f1a14; border: 1px solid rgba(74,158,106,0.2); }
+.film-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.card-1::before { background: var(--gold); }
+.card-2::before { background: #4a9e6a; }
+
+.film-num {
+  font-family: 'Fraunces', serif;
+  font-size: 120px;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+  position: absolute;
+  top: 10px; right: 16px;
+  opacity: 0.07;
+  color: var(--cream);
+}
+.film-tag {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.card-1 .film-tag { color: var(--gold); }
+.card-2 .film-tag { color: #4a9e6a; }
+.film-title {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--cream);
+  margin-bottom: 14px;
+  line-height: 1.15;
+}
+.film-desc {
+  font-size: 14px;
+  color: rgba(242,237,227,0.55);
+  line-height: 1.75;
+}
+.film-pull {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  font-family: 'Caveat', cursive;
+  font-size: 17px;
+  font-weight: 700;
+}
+.card-1 .film-pull { color: var(--gold); }
+.card-2 .film-pull { color: #4a9e6a; }
+
+/* HAZEL STAMP */
+.hazel-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 48px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  padding: 12px 24px 12px 14px;
+}
+.hazel-stamp svg { flex-shrink: 0; }
+.hazel-stamp span {
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* ─── GARY BIO ─── */
+.section-gary {
+  padding: 96px 52px;
+  background: var(--cream2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.gary-bio-img {
+  position: relative;
+}
+.gary-bio-img img {
+  width: 100%;
+  border-radius: 24px;
+  object-fit: cover;
+  aspect-ratio: 3/4;
+  display: block;
+  filter: sepia(20%) contrast(1.05);
+}
+.gary-bio-img .film-box {
+  position: absolute;
+  top: -16px; right: -16px;
+  background: var(--ink);
+  border-radius: 16px;
+  padding: 16px;
+}
+.gary-bio-img .vt-tag {
+  position: absolute;
+  bottom: 20px; left: 20px;
+  background: rgba(242,237,227,0.92);
+  backdrop-filter: blur(8px);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gary-bio-text {}
+.gary-bio-text .section-eyebrow { margin-bottom: 14px; }
+.gary-bio-text h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 28px;
+  color: var(--ink);
+}
+.gary-bio-text h2 em { font-style: italic; color: var(--brown); }
+.gary-bio-text p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--ink2);
+  margin-bottom: 16px;
+}
+.gary-bio-text p strong { color: var(--ink); }
+
+.hazel-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 16px 20px;
+  background: rgba(139,111,58,0.08);
+  border-radius: 14px;
+  border-left: 4px solid var(--brown);
+}
+.hazel-inline .hazel-mini {
+  flex-shrink: 0;
+  animation: hazelbounce 2.8s ease-in-out infinite;
+}
+.hazel-inline p {
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--brown);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ─── HOW IT WORKS ─── */
+.section-how {
+  padding: 96px 52px;
+  background: var(--cream);
+}
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 900px;
+  margin-top: 56px;
+}
+.step {
+  padding: 36px 28px;
+  background: var(--cream2);
+  border-radius: 20px;
+  border: 1.5px solid rgba(139,111,58,0.15);
+  position: relative;
+}
+.step-icon {
+  margin-bottom: 20px;
+}
+.step-n {
+  font-family: 'Fraunces', serif;
+  font-size: 56px;
+  font-style: italic;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.step h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.step p {
+  font-size: 14px;
+  color: var(--ink2);
+  line-height: 1.7;
+}
+.step .step-aside {
+  margin-top: 12px;
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  color: var(--brown);
+  font-weight: 700;
+}
+.step-arrow {
+  position: absolute;
+  right: -28px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-size: 22px;
+  z-index: 2;
+}
+
+/* ─── CTA ─── */
+.section-cta {
+  background: var(--ink);
+  padding: 96px 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+.cta-h {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(40px, 5.5vw, 72px);
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1.0;
+  max-width: 760px;
+}
+.cta-h em { font-style: italic; color: var(--gold); }
+.cta-row {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.btn-cta {
+  background: var(--gold);
+  color: var(--ink);
+  padding: 18px 40px;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-cta:hover { background: var(--cream); transform: translateY(-3px); }
+.cta-detail {
+  color: rgba(242,237,227,0.45);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.cta-detail strong { color: rgba(242,237,227,0.85); display: block; font-size: 16px; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--black);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 24px 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.foot-left {
+  display: flex; align-items: center; gap: 12px;
+}
+.foot-hazel {
+  animation: hazelbounce 2.8s ease-in-out infinite;
+}
+.foot-name {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(242,237,227,0.5);
+}
+.foot-right {
+  font-size: 12px;
+  color: rgba(242,237,227,0.25);
+}
+</style>
+</head>
+<body>
+
+<!-- FILM STRIP -->
+<div class="film-strip">
+  <div class="film-run">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    Gary <em>Miller</em>
+    <div class="hazel-badge">🐾 Hazel-approved</div>
+  </div>
+  <a href="#tell-my-story" class="nav-cta">Tell my story →</a>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-left">
+
+    <div class="stack-type">
+      <div class="t-outline">YOUR</div>
+      <div class="t-filled">BRAND</div>
+      <div class="t-italic">story,</div>
+      <div class="t-small">told like a movie.</div>
+    </div>
+
+    <p class="hero-body">
+      I'm Gary Miller. I make 60-second brand films for small businesses who have a real story and no idea how to tell it. <strong>Fill out a form.</strong> Get your films back in 48 hours. No calls. No agency. Just Gary — and Hazel.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#tell-my-story" class="btn-hero">Tell my story →</a>
+      <div class="hero-price">$299/month · 2 films</div>
+    </div>
+
+    <!-- HAZEL -->
+    <div class="hazel-strip">
+      <div class="hazel-svg-wrap">
+        <!-- HAZEL SVG — lab-poodle mix, looks lab -->
+        <svg width="72" height="62" viewBox="0 0 140 115" xmlns="http://www.w3.org/2000/svg">
+          <!-- Tail -->
+          <path d="M28 70 Q4 50 12 28" stroke="#c9933a" stroke-width="13" fill="none" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" values="0 20 65; 18 20 65; 0 20 65; -8 20 65; 0 20 65" dur="1.2s" repeatCount="indefinite"/>
+          </path>
+          <!-- Body -->
+          <ellipse cx="68" cy="80" rx="36" ry="26" fill="#d9a93e"/>
+          <!-- Neck -->
+          <ellipse cx="97" cy="62" rx="14" ry="16" fill="#d9a93e"/>
+          <!-- Head -->
+          <ellipse cx="105" cy="44" rx="22" ry="20" fill="#d9a93e"/>
+          <!-- Muzzle -->
+          <ellipse cx="120" cy="52" rx="12" ry="9" fill="#e8c06a"/>
+          <!-- Left ear (floppy) -->
+          <ellipse cx="87" cy="54" rx="9" ry="16" fill="#b8832a" transform="rotate(-18 87 54)"/>
+          <!-- Right ear -->
+          <ellipse cx="122" cy="36" rx="9" ry="15" fill="#b8832a" transform="rotate(15 122 36)"/>
+          <!-- Eye -->
+          <circle cx="108" cy="40" r="5.5" fill="#2a1600"/>
+          <circle cx="110" cy="38" r="2" fill="white" opacity="0.9"/>
+          <!-- Eyebrow -->
+          <path d="M103 35 Q108 32 114 34" stroke="#8a5a10" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- Nose -->
+          <ellipse cx="126" cy="50" rx="6.5" ry="5" fill="#2a1600"/>
+          <!-- Tongue -->
+          <ellipse cx="126" cy="60" rx="5" ry="6" fill="#e06070">
+            <animate attributeName="ry" values="6;7;6;5;6" dur="2s" repeatCount="indefinite"/>
+          </ellipse>
+          <!-- Front legs -->
+          <rect x="44" y="96" width="13" height="18" rx="6" fill="#d9a93e"/>
+          <rect x="65" y="96" width="13" height="18" rx="6" fill="#d9a93e"/>
+          <!-- Back leg -->
+          <rect x="85" y="96" width="13" height="18" rx="6" fill="#c89030"/>
+          <!-- Chest lighter -->
+          <ellipse cx="67" cy="72" rx="16" ry="13" fill="#e8c06a" opacity="0.55"/>
+        </svg>
+      </div>
+      <div class="hazel-words">
+        <strong>Hazel, Director of Quality 🐾</strong>
+        Lab-poodle mix. Looks like a lab. Judges every film before delivery. Has never approved anything bad. Has also never opened a door.
+      </div>
+    </div>
+  </div>
+
+  <!-- GARY PHOTO -->
+  <div class="hero-right">
+    <img
+      src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=900&q=85"
+      alt="Gary Miller"
+      class="gary-photo"
+    >
+    <!-- Film frame corners -->
+    <div class="corner c-tl"></div>
+    <div class="corner c-tr"></div>
+    <div class="corner c-bl"></div>
+    <div class="corner c-br"></div>
+    <!-- Clapperboard -->
+    <div class="clapper" style="position:absolute;top:28px;right:28px;z-index:3;">
+      <svg width="64" height="52" viewBox="0 0 80 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="18" width="76" height="44" rx="4" fill="#1a1508"/>
+        <rect x="2" y="18" width="76" height="14" rx="4" fill="#f2ede3"/>
+        <!-- Clapper stripes -->
+        <rect x="12" y="18" width="8" height="14" fill="#1a1508"/>
+        <rect x="28" y="18" width="8" height="14" fill="#1a1508"/>
+        <rect x="44" y="18" width="8" height="14" fill="#1a1508"/>
+        <rect x="60" y="18" width="8" height="14" fill="#1a1508"/>
+        <!-- Clapper arm -->
+        <rect x="2" y="4" width="72" height="16" rx="3" fill="#f2ede3" transform="rotate(-12 2 4)"/>
+        <!-- Arm stripes -->
+        <rect x="14" y="1" width="8" height="16" rx="1" fill="#1a1508" transform="rotate(-12 14 1)"/>
+        <rect x="30" y="-2" width="8" height="16" rx="1" fill="#1a1508" transform="rotate(-12 30 -2)"/>
+        <rect x="46" y="-5" width="8" height="16" rx="1" fill="#1a1508" transform="rotate(-12 46 -5)"/>
+        <!-- Text -->
+        <text x="10" y="54" fill="#c9a96e" font-family="monospace" font-size="8" font-weight="bold">GARY MILLER FILMS</text>
+      </svg>
+    </div>
+    <div class="hero-side-text">Manchester · Vermont · Est. Now</div>
+  </div>
+</section>
+
+<!-- ══════════════ MARQUEE ══════════════ -->
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="dot"></span> <em>48-hour delivery</em></div>
+    <div class="marquee-item"><span class="dot"></span> Fill a form, not a meeting</div>
+    <div class="marquee-item"><span class="dot"></span> <em>Hazel-approved</em> 🐾</div>
+    <div class="marquee-item"><span class="dot"></span> Two films a month</div>
+    <div class="marquee-item"><span class="dot"></span> <em>Manchester, Vermont</em></div>
+    <div class="marquee-item"><span class="dot"></span> Not an agency</div>
+    <div class="marquee-item"><span class="dot"></span> <em>Your brand. Like a movie.</em></div>
+    <div class="marquee-item"><span class="dot"></span> $299/month</div>
+    <div class="marquee-item"><span class="dot"></span> <em>48-hour delivery</em></div>
+    <div class="marquee-item"><span class="dot"></span> Fill a form, not a meeting</div>
+    <div class="marquee-item"><span class="dot"></span> <em>Hazel-approved</em> 🐾</div>
+    <div class="marquee-item"><span class="dot"></span> Two films a month</div>
+    <div class="marquee-item"><span class="dot"></span> <em>Manchester, Vermont</em></div>
+    <div class="marquee-item"><span class="dot"></span> Not an agency</div>
+    <div class="marquee-item"><span class="dot"></span> <em>Your brand. Like a movie.</em></div>
+    <div class="marquee-item"><span class="dot"></span> $299/month</div>
+  </div>
+</div>
+
+<!-- ══════════════ THE WORK ══════════════ -->
+<section class="section-work">
+  <div class="section-eyebrow">The Work</div>
+  <h2 class="section-h">Watch what I made for a coffee shop <em>down the road.</em></h2>
+
+  <div class="video-wrap">
+    <div class="video-card">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700&q=85" class="video-thumb" alt="Coffee film">
+      <div class="play-btn">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <path d="M8 5l11 7-11 7V5z" fill="#1a1508"/>
+        </svg>
+      </div>
+      <div class="video-meta">
+        <strong>Manchester Cat Coffee — Brand Film</strong>
+        She reminded me of Juan Valdez — sniffing the beans in a Colombian field. So that's how I opened it. Then I cut to her kitchen and let her talk. That's the whole trick.
+      </div>
+    </div>
+
+    <div class="gary-quote-card">
+      <div class="photo-wrap">
+        <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=200&q=80" alt="Gary">
+        <div class="film-stamp">🎬</div>
+      </div>
+      <blockquote>
+        "I used to help people buy cars they were afraid to go get themselves. <strong>Now I help them tell stories</strong> they didn't know they had."
+      </blockquote>
+      <div class="gary-name">
+        <strong>Gary Miller</strong>
+        Manchester, Vermont · Metal rod in one leg · Dog named Hazel
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ TWO FILMS ══════════════ -->
+<section class="section-films">
+  <div class="section-eyebrow">What You Get</div>
+  <h2 class="section-h">Every month. <em>Two films.</em><br>One about who you are.<br>One about what you sell.</h2>
+
+  <div class="films-grid">
+    <div class="film-card card-1">
+      <div class="film-num">01</div>
+      <div class="film-tag">Film One</div>
+      <div class="film-title">The Origin</div>
+      <div class="film-desc">The big story. Who you are, why you exist, what you believe. Cinematic. Emotional. The kind of thing people share because it moved them. No product pitch — just the myth behind the brand.</div>
+      <div class="film-pull">→ "She reminded me of Juan Valdez..."</div>
+    </div>
+
+    <div class="film-card card-2">
+      <div class="film-num">02</div>
+      <div class="film-tag">Film Two</div>
+      <div class="film-title">The Shelf</div>
+      <div class="film-desc">The product story. What you sell, why it's different, why someone should reach for yours over everything else. Still Gary's style — not a commercial. A short film about the thing itself.</div>
+      <div class="film-pull">→ "Here's the thing that backs it all up..."</div>
+    </div>
+  </div>
+
+  <!-- HAZEL STAMP -->
+  <div class="hazel-stamp">
+    <svg width="44" height="38" viewBox="0 0 140 115" xmlns="http://www.w3.org/2000/svg">
+      <path d="M28 70 Q4 50 12 28" stroke="#c9933a" stroke-width="13" fill="none" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="rotate" values="0 20 65; 18 20 65; 0 20 65; -8 20 65; 0 20 65" dur="1.2s" repeatCount="indefinite"/>
+      </path>
+      <ellipse cx="68" cy="80" rx="36" ry="26" fill="#d9a93e"/>
+      <ellipse cx="97" cy="62" rx="14" ry="16" fill="#d9a93e"/>
+      <ellipse cx="105" cy="44" rx="22" ry="20" fill="#d9a93e"/>
+      <ellipse cx="120" cy="52" rx="12" ry="9" fill="#e8c06a"/>
+      <ellipse cx="87" cy="54" rx="9" ry="16" fill="#b8832a" transform="rotate(-18 87 54)"/>
+      <ellipse cx="122" cy="36" rx="9" ry="15" fill="#b8832a" transform="rotate(15 122 36)"/>
+      <circle cx="108" cy="40" r="5.5" fill="#2a1600"/>
+      <circle cx="110" cy="38" r="2" fill="white" opacity="0.9"/>
+      <ellipse cx="126" cy="50" rx="6.5" ry="5" fill="#2a1600"/>
+      <ellipse cx="126" cy="60" rx="5" ry="6" fill="#e06070"/>
+      <rect x="44" y="96" width="13" height="18" rx="6" fill="#d9a93e"/>
+      <rect x="65" y="96" width="13" height="18" rx="6" fill="#d9a93e"/>
+    </svg>
+    <span>Hazel has approved every film we've ever made. Her standards are unreasonable. She's worth it.</span>
+  </div>
+</section>
+
+<!-- ══════════════ GARY BIO ══════════════ -->
+<section class="section-gary">
+  <div class="gary-bio-img">
+    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=85" alt="Gary Miller">
+    <div class="film-box">
+      <!-- Film reel SVG -->
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="16" stroke="#c9a96e" stroke-width="2"/>
+        <circle cx="18" cy="18" r="6" fill="#c9a96e"/>
+        <circle cx="18" cy="7" r="3" fill="#c9a96e"/>
+        <circle cx="18" cy="29" r="3" fill="#c9a96e"/>
+        <circle cx="7" cy="18" r="3" fill="#c9a96e"/>
+        <circle cx="29" cy="18" r="3" fill="#c9a96e"/>
+        <circle cx="10" cy="10" r="3" fill="#c9a96e"/>
+        <circle cx="26" cy="26" r="3" fill="#c9a96e"/>
+        <circle cx="26" cy="10" r="3" fill="#c9a96e"/>
+        <circle cx="10" cy="26" r="3" fill="#c9a96e"/>
+      </svg>
+    </div>
+    <div class="vt-tag">
+      📍 Manchester, Vermont
+    </div>
+  </div>
+
+  <div class="gary-bio-text">
+    <div class="section-eyebrow">Who Is This Guy</div>
+    <h2>The black sheep.<br><em>The best storyteller in the room.</em></h2>
+    <p>
+      I spent years helping people buy cars they were too intimidated to go get themselves. I figured out the story, built the trust, made the deal feel human. <strong>I've been doing the same thing for brands ever since — I just use AI tools and a camera now instead of a showroom floor.</strong>
+    </p>
+    <p>
+      I live in Vermont. I have a metal rod in my leg from a old accident. I show up places when you least expect it. My dog Hazel is better at this than I am — she just can't work the software.
+    </p>
+
+    <div class="hazel-inline">
+      <div class="hazel-mini">
+        <svg width="52" height="44" viewBox="0 0 140 115" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 70 Q4 50 12 28" stroke="#c9933a" stroke-width="13" fill="none" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" values="0 20 65; 18 20 65; 0 20 65; -8 20 65; 0 20 65" dur="1.2s" repeatCount="indefinite"/>
+          </path>
+          <ellipse cx="68" cy="80" rx="36" ry="26" fill="#d9a93e"/>
+          <ellipse cx="97" cy="62" rx="14" ry="16" fill="#d9a93e"/>
+          <ellipse cx="105" cy="44" rx="22" ry="20" fill="#d9a93e"/>
+          <ellipse cx="120" cy="52" rx="12" ry="9" fill="#e8c06a"/>
+          <ellipse cx="87" cy="54" rx="9" ry="16" fill="#b8832a" transform="rotate(-18 87 54)"/>
+          <ellipse cx="122" cy="36" rx="9" ry="15" fill="#b8832a" transform="rotate(15 122 36)"/>
+          <circle cx="108" cy="40" r="5.5" fill="#2a1600"/>
+          <circle cx="110" cy="38" r="2" fill="white" opacity="0.9"/>
+          <ellipse cx="126" cy="50" rx="6.5" ry="5" fill="#2a1600"/>
+          <ellipse cx="126" cy="60" rx="5" ry="6" fill="#e06070"/>
+          <rect x="44" y="96" width="13" height="18" rx="6" fill="#d9a93e"/>
+          <rect x="65" y="96" width="13" height="18" rx="6" fill="#d9a93e"/>
+        </svg>
+      </div>
+      <p>"He brings me on every walk. I return the favor by watching every film. We're even." — Hazel</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ HOW IT WORKS ══════════════ -->
+<section class="section-how">
+  <div class="section-eyebrow">How It Works</div>
+  <h2 class="section-h">Three steps. <em>No meetings.</em><br>No agencies. Just Gary.</h2>
+
+  <div class="steps-row">
+    <div class="step">
+      <!-- Pencil/form icon -->
+      <div class="step-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect x="4" y="8" width="26" height="30" rx="3" stroke="#8b6f3a" stroke-width="2" fill="rgba(139,111,58,0.08)"/>
+          <path d="M10 16h14M10 22h14M10 28h8" stroke="#8b6f3a" stroke-width="2" stroke-linecap="round"/>
+          <path d="M28 6l4 4-10 10-5 1 1-5 10-10z" fill="#c9a96e" stroke="#8b6f3a" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="step-n">01</div>
+      <h3>Fill out the brief.</h3>
+      <p>15 minutes. Tell me who you are, what you sell, what makes you different. I ask the right questions so you don't have to know the answers.</p>
+      <div class="step-aside">Not a meeting. A form.</div>
+    </div>
+
+    <div class="step" style="position:relative;">
+      <div class="step-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="14" stroke="#8b6f3a" stroke-width="2" fill="rgba(139,111,58,0.08)"/>
+          <circle cx="20" cy="20" r="5" fill="#c9a96e"/>
+          <circle cx="20" cy="8" r="2.5" fill="#8b6f3a"/>
+          <circle cx="20" cy="32" r="2.5" fill="#8b6f3a"/>
+          <circle cx="8" cy="20" r="2.5" fill="#8b6f3a"/>
+          <circle cx="32" cy="20" r="2.5" fill="#8b6f3a"/>
+          <circle cx="11" cy="11" r="2.5" fill="#8b6f3a"/>
+          <circle cx="29" cy="29" r="2.5" fill="#8b6f3a"/>
+          <circle cx="29" cy="11" r="2.5" fill="#8b6f3a"/>
+          <circle cx="11" cy="29" r="2.5" fill="#8b6f3a"/>
+        </svg>
+      </div>
+      <div class="step-n">02</div>
+      <h3>Gary makes the films.</h3>
+      <p>48 hours. I read your brief, find the story no one else saw, and make two films. Hazel watches the rough cut. She's never wrong.</p>
+      <div class="step-aside">She's a tough critic.</div>
+      <div class="step-arrow">→</div>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path d="M20 4l4 12h12l-10 7 4 12-10-7-10 7 4-12L4 16h12z" fill="rgba(139,111,58,0.15)" stroke="#8b6f3a" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="5" fill="#c9a96e"/>
+        </svg>
+      </div>
+      <div class="step-n">03</div>
+      <h3>Your brand has a story.</h3>
+      <p>Two films in your inbox. Ready for your website, your social, anywhere people need to stop and pay attention. Next month, we do it again.</p>
+      <div class="step-aside">Finally.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CTA ══════════════ -->
+<section class="section-cta" id="tell-my-story">
+  <h2 class="cta-h">
+    Ready to find out what your<br>brand story <em>actually is?</em>
+  </h2>
+  <div class="cta-row">
+    <a href="#" class="btn-cta">Tell my story →</a>
+    <div class="cta-detail">
+      <strong>$299/month · Two films</strong>
+      Fill a form. 48 hours. Cancel anytime.<br>Hazel approves everything.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="foot-left">
+    <div class="foot-hazel">
+      <svg width="36" height="30" viewBox="0 0 140 115" xmlns="http://www.w3.org/2000/svg">
+        <path d="M28 70 Q4 50 12 28" stroke="#c9933a" stroke-width="13" fill="none" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="0 20 65; 18 20 65; 0 20 65; -8 20 65; 0 20 65" dur="1.2s" repeatCount="indefinite"/>
+        </path>
+        <ellipse cx="68" cy="80" rx="36" ry="26" fill="#d9a93e"/>
+        <ellipse cx="97" cy="62" rx="14" ry="16" fill="#d9a93e"/>
+        <ellipse cx="105" cy="44" rx="22" ry="20" fill="#d9a93e"/>
+        <ellipse cx="120" cy="52" rx="12" ry="9" fill="#e8c06a"/>
+        <ellipse cx="87" cy="54" rx="9" ry="16" fill="#b8832a" transform="rotate(-18 87 54)"/>
+        <circle cx="108" cy="40" r="5.5" fill="#2a1600"/>
+        <circle cx="110" cy="38" r="2" fill="white" opacity="0.9"/>
+        <ellipse cx="126" cy="50" rx="6.5" ry="5" fill="#2a1600"/>
+        <ellipse cx="126" cy="60" rx="5" ry="6" fill="#e06070"/>
+      </svg>
+    </div>
+    <div class="foot-name">Gary Miller Films · Manchester, Vermont</div>
+  </div>
+  <div class="foot-right">© 2026 · Made with Hazel's approval · All films Hazel-certified</div>
+</footer>
+
+</body>
+</html>

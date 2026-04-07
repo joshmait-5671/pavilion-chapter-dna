@@ -24,8 +24,11 @@ body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;o
 
 /* ─── NAV ─── */
 nav{padding:16px 52px;display:flex;justify-content:space-between;align-items:center;background:var(--cream);position:sticky;top:0;z-index:100;border-bottom:1.5px solid rgba(139,111,58,.15);}
-.logo{font-family:'Fraunces',serif;font-weight:900;font-size:19px;display:flex;align-items:center;gap:10px;}
-.logo em{font-style:italic;color:var(--brown);}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;}
+.logo-icon{flex-shrink:0;}
+.logo-name{font-family:'Fraunces',serif;font-weight:900;font-size:20px;line-height:1;color:var(--ink);}
+.logo-name em{font-style:italic;color:var(--brown);}
+.logo-sub{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:9px;letter-spacing:3.5px;text-transform:uppercase;color:var(--brown);margin-top:2px;}
 .hazel-badge{font-family:'Caveat',cursive;font-size:13px;color:var(--brown);background:rgba(139,111,58,.1);padding:2px 10px;border-radius:100px;font-weight:700;}
 .nav-cta{background:var(--ink);color:var(--cream);padding:11px 26px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;}
 .nav-cta:hover{background:var(--brown);transform:translateY(-1px);}
@@ -180,7 +183,7 @@ nav{padding:16px 52px;display:flex;justify-content:space-between;align-items:cen
 
 /* ─── HERO RIGHT — GARY PHOTO ─── */
 .hero-right{position:relative;overflow:hidden;background:var(--cream2);}
-.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:sepia(18%) contrast(1.08) brightness(.93);}
+.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block;filter:sepia(18%) contrast(1.08) brightness(.93);}
 .hero-right::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--cream) 0%,transparent 18%);pointer-events:none;z-index:2;}
 .corner{position:absolute;width:32px;height:32px;border-color:var(--gold);border-style:solid;opacity:.65;}
 .c-tl{top:20px;left:20px;border-width:2.5px 0 0 2.5px;}
@@ -423,7 +426,21 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);paddin
 
 <!-- NAV -->
 <nav>
-  <div class="logo">Gary <em>Miller</em><span class="hazel-badge">🐾 Hazel-approved</span></div>
+  <div class="logo">
+    <svg class="logo-icon" width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.75" y="0.75" width="22.5" height="18.5" rx="2" stroke="#8b6f3a" stroke-width="1.5"/>
+      <rect x="2" y="2" width="3.5" height="3.5" rx="0.75" fill="#8b6f3a" opacity="0.75"/>
+      <rect x="2" y="14.5" width="3.5" height="3.5" rx="0.75" fill="#8b6f3a" opacity="0.75"/>
+      <rect x="18.5" y="2" width="3.5" height="3.5" rx="0.75" fill="#8b6f3a" opacity="0.75"/>
+      <rect x="18.5" y="14.5" width="3.5" height="3.5" rx="0.75" fill="#8b6f3a" opacity="0.75"/>
+      <line x1="7" y1="0.75" x2="7" y2="19.25" stroke="#8b6f3a" stroke-width="0.75" opacity="0.4"/>
+      <line x1="17" y1="0.75" x2="17" y2="19.25" stroke="#8b6f3a" stroke-width="0.75" opacity="0.4"/>
+    </svg>
+    <div>
+      <div class="logo-name">Gary <em>Miller</em></div>
+      <div class="logo-sub">Films</div>
+    </div>
+  </div>
   <a href="#cta" class="nav-cta">Tell my story →</a>
 </nav>
 
@@ -499,7 +516,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);paddin
 
   <!-- Gary photo -->
   <div class="hero-right">
-    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=900&q=85" alt="Gary Miller">
+    <img src="gary1-web.jpg" alt="Gary Miller biking through Vermont">
     <div class="corner c-tl"></div><div class="corner c-tr"></div>
     <div class="corner c-bl"></div><div class="corner c-br"></div>
     <div class="clapper-wrap">
@@ -573,7 +590,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);paddin
     </div>
     <div class="gary-card">
       <div class="gary-card-photo">
-        <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=200&q=80" alt="Gary">
+        <img src="gary2-web.jpg" alt="Gary and Hazel" style="object-position:40% 45%;">
         <div class="film-dot">🎬</div>
       </div>
       <blockquote>"I used to help people get cars they were afraid to go buy themselves. <strong>Same job, different story.</strong>"</blockquote>
@@ -610,7 +627,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);paddin
 <!-- ═══ GARY BIO — wide photo ═══ -->
 <section class="section-gary">
   <div class="gary-photo-side">
-    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=700&q=85" alt="Gary Miller">
+    <img src="gary2-web.jpg" alt="Gary and Hazel by the river" style="object-position:center center;">
     <div class="vt-pill">📍 Manchester, Vermont</div>
   </div>
   <div class="gary-text-side">

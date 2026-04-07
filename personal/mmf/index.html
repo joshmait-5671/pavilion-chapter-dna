@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MMF · Content Survey</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --text: #e8e8e8;
+      --muted: #888;
+      --accent: #c8a96e;
+      --border: #222;
+      --input-bg: #111;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Intro screen */
+    #intro {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    #intro .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    #intro h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    #intro p {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 520px;
+    }
+
+    /* Question blocks */
+    .question-block {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+      opacity: 0.25;
+      transition: opacity 0.4s ease;
+    }
+
+    .question-block.active {
+      opacity: 1;
+    }
+
+    .question-block.answered {
+      opacity: 0.5;
+    }
+
+    .q-number {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .q-category {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .q-text {
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 300;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.6;
+      padding: 16px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent);
+    }
+
+    textarea::placeholder {
+      color: #444;
+    }
+
+    .q-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .btn-next {
+      background: var(--accent);
+      color: #0a0a0a;
+      border: none;
+      border-radius: 3px;
+      padding: 12px 28px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-next:hover { opacity: 0.85; }
+
+    .btn-skip {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 13px;
+      cursor: pointer;
+      padding: 12px 4px;
+      transition: color 0.2s;
+    }
+
+    .btn-skip:hover { color: var(--text); }
+
+    /* Progress bar */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.4s ease;
+      z-index: 100;
+    }
+
+    /* Thank you screen */
+    #thankyou {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+      display: none;
+    }
+
+    #thankyou h2 {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    #thankyou p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    #copy-btn {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 3px;
+      padding: 12px 28px;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    #copy-btn:hover {
+      background: var(--accent);
+      color: #0a0a0a;
+    }
+
+    #copy-confirm {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    /* Divider */
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 0 auto 0 0;
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- Intro -->
+<div id="intro">
+  <div class="eyebrow">Manchester Music Festival · 2026 Season</div>
+  <h1>A few questions<br>for David.</h1>
+  <p>We're building a subscriber experience — something to help our audience connect more deeply with the music before and after each concert. We need your thinking to make it real. Ten questions. No wrong answers. Go as long or short as you want.</p>
+  <button class="btn-next" onclick="startSurvey()">Let's go →</button>
+</div>
+
+<!-- Questions -->
+<div id="questions" style="display:none;">
+
+  <div class="question-block" id="q1" data-index="1">
+    <div class="q-number">01 / 10</div>
+    <div class="q-category">The Season as a Whole</div>
+    <p class="q-text">If you had to give this season a single sentence — not a marketing line, but the honest artistic intention — what would it be?</p>
+    <textarea placeholder="Take your time…" id="a1"></textarea>
+    <div class="q-actions">
+      <button class="btn-next" onclick="nextQuestion(1)">Continue →</button>
+      <button class="btn-skip" onclick="nextQuestion(1, true)">Skip</button>
+    </div>
+  </div>
+
+  <div class="question-block" id="q2" data-index="2">
+    <div class="q-number">02 / 10</div>
+    <div class="q-category">Programming Logic</div>
+    <p class="q-text">Walk us through how you chose these specific concerts and pieces. What's the thread connecting them — even if it's invisible to the audience?</p>
+    <textarea placeholder="Take your time…" id="a2"></textarea>
+    <div class="q-actions">
+      <button class="btn-next" onclick="nextQuestion(2)">Continue →</button>
+      <button class="btn-skip" onclick="nextQuestion(2, true)">Skip</button>
+    </div>
+  </div>
+
+  <div class="question-block" id="q3" data-index="3">
+    <div class="q-number">03 / 10</div>
+    <div class="q-category">The Surprise</div>
+    <p class="q-text">Which piece or moment in this season do you think will most surprise an educated but non-professional listener? What will they discover that they didn't expect?</p>
+    <textarea placeholder="Take your time…" id="a3"></textarea>
+    <div class="q-actions">
+      <button class="btn-next" onclick="nextQuestion(3)">Continue →</button>
+      <button class="btn-skip" onclick="nextQuestion(3, true)">Skip</button>
+    </div>
+  </div>
+
+  <div class="question-block" id="q4" data-index="4">
+    <div class="q-number">04 / 10</div>
+    <div class="q-category">The Misunderstood</div>
+    <p class="q-text">Is there a piece or composer this season that you feel is commonly heard on autopilot — too familiar, too assumed? What do most people miss?</p>
+    <textarea placeholder="Take your time…" id="a4"></textarea>
+    <div class="q-actions">
+      <button class="btn-next" onclick="nextQuestion(4)">Continue →</button>
+      <button class="btn-skip" onclick="nextQuestion(4, true)">Skip</button>
+    </div>
+  </div>
+
+  <div class="question-block" id="q5" data-index="5">
+    <div class="q-number">05 / 10</div>
+    <div class="q-category">The Human Story</div>
+    <p class="q-text">Which composer's personal circumstances — their life, their politics, their time — most directly shaped what we're going to hear? Tell us the story.</p>
+    <textarea placeholder="Take your time…" id="a5"></textarea>
+    <div class="q-actions">
+      <button class="btn-next" onclick="nextQuestion(5)">Continue →</button>
+      <button class="btn-skip" onclick="nextQuestion(5, true)">Skip</button>
+    </div>
+  </div>
+
+  <div class="question-block" id="q6" data-index="6">
+    <div class="q-number">06 / 10</div>
+    <div class="q-category">The Moment</div>
+    <p class="q-text">In the entire season, what is the single passage or moment you most want the audience leaning forward for? Why that moment?</p>
+    <textarea placeholder="Take your time…" id="a6"></textarea>
+    <div class="q-actions">
+      <button class="btn-next" onclick="nextQuestion(6)">Continue →</button>
+      <button class="btn-skip" onclick="nextQuestion(6, true)">Skip</button>
+    </div>
+  </div>
+
+  <div class="question-block" id="q7" data-index="7">
+    <div class="q-number">07 / 10</div>
+    <div class="q-category">What to Listen For</div>
+    <p class="q-text">If you could give subscribers one listening instruction before each concert — something specific to listen for — what would it be? Answer per concert, or focus on the one you feel most strongly about.</p>
+    <textarea placeholder="Take your time…" id="a7"></textarea>
+    <div class="q-actions">
+      <button class="btn-next" onclick="nextQuestion(7)">Continue →</button>
+      <button class="btn-skip" onclick="nextQuestion(7, true)">Skip</button>
+    </div>
+  </div>
+
+  <div class="question-block" id="q8" data-index="8">
+    <div class="q-number">08 / 10</div>
+    <div class="q-category">Context That Changes Everything</div>
+    <p class="q-text">Is there a historical or cultural context — about America, about when these pieces were written, about what was happening in the world — that you think transforms how a listener receives the music?</p>
+    <textarea placeholder="Take your time…" id="a8"></textarea>
+    <div class="q-actions">
+      <button class="btn-next" onclick="nextQuestion(8)">Continue →</button>
+      <button class="btn-skip" onclick="nextQuestion(8, true)">Skip</button>
+    </div>
+  </div>
+
+  <div class="question-block" id="q9" data-index="9">
+    <div class="q-number">09 / 10</div>
+    <div class="q-category">The Audience</div>
+    <p class="q-text">Our subscribers are serious, older, deeply committed to this music. What do you think they already know and take for granted — and what do you wish they'd approach with fresh ears?</p>
+    <textarea placeholder="Take your time…" id="a9"></textarea>
+    <div class="q-actions">
+      <button class="btn-next" onclick="nextQuestion(9)">Continue →</button>
+      <button class="btn-skip" onclick="nextQuestion(9, true)">Skip</button>
+    </div>
+  </div>
+
+  <div class="question-block" id="q10" data-index="10">
+    <div class="q-number">10 / 10</div>
+    <div class="q-category">The Drive Home</div>
+    <p class="q-text">What do you want subscribers saying to each other on the drive home? Not about the performance — about what the music made them think or feel.</p>
+    <textarea placeholder="Take your time…" id="a10"></textarea>
+    <div class="q-actions">
+      <button class="btn-next" onclick="finish()">Finish →</button>
+      <button class="btn-skip" onclick="finish()">Skip</button>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Thank you -->
+<div id="thankyou">
+  <div class="eyebrow" style="color: var(--accent); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:24px;">Manchester Music Festival</div>
+  <h2>Thank you, David.</h2>
+  <p>This is exactly what we needed. Your answers will shape how subscribers connect with the music all season long.</p>
+</div>
+
+<script>
+  const questions = document.querySelectorAll('.question-block');
+  let currentQ = 0;
+
+  function startSurvey() {
+    document.getElementById('intro').style.display = 'none';
+    document.getElementById('questions').style.display = 'block';
+    setTimeout(() => activateQuestion(0), 50);
+  }
+
+  function activateQuestion(index) {
+    questions.forEach((q, i) => {
+      q.classList.remove('active');
+      if (i < index) q.classList.add('answered');
+    });
+    if (questions[index]) {
+      questions[index].classList.add('active');
+      questions[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => {
+        const ta = questions[index].querySelector('textarea');
+        if (ta) ta.focus();
+      }, 600);
+    }
+    updateProgress(index);
+  }
+
+  function nextQuestion(num, skip) {
+    const ta = document.getElementById('a' + num);
+    if (!skip && ta && ta.value.trim()) {
+      // answer recorded
+    }
+    const nextIndex = num; // num is 1-based, array is 0-based, so nextIndex = num
+    if (nextIndex < questions.length) {
+      currentQ = nextIndex;
+      activateQuestion(nextIndex);
+    }
+  }
+
+  function updateProgress(index) {
+    const pct = ((index + 1) / (questions.length + 1)) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  }
+
+  function finish() {
+    // Show thank you immediately — David sees this, nothing else
+    document.getElementById('questions').style.display = 'none';
+    const ty = document.getElementById('thankyou');
+    ty.style.display = 'flex';
+    document.getElementById('progress-bar').style.width = '100%';
+    ty.scrollIntoView({ behavior: 'smooth' });
+
+    // Silently POST to FormSubmit in the background
+    const labels = [
+      'The Season as a Whole',
+      'Programming Logic',
+      'The Surprise',
+      'The Misunderstood',
+      'The Human Story',
+      'The Moment',
+      'What to Listen For',
+      'Context That Changes Everything',
+      'The Audience',
+      'The Drive Home'
+    ];
+
+    const payload = { _subject: 'MMF Survey — David\'s responses' };
+    for (let i = 1; i <= 10; i++) {
+      const val = document.getElementById('a' + i)?.value?.trim() || '(skipped)';
+      payload['Q' + i + ' — ' + labels[i-1]] = val;
+    }
+
+    fetch('https://formsubmit.co/ajax/josh.mait@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  }
+
+  // Activate first question when questions section is shown
+  document.getElementById('questions').addEventListener('transitionend', () => {});
+</script>
+</body>
+</html>

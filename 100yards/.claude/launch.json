@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "100yards",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/100yards", "-l", "3847"],
+      "port": 3847
+    }
+  ]
+}

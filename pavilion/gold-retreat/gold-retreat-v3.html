@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavilion Gold — Summer Retreat 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink: #0a0905;
+  --gold: #c4a35a;
+  --gold-soft: #e8d4a0;
+  --cream: #f5f2ec;
+  --dim: rgba(245,242,236,0.42);
+  --faint: rgba(245,242,236,0.1);
+  --gold-faint: rgba(196,163,90,0.15);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ─── HERO — full viewport, almost nothing ─── */
+.hero {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero-photo {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=1800&q=90');
+  background-size: cover;
+  background-position: center 30%;
+  filter: brightness(0.25) sepia(15%);
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    170deg,
+    transparent 40%,
+    rgba(10,9,5,0.8) 80%,
+    var(--ink) 100%
+  );
+}
+
+/* Pavilion Gold — top left */
+.hero-brand {
+  position: absolute;
+  top: 36px; left: 52px;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  z-index: 2;
+}
+
+/* Date — top right */
+.hero-date {
+  position: absolute;
+  top: 36px; right: 52px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--dim);
+  z-index: 2;
+  text-align: right;
+  line-height: 1.6;
+}
+
+/* The one headline */
+.hero-statement {
+  position: absolute;
+  bottom: 72px; left: 52px;
+  z-index: 2;
+  max-width: 640px;
+}
+.hero-h {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px, 5.5vw, 76px);
+  font-weight: 400;
+  line-height: 1.07;
+  color: var(--cream);
+  letter-spacing: -1px;
+}
+.hero-h em {
+  font-style: italic;
+  color: var(--gold-soft);
+}
+
+/* Scroll cue — bottom right */
+.hero-scroll {
+  position: absolute;
+  bottom: 36px; right: 52px;
+  z-index: 2;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dim);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* ─── THE ROOM — companies as editorial centerpiece ─── */
+.room {
+  padding: 120px 52px 0;
+}
+.room-label {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 80px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.room-label::after {
+  content: '';
+  display: block;
+  flex: 1;
+  height: 1px;
+  background: var(--faint);
+}
+
+/* The company names — editorial treatment */
+.companies {
+  column-count: 2;
+  column-gap: 80px;
+  margin-bottom: 80px;
+}
+.co {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+  break-inside: avoid;
+  opacity: 0.82;
+  transition: opacity 0.2s, color 0.2s;
+  cursor: default;
+  display: block;
+}
+.co:hover { opacity: 1; color: var(--gold-soft); }
+.co.anchor { opacity: 1; font-weight: 700; }
+
+/* The one fact */
+.room-fact {
+  border-top: 1px solid var(--faint);
+  padding-top: 32px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--dim);
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+/* ─── WIDE LANDSCAPE ─── */
+.landscape {
+  margin-top: 120px;
+  width: 100%;
+  height: 55vh;
+  min-height: 360px;
+  object-fit: cover;
+  object-position: center 65%;
+  display: block;
+  filter: brightness(0.55) sepia(10%);
+}
+
+/* ─── BOTTOM MATTER — just what they need ─── */
+.bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 50vh;
+}
+.bottom-left {
+  padding: 96px 52px;
+  border-right: 1px solid var(--faint);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.bottom-location {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 2.5vw, 36px);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+.bottom-location em { font-style: italic; color: var(--gold-soft); }
+.bottom-logistics {
+  font-size: 13px;
+  color: var(--dim);
+  font-weight: 300;
+  line-height: 2;
+}
+.bottom-right {
+  padding: 96px 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.price {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 6vw, 80px);
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: -3px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.price-note {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 56px;
+}
+.apply-link {
+  display: inline-block;
+  padding: 16px 48px;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  align-self: flex-start;
+  margin-bottom: 20px;
+  transition: background 0.15s;
+}
+.apply-link:hover { background: var(--gold-soft); }
+.apply-caveat {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--dim);
+  font-weight: 300;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 32px 52px;
+  border-top: 1px solid var(--faint);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-left {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.footer-right {
+  font-size: 12px;
+  color: var(--dim);
+  font-weight: 300;
+}
+.footer-right a { color: var(--gold); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- HERO — one line, almost nothing -->
+<section class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
+  <span class="hero-brand">Pavilion Gold</span>
+  <div class="hero-date">
+    June 9–12, 2026<br>
+    Jackson Hole, Wyoming
+  </div>
+  <div class="hero-statement">
+    <h1 class="hero-h">Do the job alone.<br><span style="color:var(--gold-soft)">Live this life</span><br>together.</h1>
+  </div>
+  <span class="hero-scroll">Scroll</span>
+</section>
+
+<!-- THE ROOM — companies, no label needed beyond the list itself -->
+<section class="room">
+  <p class="room-label">The Room</p>
+
+  <div class="companies">
+    <span class="co anchor">Klaviyo</span>
+    <span class="co anchor">ClickUp</span>
+    <span class="co anchor">Zuora</span>
+    <span class="co">Docebo</span>
+    <span class="co">Clio</span>
+    <span class="co">Owner.com</span>
+    <span class="co">Vena</span>
+    <span class="co">Socure</span>
+    <span class="co">Cin7</span>
+    <span class="co">Articulate</span>
+    <span class="co">Dovetail</span>
+    <span class="co">ShipHero</span>
+    <span class="co">Dandy</span>
+    <span class="co">Infinx Healthcare</span>
+    <span class="co">Nooks</span>
+    <span class="co">General Atlantic</span>
+    <span class="co">Bonfire Ventures</span>
+    <span class="co">SBI Growth Advisory</span>
+  </div>
+
+  <p class="room-fact">Every attendee was interviewed.</p>
+</section>
+
+<!-- WIDE PHOTO -->
+<img class="landscape"
+  src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1800&q=90"
+  alt="Teton mountains" />
+
+<!-- BOTTOM: LOCATION LEFT, CTA RIGHT -->
+<section class="bottom">
+  <div class="bottom-left">
+    <div>
+      <p class="bottom-location">Hotel Terra<br><em>Teton Village, Wyoming</em></p>
+      <p class="bottom-logistics">
+        June 9 — Arrivals &amp; welcome dinner<br>
+        June 10–11 — Mastermind sessions<br>
+        June 12 — Farewell breakfast<br><br>
+        Chatham House Rules.<br>
+        No recordings. No agenda published in advance.
+      </p>
+    </div>
+  </div>
+  <div class="bottom-right">
+    <div>
+      <a href="mailto:emily.racic@joinpavilion.com" class="apply-link">Reserve your place</a>
+      <p class="apply-caveat">Admission confirmed after interview.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-left">Pavilion Gold · Summer Retreat 2026</span>
+  <span class="footer-right"><a href="mailto:emily.racic@joinpavilion.com">emily.racic@joinpavilion.com</a></span>
+</footer>
+
+</body>
+</html>

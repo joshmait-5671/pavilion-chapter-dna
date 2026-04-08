@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "chapter-pulse-preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8765", "--directory", "/Users/joshmait/Desktop/Claude/chapter-pulse/output"],
+      "port": 8765
+    }
+  ]
+}

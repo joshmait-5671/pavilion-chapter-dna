@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shape the Room | Pavilion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink:        #DF285B;
+      --pink-hover:  #B81C48;
+      --pink-light:  #FFEDF2;
+      --blue-dark:   #180A5C;
+      --blue-mid:    #2B1887;
+      --white:       #FFFFFF;
+      --body-text:   #404040;
+      --gray-100:    #F5F5F5;
+      --border:      #E8E8E8;
+      --font:        'Poppins', Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--body-text);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--blue-dark);
+      background-image: linear-gradient(160deg, #0d0039 0%, #180A5C 45%, #2B1060 100%);
+      padding: 108px 48px 120px;
+    }
+    .hero-inner { max-width: 800px; margin: 0 auto; }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(52px, 7.5vw, 88px);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: 0.75px;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+    .hero-body {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 28px;
+      color: rgba(255,255,255,0.70);
+      max-width: 540px;
+      margin-bottom: 48px;
+    }
+    .hero-body strong { color: rgba(255,255,255,0.95); font-weight: 600; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--pink);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover { background: var(--pink-hover); transform: translateY(-1px); }
+    .hero-quick-link {
+      display: block;
+      margin-top: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.1px;
+    }
+    .hero-quick-link:hover { color: rgba(255,255,255,0.85); }
+
+    /* ── COMMUNITY SNAPSHOT ── */
+    .snapshot-section {
+      background: #0d0039;
+      padding: 72px 48px 64px;
+      overflow: hidden;
+    }
+    .snapshot-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .snapshot-label::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--pink);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .snapshot-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 1100px;
+      margin: 0 auto 52px;
+    }
+    .snapshot-stat {
+      background: rgba(255,255,255,0.04);
+      padding: 44px 32px;
+      text-align: center;
+    }
+    .snapshot-num {
+      font-size: clamp(38px, 4vw, 56px);
+      font-weight: 700;
+      color: white;
+      display: block;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .snapshot-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.55;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    /* Ticker */
+    .ticker-wrap {
+      overflow: hidden;
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .ticker-wrap::before,
+    .ticker-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 100px;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .ticker-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, #0d0039, transparent);
+    }
+    .ticker-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, #0d0039, transparent);
+    }
+    .ticker {
+      display: flex;
+      width: max-content;
+      animation: ticker-scroll 34s linear infinite;
+    }
+    .ticker-item {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.28);
+      padding: 0 28px;
+      white-space: nowrap;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .ticker-item::after {
+      content: '·';
+      color: var(--pink);
+      font-size: 20px;
+      line-height: 1;
+    }
+    @keyframes ticker-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SHARED SECTION ── */
+    .section { padding: 88px 48px; }
+    .section-inner { max-width: 780px; margin: 0 auto; }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 20px;
+    }
+    .section h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: 0.75px;
+      line-height: 1.1;
+      color: var(--blue-mid);
+      margin-bottom: 24px;
+    }
+    .section p {
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--body-text);
+      margin-bottom: 16px;
+      max-width: 640px;
+    }
+    .section p:last-of-type { margin-bottom: 0; }
+
+    /* ── DARK SECTION ── */
+    .section-dark { background: var(--blue-dark); padding: 88px 48px; }
+    .section-dark .eyebrow { color: var(--pink); }
+    .section-dark h2 { color: var(--white); }
+    .section-dark p { color: rgba(255,255,255,0.68); }
+    .section-dark p strong { color: var(--white); font-weight: 600; }
+
+    /* ── PINK TINT SECTION ── */
+    .section-tint { background: var(--pink-light); }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      border-left: 4px solid var(--pink);
+      padding: 20px 28px;
+      margin: 36px 0 0;
+      background: var(--white);
+      border-radius: 0 8px 8px 0;
+    }
+    .section-dark .pull-quote { background: rgba(255,255,255,0.06); }
+    .pull-quote p {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 28px;
+      color: var(--blue-mid);
+      letter-spacing: 0.25px;
+      margin: 0;
+      max-width: 100%;
+    }
+    .section-dark .pull-quote p { color: var(--white); }
+
+    /* ── CRITERIA LIST ── */
+    .criteria {
+      list-style: none;
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .criteria li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--body-text);
+    }
+    .criteria li::before {
+      content: '';
+      width: 8px; height: 8px;
+      min-width: 8px;
+      background: var(--pink);
+      border-radius: 50%;
+      margin-top: 8px;
+    }
+
+    /* ── STEPS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 56px;
+    }
+    @media (max-width: 740px) { .steps { grid-template-columns: 1fr; gap: 32px; } }
+    .step { border-top: 2px solid var(--pink); padding-top: 24px; }
+    .step-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+    .step h3 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.25px;
+      line-height: 24px;
+      color: var(--blue-mid);
+      margin-bottom: 10px;
+    }
+    .step p { font-size: 15px; line-height: 22px; color: var(--body-text); margin: 0; max-width: 100%; }
+
+    /* ── HANDWRITTEN NOTES ── */
+    .notes-section {
+      background: #F4F1EC;
+      padding: 88px 48px;
+    }
+    .notes-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .notes-heading {
+      font-size: clamp(22px, 2.5vw, 30px);
+      font-weight: 700;
+      color: var(--blue-mid);
+      text-align: center;
+      margin-bottom: 56px;
+      letter-spacing: 0.25px;
+    }
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    .note-card {
+      background: #FFFEF9;
+      border-radius: 3px;
+      padding: 36px 28px 28px;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+      position: relative;
+      background-image: repeating-linear-gradient(
+        transparent,
+        transparent 31px,
+        #EAE6DC 31px,
+        #EAE6DC 32px
+      );
+      background-size: 100% 32px;
+      background-position: 0 44px;
+      transition: transform 0.2s ease;
+    }
+    .note-card:hover { transform: scale(1.02) rotate(0deg) !important; }
+    .note-card:nth-child(1) { transform: rotate(-1.8deg); }
+    .note-card:nth-child(2) { transform: rotate(0.9deg); margin-top: 28px; }
+    .note-card:nth-child(3) { transform: rotate(-0.7deg); margin-top: 12px; }
+    .note-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.7;
+      color: #252525;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+      padding-top: 4px;
+    }
+    .note-attribution {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--pink);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-top: 1px solid #E0DAD0;
+      padding-top: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .note-attribution span {
+      display: block;
+      font-weight: 400;
+      color: #999;
+      letter-spacing: 0.06em;
+      margin-top: 3px;
+      text-transform: none;
+      font-size: 11px;
+    }
+
+    /* ── FORM SECTION ── */
+    .section-form { background: var(--gray-100); padding: 88px 48px; }
+    .form-wrap { max-width: 600px; margin: 0 auto; }
+    .form-wrap h2 {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+      color: var(--blue-mid);
+      margin-bottom: 8px;
+    }
+    .form-sub { font-size: 15px; color: #717171; margin-bottom: 40px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-group label {
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--body-text);
+      letter-spacing: 0.2px;
+    }
+    .form-group input,
+    .form-group textarea {
+      font-family: var(--font);
+      font-size: 15px;
+      color: var(--blue-dark);
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--pink); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #A3A3A3; }
+    .form-group textarea { resize: vertical; min-height: 88px; }
+    .field-hint { font-size: 12px; color: #717171; }
+    .btn-form {
+      width: 100%;
+      background: var(--pink);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    .btn-form:hover { background: var(--pink-hover); }
+    .form-note {
+      font-size: 13px;
+      color: #717171;
+      text-align: center;
+      margin-top: 16px;
+      line-height: 20px;
+    }
+
+    /* ── INCENTIVE FOOTNOTE ── */
+    .incentive-wrap { padding: 32px 48px 40px; max-width: 780px; margin: 0 auto; }
+    .incentive-note {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      font-size: 13px;
+      color: #717171;
+      line-height: 20px;
+    }
+
+    /* ── FOOTER CTA ── */
+    .footer-cta { background: var(--pink); padding: 88px 48px; text-align: center; }
+    .footer-cta h2 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: 0.75px;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+    .footer-cta p { font-size: 16px; color: rgba(255,255,255,0.78); margin-bottom: 36px; line-height: 24px; }
+    .btn-white {
+      display: inline-block;
+      background: var(--white);
+      color: var(--pink);
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 40px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn-white:hover { opacity: 0.92; transform: translateY(-1px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .snapshot-stats { grid-template-columns: repeat(2, 1fr); }
+      .notes-grid { grid-template-columns: 1fr; max-width: 460px; }
+      .note-card:nth-child(1),
+      .note-card:nth-child(2),
+      .note-card:nth-child(3) { transform: rotate(0deg); margin-top: 0; }
+    }
+    @media (max-width: 600px) {
+      .hero, .section, .section-dark, .section-form, .footer-cta,
+      .snapshot-section, .notes-section { padding-left: 24px; padding-right: 24px; }
+      .incentive-wrap { padding-left: 24px; padding-right: 24px; }
+      .snapshot-stats { grid-template-columns: repeat(2, 1fr); border-radius: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">How Pavilion Grows</span>
+    <h1>Shape the Room.</h1>
+    <p class="hero-body">
+      Pavilion doesn't grow through advertising. It grows through the judgment of the people already inside. <strong>When you know someone who belongs here, you bring them in.</strong>
+    </p>
+    <a href="#introduce" class="btn-primary">Introduce Someone</a>
+    <a href="#introduce" class="hero-quick-link">Already have someone in mind? Skip to the form →</a>
+  </div>
+</section>
+
+<!-- ── COMMUNITY SNAPSHOT ── -->
+<section class="snapshot-section">
+  <div class="snapshot-label">The community, at a glance</div>
+  <div class="snapshot-stats">
+    <div class="snapshot-stat">
+      <span class="snapshot-num stat-counter" data-target="7500" data-suffix="+">0</span>
+      <div class="snapshot-desc">Members worldwide</div>
+    </div>
+    <div class="snapshot-stat">
+      <span class="snapshot-num stat-counter" data-target="70" data-suffix="%">0</span>
+      <div class="snapshot-desc">VP-level or above</div>
+    </div>
+    <div class="snapshot-stat">
+      <span class="snapshot-num stat-counter" data-target="40" data-suffix="+">0</span>
+      <div class="snapshot-desc">Cities worldwide</div>
+    </div>
+    <div class="snapshot-stat">
+      <span class="snapshot-num">&lt;1hr</span>
+      <div class="snapshot-desc">Avg. peer response time</div>
+    </div>
+  </div>
+
+  <div class="ticker-wrap">
+    <div class="ticker" id="ticker">
+      <!-- duplicated for seamless loop -->
+      <span class="ticker-item">Microsoft</span>
+      <span class="ticker-item">Salesforce</span>
+      <span class="ticker-item">Stripe</span>
+      <span class="ticker-item">LinkedIn</span>
+      <span class="ticker-item">Google</span>
+      <span class="ticker-item">DoorDash</span>
+      <span class="ticker-item">Oracle</span>
+      <span class="ticker-item">SAP</span>
+      <span class="ticker-item">HubSpot</span>
+      <span class="ticker-item">Gartner</span>
+      <span class="ticker-item">Zoom</span>
+      <span class="ticker-item">Databricks</span>
+      <span class="ticker-item">Figma</span>
+      <span class="ticker-item">Snowflake</span>
+      <span class="ticker-item">Okta</span>
+      <span class="ticker-item">Workday</span>
+      <span class="ticker-item">Zendesk</span>
+      <span class="ticker-item">Amplitude</span>
+      <span class="ticker-item">Microsoft</span>
+      <span class="ticker-item">Salesforce</span>
+      <span class="ticker-item">Stripe</span>
+      <span class="ticker-item">LinkedIn</span>
+      <span class="ticker-item">Google</span>
+      <span class="ticker-item">DoorDash</span>
+      <span class="ticker-item">Oracle</span>
+      <span class="ticker-item">SAP</span>
+      <span class="ticker-item">HubSpot</span>
+      <span class="ticker-item">Gartner</span>
+      <span class="ticker-item">Zoom</span>
+      <span class="ticker-item">Databricks</span>
+      <span class="ticker-item">Figma</span>
+      <span class="ticker-item">Snowflake</span>
+      <span class="ticker-item">Okta</span>
+      <span class="ticker-item">Workday</span>
+      <span class="ticker-item">Zendesk</span>
+      <span class="ticker-item">Amplitude</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 1: WHY THIS EXISTS ── -->
+<section class="section">
+  <div class="section-inner">
+    <div class="eyebrow">Why This Exists</div>
+    <h2>The room is only as good as the people in it.</h2>
+    <p>Pavilion doesn't grow through advertising. It grows through the judgment of the people already inside.</p>
+    <p>Every strong introduction raises the floor. Every weak one lowers it. We're asking you to take that seriously.</p>
+  </div>
+</section>
+
+<!-- ── SECTION 2: THE ASK ── -->
+<section class="section-dark">
+  <div class="section-inner">
+    <div class="eyebrow">What We Ask</div>
+    <h2>Once a month.<br>One person.<br>Your judgment.</h2>
+    <p>Every month, members receive a single question: <strong>who do you know that belongs here?</strong></p>
+    <p>Not a list. Not a blast to your LinkedIn network. One specific operator you've worked with, know well, and would genuinely vouch for. Someone you'd want in the room with you.</p>
+    <p>Submit their name. We handle the outreach and mention you by name. No awkward asks on your end.</p>
+    <div class="pull-quote">
+      <p>This is not a program. It is a norm.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 3: WHAT MAKES SOMEONE RIGHT ── -->
+<section class="section section-tint">
+  <div class="section-inner">
+    <div class="eyebrow">What Makes Someone Right</div>
+    <h2>You know them when you think of them.</h2>
+    <p>They are not someone you're doing a favor for. They are someone you'd genuinely vouch for without hesitation.</p>
+    <p>A strong introduction is:</p>
+    <ul class="criteria">
+      <li>Currently in a senior operator role — VP and above in B2B</li>
+      <li>Has real GTM responsibility: revenue, pipeline, or customer outcomes</li>
+      <li>In-seat, not between roles</li>
+      <li>Gives more than they take in any room they're in</li>
+      <li>Would make at least one other Pavilion member better for being here</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── SECTION 4: HOW IT WORKS ── -->
+<section class="section" id="how">
+  <div class="section-inner">
+    <div class="eyebrow">How It Works</div>
+    <h2>Simple by design.</h2>
+    <p>Three steps. The whole thing takes two minutes.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">Step 01</div>
+        <h3>Think of one person.</h3>
+        <p>Who is one operator you know right now who should be in this room? Not a list. One person.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Step 02</div>
+        <h3>Submit their name.</h3>
+        <p>Tell us who they are, how you know them, and one line on why they belong. That's the whole form.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Step 03</div>
+        <h3>We follow up.</h3>
+        <p>Pavilion reaches out directly and mentions your name. You don't have to do anything else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HANDWRITTEN NOTES ── -->
+<section class="notes-section">
+  <div class="notes-eyebrow">From the members</div>
+  <h2 class="notes-heading">What people say when they make the call.</h2>
+  <div class="notes-grid">
+    <div class="note-card">
+      <p class="note-text">I introduced Marcus because after one dinner conversation I knew he'd make everyone in the room sharper. Three months later he's already connected six other members. That's exactly who this is for.</p>
+      <div class="note-attribution">
+        Rachel T.
+        <span>VP Revenue · Series B SaaS</span>
+      </div>
+    </div>
+    <div class="note-card">
+      <p class="note-text">She had just left her last role. I almost didn't submit her name because of the in-seat rule. I did anyway. She joined two weeks later. Best call I made all year.</p>
+      <div class="note-attribution">
+        David L.
+        <span>Chief Revenue Officer</span>
+      </div>
+    </div>
+    <div class="note-card">
+      <p class="note-text">I've known James for eight years. I waited until I was sure. That's the whole point — you only put your name behind someone you'd stake something on.</p>
+      <div class="note-attribution">
+        Priya S.
+        <span>VP Customer Success</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FORM SECTION ── -->
+<section class="section-form" id="introduce">
+  <div class="form-wrap">
+    <div class="eyebrow" style="text-align:left;">Make an Introduction</div>
+    <h2>Know someone who belongs?</h2>
+    <p class="form-sub">Member or not — if you know someone who should be in this room, tell us. Takes less than two minutes.</p>
+
+    <form>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="their-name">Their name *</label>
+          <input type="text" id="their-name" placeholder="Full name" />
+        </div>
+        <div class="form-group">
+          <label for="their-title">Their title *</label>
+          <input type="text" id="their-title" placeholder="e.g. VP of Sales" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="their-company">Their company *</label>
+          <input type="text" id="their-company" placeholder="Company name" />
+        </div>
+        <div class="form-group">
+          <label for="their-email">Their email *</label>
+          <input type="email" id="their-email" placeholder="Work email" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="how-know">How do you know this person? *</label>
+        <textarea id="how-know" placeholder="Former colleague, worked across from them, met through mutual work — whatever is true."></textarea>
+        <span class="field-hint">One or two sentences is enough.</span>
+      </div>
+      <div class="form-group">
+        <label for="why-belong">Why do they belong in Pavilion? *</label>
+        <textarea id="why-belong" placeholder="What makes this person the right call?"></textarea>
+        <span class="field-hint">Be specific. Your judgment is what matters here.</span>
+      </div>
+      <button type="submit" class="btn-form">Submit Introduction</button>
+      <p class="form-note">
+        Your name will be shared with this person when we reach out.<br>
+        If they join, we'll send you $250 as a thank-you.
+      </p>
+    </form>
+  </div>
+</section>
+
+<!-- ── INCENTIVE FOOTNOTE ── -->
+<div class="incentive-wrap">
+  <p class="incentive-note">
+    As a thank-you, if the person you introduce becomes a member, we'll send you $250. That's real, and we mean it. But it's not the reason you're here, and it's not the reason you'd do this.
+  </p>
+</div>
+
+<!-- ── FOOTER CTA ── -->
+<section class="footer-cta">
+  <h2>Ready to be in the room?</h2>
+  <p>Join 7,500+ revenue leaders who carry the job together.</p>
+  <a href="https://www.joinpavilion.com" class="btn-white">Join Pavilion</a>
+</section>
+
+<script>
+  // ── ANIMATED COUNTERS ────────────────────────────────────────────
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1600;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.floor(current).toLocaleString() + suffix;
+      if (current >= target) clearInterval(timer);
+    }, 16);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.stat-counter').forEach(el => counterObserver.observe(el));
+
+  // ── SMOOTH SCROLL ────────────────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>

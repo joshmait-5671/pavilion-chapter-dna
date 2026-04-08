@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Edit — Pavilion Gold</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0B0B0B;
+    --card: #141414;
+    --white: #fff;
+    --dim: rgba(255,255,255,0.5);
+    --red: #C23838;
+    --cream: #E8E0D4;
+    --gold: #C9A96E;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--white);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--gold); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+
+  /* ========= HERO ========= */
+  .hero {
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    font-size: clamp(180px, 25vw, 350px);
+    font-weight: 900; letter-spacing: -0.06em;
+    color: rgba(255,255,255,0.02);
+    text-transform: uppercase;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .hero-bg:nth-child(1) { top: 8%; left: -3%; }
+  .hero-bg:nth-child(2) { bottom: 8%; right: -3%; }
+  .hero-scanline {
+    position: absolute; left: 0; right: 0; height: 1px;
+    background: rgba(255,255,255,0.03);
+    animation: scan 8s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }
+  .hero-content {
+    position: relative; z-index: 1; text-align: center;
+    animation: fadeIn 2s ease both;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 40px;
+  }
+  .hero h1 {
+    font-size: clamp(56px, 9vw, 130px);
+    font-weight: 900; line-height: 0.88;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+  .hero h1 .outline {
+    -webkit-text-stroke: 2px rgba(255,255,255,0.35);
+    color: transparent;
+  }
+  .hero h1 .gold { color: var(--gold); }
+  .hero-sub {
+    margin-top: 40px;
+    font-size: 14px; font-weight: 400; line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    max-width: 460px; margin-left: auto; margin-right: auto;
+  }
+  .hero-sub strong { color: var(--white); font-weight: 600; }
+  .hero-scroll {
+    margin-top: 48px;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: rgba(255,255,255,0.3);
+  }
+
+  /* ========= BRAND NAV ========= */
+  .brand-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11,11,11,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    padding: 0 56px;
+    display: flex; align-items: center; gap: 0;
+    overflow-x: auto;
+  }
+  .brand-nav a {
+    padding: 20px 28px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    white-space: nowrap;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+  }
+  .brand-nav a:hover { color: var(--white); border-bottom-color: var(--gold); }
+
+  /* ========= BRAND SECTION ========= */
+  .brand-section {
+    padding: 100px 56px 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .brand-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .brand-name {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900; letter-spacing: -0.04em;
+    text-transform: uppercase; line-height: 1;
+  }
+  .brand-discount {
+    padding: 6px 16px;
+    background: rgba(201,169,110,0.1);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 2px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gold);
+  }
+  .brand-tagline {
+    font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.5);
+    margin-bottom: 48px; line-height: 1.6;
+    max-width: 500px;
+  }
+
+  /* ========= PRODUCT GRID ========= */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .product-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: pointer;
+    display: block;
+  }
+  .product-card:hover {
+    border-color: rgba(255,255,255,0.12);
+    transform: translateY(-4px);
+  }
+  .product-img {
+    width: 100%; aspect-ratio: 4/5;
+    object-fit: cover;
+    filter: grayscale(40%) brightness(0.9);
+    transition: filter 0.4s;
+  }
+  .product-card:hover .product-img {
+    filter: grayscale(0%) brightness(1);
+  }
+  .product-info { padding: 16px 20px 20px; }
+  .product-name {
+    font-size: 13px; font-weight: 600; line-height: 1.4;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 6px;
+  }
+  .product-price-row {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .product-price {
+    font-size: 14px; font-weight: 700; color: var(--white);
+  }
+  .product-member-price {
+    font-size: 14px; font-weight: 700; color: var(--gold);
+  }
+  .product-original {
+    font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.3);
+    text-decoration: line-through;
+  }
+  .product-tag {
+    display: inline-block; margin-top: 8px;
+    padding: 3px 8px;
+    background: rgba(201,169,110,0.1);
+    border-radius: 2px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gold);
+  }
+
+  /* ========= CTA ========= */
+  .cta-section {
+    padding: 120px 56px;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 900; letter-spacing: -0.04em;
+    text-transform: uppercase; line-height: 0.92;
+    margin-bottom: 24px;
+  }
+  .cta-section h2 .outline {
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.3);
+    color: transparent;
+  }
+  .cta-section h2 .gold { color: var(--gold); }
+  .cta-sub {
+    font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.8;
+    max-width: 480px; margin: 0 auto 48px;
+  }
+  .cta-btn {
+    display: inline-block; padding: 20px 64px;
+    border: 1px solid var(--gold);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold);
+    transition: all 0.4s;
+  }
+  .cta-btn:hover {
+    background: var(--gold); color: var(--bg);
+  }
+
+  /* ========= FOOTER ========= */
+  .footer {
+    padding: 20px 56px;
+    border-top: 1px solid rgba(255,255,255,0.03);
+    display: flex; justify-content: space-between;
+    font-size: 10px; font-weight: 400;
+    color: rgba(255,255,255,0.25); letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ========= RESPONSIVE ========= */
+  @media (max-width: 768px) {
+    .brand-section { padding: 60px 20px 48px; }
+    .brand-nav { padding: 0 20px; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .product-info { padding: 12px 14px 16px; }
+    .product-name { font-size: 12px; }
+    .cta-section { padding: 80px 20px; }
+    .footer { padding: 16px 20px; }
+    .brand-header { flex-direction: column; gap: 12px; }
+  }
+
+  /* ========= SCROLL REVEAL ========= */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">THE EDIT</div>
+  <div class="hero-bg">THE EDIT</div>
+  <div class="hero-scanline"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Pavilion Gold &mdash; Member Benefit</div>
+    <h1><span class="outline">THE</span><br><span class="gold">EDIT.</span></h1>
+    <p class="hero-sub"><strong>Exclusive pricing from five brands we actually wear.</strong> Not a coupon page. Not a corporate perk. A private storefront for Pavilion Gold members&mdash;15&ndash;25% off, no codes needed.</p>
+    <div class="hero-scroll">Scroll to shop &darr;</div>
+  </div>
+</section>
+
+<!-- BRAND NAV -->
+<nav class="brand-nav">
+  <a href="#faherty">Faherty</a>
+  <a href="#taylor-stitch">Taylor Stitch</a>
+  <a href="#johnnie-o">Johnnie-O</a>
+  <a href="#huckberry">Huckberry</a>
+  <a href="#madewell">Madewell</a>
+</nav>
+
+<!-- ==================== FAHERTY ==================== -->
+<section class="brand-section reveal" id="faherty">
+  <div class="brand-header">
+    <h2 class="brand-name">Faherty</h2>
+    <div class="brand-discount">20% Off Member Price</div>
+  </div>
+  <p class="brand-tagline">Sun-washed staples built on sustainable fabrics. The brand that made performance feel like a beach day.</p>
+  <div class="product-grid">
+
+    <a class="product-card" href="https://fahertybrand.com/products/inlet-knit-blazer-deep-navy-melange" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Inlet Knit Blazer">
+      <div class="product-info">
+        <div class="product-name">Inlet Knit Blazer &mdash; Deep Navy Melange</div>
+        <div class="product-price-row">
+          <span class="product-original">$228</span>
+          <span class="product-member-price">$182</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://fahertybrand.com/products/stretch-terry-5-pocket-pant-navy" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&q=80" alt="Stretch Terry 5-Pocket">
+      <div class="product-info">
+        <div class="product-name">Stretch Terry 5-Pocket Pant &mdash; Navy</div>
+        <div class="product-price-row">
+          <span class="product-original">$198</span>
+          <span class="product-member-price">$158</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://fahertybrand.com/products/movement-short-sleeve-polo-gulf-blue-melange" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1625910513413-5fc421e352a5?w=600&q=80" alt="Movement Polo">
+      <div class="product-info">
+        <div class="product-name">Movement Short Sleeve Polo &mdash; Gulf Blue</div>
+        <div class="product-price-row">
+          <span class="product-original">$118</span>
+          <span class="product-member-price">$94</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://fahertybrand.com/products/the-movement-shirt-blue-rose-plaid" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&q=80" alt="Movement Shirt">
+      <div class="product-info">
+        <div class="product-name">The Movement Shirt &mdash; Blue Rose Plaid</div>
+        <div class="product-price-row">
+          <span class="product-original">$158</span>
+          <span class="product-member-price">$126</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://fahertybrand.com/products/legend-sweater-crew-black-twill" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1434389677669-e08b4cda3a50?w=600&q=80" alt="Legend Sweater">
+      <div class="product-info">
+        <div class="product-name">Legend Sweater Crew &mdash; Black Twill</div>
+        <div class="product-price-row">
+          <span class="product-original">$148</span>
+          <span class="product-member-price">$118</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://fahertybrand.com/products/all-day-shorts-7-stone-khaki" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80" alt="All Day Shorts">
+      <div class="product-info">
+        <div class="product-name">All Day Shorts 7" &mdash; Stone Khaki</div>
+        <div class="product-price-row">
+          <span class="product-original">$98</span>
+          <span class="product-member-price">$78</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ==================== TAYLOR STITCH ==================== -->
+<section class="brand-section reveal" id="taylor-stitch">
+  <div class="brand-header">
+    <h2 class="brand-name">Taylor Stitch</h2>
+    <div class="brand-discount">20% Off Member Price</div>
+  </div>
+  <p class="brand-tagline">Responsibly built menswear from San Francisco. Organic fabrics, USA-made, and designed to last decades.</p>
+  <div class="product-grid">
+
+    <a class="product-card" href="https://www.taylorstitch.com/products/the-ryder-jacket-in-burgundy-chipped-canvas" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80" alt="Ryder Jacket">
+      <div class="product-info">
+        <div class="product-name">The Ryder Jacket &mdash; Burgundy Chipped Canvas</div>
+        <div class="product-price-row">
+          <span class="product-original">$218</span>
+          <span class="product-member-price">$174</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.taylorstitch.com/products/the-hawthorne-shirt-in-sky-blue-floral-jacquard" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&q=80" alt="Hawthorne Shirt">
+      <div class="product-info">
+        <div class="product-name">The Hawthorne Shirt &mdash; Sky Blue Floral Jacquard</div>
+        <div class="product-price-row">
+          <span class="product-original">$135</span>
+          <span class="product-member-price">$108</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.taylorstitch.com/products/the-democratic-jean-in-japanese-washed-indigo-sashiko" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80" alt="Democratic Jean">
+      <div class="product-info">
+        <div class="product-name">The Democratic Jean &mdash; Washed Indigo Sashiko</div>
+        <div class="product-price-row">
+          <span class="product-original">$228</span>
+          <span class="product-member-price">$182</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.taylorstitch.com/products/the-apres-short-in-heather-oat-crepe" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80" alt="Apres Short">
+      <div class="product-info">
+        <div class="product-name">The Apr&egrave;s Short &mdash; Heather Oat Crepe</div>
+        <div class="product-price-row">
+          <span class="product-original">$108</span>
+          <span class="product-member-price">$86</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.taylorstitch.com/products/the-station-jacket-in-petrol-blue-broken-twill" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" alt="Station Jacket">
+      <div class="product-info">
+        <div class="product-name">The Station Jacket &mdash; Petrol Blue Broken Twill</div>
+        <div class="product-price-row">
+          <span class="product-original">$228</span>
+          <span class="product-member-price">$182</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.taylorstitch.com/products/the-cotton-hemp-polo-in-asphalt-pique" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=600&q=80" alt="Cotton Hemp Polo">
+      <div class="product-info">
+        <div class="product-name">The Cotton Hemp Polo &mdash; Asphalt Piqu&eacute;</div>
+        <div class="product-price-row">
+          <span class="product-original">$88</span>
+          <span class="product-member-price">$70</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ==================== JOHNNIE-O ==================== -->
+<section class="brand-section reveal" id="johnnie-o">
+  <div class="brand-header">
+    <h2 class="brand-name">Johnnie-O</h2>
+    <div class="brand-discount">15% Off Member Price</div>
+  </div>
+  <p class="brand-tagline">West Coast prep meets East Coast polish. Performance fabrics you can wear from the office to the course.</p>
+  <div class="product-grid">
+
+    <a class="product-card" href="https://www.johnnie-o.com/products/jmvt100440-bauer-gray" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=600&q=80" alt="Bauer Vest">
+      <div class="product-info">
+        <div class="product-name">Bauer Snap Front Quilted Vest</div>
+        <div class="product-price-row">
+          <span class="product-original">$168</span>
+          <span class="product-member-price">$143</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.johnnie-o.com/products/jmpa100200-cross-country-flex-pant-mid-blue" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&q=80" alt="Cross Country Pant">
+      <div class="product-info">
+        <div class="product-name">Cross Country Flex Performance Pant</div>
+        <div class="product-price-row">
+          <span class="product-original">$148</span>
+          <span class="product-member-price">$126</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.johnnie-o.com/products/jmko100520_hoppin-qz_25fa" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1614975059251-992f11792571?w=600&q=80" alt="Hoppin Quarter Zip">
+      <div class="product-info">
+        <div class="product-name">Hoppin Ribbed Knit Performance 1/4 Zip</div>
+        <div class="product-price-row">
+          <span class="product-original">$158</span>
+          <span class="product-member-price">$134</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.johnnie-o.com/products/jmpo102160-rez-sp26-kona" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80" alt="Rez Stripe Polo">
+      <div class="product-info">
+        <div class="product-name">Performance Jersey Polo &mdash; Rez Stripe</div>
+        <div class="product-price-row">
+          <span class="product-original">$105</span>
+          <span class="product-member-price">$89</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.johnnie-o.com/products/jmfw100320-sp26" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&q=80" alt="Sure Shot Sneaker">
+      <div class="product-info">
+        <div class="product-name">Sure Shot Sneaker</div>
+        <div class="product-price-row">
+          <span class="product-original">$198</span>
+          <span class="product-member-price">$168</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.johnnie-o.com/products/carmel-jmpa100050-24fa-windwardblue" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&q=80" alt="Carmel Pant">
+      <div class="product-info">
+        <div class="product-name">Carmel Sateen 5-Pocket Pant</div>
+        <div class="product-price-row">
+          <span class="product-original">$148</span>
+          <span class="product-member-price">$126</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ==================== HUCKBERRY ==================== -->
+<section class="brand-section reveal" id="huckberry">
+  <div class="brand-header">
+    <h2 class="brand-name">Huckberry</h2>
+    <div class="brand-discount">15% Off Member Price</div>
+  </div>
+  <p class="brand-tagline">The men's shop for the adventurous. Curated gear from Flint &amp; Tinder, Proof, Relwen, and more.</p>
+  <div class="product-grid">
+
+    <a class="product-card" href="https://huckberry.com/store/flint-and-tinder/category/p/81623-10-year-hoodie" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&q=80" alt="10-Year Hoodie">
+      <div class="product-info">
+        <div class="product-name">Flint &amp; Tinder 10-Year Hoodie</div>
+        <div class="product-price-row">
+          <span class="product-original">$148</span>
+          <span class="product-member-price">$126</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://huckberry.com/store/flint-and-tinder/category/p/73891-waxed-trucker-jacket" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" alt="Waxed Trucker">
+      <div class="product-info">
+        <div class="product-name">Flint &amp; Tinder Waxed Trucker Jacket</div>
+        <div class="product-price-row">
+          <span class="product-original">$248</span>
+          <span class="product-member-price">$211</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://huckberry.com/store/proof/category/p/72-day-pant" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=600&q=80" alt="Proof 72-Hour Pant">
+      <div class="product-info">
+        <div class="product-name">Proof 72-Hour Merino Pant</div>
+        <div class="product-price-row">
+          <span class="product-original">$128</span>
+          <span class="product-member-price">$109</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://huckberry.com/store/relwen/category/p/windzip-jacket" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=600&q=80" alt="Relwen Windzip">
+      <div class="product-info">
+        <div class="product-name">Relwen Windzip Jacket</div>
+        <div class="product-price-row">
+          <span class="product-original">$298</span>
+          <span class="product-member-price">$253</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://huckberry.com/store/danner" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Danner Boots">
+      <div class="product-info">
+        <div class="product-name">Danner Trail 2650 GTX Hiking Shoe</div>
+        <div class="product-price-row">
+          <span class="product-original">$180</span>
+          <span class="product-member-price">$153</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://huckberry.com/store/wellen" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&q=80" alt="Wellen Tee">
+      <div class="product-info">
+        <div class="product-name">Wellen Recycled Organic Easy Tee</div>
+        <div class="product-price-row">
+          <span class="product-original">$48</span>
+          <span class="product-member-price">$41</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ==================== MADEWELL ==================== -->
+<section class="brand-section reveal" id="madewell">
+  <div class="brand-header">
+    <h2 class="brand-name">Madewell</h2>
+    <div class="brand-discount">25% Off Member Price</div>
+  </div>
+  <p class="brand-tagline">The denim authority. Effortless style for women who don't try too hard&mdash;because they don't have to.</p>
+  <div class="product-grid">
+
+    <a class="product-card" href="https://www.madewell.com/womens/clothing/dresses" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&q=80" alt="Cami Midi Dress">
+      <div class="product-info">
+        <div class="product-name">Cami Midi Slip Dress</div>
+        <div class="product-price-row">
+          <span class="product-original">$148</span>
+          <span class="product-member-price">$111</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.madewell.com/womens/clothing/dresses" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d44?w=600&q=80" alt="Linen Shirtdress">
+      <div class="product-info">
+        <div class="product-name">Relaxed Mini Shirtdress in 100% Linen</div>
+        <div class="product-price-row">
+          <span class="product-original">$138</span>
+          <span class="product-member-price">$104</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.madewell.com/womens/clothing/dresses" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&q=80" alt="Splitneck Mini Dress">
+      <div class="product-info">
+        <div class="product-name">Splitneck Mini Dress</div>
+        <div class="product-price-row">
+          <span class="product-original">$138</span>
+          <span class="product-member-price">$104</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.madewell.com/womens/clothing/dresses" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80" alt="Jumpsuit">
+      <div class="product-info">
+        <div class="product-name">Utility Coverall Straight-Leg Jumpsuit</div>
+        <div class="product-price-row">
+          <span class="product-original">$158</span>
+          <span class="product-member-price">$119</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.madewell.com/womens/clothing/dresses" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80" alt="Smocked Midi Dress">
+      <div class="product-info">
+        <div class="product-name">Smocked Boatneck Midi Dress</div>
+        <div class="product-price-row">
+          <span class="product-original">$138</span>
+          <span class="product-member-price">$104</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+    <a class="product-card" href="https://www.madewell.com/womens/jeans" target="_blank">
+      <img class="product-img" src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&q=80" alt="Perfect Vintage Jean">
+      <div class="product-info">
+        <div class="product-name">The Perfect Vintage Jean</div>
+        <div class="product-price-row">
+          <span class="product-original">$138</span>
+          <span class="product-member-price">$104</span>
+        </div>
+        <div class="product-tag">Gold Member</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="cta-section">
+  <h2><span class="outline">NOT A</span> <span class="gold">PERK.</span><br><span class="outline">A</span> MEMBERSHIP.</h2>
+  <p class="cta-sub">The Edit is exclusive to Pavilion Gold members. Five brands. Permanent pricing. No codes, no flash sales, no expiration.</p>
+  <a href="#" class="cta-btn">Become a Gold Member</a>
+</section>
+
+<footer class="footer">
+  <span>Pavilion Gold</span>
+  <span>The Edit &mdash; &copy; 2026</span>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

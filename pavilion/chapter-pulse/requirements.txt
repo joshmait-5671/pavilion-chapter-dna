@@ -1,0 +1,4 @@
+slack-sdk>=3.27
+anthropic>=0.25
+playwright>=1.40
+python-dotenv>=1.0

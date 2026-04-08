@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "roi-calc",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", ".", "-p", "4300", "--no-clipboard"],
+      "port": 4300
+    }
+  ]
+}

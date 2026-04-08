@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly Check-In</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, system-ui, 'Segoe UI', sans-serif;
+      background: #f7f7f5;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container { max-width: 640px; margin: 0 auto; }
+
+    h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+    .subtitle { font-size: 15px; color: #888; margin-bottom: 32px; }
+    .month-select { margin-bottom: 32px; }
+    .month-select label { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #888; display: block; margin-bottom: 8px; }
+    .month-select select {
+      font-size: 16px; padding: 10px 14px; border-radius: 8px;
+      border: 1px solid #ddd; background: #fff; font-family: inherit; width: 100%;
+    }
+
+    .question {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .q-number { font-size: 12px; font-weight: 700; color: #4a9; letter-spacing: 1px; margin-bottom: 8px; }
+    .q-text { font-size: 17px; font-weight: 600; line-height: 1.4; margin-bottom: 16px; }
+    .q-hint { font-size: 13px; color: #999; margin-bottom: 12px; font-style: italic; }
+
+    /* Multiple choice */
+    .options { display: flex; flex-direction: column; gap: 8px; }
+    .option {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 8px; border: 1px solid #e8e8e8;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .option:hover { border-color: #4a9; background: rgba(68,170,153,0.04); }
+    .option input[type="radio"] { accent-color: #4a9; width: 16px; height: 16px; }
+    .option label { cursor: pointer; font-size: 15px; flex: 1; }
+
+    /* Scale */
+    .scale { display: flex; gap: 0; margin-bottom: 8px; }
+    .scale-btn {
+      flex: 1; padding: 10px 0; text-align: center; font-size: 15px; font-weight: 600;
+      border: 1px solid #e8e8e8; background: #fff; cursor: pointer; transition: all 0.15s;
+    }
+    .scale-btn:first-child { border-radius: 8px 0 0 8px; }
+    .scale-btn:last-child { border-radius: 0 8px 8px 0; }
+    .scale-btn:not(:last-child) { border-right: none; }
+    .scale-btn:hover { background: rgba(68,170,153,0.06); }
+    .scale-btn.selected { background: #4a9; color: #fff; border-color: #4a9; }
+    .scale-labels { display: flex; justify-content: space-between; font-size: 12px; color: #aaa; }
+
+    /* Text areas */
+    textarea {
+      width: 100%; min-height: 80px; padding: 12px; border-radius: 8px;
+      border: 1px solid #e8e8e8; font-family: inherit; font-size: 15px;
+      resize: vertical; line-height: 1.5;
+    }
+    textarea:focus { outline: none; border-color: #4a9; }
+
+    /* Other text input after radio */
+    .other-input {
+      margin-top: 8px; width: 100%; padding: 10px 14px; border-radius: 8px;
+      border: 1px solid #e8e8e8; font-family: inherit; font-size: 15px;
+      display: none;
+    }
+    .other-input.visible { display: block; }
+    .other-input:focus { outline: none; border-color: #4a9; }
+
+    /* Submit */
+    .submit-btn {
+      width: 100%; padding: 16px; background: #4a9; color: #fff;
+      border: none; border-radius: 10px; font-size: 17px; font-weight: 600;
+      cursor: pointer; margin-top: 16px; transition: background 0.15s;
+    }
+    .submit-btn:hover { background: #3a8a7a; }
+    .submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+    /* Saved responses view */
+    .history { margin-top: 48px; }
+    .history h2 { font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+    .history-entry {
+      background: #fff; border: 1px solid #e8e8e8; border-radius: 12px;
+      padding: 24px; margin-bottom: 16px;
+    }
+    .history-entry h3 {
+      font-size: 16px; font-weight: 700; color: #4a9; margin-bottom: 16px;
+      padding-bottom: 12px; border-bottom: 1px solid #eee;
+    }
+    .history-qa { margin-bottom: 14px; }
+    .history-qa:last-child { margin-bottom: 0; }
+    .history-q { font-size: 13px; font-weight: 600; color: #888; margin-bottom: 4px; }
+    .history-a { font-size: 15px; line-height: 1.5; }
+
+    .empty-state { text-align: center; padding: 40px; color: #aaa; font-size: 15px; }
+
+    .success-msg {
+      text-align: center; padding: 40px; background: #fff; border-radius: 12px;
+      border: 1px solid #e8e8e8; margin-bottom: 24px;
+    }
+    .success-msg .check { font-size: 48px; margin-bottom: 12px; }
+    .success-msg h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .success-msg p { font-size: 15px; color: #888; }
+
+    .btn-link {
+      background: none; border: none; color: #4a9; font-size: 15px;
+      font-weight: 600; cursor: pointer; text-decoration: underline;
+      margin-top: 12px;
+    }
+
+    .delete-btn {
+      background: none; border: 1px solid #ddd; color: #999; font-size: 12px;
+      padding: 4px 10px; border-radius: 6px; cursor: pointer; float: right;
+    }
+    .delete-btn:hover { border-color: #e55; color: #e55; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Monthly Check-In</h1>
+  <p class="subtitle">Honest answers only. No right or wrong.</p>
+
+  <!-- SURVEY FORM -->
+  <div id="surveyForm">
+    <div class="month-select">
+      <label>Which month is this?</label>
+      <select id="monthPicker">
+        <option value="Month 1">Month 1</option>
+        <option value="Month 2">Month 2</option>
+        <option value="Month 3">Month 3</option>
+      </select>
+    </div>
+
+    <!-- Q1: Scale -->
+    <div class="question">
+      <div class="q-number">QUESTION 1</div>
+      <div class="q-text">How do you feel overall compared to when you were smoking?</div>
+      <div class="scale" data-name="q1">
+        <button class="scale-btn" data-val="1">1</button>
+        <button class="scale-btn" data-val="2">2</button>
+        <button class="scale-btn" data-val="3">3</button>
+        <button class="scale-btn" data-val="4">4</button>
+        <button class="scale-btn" data-val="5">5</button>
+      </div>
+      <div class="scale-labels"><span>Much worse</span><span>About the same</span><span>Much better</span></div>
+    </div>
+
+    <!-- Q2: Multiple choice + other -->
+    <div class="question">
+      <div class="q-number">QUESTION 2</div>
+      <div class="q-text">What's the biggest positive change you've noticed?</div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q2" id="q2a" value="Clearer thinking / better focus"><label for="q2a">Clearer thinking / better focus</label></div>
+        <div class="option"><input type="radio" name="q2" id="q2b" value="More energy or motivation"><label for="q2b">More energy or motivation</label></div>
+        <div class="option"><input type="radio" name="q2" id="q2c" value="Better sleep"><label for="q2c">Better sleep</label></div>
+        <div class="option"><input type="radio" name="q2" id="q2d" value="Improved mood"><label for="q2d">Improved mood</label></div>
+        <div class="option"><input type="radio" name="q2" id="q2e" value="More present with people"><label for="q2e">More present with people</label></div>
+        <div class="option"><input type="radio" name="q2" id="q2f" value="other"><label for="q2f">Something else</label></div>
+      </div>
+      <input type="text" class="other-input" id="q2other" placeholder="What was it?">
+    </div>
+
+    <!-- Q3: Open ended -->
+    <div class="question">
+      <div class="q-number">QUESTION 3</div>
+      <div class="q-text">What's been the hardest part about not smoking this month?</div>
+      <div class="q-hint">Be honest. There are no wrong answers here.</div>
+      <textarea id="q3" placeholder="Write as much or as little as you want..."></textarea>
+    </div>
+
+    <!-- Q4: Multiple choice + other -->
+    <div class="question">
+      <div class="q-number">QUESTION 4</div>
+      <div class="q-text">What do you miss most about it?</div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q4" id="q4a" value="The relaxation / winding down"><label for="q4a">The relaxation / winding down</label></div>
+        <div class="option"><input type="radio" name="q4" id="q4b" value="The social aspect"><label for="q4b">The social aspect</label></div>
+        <div class="option"><input type="radio" name="q4" id="q4c" value="Creativity or a different headspace"><label for="q4c">Creativity or a different headspace</label></div>
+        <div class="option"><input type="radio" name="q4" id="q4d" value="Honestly, nothing"><label for="q4d">Honestly, nothing</label></div>
+        <div class="option"><input type="radio" name="q4" id="q4e" value="other"><label for="q4e">Something else</label></div>
+      </div>
+      <input type="text" class="other-input" id="q4other" placeholder="What do you miss?">
+    </div>
+
+    <!-- Q5: Scale -->
+    <div class="question">
+      <div class="q-number">QUESTION 5</div>
+      <div class="q-text">How strong are your cravings right now?</div>
+      <div class="scale" data-name="q5">
+        <button class="scale-btn" data-val="1">1</button>
+        <button class="scale-btn" data-val="2">2</button>
+        <button class="scale-btn" data-val="3">3</button>
+        <button class="scale-btn" data-val="4">4</button>
+        <button class="scale-btn" data-val="5">5</button>
+      </div>
+      <div class="scale-labels"><span>No cravings at all</span><span>Can manage</span><span>Really strong</span></div>
+    </div>
+
+    <!-- Q6: Open ended -->
+    <div class="question">
+      <div class="q-number">QUESTION 6</div>
+      <div class="q-text">Has not smoking changed any of your relationships or social life? How?</div>
+      <textarea id="q6" placeholder="Think about friends, family, how you spend your time..."></textarea>
+    </div>
+
+    <!-- Q7: Multiple choice + other -->
+    <div class="question">
+      <div class="q-number">QUESTION 7</div>
+      <div class="q-text">What are you doing with the time/energy you used to spend smoking?</div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q7" id="q7a" value="More schoolwork or productive stuff"><label for="q7a">More schoolwork or productive stuff</label></div>
+        <div class="option"><input type="radio" name="q7" id="q7b" value="Exercising or being outside more"><label for="q7b">Exercising or being outside more</label></div>
+        <div class="option"><input type="radio" name="q7" id="q7c" value="Spending more time with people"><label for="q7c">Spending more time with people</label></div>
+        <div class="option"><input type="radio" name="q7" id="q7d" value="Honestly just more screen time"><label for="q7d">Honestly just more screen time</label></div>
+        <div class="option"><input type="radio" name="q7" id="q7e" value="Haven't really noticed a difference"><label for="q7e">Haven't really noticed a difference</label></div>
+        <div class="option"><input type="radio" name="q7" id="q7f" value="other"><label for="q7f">Something else</label></div>
+      </div>
+      <input type="text" class="other-input" id="q7other" placeholder="What have you been doing instead?">
+    </div>
+
+    <!-- Q8: Scale -->
+    <div class="question">
+      <div class="q-number">QUESTION 8</div>
+      <div class="q-text">How proud are you of yourself for sticking with this?</div>
+      <div class="scale" data-name="q8">
+        <button class="scale-btn" data-val="1">1</button>
+        <button class="scale-btn" data-val="2">2</button>
+        <button class="scale-btn" data-val="3">3</button>
+        <button class="scale-btn" data-val="4">4</button>
+        <button class="scale-btn" data-val="5">5</button>
+      </div>
+      <div class="scale-labels"><span>Not really</span><span>Somewhat</span><span>Very proud</span></div>
+    </div>
+
+    <!-- Q9: Open ended -->
+    <div class="question">
+      <div class="q-number">QUESTION 9</div>
+      <div class="q-text">What surprised you most about this month without smoking?</div>
+      <div class="q-hint">Something you didn't expect — good or bad.</div>
+      <textarea id="q9" placeholder="What caught you off guard?"></textarea>
+    </div>
+
+    <!-- Q10: Open ended -->
+    <div class="question">
+      <div class="q-number">QUESTION 10</div>
+      <div class="q-text">When this experiment is over, what do you think your relationship with weed will look like?</div>
+      <div class="q-hint">There's no right answer. Just think about it honestly.</div>
+      <textarea id="q10" placeholder="What are you thinking right now about the future?"></textarea>
+    </div>
+
+    <!-- Q11: Honesty check -->
+    <div class="question" style="border-left: 3px solid #e85d26;">
+      <div class="q-number" style="color: #e85d26;">QUESTION 11</div>
+      <div class="q-text">Honesty check: List every time you smoked this month.</div>
+      <div class="q-hint">This includes the pre-approved occasions you told Dad about in advance AND any other times. Please reveal all — no judgment, but full honesty is the deal.</div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q11" id="q11a" value="I didn't smoke at all this month"><label for="q11a">I didn't smoke at all this month</label></div>
+        <div class="option"><input type="radio" name="q11" id="q11b" value="Only the pre-approved occasion(s) I told Dad about"><label for="q11b">Only the pre-approved occasion(s) I told Dad about</label></div>
+        <div class="option"><input type="radio" name="q11" id="q11c" value="There were other times too"><label for="q11c">There were other times too</label></div>
+      </div>
+      <textarea id="q11detail" placeholder="List every occasion — when, where, with who. Include the pre-approved ones AND anything else." style="margin-top: 12px;"></textarea>
+    </div>
+
+    <!-- Q12: Next month occasions -->
+    <div class="question">
+      <div class="q-number">QUESTION 12</div>
+      <div class="q-text">Looking ahead: are there any occasions next month where you think you'll want to smoke?</div>
+      <div class="q-hint">Trips, reunions, events — anything coming up. Let's talk about them now.</div>
+      <textarea id="q12" placeholder="What's coming up next month?"></textarea>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitSurvey()">Save My Answers</button>
+  </div>
+
+  <!-- SUCCESS MESSAGE (hidden by default) -->
+  <div id="successMsg" style="display:none;">
+    <div class="success-msg">
+      <div class="check">&#10004;</div>
+      <h3>Saved.</h3>
+      <p>Your answers are stored. You can see them below anytime.</p>
+    </div>
+    <button class="submit-btn" onclick="shareWithDad()" style="background: #e85d26; margin-bottom: 8px;">Share with Dad</button>
+    <button class="btn-link" onclick="resetForm()">Fill out another month</button>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="history" id="history">
+    <h2>Past Responses</h2>
+    <div id="historyList"></div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'weed-survey-responses';
+  const questions = [
+    'How do you feel overall compared to when you were smoking? (1-5)',
+    'What\'s the biggest positive change you\'ve noticed?',
+    'What\'s been the hardest part about not smoking this month?',
+    'What do you miss most about it?',
+    'How strong are your cravings right now? (1-5)',
+    'Has not smoking changed any of your relationships or social life? How?',
+    'What are you doing with the time/energy you used to spend smoking?',
+    'How proud are you of yourself for sticking with this? (1-5)',
+    'What surprised you most about this month without smoking?',
+    'When this experiment is over, what do you think your relationship with weed will look like?',
+    'Honesty check: List every time you smoked this month.',
+    'Looking ahead: any occasions next month where you\'ll want to smoke?'
+  ];
+
+  // Scale buttons
+  document.querySelectorAll('.scale').forEach(scale => {
+    scale.querySelectorAll('.scale-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        scale.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+  });
+
+  // Show "other" input when "Something else" is selected
+  document.querySelectorAll('input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const name = radio.name;
+      const otherInput = document.getElementById(name + 'other');
+      if (otherInput) {
+        otherInput.classList.toggle('visible', radio.value === 'other');
+        if (radio.value === 'other') otherInput.focus();
+      }
+    });
+  });
+
+  function getResponses() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  }
+
+  function saveResponses(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function getScaleValue(name) {
+    const sel = document.querySelector(`.scale[data-name="${name}"] .scale-btn.selected`);
+    return sel ? sel.dataset.val : '';
+  }
+
+  function getRadioValue(name) {
+    const checked = document.querySelector(`input[name="${name}"]:checked`);
+    if (!checked) return '';
+    if (checked.value === 'other') {
+      const otherInput = document.getElementById(name + 'other');
+      return otherInput && otherInput.value.trim() ? otherInput.value.trim() : '(something else — no detail given)';
+    }
+    return checked.value;
+  }
+
+  function submitSurvey() {
+    const month = document.getElementById('monthPicker').value;
+    const answers = [
+      getScaleValue('q1'),
+      getRadioValue('q2'),
+      document.getElementById('q3').value.trim(),
+      getRadioValue('q4'),
+      getScaleValue('q5'),
+      document.getElementById('q6').value.trim(),
+      getRadioValue('q7'),
+      getScaleValue('q8'),
+      document.getElementById('q9').value.trim(),
+      document.getElementById('q10').value.trim(),
+      (getRadioValue('q11') + (document.getElementById('q11detail').value.trim() ? ' — ' + document.getElementById('q11detail').value.trim() : '')).trim(),
+      document.getElementById('q12').value.trim()
+    ];
+
+    const entry = {
+      month,
+      date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+      answers
+    };
+
+    const all = getResponses();
+    // Replace if same month exists
+    const idx = all.findIndex(r => r.month === month);
+    if (idx >= 0) all[idx] = entry;
+    else all.push(entry);
+
+    saveResponses(all);
+    document.getElementById('surveyForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    renderHistory();
+  }
+
+  function resetForm() {
+    document.getElementById('surveyForm').style.display = 'block';
+    document.getElementById('successMsg').style.display = 'none';
+    // Clear form
+    document.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.other-input').forEach(i => { i.value = ''; i.classList.remove('visible'); });
+    document.querySelectorAll('textarea').forEach(t => t.value = '');
+  }
+
+  function formatEntryText(entry) {
+    let text = `HARPER'S CHECK-IN — ${entry.month.toUpperCase()}\n`;
+    text += `${entry.date}\n`;
+    text += '─'.repeat(40) + '\n\n';
+    entry.answers.forEach((a, i) => {
+      text += `${questions[i]}\n`;
+      text += `→ ${a || '(skipped)'}\n\n`;
+    });
+    return text;
+  }
+
+  function shareWithDad() {
+    const all = getResponses();
+    const latest = all[all.length - 1];
+    if (!latest) return;
+    const text = formatEntryText(latest);
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Copied! Now paste it in a text to Dad.');
+    });
+  }
+
+  function shareEntry(month) {
+    const entry = getResponses().find(r => r.month === month);
+    if (!entry) return;
+    const text = formatEntryText(entry);
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Copied! Now paste it in a text to Dad.');
+    });
+  }
+
+  function deleteEntry(month) {
+    if (!confirm('Delete ' + month + ' responses?')) return;
+    const all = getResponses().filter(r => r.month !== month);
+    saveResponses(all);
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const all = getResponses();
+    const list = document.getElementById('historyList');
+    if (all.length === 0) {
+      list.innerHTML = '<div class="empty-state">No responses yet. Fill out your first month above.</div>';
+      document.getElementById('history').style.display = 'block';
+      return;
+    }
+    // Sort Month 1, 2, 3
+    all.sort((a, b) => a.month.localeCompare(b.month));
+    list.innerHTML = all.map(entry => `
+      <div class="history-entry">
+        <h3>${entry.month} <span style="font-weight:400;color:#aaa;font-size:13px;">- ${entry.date}</span>
+        <button class="delete-btn" onclick="deleteEntry('${entry.month}')">Delete</button>
+        <button class="delete-btn" style="margin-right:8px;border-color:#4a9;color:#4a9;" onclick="shareEntry('${entry.month}')">Share with Dad</button></h3>
+        ${entry.answers.map((a, i) => `
+          <div class="history-qa">
+            <div class="history-q">${questions[i]}</div>
+            <div class="history-a">${a || '<span style="color:#ccc;">Skipped</span>'}</div>
+          </div>
+        `).join('')}
+      </div>
+    `).join('');
+    document.getElementById('history').style.display = 'block';
+  }
+
+  // Init
+  renderHistory();
+</script>
+</body>
+</html>

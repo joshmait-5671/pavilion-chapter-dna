@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavilion AI Buddy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pav-pink:       #DF285B;
+    --pav-pink-200:   #FFEDF2;
+    --pav-pink-100:   #FEF9F9;
+    --pav-blue:       #180A5C;
+    --pav-blue-600:   #2B1887;
+    --pav-white:      #FFFFFF;
+    --pav-body:       #404040;
+    --pav-muted:      #6B7280;
+    --pav-gray-200:   #EFEFEF;
+    --font:           'Poppins', Arial, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--pav-white);
+    color: var(--pav-body);
+    font-family: var(--font);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── FOUNDER NOTE ────────────────────────────────────────── */
+  .founder-note-section {
+    background: #FAFAF8;
+    border-bottom: 1px solid var(--pav-gray-200);
+    padding: 128px 48px 80px;
+  }
+
+  .founder-note-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-left: 28px;
+    border-left: 3px solid var(--pav-pink);
+  }
+
+  .founder-note-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 24px;
+  }
+
+  .founder-note-text {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.9;
+    color: var(--pav-body);
+    margin-bottom: 36px;
+  }
+
+  .founder-sig-name {
+    display: block;
+    font-family: 'Dancing Script', cursive;
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--pav-blue-600);
+    line-height: 1.15;
+  }
+
+  .founder-sig-title {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--pav-muted);
+    margin-top: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .founder-note-section { padding: 112px 24px 64px; }
+    .founder-note-inner { padding-left: 20px; }
+    .founder-note-text { font-size: 15px; }
+  }
+
+  /* ── NAV ─────────────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  nav.scrolled { border-color: var(--pav-gray-200); }
+
+  .nav-logo {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--pav-blue);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  .nav-right {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .nav-link {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--pav-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--pav-blue); }
+
+  .nav-cta {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--pav-pink);
+    text-decoration: none;
+    padding: 10px 24px;
+    border-radius: 100px;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 64px 80px 48px;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--pav-pink);
+    border-radius: 2px;
+  }
+
+  .hero-h1 {
+    font-family: var(--font);
+    font-size: clamp(40px, 4.5vw, 60px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--pav-blue-600);
+    margin-bottom: 24px;
+  }
+
+  .hero-h1 em {
+    font-style: normal;
+    color: var(--pav-pink);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--pav-muted);
+    line-height: 1.75;
+    max-width: 400px;
+    margin-bottom: 44px;
+  }
+
+  .hero-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 13px 16px;
+    background: var(--pav-white);
+    border: 1.5px solid var(--pav-gray-200);
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--pav-blue);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--pav-pink); }
+  .form-input::placeholder { color: #B0B8C4; }
+
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23DF285B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-color: var(--pav-white);
+    cursor: pointer;
+  }
+
+  .form-submit {
+    padding: 15px 28px;
+    background: var(--pav-pink);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    width: 100%;
+  }
+  .form-submit:hover { opacity: 0.88; }
+  .form-submit:active { transform: scale(0.99); }
+
+  .form-note {
+    font-size: 12px;
+    color: #B0B8C4;
+    line-height: 1.6;
+  }
+
+  /* ── HERO RIGHT ──────────────────────────────────────────── */
+  .hero-right {
+    background: var(--pav-blue);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-right::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(89,20,108,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Subtle grid overlay */
+  .hero-right .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .quote-block {
+    position: relative;
+    z-index: 1;
+  }
+
+  .quote-mark {
+    font-family: var(--font);
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 0.8;
+    color: var(--pav-pink);
+    opacity: 0.5;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .quote-text {
+    font-family: var(--font);
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 600;
+    color: white;
+    line-height: 1.45;
+    margin-bottom: 40px;
+  }
+
+  .quote-text em {
+    font-style: normal;
+    color: var(--pav-pink);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    margin-top: 48px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat-item {
+    background: rgba(255,255,255,0.05);
+    padding: 24px 28px;
+  }
+
+  .stat-num {
+    font-family: var(--font);
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── HOW IT WORKS ────────────────────────────────────────── */
+  .section {
+    padding: 112px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--pav-pink);
+    border-radius: 2px;
+  }
+
+  .section-h2 {
+    font-family: var(--font);
+    font-size: clamp(32px, 3.5vw, 48px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--pav-blue-600);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-h2 em {
+    font-style: normal;
+    color: var(--pav-pink);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--pav-gray-200);
+    margin-top: 56px;
+    border: 1px solid var(--pav-gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .step {
+    background: var(--pav-white);
+    padding: 44px 36px;
+    position: relative;
+  }
+
+  .step-num {
+    font-family: var(--font);
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--pav-pink-200);
+    line-height: 1;
+    margin-bottom: 20px;
+    display: block;
+    letter-spacing: -0.03em;
+  }
+
+  .step-title {
+    font-family: var(--font);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--pav-blue-600);
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+
+  .step-body {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--pav-muted);
+    line-height: 1.75;
+  }
+
+  /* ── COVENANT ────────────────────────────────────────────── */
+  .covenant-section {
+    background: var(--pav-blue);
+    padding: 112px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .covenant-section::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .covenant-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  .covenant-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .covenant-label::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--pav-pink);
+    border-radius: 2px;
+  }
+
+  .covenant-h2 {
+    font-family: var(--font);
+    font-size: clamp(30px, 3vw, 42px);
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .covenant-h2 em {
+    font-style: normal;
+    color: var(--pav-pink);
+  }
+
+  .covenant-body {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+  }
+
+  .covenant-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .covenant-item {
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .covenant-item:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+
+  .covenant-check {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid var(--pav-pink);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .covenant-check::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--pav-pink);
+  }
+
+  .covenant-item-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.65;
+  }
+  .covenant-item-text strong {
+    color: white;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 3px;
+    font-size: 15px;
+  }
+
+  /* ── WHY IT MATTERS ──────────────────────────────────────── */
+  .insight-section {
+    padding: 112px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .insight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    margin-top: 56px;
+    align-items: start;
+  }
+
+  .insight-body {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.85;
+    color: var(--pav-muted);
+  }
+  .insight-body p { margin-bottom: 20px; }
+  .insight-body p:last-child { margin-bottom: 0; }
+  .insight-body strong { color: var(--pav-blue-600); font-weight: 600; }
+
+  .insight-pullquote {
+    font-family: var(--font);
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1.5;
+    color: var(--pav-blue-600);
+    border-left: 3px solid var(--pav-pink);
+    padding-left: 28px;
+  }
+
+  /* ── FINAL CTA ───────────────────────────────────────────── */
+  .final-cta {
+    background: var(--pav-pink-200);
+    padding: 112px 48px;
+    text-align: center;
+  }
+
+  .final-cta-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .final-h2 {
+    font-family: var(--font);
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--pav-blue-600);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .final-h2 em {
+    font-style: normal;
+    color: var(--pav-pink);
+  }
+
+  .final-body {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--pav-muted);
+    line-height: 1.75;
+    margin-bottom: 44px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 16px 36px;
+    background: var(--pav-pink);
+    color: white;
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: 100px;
+    transition: opacity 0.2s;
+    margin-right: 12px;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+
+  .btn-secondary {
+    display: inline-block;
+    padding: 16px 36px;
+    background: transparent;
+    color: var(--pav-blue-600);
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: 1.5px solid var(--pav-blue-600);
+    border-radius: 100px;
+    transition: opacity 0.2s;
+  }
+  .btn-secondary:hover { opacity: 0.65; }
+
+  .final-line {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 400;
+    color: #B0B8C4;
+    margin-top: 44px;
+    font-style: italic;
+  }
+
+  /* ── SUCCESS STATE ───────────────────────────────────────── */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 32px;
+    background: white;
+    border: 1px solid var(--pav-gray-200);
+    border-radius: 12px;
+  }
+  .success-msg h3 {
+    font-family: var(--font);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--pav-blue-600);
+    margin-bottom: 10px;
+  }
+  .success-msg p {
+    font-size: 14px;
+    color: var(--pav-muted);
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--pav-gray-200);
+  }
+
+  .footer-logo {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pav-blue-600);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .footer-link {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--pav-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: var(--pav-blue); }
+
+  /* ── ANIMATIONS ──────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { opacity: 0; animation: fadeUp 0.65s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 80px 24px 64px; }
+    .steps { grid-template-columns: 1fr; border-radius: 8px; }
+    .covenant-inner { grid-template-columns: 1fr; gap: 44px; }
+    .insight-grid { grid-template-columns: 1fr; }
+    .section { padding: 80px 24px; }
+    .covenant-section { padding: 80px 24px; }
+    .final-cta { padding: 80px 24px; }
+    footer { padding: 28px 24px; flex-direction: column; gap: 20px; text-align: center; }
+    .form-row { grid-template-columns: 1fr; }
+    .btn-primary, .btn-secondary { display: block; margin-right: 0; margin-bottom: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">Pavilion</a>
+  <div class="nav-right">
+    <a href="#how"    class="nav-link">How it works</a>
+    <a href="#why"    class="nav-link">Why it matters</a>
+    <a href="#signup" class="nav-cta">Find your Buddy</a>
+  </div>
+</nav>
+
+<!-- FOUNDER NOTE -->
+<section class="founder-note-section">
+  <div class="founder-note-inner">
+    <div class="founder-note-label">A note from our founder</div>
+    <p class="founder-note-text">
+      We are in it. Not approaching the edge of something — standing in the middle of it. The shift is real. The noise around it is designed. Most of what you're reading right now was written to make you act, not to help you think. I have spent ten years watching how the best operators in revenue navigate change: not by finding the right tool first, but by finding the right person. AI compresses time. It makes the work faster, the output better, the analysis cheaper. It does not compress wisdom. It does not make judgment cheaper or trust faster. Those still move at the speed of human beings — and always will. Pavilion exists for exactly that. The conversation that reframes the problem. The peer who tells you what didn't work. The relationship worth building before you needed it. Use the technology. Then find your people. That's what this has always been.
+    </p>
+    <div class="founder-sig">
+      <span class="founder-sig-name">Sam Jacobs</span>
+      <span class="founder-sig-title">Founder &amp; CEO, Pavilion</span>
+    </div>
+  </div>
+</section>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag fade-up">Pavilion AI Buddy Program</div>
+    <h1 class="hero-h1 fade-up delay-1">
+      Who are you<br>talking to<br><em>about AI?</em>
+    </h1>
+    <p class="hero-sub fade-up delay-2">
+      Not a newsletter. Not a LinkedIn thread. A real person in your city, doing your job, figuring out the same things you are.
+    </p>
+    <div class="hero-form fade-up delay-3" id="signup">
+      <div id="form-content">
+        <div class="form-row">
+          <input type="text" class="form-input" placeholder="First name">
+          <input type="text" class="form-input" placeholder="Last name">
+        </div>
+        <input type="email" class="form-input" placeholder="Work email">
+        <input type="text"  class="form-input" placeholder="Company">
+        <select class="form-input form-select">
+          <option value="" disabled selected>Your role</option>
+          <option>VP of Sales</option>
+          <option>VP of Marketing</option>
+          <option>VP of Customer Success</option>
+          <option>Chief Revenue Officer</option>
+          <option>Revenue Operations</option>
+          <option>Sales Director</option>
+          <option>Other Revenue Leader</option>
+        </select>
+        <input type="text" class="form-input" placeholder="Your biggest AI question right now">
+        <button class="form-submit" onclick="handleSubmit()">Get matched with an AI Buddy</button>
+        <p class="form-note">No membership required to get started. Your information will only be used to find your match.</p>
+      </div>
+      <div class="success-msg" id="success-msg">
+        <h3>You're on the list.</h3>
+        <p>We'll match you with a Pavilion AI Buddy within the next two weeks. In the meantime, expect a short note from our team.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="grid-overlay"></div>
+    <div class="quote-block">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">
+        Everyone needs an AI friend.<br>
+        Or two. Or a hundred.<br>
+        <em>The internet has opinions.<br>
+        Your Buddy has experience.</em>
+      </p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-item">
+        <span class="stat-num">7,500+</span>
+        <span class="stat-label">Pavilion members</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">40+</span>
+        <span class="stat-label">Cities worldwide</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Years of community</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">1</span>
+        <span class="stat-label">Good conversation changes things</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section">
+    <div class="section-label">How it works</div>
+    <h2 class="section-h2">Simple. Personal.<br><em>No algorithm involved.</em></h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">01</span>
+        <h3 class="step-title">Tell us what you're working through</h3>
+        <p class="step-body">Sign up above. We ask one important question: what is your biggest AI question right now? That answer drives your match.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <h3 class="step-title">We find your Buddy</h3>
+        <p class="step-body">A Pavilion member who has opted in, has relevant experience, and is in a similar role or market. We make the introduction. You take it from there.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <h3 class="step-title">Have the conversation</h3>
+        <p class="step-body">No agenda. No sales pitch. A real conversation with someone who has been in the room you are trying to get into. One conversation often leads to more.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COVENANT -->
+<section class="covenant-section">
+  <div class="covenant-inner">
+    <div class="covenant-left">
+      <div class="covenant-label">The Buddy Covenant</div>
+      <h2 class="covenant-h2">Every Buddy agrees<br>to <em>show up right.</em></h2>
+      <p class="covenant-body">
+        This is not a mentorship program or a lead generation exercise. Buddies opt in because they believe in the value of a good conversation. They agree to a simple set of standards.
+      </p>
+    </div>
+    <ul class="covenant-list">
+      <li class="covenant-item">
+        <div class="covenant-check"></div>
+        <div class="covenant-item-text">
+          <strong>Be open and honest</strong>
+          About what you know, what you don't, and what has actually worked for you.
+        </div>
+      </li>
+      <li class="covenant-item">
+        <div class="covenant-check"></div>
+        <div class="covenant-item-text">
+          <strong>Be a good listener</strong>
+          Understand the situation before you offer advice. Ask the second question.
+        </div>
+      </li>
+      <li class="covenant-item">
+        <div class="covenant-check"></div>
+        <div class="covenant-item-text">
+          <strong>Be direct</strong>
+          If the match is not the right fit, say so. Don't leave someone waiting.
+        </div>
+      </li>
+      <li class="covenant-item">
+        <div class="covenant-check"></div>
+        <div class="covenant-item-text">
+          <strong>Be reasonable with your time</strong>
+          One good conversation is the commitment. Where it goes from there is up to both of you.
+        </div>
+      </li>
+      <li class="covenant-item">
+        <div class="covenant-check"></div>
+        <div class="covenant-item-text">
+          <strong>Be vulnerable</strong>
+          You don't have all the answers either. That is the whole point.
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section id="why" class="insight-section">
+  <div class="section-label">Why it matters</div>
+  <h2 class="section-h2">All information is now<br><em>potential misinformation.</em></h2>
+  <div class="insight-grid">
+    <div class="insight-body">
+      <p><strong>X has a bias toward the provocative.</strong> YouTube rewards watch time. LinkedIn optimizes for engagement. The AI platforms themselves have an obvious interest in selling you on AI. Every source you consult is, in some way, working an angle.</p>
+      <p>That doesn't make all of it wrong. It makes none of it sufficient. You need a human sanity check. Someone who has no incentive to oversell you, who knows your context, and who will tell you when the thing doesn't work.</p>
+      <p>The people around you are going to matter more and more. Not less. The question is whether you are building those relationships now.</p>
+    </div>
+    <blockquote class="insight-pullquote">
+      "The tools you use matter less than who you think alongside. Knowing what to use is downstream of knowing what you're trying to do. That's a people problem, not a software problem."
+    </blockquote>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <h2 class="final-h2">Carry the job alone.<br><em>Live this life together.</em></h2>
+    <p class="final-body">
+      The AI Buddy Program is free to start. No membership required. If you find value in it, you may want to join the community where these conversations happen every day.
+    </p>
+    <a href="#signup" class="btn-primary">Find your Buddy</a>
+    <a href="https://www.joinpavilion.com" class="btn-secondary" target="_blank">Learn about Pavilion</a>
+    <p class="final-line">Pavilion. Carry the job alone. Live this life together.</p>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Pavilion</span>
+  <div class="footer-links">
+    <a href="#" class="footer-link">Privacy</a>
+    <a href="#" class="footer-link">Terms</a>
+    <a href="https://www.joinpavilion.com" class="footer-link" target="_blank">Join Pavilion</a>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  function handleSubmit() {
+    document.getElementById('form-content').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>

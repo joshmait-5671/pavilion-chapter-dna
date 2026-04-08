@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Executive Table &mdash; Inside</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FAFAF7;
+    --ink: #111;
+    --mid: #555;
+    --light: #999;
+    --rule: #E0DDD6;
+    --red: #C23838;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --col: 72px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px; line-height: 1.6;
+  }
+  ::selection { background: var(--red); color: white; }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  /* -- GRID SYSTEM -------------------------------- */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
+
+  /* -- MASTHEAD ----------------------------------- */
+  .masthead {
+    padding: 20px 0;
+    border-bottom: 2px solid var(--ink);
+  }
+  .masthead-inner {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .masthead-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+  }
+  .masthead-nav { display: flex; gap: 24px; align-items: baseline; }
+  .masthead-link {
+    font-size: 11px; font-weight: 500; color: var(--mid);
+    text-decoration: none; letter-spacing: 0.02em;
+  }
+  .masthead-cta {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: white; background: var(--ink); padding: 8px 18px;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .masthead-cta:hover { background: var(--red); }
+
+  /* -- SECTION DIVIDERS --------------------------- */
+  .rule { border: none; border-top: 1px solid var(--rule); margin: 0; }
+  .rule-heavy { border: none; border-top: 2px solid var(--ink); margin: 0; }
+
+  /* -- PAGE HEADER -------------------------------- */
+  .page-header {
+    padding: 64px 0 48px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    align-items: end;
+    border-bottom: 1px solid var(--rule);
+  }
+  .page-header h1 {
+    font-size: 40px; font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .page-header-right {
+    padding-bottom: 4px;
+  }
+  .page-header-right p {
+    font-size: 15px; font-weight: 400; color: var(--mid);
+    line-height: 1.7; max-width: 400px;
+  }
+
+  /* -- INDEX (table of contents) ------------------ */
+  .index-section {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .index-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--light);
+    margin-bottom: 16px;
+  }
+  .index-grid {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+  }
+  .index-item {
+    padding: 12px 16px 12px 0;
+    border-right: 1px solid var(--rule);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .index-item:last-child { border-right: none; }
+  .index-item:hover { color: var(--red); }
+  .index-num {
+    font-size: 10px; font-weight: 700; color: var(--red);
+    letter-spacing: 0.1em; margin-bottom: 4px;
+  }
+  .index-name {
+    font-size: 12px; font-weight: 600; line-height: 1.3;
+  }
+
+  /* -- DIAGRAM SECTION ---------------------------- */
+  .diagram-section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .diagram-header {
+    display: grid; grid-template-columns: 200px 1fr; gap: 48px;
+    margin-bottom: 48px;
+  }
+  .diagram-header-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--light);
+    padding-top: 4px;
+  }
+  .diagram-header h2 {
+    font-size: 24px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2;
+  }
+
+  /* The 5-seat diagram */
+  .seat-diagram {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .seat-cell {
+    background: var(--bg); padding: 32px 24px;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .seat-cell:hover { background: #F0EDE6; }
+  .seat-role {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .seat-desc {
+    font-size: 11px; color: var(--light); line-height: 1.5;
+  }
+  .seat-number {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1.5px solid var(--rule);
+    font-size: 11px; font-weight: 700; color: var(--mid);
+    margin-bottom: 12px;
+  }
+
+  /* -- DETAIL GRID (the six things) --------------- */
+  .detail-section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .detail-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border: 1px solid var(--rule);
+    background: var(--rule);
+  }
+  .detail-card {
+    background: var(--bg); padding: 40px 32px;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    transition: background 0.3s;
+  }
+  .detail-card:nth-child(3n) { border-right: none; }
+  .detail-card:nth-child(n+4) { border-bottom: none; }
+  .detail-card:hover { background: #F0EDE6; }
+  .detail-card-num {
+    font-size: 10px; font-weight: 700; color: var(--red);
+    letter-spacing: 0.12em; margin-bottom: 16px;
+  }
+  .detail-card h3 {
+    font-size: 16px; font-weight: 700; line-height: 1.25;
+    margin-bottom: 10px; letter-spacing: -0.01em;
+  }
+  .detail-card p {
+    font-size: 12px; color: var(--mid); line-height: 1.7;
+  }
+
+  /* -- DATA TABLE --------------------------------- */
+  .data-section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .data-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 48px;
+  }
+  .data-table thead th {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--light);
+    text-align: left; padding: 0 0 12px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .data-table tbody td {
+    padding: 16px 0; border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .data-table .td-metric {
+    font-size: 13px; font-weight: 600;
+  }
+  .data-table .td-value {
+    font-size: 28px; font-weight: 800; letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .data-table .td-value span { color: var(--red); }
+  .data-table .td-note {
+    font-size: 11px; color: var(--light); line-height: 1.5;
+    max-width: 280px;
+  }
+
+  /* -- TIMELINE ----------------------------------- */
+  .timeline-section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .timeline {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    margin-top: 48px;
+    border-top: 3px solid var(--ink);
+  }
+  .timeline-step {
+    padding: 24px 24px 24px 0;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .timeline-step:last-child { border-right: none; }
+  .timeline-step::before {
+    content: ''; position: absolute; top: -7px; left: 0;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--ink);
+  }
+  .timeline-week {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 10px; margin-top: 16px;
+  }
+  .timeline-step h4 {
+    font-size: 14px; font-weight: 700; margin-bottom: 6px; line-height: 1.3;
+  }
+  .timeline-step p {
+    font-size: 11px; color: var(--light); line-height: 1.6;
+  }
+
+  /* -- COMPARISON --------------------------------- */
+  .compare-section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    margin-top: 48px;
+    border: 1px solid var(--rule);
+  }
+  .compare-col {
+    padding: 40px;
+  }
+  .compare-col:first-child { border-right: 1px solid var(--rule); }
+  .compare-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .compare-label.without { color: var(--light); }
+  .compare-label.with { color: var(--red); }
+  .compare-list { list-style: none; }
+  .compare-list li {
+    font-size: 13px; line-height: 1.5;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    color: var(--mid);
+  }
+  .compare-col:last-child .compare-list li { color: var(--ink); font-weight: 500; }
+
+  /* -- PRICING STRIP ------------------------------ */
+  .pricing-section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .pricing-strip {
+    margin-top: 48px;
+    display: grid; grid-template-columns: 1fr auto auto;
+    gap: 0; align-items: baseline;
+    padding: 32px 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  .pricing-name { font-size: 16px; font-weight: 700; }
+  .pricing-amount {
+    font-size: 32px; font-weight: 800; letter-spacing: -0.03em;
+    padding: 0 48px;
+  }
+  .pricing-per {
+    font-size: 12px; color: var(--light);
+  }
+  .pricing-note {
+    margin-top: 16px; font-size: 12px; color: var(--light); line-height: 1.6;
+  }
+
+  /* -- CTA ---------------------------------------- */
+  .cta-section {
+    padding: 80px 0;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-size: 28px; font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .cta-section p {
+    font-size: 14px; color: var(--mid); margin-bottom: 32px;
+  }
+  .cta-btn {
+    display: inline-block; padding: 16px 48px;
+    background: var(--ink); color: white;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .cta-btn:hover { background: var(--red); }
+  .cta-back {
+    display: inline-block; margin-top: 20px;
+    font-size: 12px; color: var(--light);
+    text-decoration: none; border-bottom: 1px solid var(--rule);
+    padding-bottom: 2px; transition: all 0.2s;
+  }
+  .cta-back:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* -- FOOTER ------------------------------------- */
+  .footer {
+    padding: 20px 0;
+    border-top: 2px solid var(--ink);
+    display: flex; justify-content: space-between;
+    font-size: 10px; color: var(--light); letter-spacing: 0.05em;
+  }
+  .footer a { text-decoration: none; color: var(--light); }
+
+  /* -- RESPONSIVE --------------------------------- */
+  @media (max-width: 900px) {
+    .container { padding: 0 24px; }
+    .page-header { grid-template-columns: 1fr; padding: 48px 0 32px; }
+    .index-grid { grid-template-columns: repeat(3, 1fr); }
+    .index-item:nth-child(3) { border-right: none; }
+    .diagram-header { grid-template-columns: 1fr; gap: 12px; }
+    .seat-diagram { grid-template-columns: repeat(3, 1fr); }
+    .detail-grid { grid-template-columns: 1fr; }
+    .detail-card { border-right: none; border-bottom: 1px solid var(--rule); }
+    .data-table .td-note { max-width: none; }
+    .timeline { grid-template-columns: repeat(2, 1fr); }
+    .compare-grid { grid-template-columns: 1fr; }
+    .compare-col:first-child { border-right: none; border-bottom: 1px solid var(--rule); }
+    .pricing-strip { grid-template-columns: 1fr; gap: 8px; }
+    .footer { flex-direction: column; gap: 8px; }
+  }
+  @media (max-width: 600px) {
+    .index-grid { grid-template-columns: repeat(2, 1fr); }
+    .seat-diagram { grid-template-columns: repeat(2, 1fr); }
+    .timeline { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="container">
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="masthead-title">The Executive Table</div>
+      <nav class="masthead-nav">
+        <a href="index.html" class="masthead-link">Home</a>
+        <a href="#cta" class="masthead-cta">Request a table</a>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="container">
+  <div class="page-header">
+    <h1>What's inside.</h1>
+    <div class="page-header-right">
+      <p>Everything your GTM leadership team gets when they join the Executive Table. No filler. Each element designed to give your team sight lines they can't get alone.</p>
+    </div>
+  </div>
+</div>
+
+<!-- INDEX -->
+<div class="container">
+  <div class="index-section">
+    <div class="index-label">Contents</div>
+    <div class="index-grid">
+      <a href="#seats" class="index-item">
+        <div class="index-num">01</div>
+        <div class="index-name">The Five Seats</div>
+      </a>
+      <a href="#access" class="index-item">
+        <div class="index-num">02</div>
+        <div class="index-name">What You Access</div>
+      </a>
+      <a href="#evidence" class="index-item">
+        <div class="index-num">03</div>
+        <div class="index-name">Evidence</div>
+      </a>
+      <a href="#timeline" class="index-item">
+        <div class="index-num">04</div>
+        <div class="index-name">First 90 Days</div>
+      </a>
+      <a href="#compare" class="index-item">
+        <div class="index-num">05</div>
+        <div class="index-name">With &amp; Without</div>
+      </a>
+      <a href="#pricing" class="index-item">
+        <div class="index-num">06</div>
+        <div class="index-name">Pricing</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 01: FIVE SEATS -->
+<div class="container">
+  <div class="diagram-section" id="seats">
+    <div class="diagram-header">
+      <div class="diagram-header-label">01 &mdash; Structure</div>
+      <h2>Up to five seats per company. You decide who belongs.</h2>
+    </div>
+    <div class="seat-diagram">
+      <div class="seat-cell">
+        <div class="seat-number">1</div>
+        <div class="seat-role">CRO</div>
+        <div class="seat-desc">Comp, pipeline, team structure, quota design</div>
+      </div>
+      <div class="seat-cell">
+        <div class="seat-number">2</div>
+        <div class="seat-role">CMO</div>
+        <div class="seat-desc">Budget, attribution, AI tools, demand gen</div>
+      </div>
+      <div class="seat-cell">
+        <div class="seat-number">3</div>
+        <div class="seat-role">VP CS</div>
+        <div class="seat-desc">Retention, expansion, renewal restructure</div>
+      </div>
+      <div class="seat-cell">
+        <div class="seat-number">4</div>
+        <div class="seat-role">RevOps</div>
+        <div class="seat-desc">Systems, forecasting, data architecture</div>
+      </div>
+      <div class="seat-cell">
+        <div class="seat-number">5</div>
+        <div class="seat-role">Your Call</div>
+        <div class="seat-desc">VP Sales, VP Marketing, Head of Partnerships &mdash; whoever moves the number</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02: WHAT YOU ACCESS -->
+<div class="container">
+  <div class="detail-section" id="access">
+    <div class="diagram-header">
+      <div class="diagram-header-label">02 &mdash; Access</div>
+      <h2>Six things your team walks into.</h2>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-num">A</div>
+        <h3>Peer tables by stage</h3>
+        <p>Grouped with teams at your revenue stage. Same problems. Same scale. Signal-to-noise ratio that makes every conversation count.</p>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-num">B</div>
+        <h3>Live working sessions</h3>
+        <p>Bring your biggest problem. Work it live with peers who've seen it. Leave with something to implement Monday, not a slide deck to file.</p>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-num">C</div>
+        <h3>Salon dinners &amp; summits</h3>
+        <p>Private, curated events. The conversations that change how your leaders make decisions happen over dinner, not on a webinar.</p>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-num">D</div>
+        <h3>Real benchmarks</h3>
+        <p>Comp, attainment, tech spend, marketing as a % of revenue. Real numbers from real teams. The data your leaders actually need.</p>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-num">E</div>
+        <h3>AI fluency</h3>
+        <p>Baked into every session and playbook. Your whole team becomes conversant, not just the "AI person." They come back fluent.</p>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-num">F</div>
+        <h3>Executive Slack</h3>
+        <p>CRO, CMO, CCO, and cross-functional channels. When something breaks on a Tuesday, this is where the answer comes from.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03: EVIDENCE -->
+<div class="container">
+  <div class="data-section" id="evidence">
+    <div class="diagram-header">
+      <div class="diagram-header-label">03 &mdash; Evidence</div>
+      <h2>What the data says.</h2>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Metric</th>
+          <th style="width:25%">Result</th>
+          <th>Context</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-metric">Exit likelihood</td>
+          <td class="td-value">2.4<span>&times;</span></td>
+          <td class="td-note">Companies with enrolled GTM leadership teams vs. individual members only</td>
+        </tr>
+        <tr>
+          <td class="td-metric">Cross-functional decisions</td>
+          <td class="td-value">89<span>%</span></td>
+          <td class="td-note">Reported stronger alignment between revenue functions within 6 months</td>
+        </tr>
+        <tr>
+          <td class="td-metric">Revenue target attainment</td>
+          <td class="td-value">3<span>&times;</span></td>
+          <td class="td-note">More likely to hit annual target with 5+ enrolled leaders</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 04: FIRST 90 DAYS -->
+<div class="container">
+  <div class="timeline-section" id="timeline">
+    <div class="diagram-header">
+      <div class="diagram-header-label">04 &mdash; Timeline</div>
+      <h2>The first 90 days.</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="timeline-week">Week 1</div>
+        <h4>Onboarding</h4>
+        <p>Dedicated intro. Custom channel setup. Each leader placed with their functional peer group.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-week">Week 2&ndash;4</div>
+        <h4>First sessions</h4>
+        <p>Live working sessions begin. Your leaders bring a real problem and work it with peers. Slack channels are active daily.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-week">Month 2</div>
+        <h4>Benchmarks land</h4>
+        <p>First benchmark data delivered. Comp, attainment, budget breakdowns from companies at your stage. The guessing stops.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-week">Day 90</div>
+        <h4>Peer network formed</h4>
+        <p>Your leaders have trusted relationships outside the building that directly influence how they make decisions inside it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05: WITH & WITHOUT -->
+<div class="container">
+  <div class="compare-section" id="compare">
+    <div class="diagram-header">
+      <div class="diagram-header-label">05 &mdash; Contrast</div>
+      <h2>The difference.</h2>
+    </div>
+    <div class="compare-grid">
+      <div class="compare-col">
+        <div class="compare-label without">Without the Table</div>
+        <ul class="compare-list">
+          <li>Comp plans based on one company's data</li>
+          <li>Benchmarks from blog posts and conferences</li>
+          <li>Silos between CRO, CMO, CS</li>
+          <li>AI strategy owned by one person (or no one)</li>
+          <li>Hard calls made in isolation</li>
+          <li>Exit playbook learned during the exit</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <div class="compare-label with">With the Table</div>
+        <ul class="compare-list">
+          <li>Comp validated against 4&ndash;5 teams at your stage</li>
+          <li>Real numbers from companies that look like yours</li>
+          <li>Cross-functional exposure every session</li>
+          <li>Your GTM leaders become AI-fluent</li>
+          <li>Hard calls pressure-tested by peers who've been there</li>
+          <li>Exit playbook seen 18 months before you need it</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06: PRICING -->
+<div class="container">
+  <div class="pricing-section" id="pricing">
+    <div class="diagram-header">
+      <div class="diagram-header-label">06 &mdash; Investment</div>
+      <h2>Pricing is per company, not per seat.</h2>
+    </div>
+    <div class="pricing-strip">
+      <div class="pricing-name">Executive Table &mdash; 5 seats</div>
+      <div class="pricing-amount">Custom</div>
+      <div class="pricing-per">Based on company stage</div>
+    </div>
+    <p class="pricing-note">Pricing depends on company size and revenue stage. Request a table and we'll walk through it on a call. There's no public rate card &mdash; this is a conversation.</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="container">
+  <div class="cta-section" id="cta">
+    <h2>Request a table.</h2>
+    <p>Enrollment is selective. Up to five seats per company.</p>
+    <a href="index.html#in" class="cta-btn">Request a table</a>
+    <br>
+    <a href="index.html" class="cta-back">&larr; Back to overview</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="container">
+  <footer class="footer">
+    <span>Pavilion &mdash; est. 2016</span>
+    <span>&copy; 2026</span>
+    <span><a href="https://www.joinpavilion.com/privacy-policy">Privacy</a> &nbsp;&middot;&nbsp; <a href="https://www.joinpavilion.com/terms">Terms</a></span>
+  </footer>
+</div>
+
+</body>
+</html>

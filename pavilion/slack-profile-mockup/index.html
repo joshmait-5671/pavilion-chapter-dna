@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavilion Slack Profile — Custom Fields Mockup</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Lato', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #1a1a2e;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  /* Page header */
+  .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .page-header h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #E8583E, #c94030);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* Layout */
+  .layout {
+    display: flex;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  /* Slack profile panel */
+  .profile-panel {
+    width: 360px;
+    min-width: 360px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .top-bar-title { font-size: 15px; font-weight: 700; color: #1d1c1d; }
+  .top-bar-close { font-size: 18px; color: #616061; cursor: pointer; }
+
+  .photo-section { padding: 16px 16px 0; text-align: center; }
+  .photo-section img {
+    width: 256px; height: 256px;
+    border-radius: 8px; object-fit: cover;
+  }
+
+  .identity { padding: 12px 16px 0; }
+  .name-row { display: flex; align-items: baseline; gap: 8px; }
+  .name { font-size: 18px; font-weight: 900; color: #1d1c1d; }
+  .edit-link { font-size: 13px; color: #1264a3; text-decoration: none; margin-left: auto; }
+  .title-text { font-size: 13px; color: #616061; margin-top: 2px; }
+
+  .status-section { padding: 12px 16px; }
+  .status-row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #1d1c1d; margin-bottom: 4px; }
+  .status-dot { width: 10px; height: 10px; background: #2bac76; border-radius: 50%; }
+  .time-row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #616061; }
+
+  .buttons-row { display: flex; gap: 8px; padding: 4px 16px 12px; }
+  .btn {
+    flex: 1; padding: 6px 12px; border: 1px solid #d0d0d0; border-radius: 6px;
+    background: #fff; font-size: 13px; font-weight: 700; color: #1d1c1d; text-align: center;
+  }
+  .btn-dots { flex: 0; padding: 6px 10px; font-size: 16px; letter-spacing: 1px; }
+
+  .divider { height: 1px; background: #e8e8e8; margin: 0 16px; }
+
+  /* Section headers */
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .section-title { font-size: 14px; font-weight: 700; color: #1d1c1d; }
+
+  /* ===== CUSTOM FIELDS ===== */
+  .fields-section { padding: 16px; }
+
+  .field {
+    margin-bottom: 14px; border-radius: 10px; padding: 12px 14px;
+  }
+  .field:last-child { margin-bottom: 0; }
+  .field-label {
+    font-size: 13px; font-weight: 700; margin-bottom: 5px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .field-emoji { font-size: 18px; }
+  .field-label-text { color: #616061; }
+  .field-value { font-size: 14px; color: #1d1c1d; line-height: 1.5; }
+
+  /* Working on — blue */
+  .field-working {
+    background: #edf6ff; border: 1px solid #c4ddf5;
+  }
+  .field-working .field-label-text { color: #1264a3; }
+
+  /* Wondering — purple */
+  .field-wondering {
+    background: #f5f0fa; border: 1px solid #d8cbe8;
+  }
+  .field-wondering .field-label-text { color: #7c3aed; }
+
+  /* Drink — warm */
+  .field-drink {
+    background: #fef7ea; border: 2px solid #f0d68a;
+  }
+  .field-drink .field-label-text { color: #92600a; }
+  .drink-selected {
+    display: flex; align-items: center; gap: 8px; margin-top: 4px;
+  }
+  .drink-selected-emoji { font-size: 26px; }
+  .drink-selected-text { font-size: 15px; font-weight: 900; color: #5a4520; }
+  .drink-options {
+    display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap;
+  }
+  .drink-pill {
+    font-size: 11px; background: rgba(255,255,255,0.8); border: 1px solid #e8d5a8;
+    border-radius: 20px; padding: 3px 10px; color: #8a7040;
+  }
+  .drink-pill.active {
+    background: #5a4520; color: #fff; border-color: #5a4520; font-weight: 700;
+  }
+
+  /* ===== SMART TAGS ===== */
+  .tags-section { padding: 16px; }
+  .smart-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .smart-tag {
+    font-size: 12px; font-weight: 600; padding: 4px 12px;
+    border-radius: 20px; cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .smart-tag:hover { transform: scale(1.05); }
+  .tag-blue { background: #e1f0ff; color: #1264a3; border: 1px solid #b8daef; }
+  .tag-green { background: #e6f9f0; color: #1a7f54; border: 1px solid #b5e8cf; }
+  .tag-purple { background: #f0eaff; color: #6d28d9; border: 1px solid #d4bfff; }
+  .tag-orange { background: #fff3e0; color: #b45309; border: 1px solid #fcd49a; }
+  .tag-pink { background: #fce7f3; color: #be185d; border: 1px solid #f9a8d4; }
+
+  /* ===== EXTENDED BIO ===== */
+  .bio-section { padding: 16px; }
+  .bio-text {
+    font-size: 14px; color: #1d1c1d; line-height: 1.6;
+    background: #f9fafb; border: 1px solid #e5e7eb;
+    border-radius: 8px; padding: 12px;
+  }
+  .bio-text strong { font-weight: 700; }
+  .bio-text a { color: #1264a3; text-decoration: none; }
+
+  /* ===== NAME PRONUNCIATION ===== */
+  .pronunciation-section { padding: 16px; }
+  .pronunciation-card {
+    display: flex; align-items: center; gap: 12px;
+    background: #f0fdf4; border: 1px solid #bbf7d0;
+    border-radius: 10px; padding: 10px 14px;
+  }
+  .play-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #22c55e; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; cursor: pointer; flex-shrink: 0;
+  }
+  .pronunciation-info { }
+  .pronunciation-phonetic { font-size: 14px; font-weight: 700; color: #15803d; }
+  .pronunciation-hint { font-size: 12px; color: #6b7280; margin-top: 2px; }
+
+  /* ===== RECOGNITION / ACHIEVEMENTS ===== */
+  .recognition-section { padding: 16px; }
+  .achievements {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .achievement {
+    display: flex; align-items: center; gap: 6px;
+    background: #fffbeb; border: 1px solid #fde68a;
+    border-radius: 10px; padding: 6px 12px;
+  }
+  .achievement-icon { font-size: 20px; }
+  .achievement-info { }
+  .achievement-name { font-size: 12px; font-weight: 700; color: #92400e; }
+  .achievement-date { font-size: 10px; color: #b45309; }
+  .achievement-special {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid #f59e0b;
+  }
+
+  /* ===== HOGWARTS-STYLE TRIBE ===== */
+  .tribe-section { padding: 16px; }
+  .tribe-card {
+    display: flex; align-items: center; gap: 12px;
+    border-radius: 12px; padding: 12px 16px;
+    background: linear-gradient(135deg, #1e3a5f, #2d5a8a);
+    color: #fff;
+  }
+  .tribe-icon { font-size: 36px; }
+  .tribe-info { }
+  .tribe-name { font-size: 16px; font-weight: 900; letter-spacing: 0.02em; }
+  .tribe-desc { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+  .tribe-members { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+  /* ===== CONTACT ===== */
+  .contact-section { padding: 16px; }
+  .contact-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px; font-size: 13px;
+  }
+  .contact-icon { color: #616061; font-size: 16px; width: 20px; text-align: center; }
+  .contact-label { color: #616061; font-size: 12px; }
+  .contact-value { color: #1264a3; font-size: 13px; }
+
+  /* ===== SIDEBAR LEGEND ===== */
+  .legend {
+    width: 340px;
+    min-width: 280px;
+  }
+  .legend-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .legend-card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .legend-card p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+  .legend-new {
+    display: inline-block;
+    background: #22c55e;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .legend-existing {
+    display: inline-block;
+    background: #6366f1;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .legend-card .slack-native {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+  }
+  .footer p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+  }
+  .footer a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+  }
+
+  /* Mobile */
+  @media (max-width: 800px) {
+    .layout { flex-direction: column; align-items: center; }
+    .legend { width: 360px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Page header -->
+<div class="page-header">
+  <div class="badge">Mockup · Internal Review</div>
+  <h1>🎨 Pavilion Slack Profile — Custom Fields</h1>
+  <p>What member profiles could look like with custom fields enabled. All features shown use native Slack capabilities.</p>
+</div>
+
+<div class="layout">
+
+<!-- ========== SLACK PROFILE PANEL ========== -->
+<div class="profile-panel">
+
+  <div class="top-bar">
+    <span class="top-bar-title">Profile</span>
+    <span class="top-bar-close">✕</span>
+  </div>
+
+  <div class="photo-section">
+    <img src="profile-photo.png" alt="Josh Mait">
+  </div>
+
+  <div class="identity">
+    <div class="name-row">
+      <span class="name">Josh Mait PVLN</span>
+      <a class="edit-link" href="#">Edit</a>
+    </div>
+    <div class="title-text">SVP Marketing, Pavilion</div>
+  </div>
+
+  <!-- Name Pronunciation -->
+  <div class="pronunciation-section">
+    <div class="pronunciation-card">
+      <div class="play-btn">▶</div>
+      <div class="pronunciation-info">
+        <div class="pronunciation-phonetic">JOSH MATE</div>
+        <div class="pronunciation-hint">🔊 Tap to hear pronunciation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="status-section">
+    <div class="status-row">
+      <span class="status-dot"></span> Active
+    </div>
+    <div class="time-row">🕐 9:15 AM local time</div>
+  </div>
+
+  <div class="buttons-row">
+    <div class="btn">Set a status</div>
+    <div class="btn">View as ▾</div>
+    <div class="btn btn-dots">⋯</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== THREE CUSTOM FIELDS ===== -->
+  <div class="fields-section">
+    <div class="section-header">
+      <span class="section-title">About</span>
+      <a class="edit-link" href="#">Edit</a>
+    </div>
+
+    <!-- 1. Working on -->
+    <div class="field field-working">
+      <div class="field-label">
+        <span class="field-emoji">🔨</span>
+        <span class="field-label-text">I'm working on...</span>
+      </div>
+      <div class="field-value">Making AI actually useful for GTM teams — not just demos and hype, but real pipeline impact 🚀</div>
+    </div>
+
+    <!-- 2. Wondering -->
+    <div class="field field-wondering">
+      <div class="field-label">
+        <span class="field-emoji">💭</span>
+        <span class="field-label-text">I'm wondering if this is true...</span>
+      </div>
+      <div class="field-value">Most companies are 6 months away from an AI strategy — they just don't know which 6 months 🤷</div>
+    </div>
+
+    <!-- 3. Drink (options list) -->
+    <div class="field field-drink">
+      <div class="field-label">
+        <span class="field-emoji">🍹</span>
+        <span class="field-label-text">I need a drink right now</span>
+      </div>
+      <div class="drink-selected">
+        <span class="drink-selected-emoji">🥃</span>
+        <span class="drink-selected-text">Old Fashioned</span>
+      </div>
+      <div class="drink-options">
+        <span class="drink-pill">☕ Black Coffee</span>
+        <span class="drink-pill active">🥃 Old Fashioned</span>
+        <span class="drink-pill">🍸 Dirty Martini</span>
+        <span class="drink-pill">🍺 Cold IPA</span>
+        <span class="drink-pill">🫖 Green Tea</span>
+        <span class="drink-pill">💧 Just Water</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== SMART TAGS (Expertise) ===== -->
+  <div class="tags-section">
+    <div class="section-header">
+      <span class="section-title">Expertise & Focus</span>
+      <a class="edit-link" href="#">Edit</a>
+    </div>
+    <div class="smart-tags">
+      <span class="smart-tag tag-blue">AI in GTM</span>
+      <span class="smart-tag tag-green">Pipeline Strategy</span>
+      <span class="smart-tag tag-purple">Brand Marketing</span>
+      <span class="smart-tag tag-orange">Community Building</span>
+      <span class="smart-tag tag-pink">B2B SaaS</span>
+      <span class="smart-tag tag-blue">Content Strategy</span>
+      <span class="smart-tag tag-green">RevOps</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== EXTENDED BIO ===== -->
+  <div class="bio-section">
+    <div class="section-header">
+      <span class="section-title">Bio</span>
+      <a class="edit-link" href="#">Edit</a>
+    </div>
+    <div class="bio-text">
+      Head of Marketing at <a href="#">Pavilion</a> — building the community where GTM leaders actually help each other. Previously led marketing at 3 startups from $0→$10M ARR. <strong>Believer that AI will change everything about how we sell, but only if we stop treating it like magic.</strong> 🎿 Skier. 🍕 Pizza snob. 📚 Reading too many books at once.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== TRIBE / HOUSE ===== -->
+  <div class="tribe-section">
+    <div class="section-header">
+      <span class="section-title">Pavilion Crew</span>
+    </div>
+    <div class="tribe-card">
+      <div class="tribe-icon">🦁</div>
+      <div class="tribe-info">
+        <div class="tribe-name">The Builders</div>
+        <div class="tribe-desc">Ship fast. Learn faster. Break the playbook.</div>
+        <div class="tribe-members">142 members · Est. 2024</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== RECOGNITION ===== -->
+  <div class="recognition-section">
+    <div class="section-header">
+      <span class="section-title">Recognition</span>
+    </div>
+    <div class="achievements">
+      <div class="achievement achievement-special">
+        <span class="achievement-icon">🏆</span>
+        <div class="achievement-info">
+          <div class="achievement-name">Top Contributor Q1</div>
+          <div class="achievement-date">Mar 2026</div>
+        </div>
+      </div>
+      <div class="achievement">
+        <span class="achievement-icon">🎯</span>
+        <div class="achievement-info">
+          <div class="achievement-name">50 Posts</div>
+          <div class="achievement-date">Feb 2026</div>
+        </div>
+      </div>
+      <div class="achievement">
+        <span class="achievement-icon">🤝</span>
+        <div class="achievement-info">
+          <div class="achievement-name">Mentor</div>
+          <div class="achievement-date">Jan 2026</div>
+        </div>
+      </div>
+      <div class="achievement">
+        <span class="achievement-icon">⚡</span>
+        <div class="achievement-info">
+          <div class="achievement-name">First Responder</div>
+          <div class="achievement-date">Dec 2025</div>
+        </div>
+      </div>
+      <div class="achievement">
+        <span class="achievement-icon">🧠</span>
+        <div class="achievement-info">
+          <div class="achievement-name">AI Pioneer</div>
+          <div class="achievement-date">Nov 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== CONTACT ===== -->
+  <div class="contact-section">
+    <div class="section-header">
+      <span class="section-title">Contact information</span>
+      <a class="edit-link" href="#">Edit</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">✉️</span>
+      <div>
+        <div class="contact-label">Email Address</div>
+        <div class="contact-value">josh.mait@joinpavilion.com</div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">📱</span>
+      <div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">917-379-7058</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END PROFILE PANEL -->
+
+<!-- ========== LEGEND / ANNOTATIONS ========== -->
+<div class="legend">
+
+  <div class="legend-card">
+    <h3>🔨 I'm working on... <span class="legend-new">New Field</span></h3>
+    <p>Free text field. Members share what they're currently focused on — sparks conversations and surfaces collaboration opportunities.</p>
+    <div class="slack-native">Slack field type: Text (user editable)</div>
+  </div>
+
+  <div class="legend-card">
+    <h3>💭 I'm wondering if... <span class="legend-new">New Field</span></h3>
+    <p>Free text field. A provocation — members share a hypothesis or hot take. Designed to spark debate and make profiles feel alive.</p>
+    <div class="slack-native">Slack field type: Text (user editable)</div>
+  </div>
+
+  <div class="legend-card">
+    <h3>🍹 I need a drink <span class="legend-new">New Field</span></h3>
+    <p>Options list — members pick from a preset menu. Fun, low-stakes, instantly relatable. Changes with mood. Great icebreaker.</p>
+    <div class="slack-native">Slack field type: Options list (user selectable)</div>
+  </div>
+
+  <div class="legend-card">
+    <h3>🏷️ Smart Tags <span class="legend-existing">Atlas Feature</span></h3>
+    <p>Searchable, filterable expertise tags. Click "AI in GTM" → find every member with that tag. Powerful for connecting members who share focus areas.</p>
+    <div class="slack-native">Requires Slack Atlas · Smart Tag field type</div>
+  </div>
+
+  <div class="legend-card">
+    <h3>📝 Extended Bio <span class="legend-existing">Available Now</span></h3>
+    <p>Flexible Text supports up to 5,000 characters with rich formatting — bullet points, links, bold text, emoji. Much richer than the old one-liner.</p>
+    <div class="slack-native">Slack field type: Flexible Text (5,000 chars)</div>
+  </div>
+
+  <div class="legend-card">
+    <h3>🔊 Name Pronunciation <span class="legend-existing">Available Now</span></h3>
+    <p>Audio clip + phonetic text. Small touch, big inclusion signal. Shows members you care about getting the basics right.</p>
+    <div class="slack-native">Built-in Slack feature · Audio clip + text</div>
+  </div>
+
+  <div class="legend-card">
+    <h3>🦁 Pavilion Crew <span class="legend-new">New Field</span></h3>
+    <p>Inspired by the "Hogwarts House" pattern from Slack's own docs. Members self-select into a crew/tribe — builds identity and belonging.</p>
+    <div class="slack-native">Slack field type: Options list (user selectable)</div>
+  </div>
+
+  <div class="legend-card">
+    <h3>🏆 Recognition <span class="legend-new">New Field</span></h3>
+    <p>Badges and milestones visible on profile. Could be automated via Slack workflows or managed manually. Rewards the behaviors you want to see more of.</p>
+    <div class="slack-native">Slack field type: Text (admin managed) or integrated via app</div>
+  </div>
+
+</div>
+
+</div><!-- /layout -->
+
+<div class="footer">
+  <p>Mockup by Josh Mait · Pavilion Marketing · March 2026<br>
+  All features shown use native Slack capabilities (custom fields, Atlas, options lists)</p>
+</div>
+
+</body>
+</html>

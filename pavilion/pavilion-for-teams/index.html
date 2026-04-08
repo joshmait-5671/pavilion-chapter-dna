@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The Executive Table by Pavilion — operational visibility into how the best GTM teams actually run.">
+<title>The Executive Table by Pavilion</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink:     #DF285B;
+    --pink-200: #FFEDF2;
+    --navy:     rgb(24, 10, 92);
+    --navy-deep:#0D0638;
+    --blue-600: #2B1887;
+    --white:    #FFFFFF;
+    --body:     #404040;
+    --muted:    #6B7280;
+    --gray-200: #EFEFEF;
+    --font:     'Poppins', Arial, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--body);
+    font-family: var(--font);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+
+  /* -- ANIMATIONS --------------------------------- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(223,40,91,0.4); }
+    50% { box-shadow: 0 0 40px 8px rgba(223,40,91,0.15); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes count-up { from { opacity: 0.3; } to { opacity: 1; } }
+  @keyframes slide-in-left {
+    from { opacity: 0; transform: translateX(-60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slide-in-right {
+    from { opacity: 0; transform: translateX(60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* -- NAV ---------------------------------------- */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(24, 10, 92, 0.92);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 14px 48px;
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+  .nav-logo { display: flex; align-items: center; gap: 8px; color: var(--white); font-size: 1.15rem; font-weight: 700; }
+  .nav-logo-mark { width: 28px; height: 28px; background: var(--pink); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); flex-shrink: 0; }
+  .nav-cta {
+    display: inline-block; background: var(--pink); color: var(--white);
+    font-family: var(--font); font-size: 14px; font-weight: 600;
+    padding: 10px 24px; border-radius: 100px; transition: all 0.2s ease;
+  }
+  .nav-cta:hover { opacity: 0.88; transform: scale(1.03); }
+
+  /* -- BUTTONS ------------------------------------ */
+  .btn-primary {
+    display: inline-block; padding: 18px 40px; background: var(--pink); color: white;
+    font-family: var(--font); font-size: 15px; font-weight: 600; letter-spacing: 0.02em;
+    border-radius: 100px; transition: all 0.25s ease; border: none; cursor: pointer;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(223,40,91,0.3); }
+  .btn-ghost {
+    display: inline-block; padding: 18px 40px; background: transparent; color: rgba(255,255,255,0.8);
+    font-family: var(--font); font-size: 15px; font-weight: 600; letter-spacing: 0.02em;
+    border: 1.5px solid rgba(255,255,255,0.3); border-radius: 100px; transition: all 0.25s ease;
+  }
+  .btn-ghost:hover { opacity: 0.7; transform: translateY(-2px); }
+
+  /* -- SHARED ------------------------------------- */
+  .section-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--pink); border-radius: 2px; }
+  .section-h2 {
+    font-size: clamp(30px, 3.2vw, 44px); font-weight: 700; line-height: 1.15;
+    color: var(--blue-600); margin-bottom: 12px; letter-spacing: -0.02em;
+  }
+  .section-h2 em { font-style: normal; color: var(--pink); }
+  .section-sub { font-size: 16px; color: var(--muted); line-height: 1.75; max-width: 580px; margin-bottom: 56px; }
+
+  /* -- HERO --------------------------------------- */
+  .hero {
+    position: relative; overflow: hidden; padding: 0;
+    background: var(--navy-deep);
+    min-height: 100vh; display: flex; align-items: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1800&q=85') center 30%/cover no-repeat;
+    opacity: 0.22;
+  }
+  .hero-gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, rgba(13,6,56,0.95) 0%, rgba(24,10,92,0.75) 40%, rgba(223,40,91,0.2) 100%);
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 1200px; margin: 0 auto; padding: 180px 48px 100px;
+    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center;
+  }
+  .hero-copy { animation: fadeUp 1s ease both; }
+  .hero-eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 32px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--pink); border-radius: 2px; }
+  .hero h1 {
+    font-size: clamp(42px, 4.8vw, 64px); font-weight: 800; line-height: 1.06;
+    letter-spacing: -0.03em; color: #fff; margin-bottom: 28px;
+  }
+  .hero h1 .pink { color: var(--pink); }
+  .hero-sub {
+    font-size: 18px; color: rgba(255,255,255,0.55); line-height: 1.7;
+    margin-bottom: 40px; max-width: 480px;
+  }
+  .hero-cta-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+
+  /* Hero photo collage */
+  .hero-collage {
+    position: relative; height: 480px;
+    animation: fadeIn 1.2s ease 0.3s both;
+  }
+  .collage-img {
+    position: absolute; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    transition: transform 0.4s ease;
+  }
+  .collage-img:hover { transform: scale(1.04) !important; }
+  .collage-img img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .collage-img-1 {
+    width: 240px; height: 300px; top: 0; left: 10%;
+    transform: rotate(-3deg);
+    animation: float 6s ease-in-out infinite;
+  }
+  .collage-img-2 {
+    width: 200px; height: 260px; top: 40px; right: 0;
+    transform: rotate(2deg);
+    animation: float 6s ease-in-out 1s infinite;
+  }
+  .collage-img-3 {
+    width: 180px; height: 220px; bottom: 0; left: 25%;
+    transform: rotate(-1deg);
+    animation: float 6s ease-in-out 2s infinite;
+  }
+  .collage-badge {
+    position: absolute; bottom: 60px; right: 30px;
+    background: var(--pink); color: white;
+    font-size: 14px; font-weight: 700; letter-spacing: -0.01em;
+    padding: 16px 24px; border-radius: 100px;
+    animation: pulse-glow 3s ease-in-out infinite;
+    white-space: nowrap;
+  }
+
+  /* -- MARQUEE TICKER ----------------------------- */
+  .marquee-section {
+    background: var(--navy); padding: 20px 0; overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .marquee-track {
+    display: flex; width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-item {
+    font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.25);
+    padding: 0 48px; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.15em;
+  }
+  .marquee-item .dot {
+    display: inline-block; width: 6px; height: 6px; background: var(--pink);
+    border-radius: 50%; margin-right: 48px; vertical-align: middle; opacity: 0.6;
+  }
+
+  /* -- PILLARS ------------------------------------ */
+  .pillars-section { padding: 96px 48px; background: var(--white); }
+  .pillars-inner { max-width: 1200px; margin: 0 auto; }
+  .pillars-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 56px; }
+  .pillar-card {
+    background: white; padding: 48px 40px; border-radius: 20px;
+    border: 1px solid var(--gray-200);
+    transition: all 0.35s ease; position: relative; overflow: hidden;
+  }
+  .pillar-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--pink); opacity: 0; transition: opacity 0.3s ease;
+  }
+  .pillar-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(24,10,92,0.08); border-color: transparent; }
+  .pillar-card:hover::before { opacity: 1; }
+  .pillar-number {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--pink-200); color: var(--pink);
+    font-size: 14px; font-weight: 800; margin-bottom: 20px;
+  }
+  .pillar-card h3 { font-size: 20px; font-weight: 700; color: var(--blue-600); margin-bottom: 12px; line-height: 1.25; }
+  .pillar-card p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+
+  /* -- PEOPLE STRIP ------------------------------- */
+  .people-strip {
+    padding: 0; overflow: hidden; position: relative;
+  }
+  .people-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+  }
+  .people-cell {
+    position: relative; overflow: hidden;
+    aspect-ratio: 1/1;
+  }
+  .people-cell img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+    filter: grayscale(100%);
+  }
+  .people-cell:hover img {
+    transform: scale(1.08);
+    filter: grayscale(0%);
+  }
+  .people-cell-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,6,56,0.7) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.4s ease;
+    display: flex; align-items: flex-end; padding: 20px;
+  }
+  .people-cell:hover .people-cell-overlay { opacity: 1; }
+  .people-cell-text { color: white; font-size: 13px; font-weight: 600; }
+  .people-cell-role { color: rgba(255,255,255,0.6); font-size: 11px; font-weight: 400; margin-top: 2px; }
+
+  /* -- BIG QUOTE INTERRUPTER ---------------------- */
+  .big-quote {
+    background: var(--navy-deep); padding: 120px 48px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .big-quote::before {
+    content: '\201C'; position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
+    font-size: 400px; font-weight: 900; color: rgba(223,40,91,0.06); line-height: 1;
+    font-family: Georgia, serif;
+  }
+  .big-quote blockquote {
+    font-size: clamp(28px, 3.5vw, 48px); font-weight: 700; color: white;
+    line-height: 1.2; letter-spacing: -0.02em; max-width: 900px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .big-quote blockquote .pink { color: var(--pink); }
+  .big-quote-author {
+    margin-top: 32px; font-size: 15px; color: rgba(255,255,255,0.4);
+    position: relative; z-index: 1;
+  }
+
+  /* -- TRUSTED ------------------------------------ */
+  .trusted-section { padding: 56px 48px; border-bottom: 1px solid var(--gray-200); text-align: center; }
+  .trusted-text { font-size: 14px; font-weight: 500; color: var(--muted); max-width: 700px; margin: 0 auto; line-height: 1.8; }
+  .trusted-text span { font-weight: 600; color: var(--body); }
+
+  /* -- STATS BANNER ------------------------------- */
+  .stats-banner {
+    background: var(--white); padding: 96px 48px; position: relative; overflow: hidden;
+  }
+  .stats-banner-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .stats-visual {
+    position: relative;
+  }
+  .stats-big-number {
+    font-size: clamp(100px, 14vw, 180px); font-weight: 900; color: var(--navy);
+    line-height: 0.9; letter-spacing: -0.06em;
+  }
+  .stats-big-number .x { color: var(--pink); }
+  .stats-copy h2 {
+    font-size: clamp(28px, 3vw, 40px); font-weight: 700; color: var(--blue-600);
+    line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.02em;
+  }
+  .stats-copy p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 40px; }
+  .stat-pills { display: flex; flex-wrap: wrap; gap: 12px; }
+  .stat-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 20px; border-radius: 100px;
+    background: var(--pink-200); font-size: 14px; font-weight: 600; color: var(--blue-600);
+  }
+  .stat-pill-num { color: var(--pink); font-weight: 800; font-size: 18px; }
+
+  /* -- WHO IT'S FOR ------------------------------- */
+  .section { padding: 96px 48px; max-width: 1200px; margin: 0 auto; }
+  .who-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .who-card {
+    background: white; padding: 44px 36px; border-radius: 20px;
+    border: 1px solid var(--gray-200); transition: all 0.35s ease;
+  }
+  .who-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(24,10,92,0.08); border-color: transparent; }
+  .who-icon {
+    width: 52px; height: 52px; border-radius: 16px; background: var(--pink-200);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+  }
+  .who-icon svg { width: 24px; height: 24px; }
+  .who-card h3 { font-size: 18px; font-weight: 700; color: var(--blue-600); margin-bottom: 10px; line-height: 1.25; }
+  .who-card p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+
+  /* -- FIVE SEATS (full-bleed photo) -------------- */
+  .five-section {
+    position: relative; overflow: hidden;
+    min-height: 500px; display: flex; align-items: center;
+  }
+  .five-bg {
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1800&q=85') center 40%/cover no-repeat;
+  }
+  .five-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(13,6,56,0.88) 0%, rgba(43,24,135,0.75) 60%, rgba(223,40,91,0.3) 100%);
+  }
+  .five-inner {
+    position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 100px 48px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+  }
+  .five-inner h2 {
+    font-size: clamp(40px, 5vw, 60px); font-weight: 800; color: white;
+    line-height: 1.08; letter-spacing: -0.03em;
+  }
+  .five-right p {
+    font-size: 18px; color: rgba(255,255,255,0.6); line-height: 1.8;
+  }
+  .five-seats-visual {
+    display: flex; gap: 12px; margin-top: 32px;
+  }
+  .seat-dot {
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+  }
+  .seat-dot:hover { border-color: var(--pink); color: var(--pink); transform: scale(1.1); }
+
+  /* -- MEMBERSHIP --------------------------------- */
+  .membership-section {
+    background: var(--navy); padding: 96px 48px; position: relative; overflow: hidden;
+  }
+  .membership-section::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.08) 0%, transparent 70%); pointer-events: none;
+  }
+  .membership-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .membership-section .section-label { color: var(--pink); }
+  .membership-section .section-label::before { background: var(--pink); }
+  .membership-section h2 {
+    font-size: clamp(30px, 3.2vw, 44px); font-weight: 700; color: white;
+    line-height: 1.15; margin-bottom: 20px; max-width: 680px; letter-spacing: -0.02em;
+  }
+  .section-sub-dark { font-size: 16px; color: rgba(255,255,255,0.55); max-width: 560px; line-height: 1.75; margin-bottom: 56px; }
+  .membership-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .membership-card {
+    background: rgba(255,255,255,0.05); padding: 40px 32px;
+    border-radius: 20px; border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.35s ease;
+  }
+  .membership-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-4px); border-color: rgba(223,40,91,0.3); }
+  .membership-card h3 { font-size: 17px; font-weight: 700; color: white; margin-bottom: 10px; line-height: 1.25; }
+  .membership-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; }
+  .membership-icon {
+    width: 44px; height: 44px; border-radius: 14px;
+    background: rgba(223,40,91,0.15);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+  }
+  .membership-icon svg { width: 20px; height: 20px; }
+
+  /* -- TESTIMONIALS ------------------------------- */
+  .testimonials-section { padding: 96px 48px; background: #FAFAFA; }
+  .testimonials-inner { max-width: 1200px; margin: 0 auto; }
+  .testimonial-editorial { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .testimonial-featured { border-left: 3px solid var(--pink); padding-left: 40px; }
+  .testimonial-featured blockquote {
+    font-size: clamp(22px, 2.5vw, 30px); font-weight: 600; color: var(--blue-600);
+    line-height: 1.4; letter-spacing: -0.01em; margin-bottom: 32px;
+  }
+  .testimonial-featured .t-author { font-size: 15px; font-weight: 600; color: var(--blue-600); }
+  .testimonial-featured .t-role { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .testimonial-side { display: flex; flex-direction: column; gap: 48px; padding-top: 12px; }
+  .testimonial-small { border-left: 2px solid var(--gray-200); padding-left: 28px; }
+  .testimonial-small blockquote { font-size: 16px; font-weight: 500; color: var(--body); line-height: 1.7; margin-bottom: 20px; }
+  .testimonial-small .t-author { font-size: 14px; font-weight: 600; color: var(--blue-600); }
+  .testimonial-small .t-role { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* -- FAQ ---------------------------------------- */
+  .faq-section { padding: 96px 48px; background: var(--white); }
+  .faq-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 64px; }
+  .faq-heading h2 {
+    font-size: clamp(30px, 3.2vw, 44px); font-weight: 700; color: var(--blue-600);
+    line-height: 1.15; letter-spacing: -0.02em;
+  }
+  .faq-item { border-bottom: 1px solid var(--gray-200); }
+  .faq-question {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 0; text-align: left; font-family: var(--font);
+  }
+  .faq-question h3 { font-size: 16px; font-weight: 600; color: var(--body); line-height: 1.4; padding-right: 20px; }
+  .faq-toggle { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .faq-toggle svg { width: 14px; height: 14px; transition: transform 0.25s ease; }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-answer-inner { padding: 0 0 24px; font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 560px; }
+  .faq-item.open .faq-toggle svg { transform: rotate(45deg); }
+  .faq-item.open .faq-answer { max-height: 300px; }
+  .faq-item.open .faq-question h3 { color: var(--blue-600); }
+
+  /* -- CTA ---------------------------------------- */
+  .cta-section {
+    background: var(--navy); padding: 96px 48px; position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; bottom: -100px; right: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.15) 0%, transparent 70%); pointer-events: none;
+  }
+  .cta-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; z-index: 1; }
+  .cta-copy h2 {
+    font-size: clamp(30px, 3.5vw, 46px); font-weight: 800; color: white;
+    line-height: 1.12; letter-spacing: -0.03em; margin-bottom: 32px;
+  }
+  .cta-btn-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .form-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 40px; }
+  .form-placeholder { font-size: 14px; color: rgba(255,255,255,0.4); text-align: center; line-height: 1.8; }
+  .form-placeholder code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+  /* -- FOOTER ------------------------------------- */
+  footer {
+    padding: 32px 48px; display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--gray-200);
+  }
+  .footer-logo { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--blue-600); }
+  .footer-logo-mark { width: 22px; height: 22px; background: var(--pink); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+  .footer-copy { font-size: 12px; color: var(--muted); }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-link { font-size: 12px; color: var(--muted); transition: color 0.2s; }
+  .footer-link:hover { color: var(--navy); }
+
+  /* -- RESPONSIVE --------------------------------- */
+  @media (max-width: 900px) {
+    .site-nav { padding: 14px 24px; }
+    .hero-inner { padding: 140px 24px 80px; grid-template-columns: 1fr; }
+    .hero-collage { display: none; }
+    .pillars-section { padding: 72px 24px; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .people-grid { grid-template-columns: repeat(3, 1fr); }
+    .people-cell:nth-child(4), .people-cell:nth-child(5) { display: none; }
+    .trusted-section { padding: 40px 24px; }
+    .stats-banner { padding: 72px 24px; }
+    .stats-banner-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .stat-pills { justify-content: center; }
+    .section { padding: 72px 24px; }
+    .who-grid { grid-template-columns: 1fr; }
+    .five-inner { padding: 60px 24px; grid-template-columns: 1fr; gap: 32px; }
+    .membership-section { padding: 72px 24px; }
+    .membership-grid { grid-template-columns: 1fr; }
+    .testimonials-section { padding: 72px 24px; }
+    .testimonial-editorial { grid-template-columns: 1fr; gap: 48px; }
+    .faq-section { padding: 72px 24px; }
+    .faq-inner { grid-template-columns: 1fr; gap: 44px; }
+    .cta-section { padding: 72px 24px; }
+    .cta-grid { grid-template-columns: 1fr; gap: 44px; }
+    .hero-cta-row { flex-direction: column; align-items: flex-start; }
+    .cta-btn-row { flex-direction: column; }
+    footer { padding: 28px 24px; flex-direction: column; gap: 20px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+  @media (max-width: 600px) {
+    .pillars-grid { grid-template-columns: 1fr; }
+    .people-grid { grid-template-columns: repeat(2, 1fr); }
+    .people-cell:nth-child(3) { display: none; }
+    .five-section { min-height: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- -- NAV -------------------------------- -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="https://www.joinpavilion.com/" class="nav-logo">
+      <span class="nav-logo-mark"></span>
+      Pavilion
+    </a>
+    <a href="#form" class="nav-cta">Reserve Your Table</a>
+  </div>
+</nav>
+
+<!-- -- HERO -------------------------------- -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="hero-eyebrow">The Executive Table by Pavilion</span>
+      <h1>See what the best GTM teams are actually doing.<br><span class="pink">Stop guessing.</span></h1>
+      <p class="hero-sub">Your competitors' leadership teams are sharing real numbers, real playbooks, and solving real problems together. The Executive Table gives your team the same sight lines.</p>
+      <div class="hero-cta-row">
+        <a href="#form" class="btn-primary">Reserve Your Table</a>
+        <a href="https://www.joinpavilion.com/membership/teams" target="_blank" rel="noopener" class="btn-ghost">View Pricing</a>
+      </div>
+    </div>
+    <div class="hero-collage">
+      <div class="collage-img collage-img-1">
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500&q=80" alt="Executive leader">
+      </div>
+      <div class="collage-img collage-img-2">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&q=80" alt="Business leader">
+      </div>
+      <div class="collage-img collage-img-3">
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&q=80" alt="Team leader">
+      </div>
+      <div class="collage-badge">5 seats per company</div>
+    </div>
+  </div>
+</section>
+
+<!-- -- MARQUEE ----------------------------- -->
+<section class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="dot"></span>What are you actually paying AEs</span>
+    <span class="marquee-item"><span class="dot"></span>Is your CAC broken or just lagging</span>
+    <span class="marquee-item"><span class="dot"></span>How do other teams structure around AI</span>
+    <span class="marquee-item"><span class="dot"></span>What does real quota attainment look like at $50M</span>
+    <span class="marquee-item"><span class="dot"></span>Should you restructure or fire the VP</span>
+    <span class="marquee-item"><span class="dot"></span>How to hit 2026 numbers with 2024 budgets</span>
+    <span class="marquee-item"><span class="dot"></span>What are you actually paying AEs</span>
+    <span class="marquee-item"><span class="dot"></span>Is your CAC broken or just lagging</span>
+    <span class="marquee-item"><span class="dot"></span>How do other teams structure around AI</span>
+    <span class="marquee-item"><span class="dot"></span>What does real quota attainment look like at $50M</span>
+    <span class="marquee-item"><span class="dot"></span>Should you restructure or fire the VP</span>
+    <span class="marquee-item"><span class="dot"></span>How to hit 2026 numbers with 2024 budgets</span>
+  </div>
+</section>
+
+<!-- -- THE SIGHT LINES -------------------- -->
+<section class="pillars-section">
+  <div class="pillars-inner">
+    <div class="section-label reveal">What your team actually gets</div>
+    <h2 class="section-h2 reveal">Operational visibility you <em>cannot get any other way.</em></h2>
+    <p class="section-sub reveal">Not networking. Not content. Sight lines into how teams at your stage are actually running.</p>
+    <div class="pillars-grid">
+      <div class="pillar-card reveal reveal-delay-1">
+        <div class="pillar-number">1</div>
+        <h3>Benchmarks that actually matter</h3>
+        <p>Not industry averages. Real numbers from teams your size, your stage, your motion. What they're actually paying AEs. What real quota attainment looks like. What marketing is actually spending &mdash; not the number they put on conference panels.</p>
+      </div>
+      <div class="pillar-card reveal reveal-delay-2">
+        <div class="pillar-number">2</div>
+        <h3>Cross-functional exposure</h3>
+        <p>Your CMO hears how a peer CRO thinks about pipeline. Your CS lead hears how a peer CMO thinks about expansion. This breaks silos &mdash; not internal offsites, but hearing other companies' leaders talk across functions.</p>
+      </div>
+      <div class="pillar-card reveal reveal-delay-3">
+        <div class="pillar-number">3</div>
+        <h3>The hard calls only peers can pressure-test</h3>
+        <p>Should you restructure the sales team or fire the VP? Is your CAC actually broken or just lagging? How do you tell the board the pipeline number isn't real? These get solved at a table with peers who've been there.</p>
+      </div>
+      <div class="pillar-card reveal reveal-delay-4">
+        <div class="pillar-number">4</div>
+        <h3>Exit readiness</h3>
+        <p>Whether it's IPO, acquisition, or PE rollup, the teams that exit well had leaders who'd seen the playbook before. Not read about it &mdash; sat across from someone who lived it and told them exactly what was coming.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -- PEOPLE STRIP ------------------------ -->
+<section class="people-strip">
+  <div class="people-grid">
+    <div class="people-cell">
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="GTM leader">
+      <div class="people-cell-overlay">
+        <div>
+          <div class="people-cell-text">CRO</div>
+          <div class="people-cell-role">Comp, pipeline, team structure</div>
+        </div>
+      </div>
+    </div>
+    <div class="people-cell">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="GTM leader">
+      <div class="people-cell-overlay">
+        <div>
+          <div class="people-cell-text">CMO</div>
+          <div class="people-cell-role">Budget, attribution, AI tools</div>
+        </div>
+      </div>
+    </div>
+    <div class="people-cell">
+      <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="GTM leader">
+      <div class="people-cell-overlay">
+        <div>
+          <div class="people-cell-text">VP CS</div>
+          <div class="people-cell-role">Retention, expansion, renewals</div>
+        </div>
+      </div>
+    </div>
+    <div class="people-cell">
+      <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80" alt="GTM leader">
+      <div class="people-cell-overlay">
+        <div>
+          <div class="people-cell-text">VP RevOps</div>
+          <div class="people-cell-role">Systems, forecasting, data</div>
+        </div>
+      </div>
+    </div>
+    <div class="people-cell">
+      <img src="https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=600&q=80" alt="GTM leader">
+      <div class="people-cell-overlay">
+        <div>
+          <div class="people-cell-text">CEO</div>
+          <div class="people-cell-role">The one who holds it together</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -- BIG QUOTE INTERRUPTER -------------- -->
+<section class="big-quote">
+  <blockquote>Every GTM leader's biggest vulnerability isn't what they're doing <span class="pink">wrong.</span><br>It's what they <span class="pink">can't see.</span></blockquote>
+</section>
+
+<!-- -- TRUSTED BY -------------------------- -->
+<section class="trusted-section">
+  <p class="trusted-text">Trusted by GTM leadership teams at <span>Demandbase</span>, <span>Salesloft</span>, <span>ChurnZero</span>, <span>Planful</span>, <span>UpGuard</span>, <span>Pleo</span>, <span>Uptempo</span>, <span>Cambridge Mobile Telematics</span>, and more.</p>
+</section>
+
+<!-- -- STATS ------------------------------ -->
+<section class="stats-banner">
+  <div class="stats-banner-inner">
+    <div class="stats-visual reveal">
+      <div class="stats-big-number">2.4<span class="x">&times;</span></div>
+    </div>
+    <div class="stats-copy reveal reveal-delay-2">
+      <h2>More likely to achieve a successful exit.</h2>
+      <p>Companies that enrolled their GTM leadership team in Pavilion were 2.4x more likely to exit successfully within 36 months. The ROI shows up in aligned leadership, faster decisions, and teams that execute together.</p>
+      <div class="stat-pills">
+        <div class="stat-pill"><span class="stat-pill-num">89%</span> stronger cross-functional decisions</div>
+        <div class="stat-pill"><span class="stat-pill-num">3&times;</span> more likely to hit revenue targets</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -- WHO IT'S FOR ------------------------ -->
+<section>
+  <div class="section">
+    <div class="section-label reveal">Who reserves a table</div>
+    <h2 class="section-h2 reveal">Three moments when teams <em>show up.</em></h2>
+    <p class="section-sub reveal">This isn't for everyone. It's for leadership teams that are done guessing.</p>
+    <div class="who-grid">
+      <div class="who-card reveal reveal-delay-1">
+        <div class="who-icon">
+          <svg viewBox="0 0 22 22" fill="none"><path d="M11 2v18M6 7l5-5 5 5" stroke="#DF285B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Scaling fast, post-funding.</h3>
+        <p>New VPs need sight lines immediately. How are other teams at this stage structuring? What should comp look like? What mistakes did they make at $30M that you can skip?</p>
+      </div>
+      <div class="who-card reveal reveal-delay-2">
+        <div class="who-icon">
+          <svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#DF285B" stroke-width="1.5" fill="none"/><path d="M11 7v4l3 3" stroke="#DF285B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>The market shifted and you felt it.</h3>
+        <p>AI, consolidation, budget cuts. Your leaders need to know what other teams are actually doing right now &mdash; not what worked 18 months ago.</p>
+      </div>
+      <div class="who-card reveal reveal-delay-3">
+        <div class="who-icon">
+          <svg viewBox="0 0 22 22" fill="none"><path d="M3 11h16M11 3v16" stroke="#DF285B" stroke-width="1.5" stroke-linecap="round"/><path d="M6 6l10 10M16 6L6 16" stroke="#DF285B" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/></svg>
+        </div>
+        <h3>Preparing for an exit.</h3>
+        <p>IPO, acquisition, PE rollup. The teams that navigate this well had leaders who'd already seen the playbook &mdash; because they sat across from someone who lived it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -- FIVE SEATS (full-bleed photo) ------- -->
+<section class="five-section">
+  <div class="five-bg"></div>
+  <div class="five-overlay"></div>
+  <div class="five-inner">
+    <h2>Five seats.<br>Five functions.<br>One shared view.</h2>
+    <div class="five-right">
+      <p>Your CRO, CMO, CS lead, VP RevOps, and the person who holds it all together. Small enough for trust. Big enough for range.</p>
+      <div class="five-seats-visual">
+        <div class="seat-dot">CRO</div>
+        <div class="seat-dot">CMO</div>
+        <div class="seat-dot">CS</div>
+        <div class="seat-dot">Ops</div>
+        <div class="seat-dot">CEO</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -- MEMBERSHIP -------------------------- -->
+<section class="membership-section">
+  <div class="membership-inner">
+    <div class="section-label reveal">How it works</div>
+    <h2 class="reveal">This is what your team walks into.</h2>
+    <p class="section-sub-dark reveal">Every piece is designed to give your leadership team visibility they can act on Monday morning.</p>
+    <div class="membership-grid">
+      <div class="membership-card reveal reveal-delay-1">
+        <div class="membership-icon"><svg viewBox="0 0 20 20" fill="none"><path d="M3 10l5 5L17 5" stroke="#DF285B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Peer tables by stage</h3>
+        <p>Your leaders are grouped with teams at the same revenue stage, facing the same problems. A curated room where signal-to-noise is absurdly high.</p>
+      </div>
+      <div class="membership-card reveal reveal-delay-2">
+        <div class="membership-icon"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="2" stroke="#DF285B" stroke-width="1.5" fill="none"/><path d="M7 9h6M7 12h4" stroke="#DF285B" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h3>Live working sessions</h3>
+        <p>Not lectures. Your team brings their biggest problem and works it live with peers who've seen it before. They leave with something to implement.</p>
+      </div>
+      <div class="membership-card reveal reveal-delay-3">
+        <div class="membership-icon"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="#DF285B" stroke-width="1.5" fill="none"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#DF285B" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
+        <h3>Salon dinners &amp; summits</h3>
+        <p>Private, curated events where real trust forms. The conversations that change decisions happen over dinner, not on a webinar.</p>
+      </div>
+      <div class="membership-card reveal reveal-delay-1">
+        <div class="membership-icon"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#DF285B" stroke-width="1.5" fill="none"/><circle cx="10" cy="10" r="3" stroke="#DF285B" stroke-width="1.5" fill="none"/><circle cx="10" cy="10" r="1" fill="#DF285B"/></svg></div>
+        <h3>Real benchmarks, not reports</h3>
+        <p>Comp, quota attainment, tech stack spend, marketing as a % of revenue. Real numbers from real teams your leaders actually need to make decisions.</p>
+      </div>
+      <div class="membership-card reveal reveal-delay-2">
+        <div class="membership-icon"><svg viewBox="0 0 20 20" fill="none"><path d="M4 16V6l6-3 6 3v10l-6 3-6-3z" stroke="#DF285B" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M4 6l6 3 6-3M10 9v10" stroke="#DF285B" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h3>AI fluency built in</h3>
+        <p>Every session, every playbook factors in AI. Your team learns how the best teams are using it &mdash; and comes back fluent, not theoretical.</p>
+      </div>
+      <div class="membership-card reveal reveal-delay-3">
+        <div class="membership-icon"><svg viewBox="0 0 20 20" fill="none"><path d="M10 3v14M3 10h14" stroke="#DF285B" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h3>Executive Slack channels</h3>
+        <p>CRO, CMO, CCO, and cross-functional groups. When something breaks on a Tuesday &mdash; this is where the answer comes from.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -- TESTIMONIALS ------------------------ -->
+<section class="testimonials-section">
+  <div class="testimonials-inner">
+    <div class="section-label reveal">From our members</div>
+    <div class="testimonial-editorial">
+      <div class="testimonial-featured reveal">
+        <blockquote>A critical part of our business strategy. The best and brightest leaders in high-growth SaaS, all in one place.</blockquote>
+        <div class="t-author">Colin LaBeau</div>
+        <div class="t-role">President, FoxHire</div>
+      </div>
+      <div class="testimonial-side">
+        <div class="testimonial-small reveal reveal-delay-2">
+          <blockquote>The combination of a great community with great classes &mdash; for you as a leader, but also for your team.</blockquote>
+          <div class="t-author">Ben Jackson</div>
+          <div class="t-role">CEO, Guardify</div>
+        </div>
+        <div class="testimonial-small reveal reveal-delay-3">
+          <blockquote>Just because they're not leaders now doesn't mean they can't learn the things that leaders do.</blockquote>
+          <div class="t-author">Leon Janssen</div>
+          <div class="t-role">Owner, Revenue Play</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -- FAQ --------------------------------- -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-heading">
+      <div class="section-label">Common questions</div>
+      <h2>We've heard<br>these before.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <h3>We already invest in our leaders. Why this?</h3>
+          <span class="faq-toggle"><svg viewBox="0 0 14 14" fill="none"><line x1="7" y1="1" x2="7" y2="13" stroke="#DF285B" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="7" x2="13" y2="7" stroke="#DF285B" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Courses teach skills. The Executive Table gives your team something no training program can &mdash; real-time operational visibility into how teams at your exact stage are making decisions right now. Your CRO doesn't need another playbook. They need to know what other CROs are actually doing this quarter.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <h3>What's the actual ROI?</h3>
+          <span class="faq-toggle"><svg viewBox="0 0 14 14" fill="none"><line x1="7" y1="1" x2="7" y2="13" stroke="#DF285B" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="7" x2="13" y2="7" stroke="#DF285B" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Companies that enrolled their GTM leadership team were 2.4x more likely to achieve a successful exit within 36 months. But the real ROI is in the decisions you don't make &mdash; the bad comp plan you skip, the restructure you get right the first time, the tool you don't waste $40K on because someone at the table already tried it.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <h3>How is this different from a mastermind?</h3>
+          <span class="faq-toggle"><svg viewBox="0 0 14 14" fill="none"><line x1="7" y1="1" x2="7" y2="13" stroke="#DF285B" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="7" x2="13" y2="7" stroke="#DF285B" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Masterminds give one person a peer group. The Executive Table gives your entire leadership team peer exposure across functions. Your CRO, CMO, and CS lead each get their own sight lines &mdash; and bring them back to the same building. That cross-pollination is what changes how teams operate.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <h3>What if we already have individual members?</h3>
+          <span class="faq-toggle"><svg viewBox="0 0 14 14" fill="none"><line x1="7" y1="1" x2="7" y2="13" stroke="#DF285B" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="7" x2="13" y2="7" stroke="#DF285B" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Even better. Moving to the Executive Table consolidates billing, unlocks team pricing, and turns Pavilion from one person's side benefit into a shared operating advantage. The value compounds when your whole leadership team has the same sight lines.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <h3>How quickly do teams see results?</h3>
+          <span class="faq-toggle"><svg viewBox="0 0 14 14" fill="none"><line x1="7" y1="1" x2="7" y2="13" stroke="#DF285B" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="7" x2="13" y2="7" stroke="#DF285B" stroke-width="2" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Most teams report a meaningful shift within 30 days. The Slack channels surface real answers fast. The first working session gives your leaders something to act on immediately. By 90 days, they've built peer relationships that directly influence how they make decisions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -- CTA --------------------------------- -->
+<section class="cta-section" id="form">
+  <div class="cta-grid">
+    <div class="cta-copy">
+      <h2>Your competitors' GTM leaders are comparing notes. Are yours?</h2>
+      <div class="cta-btn-row">
+        <a href="#form" class="btn-primary">Reserve Your Table</a>
+        <a href="https://www.joinpavilion.com/membership/teams" target="_blank" rel="noopener" class="btn-ghost">View Pricing</a>
+      </div>
+    </div>
+    <div class="form-card">
+      <div id="hubspot-form">
+        <p class="form-placeholder">
+          HubSpot form loads here.<br>
+          Add your <code>portalId</code> and <code>formId</code> below.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -- FOOTER ------------------------------ -->
+<footer>
+  <a href="https://www.joinpavilion.com/" class="footer-logo">
+    <span class="footer-logo-mark"></span>
+    Pavilion
+  </a>
+  <p class="footer-copy">&copy; 2026 Pavilion. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="https://www.joinpavilion.com/privacy-policy" target="_blank" rel="noopener" class="footer-link">Privacy</a>
+    <a href="https://www.joinpavilion.com/terms" target="_blank" rel="noopener" class="footer-link">Terms</a>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const item = this.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-question').setAttribute('aria-expanded', 'false'); });
+      if (!isOpen) { item.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Parallax on hero collage
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const collage = document.querySelector('.hero-collage');
+    if (collage && scrolled < window.innerHeight) {
+      collage.style.transform = `translateY(${scrolled * 0.15}px)`;
+    }
+  });
+</script>
+</body>
+</html>

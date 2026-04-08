@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI GTM Acceleration Bundle — Pavilion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pav-pink:     #DF285B;
+    --pav-pink-200: #FFEDF2;
+    --pav-blue:     #180A5C;
+    --pav-blue-600: #2B1887;
+    --pav-white:    #FFFFFF;
+    --pav-body:     #404040;
+    --pav-muted:    #6B7280;
+    --pav-gray-200: #EFEFEF;
+    --font:         'Poppins', Arial, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--pav-white);
+    color: var(--pav-body);
+    font-family: var(--font);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── FOUNDER NOTE ────────────────────────────────────────── */
+  .founder-note-section {
+    background: #FAFAF8;
+    border-bottom: 1px solid var(--pav-gray-200);
+    padding: 72px 48px 64px;
+  }
+  .founder-note-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-left: 28px;
+    border-left: 3px solid var(--pav-pink);
+  }
+  .founder-note-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 24px;
+  }
+  .founder-note-text {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.9;
+    color: var(--pav-body);
+    margin-bottom: 36px;
+  }
+  .founder-sig-name {
+    display: block;
+    font-family: 'Dancing Script', cursive;
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--pav-blue-600);
+    line-height: 1.15;
+  }
+  .founder-sig-title {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--pav-muted);
+    margin-top: 4px;
+  }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero {
+    background: var(--pav-blue);
+    padding: 80px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--pav-pink);
+    border-radius: 2px;
+  }
+  .hero-h1 {
+    font-size: clamp(38px, 4vw, 56px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  .hero-h1 em { font-style: normal; color: var(--pav-pink); }
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.75;
+    margin-bottom: 36px;
+  }
+  .hero-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 44px;
+  }
+  .hero-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+  }
+  .hero-bullet::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--pav-pink);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .hero-cta-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  /* ── FORM CARD ───────────────────────────────────────────── */
+  .form-card {
+    background: white;
+    border-radius: 16px;
+    padding: 44px 40px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+  }
+  .form-card-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--pav-blue-600);
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  .form-card-sub {
+    font-size: 14px;
+    color: var(--pav-muted);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .form-input {
+    width: 100%;
+    padding: 13px 16px;
+    background: var(--pav-white);
+    border: 1.5px solid var(--pav-gray-200);
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--pav-blue);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--pav-pink); }
+  .form-input::placeholder { color: #B0B8C4; }
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23DF285B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-color: var(--pav-white);
+    cursor: pointer;
+  }
+  .form-submit {
+    width: 100%;
+    padding: 15px 28px;
+    background: var(--pav-pink);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-top: 4px;
+  }
+  .form-submit:hover { opacity: 0.88; }
+  .form-note {
+    font-size: 12px;
+    color: #B0B8C4;
+    margin-top: 12px;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 24px 0;
+  }
+  .success-msg h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--pav-blue-600);
+    margin-bottom: 8px;
+  }
+  .success-msg p { font-size: 14px; color: var(--pav-muted); line-height: 1.7; }
+
+  /* ── LOGO BAR ────────────────────────────────────────────── */
+  .logo-bar {
+    padding: 48px;
+    border-bottom: 1px solid var(--pav-gray-200);
+  }
+  .logo-bar-inner { max-width: 1100px; margin: 0 auto; }
+  .logo-bar-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-muted);
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .logo-bar-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 44px;
+  }
+  .logo-item {
+    font-size: 15px;
+    font-weight: 600;
+    color: #C4C9D4;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── SHARED SECTION STYLES ───────────────────────────────── */
+  .section {
+    padding: 96px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--pav-pink);
+    border-radius: 2px;
+  }
+  .section-h2 {
+    font-size: clamp(30px, 3.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--pav-blue-600);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .section-h2 em { font-style: normal; color: var(--pav-pink); }
+  .section-sub {
+    font-size: 16px;
+    color: var(--pav-muted);
+    line-height: 1.75;
+    max-width: 580px;
+    margin-bottom: 56px;
+  }
+
+  /* ── PROGRAM GRID ────────────────────────────────────────── */
+  .program-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--pav-gray-200);
+    border: 1px solid var(--pav-gray-200);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .program-card {
+    background: white;
+    padding: 44px 40px;
+  }
+  .program-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+  .program-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--pav-blue-600);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .program-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .program-body { font-size: 14px; color: var(--pav-muted); line-height: 1.75; }
+  .program-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--pav-pink);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .program-link:hover { opacity: 0.7; }
+  .program-link::after { content: ' →'; }
+
+  /* ── STATS ───────────────────────────────────────────────── */
+  .stats-section {
+    background: var(--pav-blue);
+    padding: 96px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stats-section::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .stats-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .stats-h2 {
+    font-size: clamp(30px, 3.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: white;
+    margin-bottom: 0;
+    letter-spacing: -0.02em;
+    margin-top: 12px;
+  }
+  .stats-h2 em { font-style: normal; color: var(--pav-pink); }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 56px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.05);
+    padding: 52px 40px;
+    text-align: center;
+  }
+  .stat-number {
+    font-size: clamp(48px, 5vw, 68px);
+    font-weight: 700;
+    color: white;
+    display: block;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.55;
+    max-width: 160px;
+    margin: 0 auto;
+  }
+  .stat-sublabel {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-top: 10px;
+    display: block;
+  }
+
+  /* ── GTM SCHOOL ──────────────────────────────────────────── */
+  .school-section {
+    background: var(--pav-pink-200);
+    padding: 96px 48px;
+  }
+  .school-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .school-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .school-check-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: var(--pav-body);
+    line-height: 1.55;
+  }
+  .school-check-item::before {
+    content: '✓';
+    color: var(--pav-pink);
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .school-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(223,40,91,0.12);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .school-meta-item { background: white; padding: 22px 24px; }
+  .school-meta-key {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pav-muted);
+    margin-bottom: 6px;
+  }
+  .school-meta-val {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--pav-blue-600);
+    line-height: 1.3;
+  }
+
+  /* ── PROCESS ─────────────────────────────────────────────── */
+  .steps-outer {
+    padding: 96px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--pav-gray-200);
+    border: 1px solid var(--pav-gray-200);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 56px;
+  }
+  .step { background: white; padding: 44px 36px; }
+  .step-num {
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--pav-pink-200);
+    line-height: 1;
+    margin-bottom: 20px;
+    display: block;
+    letter-spacing: -0.03em;
+  }
+  .step-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--pav-blue-600);
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+  .step-body { font-size: 14px; color: var(--pav-muted); line-height: 1.75; }
+
+  /* ── COVENANT ────────────────────────────────────────────── */
+  .covenant-section {
+    background: var(--pav-blue);
+    padding: 96px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .covenant-section::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .covenant-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+  .covenant-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .covenant-label::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--pav-pink);
+    border-radius: 2px;
+  }
+  .covenant-h2 {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .covenant-h2 em { font-style: normal; color: var(--pav-pink); }
+  .covenant-body { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.8; }
+  .covenant-list { list-style: none; display: flex; flex-direction: column; }
+  .covenant-item {
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .covenant-item:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+  .covenant-dot {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid var(--pav-pink);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .covenant-dot::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--pav-pink);
+  }
+  .covenant-item-text { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.65; }
+  .covenant-item-text strong {
+    color: white;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 3px;
+    font-size: 15px;
+  }
+
+  /* ── WHY IT MATTERS ──────────────────────────────────────── */
+  .insight-section {
+    padding: 96px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .insight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    margin-top: 56px;
+    align-items: start;
+  }
+  .insight-body { font-size: 16px; color: var(--pav-muted); line-height: 1.85; }
+  .insight-body p { margin-bottom: 20px; }
+  .insight-body p:last-child { margin-bottom: 0; }
+  .insight-body strong { color: var(--pav-blue-600); font-weight: 600; }
+  .insight-pullquote {
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--pav-blue-600);
+    border-left: 3px solid var(--pav-pink);
+    padding-left: 28px;
+    font-style: normal;
+  }
+
+  /* ── FINAL CTA ───────────────────────────────────────────── */
+  .final-cta {
+    background: var(--pav-pink-200);
+    padding: 96px 48px;
+    text-align: center;
+  }
+  .final-cta-inner { max-width: 640px; margin: 0 auto; }
+  .final-h2 {
+    font-size: clamp(32px, 4vw, 50px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--pav-blue-600);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .final-h2 em { font-style: normal; color: var(--pav-pink); }
+  .final-body { font-size: 16px; color: var(--pav-muted); line-height: 1.75; margin-bottom: 44px; }
+  .final-line { font-size: 13px; color: #B0B8C4; margin-top: 44px; font-style: italic; }
+
+  /* ── BUTTONS ─────────────────────────────────────────────── */
+  .btn-primary {
+    display: inline-block;
+    padding: 16px 36px;
+    background: var(--pav-pink);
+    color: white;
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: 100px;
+    transition: opacity 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost {
+    display: inline-block;
+    padding: 16px 36px;
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 100px;
+    transition: opacity 0.2s;
+  }
+  .btn-ghost:hover { opacity: 0.7; }
+  .btn-outline {
+    display: inline-block;
+    padding: 16px 36px;
+    background: transparent;
+    color: var(--pav-blue-600);
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: 1.5px solid var(--pav-blue-600);
+    border-radius: 100px;
+    transition: opacity 0.2s;
+  }
+  .btn-outline:hover { opacity: 0.65; }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    padding: 36px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--pav-gray-200);
+  }
+  .footer-logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pav-blue-600);
+  }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-link { font-size: 12px; color: var(--pav-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-link:hover { color: var(--pav-blue); }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .founder-note-section { padding: 64px 24px 56px; }
+    .founder-note-inner { padding-left: 20px; }
+    .founder-note-text { font-size: 15px; }
+    .hero { padding: 64px 24px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 44px; }
+    .section { padding: 72px 24px; }
+    .program-grid { grid-template-columns: 1fr; border-radius: 8px; }
+    .stats-section { padding: 72px 24px; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .school-section { padding: 72px 24px; }
+    .school-inner { grid-template-columns: 1fr; gap: 44px; }
+    .school-meta-grid { grid-template-columns: 1fr; }
+    .steps-outer { padding: 72px 24px; }
+    .steps-grid { grid-template-columns: 1fr; border-radius: 8px; }
+    .covenant-section { padding: 72px 24px; }
+    .covenant-inner { grid-template-columns: 1fr; gap: 44px; }
+    .insight-section { padding: 72px 24px; }
+    .insight-grid { grid-template-columns: 1fr; }
+    .final-cta { padding: 72px 24px; }
+    footer { padding: 28px 24px; flex-direction: column; gap: 20px; text-align: center; }
+    .hero-cta-row { flex-direction: column; align-items: flex-start; }
+    .logo-bar { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FOUNDER NOTE -->
+<section class="founder-note-section">
+  <div class="founder-note-inner">
+    <div class="founder-note-label">A note from our founder</div>
+    <p class="founder-note-text">
+      We are in it. Not approaching the edge of something — standing in the middle of it. The shift is real. The noise around it is designed. Most of what you're reading right now was written to make you act, not to help you think. I have spent ten years watching how the best operators in revenue navigate change: not by finding the right tool first, but by finding the right person. AI compresses time. It makes the work faster, the output better, the analysis cheaper. It does not compress wisdom. It does not make judgment cheaper or trust faster. Those still move at the speed of human beings — and always will. Pavilion exists for exactly that. The conversation that reframes the problem. The peer who tells you what didn't work. The relationship worth building before you needed it. Use the technology. Then find your people. That's what this has always been.
+    </p>
+    <div class="founder-sig">
+      <span class="founder-sig-name">Sam Jacobs</span>
+      <span class="founder-sig-title">Founder &amp; CEO, Pavilion</span>
+    </div>
+  </div>
+</section>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">AI GTM Acceleration Bundle</div>
+      <h1 class="hero-h1">Stop figuring out<br>AI <em>alone.</em></h1>
+      <p class="hero-sub">GTM is hard enough. AI has made it louder, faster, and harder to trust what you're hearing. We've packaged everything you need to cut through the noise and move with confidence.</p>
+      <ul class="hero-bullets">
+        <li class="hero-bullet">AI Buddy Program — get matched with real peers</li>
+        <li class="hero-bullet">AI in GTM School — 8-week program, starts April 29</li>
+        <li class="hero-bullet">#AI_GTM Slack — 2,000+ execs sharing what works</li>
+        <li class="hero-bullet">Local Roundtables — off-the-record, in your city</li>
+      </ul>
+      <div class="hero-cta-row">
+        <a href="#signup" class="btn-primary">Get Me in the Room</a>
+        <a href="#included" class="btn-ghost">See what's included</a>
+      </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card" id="signup">
+      <h2 class="form-card-title">Interested in the bundle?</h2>
+      <p class="form-card-sub">Tell us a bit about yourself and we'll be in touch to get you started.</p>
+      <div id="form-fields-wrap">
+        <div class="form-fields">
+          <input type="text"  class="form-input" placeholder="Your name">
+          <input type="email" class="form-input" placeholder="Work email">
+          <select class="form-input form-select">
+            <option value="" disabled selected>Your role</option>
+            <option>VP of Sales</option>
+            <option>VP of Marketing</option>
+            <option>VP of Customer Success</option>
+            <option>Chief Revenue Officer</option>
+            <option>Revenue Operations</option>
+            <option>Sales Director</option>
+            <option>Other Revenue Leader</option>
+          </select>
+          <input type="text" class="form-input" placeholder="Your biggest AI challenge right now">
+          <button class="form-submit" onclick="handleSubmit()">Get Me in the Room →</button>
+        </div>
+        <p class="form-note" id="form-note">Pavilion membership required.</p>
+      </div>
+      <div class="success-msg" id="success-msg">
+        <h3>You're in.</h3>
+        <p>Someone from our team will be in touch shortly to walk you through your options.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO BAR -->
+<div class="logo-bar">
+  <div class="logo-bar-inner">
+    <p class="logo-bar-label">Trusted by leaders from</p>
+    <div class="logo-bar-logos">
+      <span class="logo-item">Microsoft</span>
+      <span class="logo-item">Salesforce</span>
+      <span class="logo-item">Stripe</span>
+      <span class="logo-item">LinkedIn</span>
+      <span class="logo-item">Google</span>
+      <span class="logo-item">DoorDash</span>
+      <span class="logo-item">Oracle</span>
+      <span class="logo-item">SAP</span>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT'S INCLUDED -->
+<section id="included">
+  <div class="section">
+    <div class="section-label">What's included</div>
+    <h2 class="section-h2">Four ways to move faster<br>on AI. <em>Together.</em></h2>
+    <p class="section-sub">Every piece of this bundle is designed around the same idea: the operators who figure out AI fastest aren't consuming more content — they're having better conversations with better people.</p>
+    <div class="program-grid">
+      <div class="program-card">
+        <span class="program-icon">🤝</span>
+        <h3 class="program-title">AI Buddy Program</h3>
+        <span class="program-tag">A real person to think alongside</span>
+        <p class="program-body">We'll match you with one or more Pavilion peers — in a similar role, under similar pressure — to work through your specific AI roadmap together. No agenda. No pitch. Just backup.</p>
+      </div>
+      <div class="program-card">
+        <span class="program-icon">🎓</span>
+        <h3 class="program-title">AI in GTM School</h3>
+        <span class="program-tag">Starts April 29</span>
+        <p class="program-body">Led by operators running real AI-powered revenue engines — not hobbyists. You'll leave with a complete AI-first GTM playbook and a board-ready 90-day execution plan your CEO can actually use. No technical background required.</p>
+        <a href="#school" class="program-link">Learn more</a>
+      </div>
+      <div class="program-card">
+        <span class="program-icon">⚡</span>
+        <h3 class="program-title">#AI_GTM Slack</h3>
+        <span class="program-tag">Real-time intelligence</span>
+        <p class="program-body">A channel where 2,000+ leaders share what's actually working — and what's just a demo. Plus monthly livestreams with AI experts so you can ask the questions you can't Google.</p>
+      </div>
+      <div class="program-card">
+        <span class="program-icon">📍</span>
+        <h3 class="program-title">Local Roundtables</h3>
+        <span class="program-tag">Off-the-record, in your city</span>
+        <p class="program-body">What's actually changing in your backyard? Local roundtables bring together operators in your market for the kind of honest conversation that doesn't happen on a webinar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div class="section-label">The community</div>
+    <h2 class="stats-h2">The numbers that<br><em>actually matter.</em></h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <!--
+          DYNAMIC COUNTER — connect to live source:
+          Option A: Replace data-target with a value fetched from your CRM/API
+          Option B: On page load, fetch('/api/members/new-this-quarter')
+                    .then(r => r.json()).then(d => updateCounter('counter-new', d.count))
+        -->
+        <span class="stat-number stat-counter" id="counter-new" data-target="312" data-suffix="+">0</span>
+        <p class="stat-label">new members joined this quarter</p>
+        <span class="stat-sublabel">And growing</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number stat-counter" data-target="2000" data-suffix="+">0</span>
+        <p class="stat-label">executives in the #AI_GTM Slack</p>
+        <span class="stat-sublabel">Active daily</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number stat-counter" data-target="70" data-suffix="%">0</span>
+        <p class="stat-label">of Pavilion members VP-level or above</p>
+        <span class="stat-sublabel">Peer-grade signal</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI IN GTM SCHOOL -->
+<section id="school" class="school-section">
+  <div class="school-inner">
+    <div>
+      <div class="section-label">AI in GTM School</div>
+      <h2 class="section-h2">Leave with a plan your<br>board can <em>act on.</em></h2>
+      <p class="section-sub" style="margin-bottom: 0;">Your CEO wants proof that AI can cut CAC, accelerate pipeline, and increase efficiency — with numbers you can defend. AI in GTM School is the 8-week program that gets you there. Led by operators building real AI-powered revenue engines. No technical background required. 90 minutes a week.</p>
+      <ul class="school-checklist">
+        <li class="school-check-item">A complete AI-first GTM leadership playbook</li>
+        <li class="school-check-item">A board-ready 90-day AI execution plan with KPIs</li>
+        <li class="school-check-item">Frameworks for workflow automation, hiring, and AI-ready teams</li>
+        <li class="school-check-item">Taught by Andy Jolls, Jonathan Kvarfordt, and active GTM practitioners</li>
+      </ul>
+      <a href="#signup" class="btn-primary">See the full curriculum →</a>
+    </div>
+    <div class="school-meta-grid">
+      <div class="school-meta-item">
+        <div class="school-meta-key">Next cohort</div>
+        <div class="school-meta-val">April 29</div>
+      </div>
+      <div class="school-meta-item">
+        <div class="school-meta-key">Duration</div>
+        <div class="school-meta-val">8 weeks · 90 min/week</div>
+      </div>
+      <div class="school-meta-item">
+        <div class="school-meta-key">Format</div>
+        <div class="school-meta-val">Live, virtual — all sessions recorded</div>
+      </div>
+      <div class="school-meta-item">
+        <div class="school-meta-key">Requirements</div>
+        <div class="school-meta-val">No technical background required</div>
+      </div>
+      <div class="school-meta-item" style="grid-column: span 2;">
+        <div class="school-meta-key">Included with</div>
+        <div class="school-meta-val">Pavilion membership</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROCESS -->
+<section id="how">
+  <div class="steps-outer">
+    <div class="section-label">The process</div>
+    <h2 class="section-h2">No algorithm. No automation.<br><em>Just the right person.</em></h2>
+    <div class="steps-grid">
+      <div class="step">
+        <span class="step-num">01</span>
+        <h3 class="step-title">Tell us what you're actually stuck on</h3>
+        <p class="step-body">We ask one question: what's your biggest AI challenge right now? Not your title. Not your stack. What are you trying to solve? That answer drives your match.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <h3 class="step-title">We put the right people in the room</h3>
+        <p class="step-body">A Pavilion member in a similar role, with relevant experience, who has opted in because they believe in giving before getting. We make the introduction. You take it from there.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <h3 class="step-title">Have the conversation that moves things</h3>
+        <p class="step-body">No deck. No pitch. No performance. A real conversation with someone who has been where you're trying to go. One good conversation changes things — and the class, the Slack, and the roundtables keep it going.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUDDY COVENANT -->
+<section class="covenant-section">
+  <div class="covenant-inner">
+    <div>
+      <div class="covenant-label">The Buddy Covenant</div>
+      <h2 class="covenant-h2">This isn't mentorship.<br>It's <em>backup.</em></h2>
+      <p class="covenant-body">Every Buddy agrees to show up right. Not as a mentor. Not as a vendor. As a peer who's been in the room you're trying to get into.</p>
+    </div>
+    <ul class="covenant-list">
+      <li class="covenant-item">
+        <div class="covenant-dot"></div>
+        <div class="covenant-item-text"><strong>Be open and honest</strong>About what's actually working and what isn't. Buddies aren't here to perform expertise. They're here to tell the truth.</div>
+      </li>
+      <li class="covenant-item">
+        <div class="covenant-dot"></div>
+        <div class="covenant-item-text"><strong>Be a good listener</strong>Understand the full situation before offering a take. Ask the second question. The obvious answer is rarely the right one.</div>
+      </li>
+      <li class="covenant-item">
+        <div class="covenant-dot"></div>
+        <div class="covenant-item-text"><strong>Be direct</strong>If it's not a fit, say so early. Don't waste anyone's time. Directness is a form of respect.</div>
+      </li>
+      <li class="covenant-item">
+        <div class="covenant-dot"></div>
+        <div class="covenant-item-text"><strong>Be reasonable with your time</strong>One real conversation is the ask. Where it goes after that is up to both of you. No pressure. No obligation.</div>
+      </li>
+      <li class="covenant-item">
+        <div class="covenant-dot"></div>
+        <div class="covenant-item-text"><strong>Be vulnerable</strong>You don't have all the answers either. Neither does your Buddy. That's exactly why the conversation is worth having.</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section id="why" class="insight-section">
+  <div class="section-label">Why it matters</div>
+  <h2 class="section-h2">Every source<br>has an <em>angle.</em></h2>
+  <div class="insight-grid">
+    <div class="insight-body">
+      <p><strong>X rewards the provocative.</strong> LinkedIn optimizes for engagement. The AI platforms themselves have an obvious interest in selling you on AI. Every source you consult is, in some way, working an angle.</p>
+      <p>That doesn't make all of it wrong. It makes none of it sufficient. You need a real sanity check — from someone with no incentive to oversell you, who understands your context, and who will tell you when the thing doesn't actually work.</p>
+      <p>The people around you are going to matter more as AI gets louder — not less. The question is whether you're building those relationships now or waiting until you need them.</p>
+    </div>
+    <blockquote class="insight-pullquote">
+      "The tools you use matter less than who you think alongside. Knowing what to use is downstream of knowing what you're trying to do. That's a people problem, not a software problem."
+    </blockquote>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <h2 class="final-h2">Carry the job alone.<br><em>Live this life together.</em></h2>
+    <p class="final-body">The AI GTM Acceleration Bundle is included with Pavilion membership. We'll walk you through the options and get you set up.</p>
+    <a href="#signup" class="btn-primary" style="margin-right: 12px;">Get Me in the Room</a>
+    <a href="https://www.joinpavilion.com" class="btn-outline" target="_blank">Learn about Pavilion</a>
+    <p class="final-line">© 2026 Pavilion. Carry the job alone. Live this life together.</p>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Pavilion</span>
+  <div class="footer-links">
+    <a href="#" class="footer-link">Privacy</a>
+    <a href="#" class="footer-link">Terms</a>
+    <a href="https://www.joinpavilion.com" class="footer-link" target="_blank">Join Pavilion</a>
+  </div>
+</footer>
+
+<script>
+  // ── FORM ──────────────────────────────────────────────────────────
+  function handleSubmit() {
+    document.getElementById('form-fields-wrap').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }
+
+  // ── SMOOTH SCROLL ─────────────────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // ── ANIMATED COUNTERS ─────────────────────────────────────────────
+  // To connect #counter-new to a live data source, replace the static
+  // data-target value with a fetched value before the observer fires:
+  //
+  //   fetch('/api/members/new-this-quarter')
+  //     .then(r => r.json())
+  //     .then(d => document.getElementById('counter-new').dataset.target = d.count);
+  //
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1800;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.floor(current).toLocaleString() + suffix;
+      if (current >= target) clearInterval(timer);
+    }, 16);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.stat-counter').forEach(el => counterObserver.observe(el));
+</script>
+</body>
+</html>

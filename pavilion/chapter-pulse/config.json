@@ -1,0 +1,9 @@
+{
+  "chapters": {
+    "boston": {
+      "channel_id": "CEGL70GGG",
+      "display_name": "Boston"
+    }
+  },
+  "min_messages": 5
+}

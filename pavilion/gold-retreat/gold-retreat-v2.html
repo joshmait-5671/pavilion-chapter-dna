@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavilion Gold — Summer Retreat 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --black: #0a0905;
+  --black2: #131109;
+  --black3: #1a1814;
+  --gold: #c4a35a;
+  --gold-light: #e8d4a0;
+  --gold-dim: rgba(196,163,90,0.2);
+  --white: #f5f2ec;
+  --white-dim: rgba(245,242,236,0.5);
+  --white-faint: rgba(245,242,236,0.12);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 28px 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(10,9,5,0.9) 0%, transparent 100%);
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.nav-badge {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.nav-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--white-faint);
+}
+.nav-sub {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  font-weight: 400;
+}
+.nav-cta {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold-dim);
+  padding-bottom: 2px;
+  transition: border-color 0.2s;
+}
+.nav-cta:hover { border-color: var(--gold); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 64px 88px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=1800&q=90');
+  background-size: cover;
+  background-position: center 25%;
+  filter: brightness(0.22) sepia(20%);
+}
+.hero-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,9,5,0.2) 0%,
+    transparent 40%,
+    rgba(10,9,5,0.75) 75%,
+    var(--black) 100%
+  );
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+.hero-h {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 6vw, 84px);
+  font-weight: 400;
+  line-height: 1.08;
+  color: var(--white);
+  letter-spacing: -1px;
+  max-width: 700px;
+  margin-bottom: 48px;
+}
+.hero-h em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--white-faint);
+}
+.meta-item { display: flex; flex-direction: column; gap: 5px; }
+.meta-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.meta-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: var(--white);
+  font-weight: 400;
+}
+
+/* ─── ROOM SECTION ─── */
+.section-room {
+  padding: 120px 64px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.room-kicker {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.room-kicker::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+.room-h {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(38px, 4.5vw, 60px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--white);
+  max-width: 600px;
+  margin-bottom: 16px;
+}
+.room-h em { font-style: italic; color: var(--gold-light); }
+.room-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--white-dim);
+  margin-bottom: 64px;
+  font-weight: 300;
+}
+
+/* COMPANY GRID */
+.companies-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--white-faint);
+  border: 1px solid var(--white-faint);
+  margin-bottom: 40px;
+}
+.co-cell {
+  background: var(--black2);
+  padding: 24px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white-dim);
+  letter-spacing: 0.5px;
+  transition: background 0.15s, color 0.15s;
+  cursor: default;
+}
+.co-cell:hover {
+  background: var(--black3);
+  color: var(--gold-light);
+}
+.co-cell.featured {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.interview-line {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.interview-line::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ─── DIVIDER PHOTO ─── */
+.wide-photo {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  object-position: center 60%;
+  display: block;
+  filter: brightness(0.6) sepia(15%);
+}
+
+/* ─── EXPERIENCE SECTION ─── */
+.section-exp {
+  padding: 100px 64px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--white-faint);
+  border: 1px solid var(--white-faint);
+}
+.exp-cell {
+  background: var(--black);
+  padding: 56px 48px;
+}
+.exp-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  display: block;
+}
+.exp-h {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.exp-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--white-dim);
+  font-weight: 300;
+}
+
+/* ─── CTA ─── */
+.section-cta {
+  padding: 100px 64px;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.cta-h {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 4vw, 54px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.cta-h em { font-style: italic; color: var(--gold-light); }
+.cta-note {
+  font-size: 13px;
+  color: var(--white-dim);
+  font-weight: 300;
+  margin-bottom: 48px;
+  letter-spacing: 0.3px;
+}
+.price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+.price-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: -2px;
+}
+.price-label {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  font-weight: 400;
+  align-self: center;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 18px 56px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s;
+  margin-bottom: 20px;
+}
+.cta-btn:hover { background: var(--gold-light); }
+.cta-fine {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--white-dim);
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 40px 64px;
+  border-top: 1px solid var(--white-faint);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-brand {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.footer-contact {
+  font-size: 12px;
+  color: var(--white-dim);
+  font-weight: 300;
+}
+.footer-contact a {
+  color: var(--gold);
+  text-decoration: none;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <span class="nav-badge">Pavilion Gold</span>
+    <div class="nav-divider"></div>
+    <span class="nav-sub">Summer Retreat 2026</span>
+  </div>
+  <a href="mailto:emily.racic@joinpavilion.com" class="nav-cta">Reserve your seat</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-content">
+    <h1 class="hero-h">The conversations<br>that don't happen<br><em>on stage.</em></h1>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">Location</span>
+        <span class="meta-value">Hotel Terra, Jackson Hole</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Dates</span>
+        <span class="meta-value">June 9–12, 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Format</span>
+        <span class="meta-value">Mastermind · Chatham House Rules</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Seats</span>
+        <span class="meta-value">~20</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE ROOM -->
+<section class="section-room">
+  <p class="room-kicker">The Room</p>
+  <h2 class="room-h">Not everyone who applied<br>is <em>here.</em></h2>
+  <p class="room-note">Every attendee interviewed before admission is confirmed.</p>
+
+  <div class="companies-grid">
+    <div class="co-cell featured">Klaviyo</div>
+    <div class="co-cell featured">ClickUp</div>
+    <div class="co-cell featured">Zuora</div>
+    <div class="co-cell featured">Docebo</div>
+    <div class="co-cell">Clio</div>
+    <div class="co-cell">Owner.com</div>
+    <div class="co-cell">Vena</div>
+    <div class="co-cell">Socure</div>
+    <div class="co-cell">Cin7</div>
+    <div class="co-cell">Articulate</div>
+    <div class="co-cell">Dovetail</div>
+    <div class="co-cell">ShipHero</div>
+    <div class="co-cell">Dandy</div>
+    <div class="co-cell">Infinx Healthcare</div>
+    <div class="co-cell">Nooks</div>
+    <div class="co-cell">General Atlantic</div>
+    <div class="co-cell">Bonfire Ventures</div>
+    <div class="co-cell">SBI Growth Advisory</div>
+    <div class="co-cell">Dust</div>
+    <div class="co-cell">Vector</div>
+  </div>
+  <p class="interview-line">Every attendee interviewed before admission.</p>
+</section>
+
+<!-- WIDE PHOTO -->
+<img class="wide-photo"
+  src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1800&q=90"
+  alt="Jackson Hole mountains" />
+
+<!-- EXPERIENCE -->
+<section style="padding: 0; max-width: none; margin: 0;">
+  <div class="section-exp">
+    <div class="exp-cell">
+      <span class="exp-num">I.</span>
+      <h3 class="exp-h">Mastermind Sessions</h3>
+      <p class="exp-desc">Two structured mornings. Small group. Real problems. Nothing recorded, nothing published.</p>
+    </div>
+    <div class="exp-cell">
+      <span class="exp-num">II.</span>
+      <h3 class="exp-h">Jackson Hole</h3>
+      <p class="exp-desc">Hotel Terra, Teton Village. Group excursions, campfire, farewell dinner. The setting is the point.</p>
+    </div>
+    <div class="exp-cell">
+      <span class="exp-num">III.</span>
+      <h3 class="exp-h">Chatham House Rules</h3>
+      <p class="exp-desc">What gets said here stays here. No agenda published in advance. No plus-ones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-cta">
+  <h2 class="cta-h">Seats are limited.<br><em>By design.</em></h2>
+  <p class="cta-note">Hotel, group meals, and excursions included.</p>
+  <div class="price-row">
+    <span class="price-num">$2,500</span>
+    <span class="price-label">per person</span>
+  </div>
+  <a href="mailto:emily.racic@joinpavilion.com" class="cta-btn">Request Your Place</a>
+  <span class="cta-fine">All applicants interviewed before admission is confirmed.</span>
+</section>
+
+<footer>
+  <span class="footer-brand">Pavilion Gold</span>
+  <span class="footer-contact">Questions: <a href="mailto:emily.racic@joinpavilion.com">emily.racic@joinpavilion.com</a></span>
+</footer>
+
+</body>
+</html>

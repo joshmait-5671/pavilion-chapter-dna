@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Buddy Program — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #0A0A1A;
+    --surface: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.06);
+    --pink: #DF285B;
+    --pink-dim: rgba(223,40,91,0.08);
+    --white: #FFFFFF;
+    --muted: #6B6B80;
+    --body: #A0A0B0;
+    --green: #34D399;
+    --yellow: #FBBF24;
+    --red: #F87171;
+    --font: 'Inter', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--blue); color: var(--body); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px; border-bottom: 1px solid var(--border);
+  }
+  .nav-title { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; text-transform: uppercase; }
+  .nav-badge { font-family: var(--mono); font-size: 11px; color: var(--pink); background: var(--pink-dim); padding: 6px 12px; border-radius: 100px; }
+  .nav-link { font-size: 13px; color: var(--pink); text-decoration: none; font-weight: 600; }
+  .nav-link:hover { opacity: 0.7; }
+
+  .dashboard { max-width: 1100px; margin: 0 auto; padding: 48px; }
+
+  .section-title {
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--pink);
+    margin-bottom: 20px;
+  }
+  h2 { font-size: 28px; font-weight: 700; color: var(--white); letter-spacing: -0.02em; margin-bottom: 32px; }
+
+  /* Stats grid */
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; margin-bottom: 48px;
+  }
+  .stat-card { background: var(--blue); padding: 32px 28px; }
+  .stat-number { font-size: 36px; font-weight: 700; color: var(--white); font-family: var(--mono); letter-spacing: -0.03em; display: block; margin-bottom: 6px; }
+  .stat-label { font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .stat-sub { font-family: var(--mono); font-size: 11px; margin-top: 8px; display: block; }
+  .stat-sub.green { color: var(--green); }
+  .stat-sub.yellow { color: var(--yellow); }
+  .stat-sub.red { color: var(--red); }
+
+  /* Progress bar */
+  .progress-section { margin-bottom: 48px; }
+  .progress-label { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .progress-text { font-size: 13px; color: var(--muted); }
+  .progress-count { font-family: var(--mono); font-size: 13px; color: var(--white); font-weight: 600; }
+  .progress-track { width: 100%; height: 8px; background: var(--surface); border-radius: 100px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--pink); border-radius: 100px; transition: width 1s ease; }
+
+  /* Tables */
+  .table-section { margin-bottom: 48px; }
+  .table-wrap {
+    border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+    padding: 14px 20px; text-align: left; background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    font-size: 14px; color: var(--body); padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  tr:last-child td { border-bottom: none; }
+  td.name { color: var(--white); font-weight: 500; }
+  .badge {
+    font-family: var(--mono); font-size: 10px; font-weight: 500;
+    padding: 3px 8px; border-radius: 4px; display: inline-block;
+  }
+  .badge-green { color: var(--green); background: rgba(52,211,153,0.1); }
+  .badge-yellow { color: var(--yellow); background: rgba(251,191,36,0.1); }
+  .badge-red { color: var(--red); background: rgba(248,113,113,0.1); }
+  .badge-muted { color: var(--muted); background: var(--surface); }
+
+  .empty-state { text-align: center; padding: 48px; color: var(--muted); font-size: 14px; }
+
+  /* Refresh */
+  .refresh-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 32px; }
+
+  @media (max-width: 900px) {
+    .dashboard { padding: 24px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav { padding: 16px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-title">AI Buddy Program</span>
+  <span class="nav-badge" id="status-badge">Loading...</span>
+</nav>
+
+<div class="dashboard">
+  <div class="section-title">Program Overview</div>
+  <h2>Dashboard</h2>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-number" id="s-waitlist">—</span>
+      <span class="stat-label">On waitlist</span>
+      <span class="stat-sub yellow" id="s-waitlist-sub"></span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="s-pool">—</span>
+      <span class="stat-label">In active pool</span>
+      <span class="stat-sub green" id="s-pool-sub"></span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="s-matched">—</span>
+      <span class="stat-label">Matched & active</span>
+      <span class="stat-sub green" id="s-matched-sub"></span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number" id="s-total">—</span>
+      <span class="stat-label">Total matches sent</span>
+      <span class="stat-sub" id="s-pending"></span>
+    </div>
+  </div>
+
+  <!-- Launch progress -->
+  <div class="progress-section">
+    <div class="progress-label">
+      <span class="progress-text">Launch progress</span>
+      <span class="progress-count"><span id="p-count">0</span> / 100</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="p-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Function breakdown -->
+  <div class="table-section">
+    <div class="section-title">Pool by Function</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Function</th><th>Waitlisted</th><th>In Pool</th><th>Matched</th></tr></thead>
+        <tbody id="function-table"><tr><td colspan="4" class="empty-state">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Recent matches -->
+  <div class="table-section">
+    <div class="section-title">Recent Matches</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Match ID</th><th>Person A</th><th>Person B</th><th>Tier</th><th>Score</th><th>Status</th></tr></thead>
+        <tbody id="matches-table"><tr><td colspan="6" class="empty-state">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Alerts -->
+  <div class="table-section">
+    <div class="section-title">⚠ Alerts</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Person</th><th>Buddy</th><th>Issue</th><th>Days</th></tr></thead>
+        <tbody id="alerts-table"><tr><td colspan="4" class="empty-state">No alerts</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="refresh-note">Data loads from Google Sheets. Refresh to update.</p>
+</div>
+
+<script>
+  // ── CONFIG ─────────────────────────────────────────────────
+  // This dashboard reads from the same Apps Script endpoint
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyeknbJf-FrvLi7HLl8ppgzQqD56u_zInDy50uSK4QK4XTdE-wTQw4HXQ69II3LjItf/exec';
+
+  async function loadDashboard() {
+    try {
+      const res = await fetch(APPS_SCRIPT_URL + '?dashboard=true');
+      const data = await res.json();
+
+      // Update waitlist count
+      const count = data.count || 0;
+      document.getElementById('s-waitlist').textContent = count;
+      document.getElementById('s-waitlist-sub').textContent = count >= 100 ? 'READY TO LAUNCH' : `${100 - count} to launch`;
+      document.getElementById('p-count').textContent = count;
+      document.getElementById('p-fill').style.width = Math.min((count / 100) * 100, 100) + '%';
+
+      // Status badge
+      const badge = document.getElementById('status-badge');
+      if (count >= 100) {
+        badge.textContent = 'Ready to Launch';
+        badge.style.color = '#34D399';
+        badge.style.background = 'rgba(52,211,153,0.1)';
+      } else {
+        badge.textContent = 'Waitlist Phase';
+      }
+
+      // The other stats will populate once the program is live
+      // and we have data in Requests/Matches tabs
+      document.getElementById('s-pool').textContent = data.pool || 0;
+      document.getElementById('s-matched').textContent = data.matched || 0;
+      document.getElementById('s-total').textContent = data.total_matches || 0;
+
+      if (data.pending_approval) {
+        document.getElementById('s-pending').textContent = `${data.pending_approval} pending approval`;
+        document.getElementById('s-pending').className = 'stat-sub yellow';
+      }
+
+      // Function breakdown
+      if (data.by_function && Object.keys(data.by_function).length > 0) {
+        const tbody = document.getElementById('function-table');
+        tbody.innerHTML = '';
+        for (const [fn, counts] of Object.entries(data.by_function)) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td class="name">${fn}</td><td>${counts.waitlisted || 0}</td><td>${counts.pool || 0}</td><td>${counts.matched || 0}</td>`;
+          tbody.appendChild(tr);
+        }
+      }
+
+      // Recent matches
+      if (data.recent_matches && data.recent_matches.length > 0) {
+        const tbody = document.getElementById('matches-table');
+        tbody.innerHTML = '';
+        for (const m of data.recent_matches.slice(0, 10)) {
+          const statusClass = m.status === 'Intro Sent' ? 'badge-green' : m.status === 'Pending Approval' ? 'badge-yellow' : 'badge-muted';
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td><code style="font-family:var(--mono);font-size:12px;color:var(--pink)">${m.match_id}</code></td><td class="name">${m.person_a}</td><td class="name">${m.person_b}</td><td>${m.tier || '—'}</td><td>${m.score || '—'}</td><td><span class="badge ${statusClass}">${m.status}</span></td>`;
+          tbody.appendChild(tr);
+        }
+      }
+
+      // Alerts (ghost matches)
+      if (data.alerts && data.alerts.length > 0) {
+        const tbody = document.getElementById('alerts-table');
+        tbody.innerHTML = '';
+        for (const a of data.alerts) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td class="name">${a.person_name}</td><td class="name">${a.buddy_name}</td><td>${a.check_type} — no response</td><td><span class="badge badge-yellow">${a.days_since}d</span></td>`;
+          tbody.appendChild(tr);
+        }
+      }
+
+    } catch (e) {
+      console.log('Dashboard load error:', e);
+      document.getElementById('status-badge').textContent = 'Error loading';
+    }
+  }
+
+  loadDashboard();
+</script>
+</body>
+</html>

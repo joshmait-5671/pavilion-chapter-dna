@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavilion Gold — Summer Retreat 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink: #0a0905;
+  --gold: #c4a35a;
+  --gold-soft: #e8d4a0;
+  --cream: #f5f2ec;
+  --dim: rgba(245,242,236,0.42);
+  --faint: rgba(245,242,236,0.08);
+  --gold-faint: rgba(196,163,90,0.12);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ─── HERO ─── */
+.hero {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero-photo {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1510312305653-8ed496efae75?w=1800&q=90');
+  background-size: cover;
+  background-position: center 30%;
+  filter: brightness(0.25) sepia(15%);
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(170deg, transparent 40%, rgba(10,9,5,0.8) 80%, var(--ink) 100%);
+}
+.hero-brand {
+  position: absolute;
+  top: 36px; left: 52px;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  z-index: 2;
+}
+.hero-date {
+  position: absolute;
+  top: 36px; right: 52px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--dim);
+  z-index: 2;
+  text-align: right;
+  line-height: 1.6;
+}
+.hero-statement {
+  position: absolute;
+  bottom: 72px; left: 52px;
+  z-index: 2;
+  max-width: 640px;
+}
+.hero-h {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px, 5.5vw, 76px);
+  font-weight: 400;
+  line-height: 1.07;
+  color: var(--cream);
+  letter-spacing: -1px;
+}
+.hero-h em { font-style: italic; color: var(--gold-soft); }
+.hero-scroll {
+  position: absolute;
+  bottom: 36px; right: 52px;
+  z-index: 2;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dim);
+  writing-mode: vertical-rl;
+}
+
+/* ─── SECTION LABEL ─── */
+.section-label {
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 64px;
+}
+.section-label::after {
+  content: '';
+  display: block;
+  flex: 1;
+  height: 1px;
+  background: var(--faint);
+}
+
+/* ─── THE ROOM — people ─── */
+.room {
+  padding: 120px 52px 0;
+}
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px 40px;
+  margin-bottom: 64px;
+}
+.person {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+.person-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  filter: brightness(0.9) saturate(0.75);
+  margin-bottom: 14px;
+  display: block;
+}
+.person-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: -0.2px;
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+.person-name.anchor { font-weight: 700; }
+.person-role {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 1.4;
+  margin-bottom: 3px;
+}
+.person-company {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--dim);
+  font-weight: 300;
+}
+.room-fact {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--dim);
+  font-weight: 300;
+  letter-spacing: 0.3px;
+  padding-top: 32px;
+  border-top: 1px solid var(--faint);
+}
+
+/* ─── LANDSCAPE PHOTO ─── */
+.landscape {
+  margin-top: 120px;
+  width: 100%;
+  height: 55vh;
+  min-height: 360px;
+  object-fit: cover;
+  object-position: center 65%;
+  display: block;
+  filter: brightness(0.55) sepia(10%);
+}
+
+/* ─── AGENDA — Tufte ─── */
+.agenda-section {
+  padding: 120px 52px 0;
+}
+.agenda-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid var(--faint);
+}
+.agenda-day-row td {
+  padding: 40px 0 12px;
+  vertical-align: top;
+}
+.agenda-day {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: -0.3px;
+  width: 180px;
+  padding-right: 48px;
+  white-space: nowrap;
+}
+.agenda-event-row td {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--faint);
+  vertical-align: top;
+}
+.agenda-time {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  width: 180px;
+  padding-right: 48px;
+  white-space: nowrap;
+  padding-top: 2px;
+}
+.agenda-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.5;
+}
+.agenda-desc em {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--dim);
+  font-weight: 300;
+  display: block;
+  margin-top: 2px;
+}
+.agenda-spacer { height: 16px; }
+
+/* ─── BOTTOM ─── */
+.bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 50vh;
+  margin-top: 120px;
+}
+.bottom-left {
+  padding: 96px 52px;
+  border-right: 1px solid var(--faint);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.bottom-location {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 2.5vw, 36px);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+.bottom-location em { font-style: italic; color: var(--gold-soft); }
+.bottom-logistics {
+  font-size: 13px;
+  color: var(--dim);
+  font-weight: 300;
+  line-height: 2;
+}
+.bottom-right {
+  padding: 96px 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.price {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 6vw, 80px);
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: -3px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.price-note {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+  margin-bottom: 56px;
+}
+.apply-link {
+  display: inline-block;
+  padding: 16px 48px;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  align-self: flex-start;
+  margin-bottom: 20px;
+  transition: background 0.15s;
+}
+.apply-link:hover { background: var(--gold-soft); }
+.apply-caveat {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--dim);
+  font-weight: 300;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 32px 52px;
+  border-top: 1px solid var(--faint);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-left {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.footer-right {
+  font-size: 12px;
+  color: var(--dim);
+  font-weight: 300;
+}
+.footer-right a { color: var(--gold); text-decoration: none; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .hero-brand { left: 24px; top: 24px; }
+  .hero-date { right: 24px; top: 24px; }
+  .hero-statement { left: 24px; bottom: 48px; }
+  .hero-scroll { display: none; }
+  .room, .agenda-section { padding: 80px 24px 0; }
+  .people-grid { grid-template-columns: repeat(2, 1fr); gap: 36px 24px; }
+  .agenda-day, .agenda-time { width: 100px; padding-right: 20px; font-size: 11px; }
+  .bottom { grid-template-columns: 1fr; }
+  .bottom-left { border-right: none; border-bottom: 1px solid var(--faint); padding: 64px 24px; }
+  .bottom-right { padding: 64px 24px; }
+  footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
+  <span class="hero-brand">Pavilion Gold</span>
+  <div class="hero-date">
+    June 9–12, 2026<br>
+    Jackson Hole, Wyoming
+  </div>
+  <div class="hero-statement">
+    <h1 class="hero-h">Do the job alone.<br><em>Live this life</em><br>together.</h1>
+  </div>
+  <span class="hero-scroll">Scroll</span>
+</section>
+
+<!-- THE ROOM — people -->
+<section class="room">
+  <p class="section-label">The Room</p>
+
+  <div class="people-grid">
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/steve_rowland_gold.jpg" alt="Steve Rowland">
+      <span class="person-name anchor">Steve Rowland</span>
+      <span class="person-role">President</span>
+      <span class="person-company">Klaviyo</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Gaurav%20Agarwal.jpg" alt="Gaurav Agarwal">
+      <span class="person-name anchor">Gaurav Agarwal</span>
+      <span class="person-role">COO</span>
+      <span class="person-company">ClickUp</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Amy-Konary.jpg" alt="Amy Konary">
+      <span class="person-name anchor">Amy Konary</span>
+      <span class="person-role">SVP</span>
+      <span class="person-company">Zuora</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Kyle%20Lacy.jpg" alt="Kyle Lacy">
+      <span class="person-name">Kyle Lacy</span>
+      <span class="person-role">CMO</span>
+      <span class="person-company">Docebo</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Jenny%20Dingus.jpg" alt="Jenny Dingus">
+      <span class="person-name">Jenny Dingus</span>
+      <span class="person-role">SVP Sales</span>
+      <span class="person-company">Clio</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Kyle%20Norton-2.jpg" alt="Kyle Norton">
+      <span class="person-name">Kyle Norton</span>
+      <span class="person-role">CRO</span>
+      <span class="person-company">Owner.com</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Allison-Munro.jpg" alt="Allison Munro">
+      <span class="person-name">Allison Munro</span>
+      <span class="person-role">CMO</span>
+      <span class="person-company">Vena</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/matt_thompson_gold.jpg" alt="Matt Thompson">
+      <span class="person-name">Matt Thompson</span>
+      <span class="person-role">President &amp; CCO</span>
+      <span class="person-company">Socure</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Mark_Girvan.jpg" alt="Mark Girvan">
+      <span class="person-name">Mark Girvan</span>
+      <span class="person-role">CRO</span>
+      <span class="person-company">Cin7</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Monika%20Saha.jpg" alt="Monika Saha">
+      <span class="person-name">Monika Saha</span>
+      <span class="person-role">CCO</span>
+      <span class="person-company">Articulate</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Josh%20Wetzel.jpg" alt="Josh Wetzel">
+      <span class="person-name">Josh Wetzel</span>
+      <span class="person-role">VP GTM</span>
+      <span class="person-company">Dovetail</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/dan_lee_gold.jpg" alt="Dan Lee">
+      <span class="person-name">Dan Lee</span>
+      <span class="person-role">CEO</span>
+      <span class="person-company">Nooks</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/preston_mckenzie_gold.jpg" alt="Preston McKenzie">
+      <span class="person-name">Preston McKenzie</span>
+      <span class="person-role">Operating Partner</span>
+      <span class="person-company">General Atlantic</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/brett_queener_gold.jpg" alt="Brett Queener">
+      <span class="person-name">Brett Queener</span>
+      <span class="person-role">Managing Director</span>
+      <span class="person-company">Bonfire Ventures</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/tony_erickson_gold.jpg" alt="Tony Erickson">
+      <span class="person-name">Tony Erickson</span>
+      <span class="person-role">Senior Partner</span>
+      <span class="person-company">SBI Growth Advisory</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/nico_chinot_gold.jpg" alt="Nico Chinot">
+      <span class="person-name">Nico Chinot</span>
+      <span class="person-role">Co-Founder</span>
+      <span class="person-company">Dust</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/joshua_perk_gold.jpg" alt="Joshua Perk">
+      <span class="person-name">Joshua Perk</span>
+      <span class="person-role">Co-Founder &amp; CEO</span>
+      <span class="person-company">Vector</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Radhika_Tandon.jpg" alt="Radhika Tandon">
+      <span class="person-name">Radhika Tandon</span>
+      <span class="person-role">CMO</span>
+      <span class="person-company">Infinx Healthcare</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Rick%20Smolen.jpg" alt="Rick Smolen">
+      <span class="person-name">Rick Smolen</span>
+      <span class="person-role">CRO</span>
+      <span class="person-company">ShipHero</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/joe_lynch_gold.jpg" alt="Joe Lynch">
+      <span class="person-name">Joe Lynch</span>
+      <span class="person-role">Head of GTM</span>
+      <span class="person-company">Dandy</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/Sam_Jacobs.jpg" alt="Sam Jacobs">
+      <span class="person-name anchor">Sam Jacobs</span>
+      <span class="person-role">CEO</span>
+      <span class="person-company">Pavilion</span>
+    </div>
+    <div class="person">
+      <img class="person-photo" src="https://www.joinpavilion.com/hs-fs/hubfs/rich_gardner_gold.jpg" alt="Rich Gardner">
+      <span class="person-name anchor">Rich Gardner</span>
+      <span class="person-role">President</span>
+      <span class="person-company">Pavilion</span>
+    </div>
+  </div>
+
+  <p class="room-fact">Every attendee was interviewed.</p>
+</section>
+
+<!-- LANDSCAPE PHOTO -->
+<img class="landscape"
+  src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1800&q=90"
+  alt="Teton mountains" />
+
+<!-- AGENDA — Tufte -->
+<section class="agenda-section">
+  <p class="section-label">The Four Days</p>
+
+  <table class="agenda-table">
+    <tbody>
+
+      <tr class="agenda-day-row">
+        <td class="agenda-day">Tuesday, June 9</td>
+        <td></td>
+      </tr>
+      <tr class="agenda-event-row">
+        <td class="agenda-time">All day</td>
+        <td class="agenda-desc">Arrivals &amp; check-in</td>
+      </tr>
+      <tr class="agenda-event-row">
+        <td class="agenda-time">7:00 pm</td>
+        <td class="agenda-desc">Welcome reception &amp; dinner</td>
+      </tr>
+
+      <tr class="agenda-spacer"><td colspan="2"></td></tr>
+
+      <tr class="agenda-day-row">
+        <td class="agenda-day">Wednesday, June 10</td>
+        <td></td>
+      </tr>
+      <tr class="agenda-event-row">
+        <td class="agenda-time">9:00 am – Noon</td>
+        <td class="agenda-desc">Morning Mastermind
+          <em>Chatham House Rules</em>
+        </td>
+      </tr>
+      <tr class="agenda-event-row">
+        <td class="agenda-time">1:30 pm</td>
+        <td class="agenda-desc">Group excursion &amp; lunch</td>
+      </tr>
+      <tr class="agenda-event-row">
+        <td class="agenda-time">Evening</td>
+        <td class="agenda-desc">Dinner on your own, then campfire</td>
+      </tr>
+
+      <tr class="agenda-spacer"><td colspan="2"></td></tr>
+
+      <tr class="agenda-day-row">
+        <td class="agenda-day">Thursday, June 11</td>
+        <td></td>
+      </tr>
+      <tr class="agenda-event-row">
+        <td class="agenda-time">9:00 am – Noon</td>
+        <td class="agenda-desc">Morning Mastermind
+          <em>Chatham House Rules</em>
+        </td>
+      </tr>
+      <tr class="agenda-event-row">
+        <td class="agenda-time">Afternoon</td>
+        <td class="agenda-desc">Small group discussions &amp; free time</td>
+      </tr>
+      <tr class="agenda-event-row">
+        <td class="agenda-time">Evening</td>
+        <td class="agenda-desc">Group farewell dinner</td>
+      </tr>
+
+      <tr class="agenda-spacer"><td colspan="2"></td></tr>
+
+      <tr class="agenda-day-row">
+        <td class="agenda-day">Friday, June 12</td>
+        <td></td>
+      </tr>
+      <tr class="agenda-event-row">
+        <td class="agenda-time">Morning</td>
+        <td class="agenda-desc">Farewell breakfast &amp; departures</td>
+      </tr>
+
+    </tbody>
+  </table>
+</section>
+
+<!-- BOTTOM -->
+<section class="bottom">
+  <div class="bottom-left">
+    <div>
+      <p class="bottom-location">Hotel Terra<br><em>Teton Village, Wyoming</em></p>
+      <p class="bottom-logistics">
+        June 9 — Arrivals &amp; welcome dinner<br>
+        June 10–11 — Mastermind sessions<br>
+        June 12 — Farewell breakfast<br><br>
+        Chatham House Rules.<br>
+        No recordings. No agenda published in advance.
+      </p>
+    </div>
+  </div>
+  <div class="bottom-right">
+    <div>
+      <a href="mailto:emily.racic@joinpavilion.com" class="apply-link">Reserve your place</a>
+      <p class="apply-caveat">Admission confirmed after interview.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-left">Pavilion Gold · Summer Retreat 2026</span>
+  <span class="footer-right"><a href="mailto:emily.racic@joinpavilion.com">emily.racic@joinpavilion.com</a></span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pavilion ROI Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: hsla(343, 73%, 51%, 1.0);
+      --primary--dark: hsla(0, 33%, 30%, 1.0);
+      --secondary: hsla(250, 69%, 31%, 1.0);
+      --pink-600: #F14972;
+      --pink-700: #DF285B;
+      --pink-800: #BB1C48;
+      --blue-500: #432CAE;
+      --blue-600: #2B1887;
+      --blue-700: #180A5C;
+      --blue-800: #0D0339;
+      --blue-900: #080122;
+      --blue-100: #EDEAFF;
+      --purple-100: #FDF5FF;
+      --slate-100: #f5f5f5;
+      --slate-200: #F0F0F3;
+      --headlines: hsla(0, 0%, 12%, 1.0);
+      --body-text: hsla(0, 0%, 25%, 1.0);
+      --space-xs: 4px;
+      --space-s: 8px;
+      --space-xm: 12px;
+      --space-m: 16px;
+      --space-l: 24px;
+      --space-xl: 32px;
+      --space-xxl: 64px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--body-text);
+      background: #fff;
+      line-height: 1.5;
+    }
+
+    /* ── PASSCODE GATE ── */
+    #gate {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--blue-700);
+      padding: var(--space-xxl) var(--space-l);
+      text-align: center;
+    }
+
+    .gate-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: var(--space-xxl);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .gate-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    #gate h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: var(--space-l);
+      max-width: 640px;
+    }
+
+    #gate p {
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: var(--space-xxl);
+    }
+
+    .gate-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-m);
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .gate-form input {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      padding: 14px 20px;
+      border-radius: 100px;
+      border: 2px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      text-align: center;
+      letter-spacing: 2px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .gate-form input::placeholder { color: rgba(255,255,255,0.4); letter-spacing: 0; }
+    .gate-form input:focus { border-color: var(--pink-700); }
+
+    #gate-error {
+      font-size: 0.85rem;
+      color: var(--pink-600);
+      min-height: 20px;
+      font-weight: 400;
+    }
+
+    .btn-primary {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--pink-700);
+      border: none;
+      border-radius: 100px;
+      padding: 14px 32px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover { background: var(--pink-800); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* ── CALCULATOR ── */
+    #calculator { display: none; }
+
+    /* Sticky ROI Bar */
+    #roi-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--blue-700);
+      padding: 16px var(--space-xxl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-l);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .roi-bar-left { display: flex; flex-direction: column; }
+    .roi-bar-label { font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; }
+    #roi-total-display {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 900;
+      color: var(--pink-600);
+      line-height: 1;
+      transition: all 0.3s ease;
+    }
+
+    .roi-bar-right { text-align: right; }
+    .roi-multiple-label { font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; }
+    #roi-multiple-display {
+      font-size: clamp(1rem, 3vw, 1.75rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+
+    /* Section styles */
+    .section {
+      padding: 56px var(--space-xxl);
+    }
+
+    .section--lavender { background: var(--blue-100); }
+    .section--white { background: #fff; }
+    .section--dark { background: var(--blue-700); }
+    .section--black { background: #000; }
+
+    .section-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Profile section */
+    .profile-intro {
+      margin-bottom: var(--space-xl);
+    }
+
+    .profile-intro h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--headlines);
+      margin-bottom: var(--space-s);
+    }
+
+    .profile-intro p {
+      font-size: 0.95rem;
+      color: var(--body-text);
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-l);
+    }
+
+    .profile-field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--blue-600);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--space-s);
+    }
+
+    .profile-field input {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--headlines);
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid rgba(43, 24, 135, 0.2);
+      border-radius: 10px;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .profile-field input:focus { border-color: var(--blue-500); }
+
+    /* Benefit sections */
+    .benefit-section {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: var(--space-xxl);
+      align-items: start;
+    }
+
+    .benefit-header {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-m);
+      margin-bottom: var(--space-m);
+    }
+
+    .benefit-number {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--pink-700);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      min-width: 24px;
+    }
+
+    .benefit-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--headlines);
+      line-height: 1.2;
+    }
+
+    .benefit-copy {
+      font-size: 0.9rem;
+      color: var(--body-text);
+      margin-bottom: var(--space-l);
+      margin-left: 40px;
+      line-height: 1.6;
+    }
+
+    .benefit-inputs {
+      margin-left: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-l);
+    }
+
+    .input-row label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--blue-600);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--space-xs);
+    }
+
+    .slider-group {
+      display: flex;
+      align-items: center;
+      gap: var(--space-m);
+    }
+
+    input[type="range"] {
+      flex: 1;
+      -webkit-appearance: none;
+      height: 4px;
+      border-radius: 4px;
+      background: rgba(43, 24, 135, 0.2);
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--pink-700);
+      cursor: pointer;
+      border: 2px solid #fff;
+      box-shadow: 0 1px 6px rgba(223,40,91,0.4);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--pink-700);
+      cursor: pointer;
+      border: 2px solid #fff;
+    }
+
+    .slider-value {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--headlines);
+      width: 64px;
+      text-align: right;
+      padding: 6px 10px;
+      border: 2px solid rgba(43, 24, 135, 0.2);
+      border-radius: 8px;
+      outline: none;
+      background: #fff;
+    }
+
+    .section--lavender .slider-value { background: #fff; }
+
+    .typical-estimate {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--pink-700);
+      background: rgba(223, 40, 91, 0.08);
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-left: 6px;
+      text-transform: none;
+      letter-spacing: 0;
+      vertical-align: middle;
+    }
+
+    .benefit-value-col {
+      text-align: right;
+      padding-top: 44px;
+    }
+
+    .benefit-value-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: rgba(0,0,0,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .benefit-value-amount {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--pink-700);
+      line-height: 1;
+    }
+
+    /* Methodology */
+    .methodology-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 20px 0;
+      border-bottom: 2px solid var(--blue-100);
+      user-select: none;
+    }
+
+    .methodology-toggle h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--headlines);
+    }
+
+    .methodology-toggle .chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--blue-500);
+      transition: transform 0.3s;
+    }
+
+    .methodology-toggle.open .chevron { transform: rotate(180deg); }
+
+    #methodology-content {
+      display: none;
+      padding: var(--space-xl) 0;
+    }
+
+    #methodology-content.open { display: block; }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-l);
+      margin-bottom: var(--space-xl);
+    }
+
+    .method-card {
+      background: var(--blue-100);
+      border-radius: 12px;
+      padding: var(--space-l);
+    }
+
+    .method-card h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--blue-600);
+      margin-bottom: var(--space-s);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .method-card p {
+      font-size: 0.85rem;
+      color: var(--body-text);
+      line-height: 1.6;
+    }
+
+    .method-card code {
+      display: block;
+      font-family: monospace;
+      font-size: 0.78rem;
+      color: var(--blue-600);
+      background: rgba(43,24,135,0.08);
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-top: var(--space-s);
+      line-height: 1.5;
+    }
+
+    .disclaimer {
+      font-size: 0.8rem;
+      color: rgba(0,0,0,0.45);
+      font-style: italic;
+      border-top: 1px solid var(--slate-200);
+      padding-top: var(--space-l);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 80px var(--space-xxl);
+      background: var(--blue-700);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: var(--space-m);
+    }
+
+    .cta-roi-callout {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: var(--space-xxl);
+    }
+
+    .cta-roi-callout strong {
+      color: var(--pink-600);
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: var(--space-l);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 100px;
+      padding: 14px 32px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover { border-color: #fff; }
+    a.btn-primary, a.btn-secondary { text-decoration: none; }
+
+    /* PDF Button */
+    .btn-pdf {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.25);
+      border-radius: 100px;
+      padding: 14px 32px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-pdf:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+
+    /* Footer */
+    footer {
+      background: #000;
+      padding: var(--space-xl) var(--space-xxl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-m);
+    }
+
+    footer .footer-logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Divider between benefit sections */
+    .benefit-divider {
+      border: none;
+      border-top: 1px solid rgba(0,0,0,0.07);
+      margin: 0;
+    }
+
+    /* Animate ROI update */
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .roi-pop { animation: pop 0.25s ease; }
+
+    /* ── PRINT / PDF STYLES ── */
+    @media print {
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+      #gate,
+      #roi-bar,
+      .benefit-inputs,
+      .profile-field input,
+      .methodology-toggle,
+      #methodology-content,
+      .cta-section,
+      footer,
+      .benefit-divider { display: none !important; }
+
+      body { background: #fff; font-size: 12pt; }
+
+      #calculator { display: block !important; }
+
+      .print-header {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24pt 0 16pt;
+        border-bottom: 2px solid #180A5C;
+        margin-bottom: 24pt;
+      }
+
+      .print-header-logo {
+        font-size: 18pt;
+        font-weight: 900;
+        color: #180A5C;
+      }
+
+      .print-header-meta {
+        font-size: 9pt;
+        color: #666;
+        text-align: right;
+      }
+
+      .print-summary {
+        display: block !important;
+        background: #180A5C;
+        border-radius: 8pt;
+        padding: 20pt 24pt;
+        margin-bottom: 24pt;
+        color: #fff;
+      }
+
+      .print-summary-label {
+        font-size: 8pt;
+        text-transform: uppercase;
+        letter-spacing: 1pt;
+        color: rgba(255,255,255,0.6);
+        margin-bottom: 4pt;
+      }
+
+      .print-summary-total {
+        font-size: 28pt;
+        font-weight: 900;
+        color: #F14972;
+        line-height: 1;
+      }
+
+      .print-summary-roi {
+        font-size: 13pt;
+        font-weight: 700;
+        color: #fff;
+        margin-top: 6pt;
+      }
+
+      .section {
+        padding: 16pt 0 !important;
+        background: #fff !important;
+        page-break-inside: avoid;
+      }
+
+      .section--lavender { background: #fff !important; }
+
+      .section-inner { max-width: 100% !important; }
+
+      .benefit-section {
+        grid-template-columns: 1fr 140pt !important;
+        gap: 16pt !important;
+      }
+
+      .benefit-number { color: #DF285B !important; }
+      .benefit-title { font-size: 13pt !important; color: #1f1f1f !important; }
+      .benefit-copy { font-size: 9pt !important; color: #444 !important; margin-bottom: 0 !important; }
+
+      .benefit-value-col {
+        padding-top: 20pt !important;
+        border-left: 2px solid #EDEAFF;
+        padding-left: 16pt;
+      }
+
+      .benefit-value-label { font-size: 7pt !important; color: #999 !important; }
+      .benefit-value-amount { font-size: 18pt !important; color: #DF285B !important; }
+
+      .profile-intro { display: none !important; }
+      .profile-grid { display: none !important; }
+
+      .print-profile {
+        display: block !important;
+        font-size: 9pt;
+        color: #555;
+        margin-bottom: 20pt;
+        padding: 10pt 14pt;
+        background: #f5f5f5;
+        border-radius: 6pt;
+      }
+
+      .print-profile strong { color: #180A5C; }
+
+      .print-disclaimer {
+        display: block !important;
+        font-size: 8pt;
+        color: #999;
+        font-style: italic;
+        margin-top: 24pt;
+        padding-top: 10pt;
+        border-top: 1px solid #eee;
+      }
+
+      .typical-estimate { display: none !important; }
+      .no-print { display: none !important; }
+    }
+
+    /* Hide print-only elements on screen */
+    .print-header,
+    .print-summary,
+    .print-profile,
+    .print-disclaimer { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .section { padding: 40px var(--space-l); }
+      #roi-bar { padding: 12px var(--space-l); gap: var(--space-m); }
+      .profile-grid { grid-template-columns: 1fr; }
+      .benefit-section { grid-template-columns: 1fr; }
+      .benefit-value-col { padding-top: 0; text-align: left; margin-left: 40px; }
+      .method-grid { grid-template-columns: 1fr; }
+      .cta-section { padding: 56px var(--space-l); }
+      footer { padding: var(--space-xl) var(--space-l); }
+    }
+
+    @media (max-width: 480px) {
+      #roi-bar { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .roi-bar-right { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     PASSCODE GATE
+═══════════════════════════════════════════════ -->
+<div id="gate">
+  <div class="gate-logo">
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 4L36 32H4L20 4Z" fill="#DF285B"/>
+      <path d="M20 12L30 32H10L20 12Z" fill="#180A5C"/>
+    </svg>
+    Pavilion
+  </div>
+
+  <h1>What's Pavilion worth to you?</h1>
+  <p>Enter your access code to find out.</p>
+
+  <div class="gate-form">
+    <input type="password" id="passcode-input" placeholder="Access code" autocomplete="off" spellcheck="false">
+    <p id="gate-error"></p>
+    <button class="btn-primary" onclick="checkPasscode()">Unlock My ROI →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CALCULATOR
+═══════════════════════════════════════════════ -->
+<div id="calculator">
+
+  <!-- Print-only header -->
+  <div class="print-header">
+    <div class="print-header-logo">Pavilion</div>
+    <div class="print-header-meta">
+      Membership ROI Summary<br>
+      <span id="print-date"></span>
+    </div>
+  </div>
+
+  <!-- Print-only summary box -->
+  <div class="print-summary">
+    <div class="print-summary-label">Estimated annual value</div>
+    <div class="print-summary-total" id="print-total">—</div>
+    <div class="print-summary-roi" id="print-roi-line">—</div>
+  </div>
+
+  <!-- Sticky ROI Bar -->
+  <div id="roi-bar">
+    <div class="roi-bar-left">
+      <span class="roi-bar-label">Your estimated annual value</span>
+      <span id="roi-total-display">$88,813</span>
+    </div>
+    <div class="roi-bar-right">
+      <div class="roi-multiple-label">Return on $2,700 investment</div>
+      <div id="roi-multiple-display">33x ROI</div>
+    </div>
+  </div>
+
+  <!-- ── YOUR PROFILE ── -->
+  <div class="section section--lavender">
+    <div class="section-inner">
+      <div class="profile-intro">
+        <h2>Your profile</h2>
+        <p>These baseline numbers calibrate the calculator to your situation. Adjust them — the ROI updates in real time.</p>
+      </div>
+      <!-- Print-only profile summary -->
+      <div class="print-profile">
+        Your salary: <strong id="print-salary">—</strong> &nbsp;·&nbsp;
+        Avg deal size: <strong id="print-deal-size">—</strong>
+      </div>
+      <div class="profile-grid">
+        <div class="profile-field">
+          <label>Your annual salary</label>
+          <input type="text" id="p-salary" value="$200,000" onchange="formatCurrency(this); recalc()">
+        </div>
+        <div class="profile-field">
+          <label>Avg deal size at your company</label>
+          <input type="text" id="p-deal-size" value="$75,000" onchange="formatCurrency(this); recalc()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BENEFIT 1: AI ADVANTAGE ── -->
+  <div class="section section--white">
+    <div class="section-inner">
+      <div class="benefit-section">
+        <div class="benefit-left">
+          <div class="benefit-header">
+            <span class="benefit-number">01</span>
+            <h2 class="benefit-title">The AI advantage.</h2>
+          </div>
+          <p class="benefit-copy">Skip the trial and error. Pavilion members share the AI playbooks, prompts, and workflows that are actually working — so you implement faster, avoid bad tool bets, and stay ahead of teams still figuring it out alone.</p>
+          <div class="benefit-inputs">
+            <div class="input-row">
+              <label>Hours saved per week from Pavilion's AI resources <span class="typical-estimate">Typical estimate: 3 hrs</span></label>
+              <div class="slider-group">
+                <input type="range" id="s-education" min="0" max="15" step="0.5" value="3" oninput="syncSlider(this,'n-education',''); recalc()">
+                <input type="text" id="n-education" class="slider-value" value="3" onchange="syncNumber(this,'s-education',0,15,''); recalc()">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="benefit-value-col">
+          <div class="benefit-value-label">Annual value</div>
+          <div class="benefit-value-amount" id="v-education">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="benefit-divider">
+
+  <!-- ── BENEFIT 2: NEW BUSINESS ── -->
+  <div class="section section--lavender">
+    <div class="section-inner">
+      <div class="benefit-section">
+        <div class="benefit-left">
+          <div class="benefit-header">
+            <span class="benefit-number">02</span>
+            <h2 class="benefit-title">New business from the network.</h2>
+          </div>
+          <p class="benefit-copy">Pavilion members refer and buy from each other. The trust is already there. How many new prospects do you realistically expect to generate this year because of relationships built or deepened inside Pavilion?</p>
+          <div class="benefit-inputs">
+            <div class="input-row">
+              <label>New prospects from Pavilion relationships per year <span class="typical-estimate">Typical estimate: 1</span></label>
+              <div class="slider-group">
+                <input type="range" id="s-prospects" min="0" max="20" step="1" value="1" oninput="syncSlider(this,'n-prospects',''); recalc()">
+                <input type="text" id="n-prospects" class="slider-value" value="1" onchange="syncNumber(this,'s-prospects',0,20,''); recalc()">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="benefit-value-col">
+          <div class="benefit-value-label">Estimated new revenue</div>
+          <div class="benefit-value-amount" id="v-prospects">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="benefit-divider">
+
+  <!-- ── BENEFIT 3: PARTNERSHIPS ── -->
+  <div class="section section--white">
+    <div class="section-inner">
+      <div class="benefit-section">
+        <div class="benefit-left">
+          <div class="benefit-header">
+            <span class="benefit-number">03</span>
+            <h2 class="benefit-title">A bigger partnerships pipeline.</h2>
+          </div>
+          <p class="benefit-copy">The Pavilion network is your BD team. Warm intros to the right partners — faster than cold outreach will ever get you. Estimate how much your partnerships pipeline grows and what closes.</p>
+          <div class="benefit-inputs">
+            <div class="input-row">
+              <label>Pipeline growth from Pavilion (%) <span class="typical-estimate">Typical estimate: 25%</span></label>
+              <div class="slider-group">
+                <input type="range" id="s-pipe-pct" min="0" max="100" value="25" oninput="syncSlider(this,'n-pipe-pct','%'); recalc()">
+                <input type="text" id="n-pipe-pct" class="slider-value" value="25%" onchange="syncNumber(this,'s-pipe-pct',0,100,'%'); recalc()">
+              </div>
+            </div>
+            <div class="input-row">
+              <label>Your annual partnerships pipeline target</label>
+              <div class="slider-group">
+                <input type="range" id="s-pipe-base" min="0" max="2000000" step="25000" value="400000" oninput="syncSliderCurrency(this,'n-pipe-base'); recalc()">
+                <input type="text" id="n-pipe-base" class="slider-value" style="width:100px" value="$400K" onchange="syncNumberCurrency(this,'s-pipe-base',0,2000000); recalc()">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="benefit-value-col">
+          <div class="benefit-value-label">Annual value</div>
+          <div class="benefit-value-amount" id="v-partnerships">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── METHODOLOGY ── -->
+  <div class="section section--white">
+    <div class="section-inner">
+      <div class="methodology-toggle" onclick="toggleMethodology(this)">
+        <h2>How we calculate this</h2>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+      <div id="methodology-content">
+        <div class="method-grid">
+          <div class="method-card">
+            <h3>01 · AI advantage</h3>
+            <p>Hours saved each week by leveraging Pavilion's AI playbooks, peer-tested workflows, and real use cases instead of figuring things out from scratch. Valued at your effective hourly rate.</p>
+            <code>
+              Value = hours_saved × (salary ÷ 2,000) × 50 weeks
+            </code>
+          </div>
+          <div class="method-card">
+            <h3>02 · New business from the network</h3>
+            <p>New prospects generated through Pavilion relationships, converted to estimated revenue using a 25% close rate on warm introductions.</p>
+            <code>
+              Revenue = prospects × deal_size × 0.25
+            </code>
+          </div>
+          <div class="method-card">
+            <h3>03 · Partnerships pipeline</h3>
+            <p>Incremental pipeline from Pavilion multiplied by an assumed 10% close rate.</p>
+            <code>
+              Value = pipeline_target × growth% × 0.10
+            </code>
+          </div>
+          <div class="method-card">
+            <h3>Membership investment</h3>
+            <p>Pavilion individual executive membership is priced at $2,700/year. ROI multiple = total value ÷ $2,700.</p>
+            <code>
+              ROI = total_value ÷ $2,700
+            </code>
+          </div>
+        </div>
+        <p class="disclaimer">These estimates are illustrative and directional. They're built on reasonable assumptions drawn from industry benchmarks, not guaranteed outcomes. Results depend on your situation, your team, and how actively you engage with Pavilion. Your actual ROI may be higher or lower.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="cta-section">
+    <h2>The math is pretty clear.</h2>
+    <p class="cta-roi-callout">
+      An estimated <strong id="cta-total">—</strong> in annual value.<br>
+      For <strong>$2,700</strong>. That's a <strong id="cta-multiple">—</strong> return.
+    </p>
+    <div class="cta-buttons">
+      <a href="https://joinpavilion.com/join" class="btn-primary">Join Pavilion for $2,700/year</a>
+      <a href="https://joinpavilion.com/contact" class="btn-secondary">Talk to our team</a>
+      <button class="btn-pdf" onclick="downloadPDF()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Save as PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Print-only disclaimer -->
+  <div class="print-disclaimer">
+    These estimates are illustrative and directional, built on reasonable assumptions. Results depend on your situation and how actively you engage with Pavilion. Pavilion membership is $2,700/year. Learn more at joinpavilion.com.
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-logo">Pavilion</span>
+    <p>© 2026 Pavilion. All rights reserved. Results are illustrative estimates.</p>
+  </footer>
+
+</div><!-- end #calculator -->
+
+<script>
+  // ── ACCESS CONTROL ──────────────────────────────────────────────────────────
+  const PASSCODE = 'pavilion2026';
+  const MEMBERSHIP_COST = 2700;
+
+  function init() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('member') === '1') {
+      showCalculator();
+    } else {
+      document.getElementById('gate').style.display = 'flex';
+    }
+  }
+
+  function checkPasscode() {
+    const input = document.getElementById('passcode-input').value.trim().toLowerCase();
+    const err = document.getElementById('gate-error');
+    if (input === PASSCODE) {
+      err.textContent = '';
+      showCalculator();
+    } else {
+      err.textContent = 'Incorrect access code. Try again.';
+      document.getElementById('passcode-input').select();
+    }
+  }
+
+  document.getElementById('passcode-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkPasscode();
+  });
+
+  function showCalculator() {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('calculator').style.display = 'block';
+    recalc();
+  }
+
+  // ── SLIDER / INPUT SYNC ─────────────────────────────────────────────────────
+  function syncSlider(slider, numId, suffix) {
+    document.getElementById(numId).value = slider.value + suffix;
+  }
+
+  function syncNumber(input, sliderId, min, max, suffix) {
+    let raw = parseFloat(input.value.replace(/[^0-9.]/g, '')) || 0;
+    raw = Math.min(Math.max(raw, min), max);
+    document.getElementById(sliderId).value = raw;
+    input.value = raw + suffix;
+  }
+
+  function syncSliderCurrency(slider, numId) {
+    const val = parseInt(slider.value);
+    document.getElementById(numId).value = formatK(val);
+  }
+
+  function syncNumberCurrency(input, sliderId, min, max) {
+    let raw = parseFloat(input.value.replace(/[^0-9.]/g, '')) || 0;
+    if (input.value.toUpperCase().includes('M')) raw *= 1000000;
+    else if (input.value.toUpperCase().includes('K')) raw *= 1000;
+    raw = Math.min(Math.max(raw, min), max);
+    document.getElementById(sliderId).value = raw;
+    input.value = formatK(raw);
+  }
+
+  function formatK(val) {
+    if (val >= 1000000) return '$' + (val/1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (val >= 1000) return '$' + Math.round(val/1000) + 'K';
+    return '$' + val;
+  }
+
+  // ── CURRENCY FORMATTING ──────────────────────────────────────────────────────
+  function formatCurrency(input) {
+    let raw = parseFloat(input.value.replace(/[^0-9.]/g, '')) || 0;
+    input.value = '$' + raw.toLocaleString('en-US');
+  }
+
+  function parseCurrency(id) {
+    const val = document.getElementById(id).value.replace(/[^0-9.]/g, '');
+    return parseFloat(val) || 0;
+  }
+
+  function parseSlider(id) {
+    return parseFloat(document.getElementById(id).value) || 0;
+  }
+
+  // ── CALCULATIONS ─────────────────────────────────────────────────────────────
+  function recalc() {
+    const salary   = parseCurrency('p-salary');
+    const dealSize = parseCurrency('p-deal-size');
+
+    // 1. AI Advantage (hours saved)
+    const hoursSaved = parseSlider('s-education');
+    const hourlyRate = salary / 2000;  // ~2000 working hours/year
+    const vEducation = hoursSaved * hourlyRate * 50;  // 50 working weeks
+
+    // 2. New Prospects → Revenue (25% close rate on warm intros)
+    const prospects  = parseSlider('s-prospects');
+    const vProspects = prospects * dealSize * 0.25;
+
+    // 3. Partnerships
+    const pipePct  = parseSlider('s-pipe-pct') / 100;
+    const pipeBase = parseSlider('s-pipe-base');
+    const vPartner = pipeBase * pipePct * 0.10;
+
+    const total = vEducation + vProspects + vPartner;
+    const roi   = Math.round(total / MEMBERSHIP_COST);
+
+    // Update benefit values
+    document.getElementById('v-education').textContent    = fmt(vEducation);
+    document.getElementById('v-prospects').textContent    = fmt(vProspects);
+    document.getElementById('v-partnerships').textContent = fmt(vPartner);
+
+    // Update ROI bar
+    const totalEl = document.getElementById('roi-total-display');
+    totalEl.textContent = fmt(total);
+    totalEl.classList.remove('roi-pop');
+    void totalEl.offsetWidth;
+    totalEl.classList.add('roi-pop');
+
+    document.getElementById('roi-multiple-display').textContent = roi + 'x ROI';
+
+    // Update CTA section
+    document.getElementById('cta-total').textContent    = fmt(total);
+    document.getElementById('cta-multiple').textContent = roi + 'x';
+
+    // Update print elements
+    document.getElementById('print-total').textContent    = fmt(total);
+    document.getElementById('print-roi-line').textContent = roi + 'x return on $2,700 investment';
+    document.getElementById('print-salary').textContent   = document.getElementById('p-salary').value;
+    document.getElementById('print-deal-size').textContent = document.getElementById('p-deal-size').value;
+  }
+
+  function fmt(n) {
+    return '$' + Math.round(n).toLocaleString('en-US');
+  }
+
+  // ── METHODOLOGY TOGGLE ───────────────────────────────────────────────────────
+  function toggleMethodology(el) {
+    el.classList.toggle('open');
+    document.getElementById('methodology-content').classList.toggle('open');
+  }
+
+  // ── PDF / PRINT ───────────────────────────────────────────────────────────────
+  function downloadPDF() {
+    document.getElementById('print-date').textContent = new Date().toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+    window.print();
+  }
+
+  // ── INIT ─────────────────────────────────────────────────────────────────────
+  init();
+</script>
+
+</body>
+</html>

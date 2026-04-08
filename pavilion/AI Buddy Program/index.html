@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Buddy Program — Pavilion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pav-pink:     #DF285B;
+    --pav-pink-dim: rgba(223,40,91,0.08);
+    --pav-blue:     #0A0A1A;
+    --pav-blue-600: #1A1A2E;
+    --pav-white:    #FFFFFF;
+    --pav-body:     #A0A0B0;
+    --pav-muted:    #6B6B80;
+    --pav-border:   rgba(255,255,255,0.06);
+    --pav-surface:  rgba(255,255,255,0.03);
+    --font:         'Inter', -apple-system, sans-serif;
+    --mono:         'JetBrains Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--pav-blue);
+    color: var(--pav-body);
+    font-family: var(--font);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ────────────────────────────────────────────────── */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--pav-border);
+  }
+  .nav-logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+  }
+  .nav-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--pav-pink);
+    background: var(--pav-pink-dim);
+    padding: 6px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero {
+    padding: 120px 48px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 32px;
+  }
+  .hero-h1 {
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--pav-white);
+    margin-bottom: 24px;
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: var(--pav-body);
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto 44px;
+  }
+  .hero-sub strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+  .hero-cta {
+    display: inline-block;
+    padding: 16px 36px;
+    background: var(--pav-pink);
+    color: white;
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: 100px;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .hero-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ── COUNTER ────────────────────────────────────────────── */
+  .counter-bar {
+    padding: 28px 48px;
+    border-top: 1px solid var(--pav-border);
+    border-bottom: 1px solid var(--pav-border);
+    text-align: center;
+  }
+  .counter-inner {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .counter-track {
+    width: 100%;
+    height: 4px;
+    background: var(--pav-surface);
+    border-radius: 100px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .counter-fill {
+    height: 100%;
+    background: var(--pav-pink);
+    border-radius: 100px;
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 0%;
+  }
+  .counter-text {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--pav-muted);
+    letter-spacing: 0.02em;
+  }
+  .counter-text strong {
+    color: var(--pav-white);
+    font-weight: 600;
+  }
+  .counter-text .pink { color: var(--pav-pink); }
+
+  /* ── HOW IT WORKS ───────────────────────────────────────── */
+  .how-section {
+    padding: 96px 48px;
+    border-bottom: 1px solid var(--pav-border);
+  }
+  .how-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .how-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 16px;
+  }
+  .how-h2 {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    color: var(--pav-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 56px;
+    line-height: 1.15;
+  }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--pav-border);
+    border: 1px solid var(--pav-border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .how-card {
+    background: var(--pav-blue);
+    padding: 44px 36px;
+  }
+  .how-num {
+    font-family: var(--mono);
+    font-size: 48px;
+    font-weight: 700;
+    color: rgba(223,40,91,0.15);
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -0.03em;
+  }
+  .how-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--pav-white);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .how-body {
+    font-size: 14px;
+    color: var(--pav-muted);
+    line-height: 1.7;
+  }
+
+  /* ── MATCHING CRITERIA ──────────────────────────────────── */
+  .criteria-section {
+    padding: 96px 48px;
+    border-bottom: 1px solid var(--pav-border);
+  }
+  .criteria-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .criteria-h2 {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    color: var(--pav-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .criteria-sub {
+    font-size: 15px;
+    color: var(--pav-muted);
+    line-height: 1.7;
+  }
+  .criteria-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--pav-border);
+    border: 1px solid var(--pav-border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .criteria-item {
+    background: var(--pav-blue);
+    padding: 22px 28px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .criteria-icon {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--pav-pink);
+    background: var(--pav-pink-dim);
+    padding: 4px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .criteria-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+  .criteria-text strong { color: var(--pav-white); font-weight: 600; }
+
+  /* ── FORM SECTION ───────────────────────────────────────── */
+  .form-section {
+    padding: 96px 48px;
+    border-bottom: 1px solid var(--pav-border);
+  }
+  .form-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .form-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .form-h2 {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    color: var(--pav-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    line-height: 1.15;
+    text-align: center;
+  }
+  .form-sub {
+    font-size: 15px;
+    color: var(--pav-muted);
+    line-height: 1.7;
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-group-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--pav-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--pav-surface);
+    border: 1px solid var(--pav-border);
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--pav-white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--pav-pink); }
+  .form-input::placeholder { color: var(--pav-muted); }
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23DF285B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    cursor: pointer;
+  }
+  .form-select option { background: var(--pav-blue-600); color: var(--pav-white); }
+
+  /* Engagement style checkboxes */
+  .engagement-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .engagement-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--pav-surface);
+    border: 1px solid var(--pav-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .engagement-option:hover { border-color: rgba(255,255,255,0.12); }
+  .engagement-option.selected { border-color: var(--pav-pink); background: var(--pav-pink-dim); }
+  .engagement-option input { display: none; }
+  .engagement-check {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--pav-muted);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .engagement-option.selected .engagement-check {
+    background: var(--pav-pink);
+    border-color: var(--pav-pink);
+  }
+  .engagement-check::after {
+    content: '✓';
+    font-size: 11px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .engagement-option.selected .engagement-check::after { opacity: 1; }
+  .engagement-text {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+  }
+  .engagement-option.selected .engagement-text { color: var(--pav-white); }
+
+  /* AI Level radio */
+  .ai-level-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .ai-level-option {
+    padding: 16px;
+    background: var(--pav-surface);
+    border: 1px solid var(--pav-border);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .ai-level-option:hover { border-color: rgba(255,255,255,0.12); }
+  .ai-level-option.selected { border-color: var(--pav-pink); background: var(--pav-pink-dim); }
+  .ai-level-option input { display: none; }
+  .ai-level-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 4px;
+  }
+  .ai-level-option.selected .ai-level-title { color: var(--pav-white); }
+  .ai-level-desc {
+    font-size: 11px;
+    color: var(--pav-muted);
+    line-height: 1.4;
+  }
+
+  /* Member toggle */
+  .member-toggle {
+    display: flex;
+    gap: 8px;
+  }
+  .member-btn {
+    flex: 1;
+    padding: 14px;
+    background: var(--pav-surface);
+    border: 1px solid var(--pav-border);
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .member-btn:hover { border-color: rgba(255,255,255,0.12); }
+  .member-btn.selected { border-color: var(--pav-pink); background: var(--pav-pink-dim); color: var(--pav-white); }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .form-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--pav-pink);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .form-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+  .form-note {
+    font-size: 12px;
+    color: var(--pav-muted);
+    text-align: center;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  /* Success state */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 48px 0;
+  }
+  .success-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .success-msg h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--pav-white);
+    margin-bottom: 12px;
+  }
+  .success-msg p {
+    font-size: 15px;
+    color: var(--pav-muted);
+    line-height: 1.7;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* ── FAQ ─────────────────────────────────────────────────── */
+  .faq-section {
+    padding: 96px 48px;
+  }
+  .faq-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .faq-h2 {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    color: var(--pav-white);
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+    line-height: 1.15;
+    text-align: center;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--pav-border);
+    border: 1px solid var(--pav-border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .faq-item {
+    background: var(--pav-blue);
+    padding: 28px 32px;
+  }
+  .faq-q {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--pav-white);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .faq-a {
+    font-size: 14px;
+    color: var(--pav-muted);
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    padding: 36px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--pav-border);
+  }
+  .footer-logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-link {
+    font-size: 12px;
+    color: var(--pav-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: var(--pav-white); }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .nav { padding: 16px 24px; }
+    .hero { padding: 80px 24px 64px; }
+    .counter-bar { padding: 24px; }
+    .how-section { padding: 72px 24px; }
+    .how-grid { grid-template-columns: 1fr; }
+    .criteria-section { padding: 72px 24px; }
+    .criteria-inner { grid-template-columns: 1fr; gap: 44px; }
+    .form-section { padding: 72px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .ai-level-options { grid-template-columns: 1fr; }
+    .faq-section { padding: 72px 24px; }
+    footer { padding: 28px 24px; flex-direction: column; gap: 20px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="https://www.joinpavilion.com" class="nav-logo" target="_blank">Pavilion</a>
+  <span class="nav-badge">Launching Soon</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">AI Buddy Program</div>
+    <h1 class="hero-h1">Find your AI<br>thinking partner.</h1>
+    <p class="hero-sub">Get matched with a peer in your function, at your stage, who's figuring out AI at the same pace you are. <strong>Not a mentor. A buddy.</strong></p>
+    <a href="#join" class="hero-cta">Join the Waitlist →</a>
+  </div>
+</section>
+
+<!-- COUNTER -->
+<div class="counter-bar">
+  <div class="counter-inner">
+    <div class="counter-track">
+      <div class="counter-fill" id="counter-fill"></div>
+    </div>
+    <p class="counter-text"><strong id="counter-num">0</strong> signed up · <span class="pink">100</span> to launch</p>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="how-label">How it works</div>
+    <h2 class="how-h2">Three steps. No awkwardness.</h2>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">01</div>
+        <h3 class="how-title">Tell us about you</h3>
+        <p class="how-body">Your function, your stage, how you like to work. Takes 2 minutes. We use this to find someone who actually makes sense — not a random match.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">02</div>
+        <h3 class="how-title">We find your match</h3>
+        <p class="how-body">Our algorithm pairs you with a peer based on function, company stage, timezone, and how you like to engage. Within a week of launch, you'll have your buddy.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">03</div>
+        <h3 class="how-title">Start the conversation</h3>
+        <p class="how-body">You get a warm intro. Take it from there. Slack each other, hop on a call, share what's working. We check in at 4 and 8 weeks to make sure it's great.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATCHING CRITERIA -->
+<section class="criteria-section">
+  <div class="criteria-inner">
+    <div>
+      <div class="how-label">What we match on</div>
+      <h2 class="criteria-h2">This isn't random.</h2>
+      <p class="criteria-sub">We match on what actually matters — not just job title. Every match is scored across five dimensions so your first conversation starts on solid ground.</p>
+    </div>
+    <ul class="criteria-list">
+      <li class="criteria-item">
+        <span class="criteria-icon">01</span>
+        <div class="criteria-text"><strong>Function</strong> — Same department, same language. A marketer matched with a marketer.</div>
+      </li>
+      <li class="criteria-item">
+        <span class="criteria-icon">02</span>
+        <div class="criteria-text"><strong>Company stage</strong> — Similar revenue, similar problems. A growth-stage operator matched with another.</div>
+      </li>
+      <li class="criteria-item">
+        <span class="criteria-icon">03</span>
+        <div class="criteria-text"><strong>Location & timezone</strong> — Same city if possible. Same timezone at minimum. Easy to connect.</div>
+      </li>
+      <li class="criteria-item">
+        <span class="criteria-icon">04</span>
+        <div class="criteria-text"><strong>Engagement style</strong> — Weekly calls? Async Slack? We match how you want to work, not just who you are.</div>
+      </li>
+      <li class="criteria-item">
+        <span class="criteria-icon">05</span>
+        <div class="criteria-text"><strong>AI experience</strong> — Peers, not mentors. Matched at the same level so nobody's teaching down.</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="join">
+  <div class="form-inner">
+    <div class="form-label">Join the Waitlist</div>
+    <h2 class="form-h2">Get in early.</h2>
+    <p class="form-sub">We launch at 100 signups. Early signups get matched first.</p>
+
+    <div id="form-wrap">
+      <div class="form-fields">
+        <!-- Name -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-group-label">First name</label>
+            <input type="text" class="form-input" placeholder="Jane" id="fname">
+          </div>
+          <div class="form-group">
+            <label class="form-group-label">Last name</label>
+            <input type="text" class="form-input" placeholder="Smith" id="lname">
+          </div>
+        </div>
+
+        <!-- Email + Company -->
+        <div class="form-group">
+          <label class="form-group-label">Work email</label>
+          <input type="email" class="form-input" placeholder="jane@company.com" id="email">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-group-label">Company</label>
+            <input type="text" class="form-input" placeholder="Acme Inc." id="company">
+          </div>
+          <div class="form-group">
+            <label class="form-group-label">City</label>
+            <input type="text" class="form-input" placeholder="New York" id="city">
+          </div>
+        </div>
+
+        <!-- Function + Revenue -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-group-label">Function</label>
+            <select class="form-input form-select" id="function">
+              <option value="" disabled selected>Select</option>
+              <option>Sales</option>
+              <option>Marketing</option>
+              <option>Customer Success</option>
+              <option>RevOps</option>
+              <option>Finance</option>
+              <option>HR & People</option>
+              <option>Operations</option>
+              <option>Product</option>
+              <option>Founder / CEO</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-group-label">Company revenue</label>
+            <select class="form-input form-select" id="revenue">
+              <option value="" disabled selected>Select</option>
+              <option>Less than $10M</option>
+              <option>$10M – $25M</option>
+              <option>$25M – $50M</option>
+              <option>$50M+</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Timezone -->
+        <div class="form-group">
+          <label class="form-group-label">Timezone</label>
+          <select class="form-input form-select" id="timezone">
+            <option value="" disabled selected>Select</option>
+            <option>Eastern (ET)</option>
+            <option>Central (CT)</option>
+            <option>Mountain (MT)</option>
+            <option>Pacific (PT)</option>
+            <option>Other US</option>
+            <option>Europe</option>
+            <option>Asia-Pacific</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <!-- AI Level -->
+        <div class="form-group">
+          <label class="form-group-label">AI experience level</label>
+          <div class="ai-level-options">
+            <label class="ai-level-option" onclick="selectLevel(this)">
+              <input type="radio" name="ai_level" value="getting_started">
+              <div class="ai-level-title">Getting started</div>
+              <div class="ai-level-desc">Curious but haven't done much yet</div>
+            </label>
+            <label class="ai-level-option" onclick="selectLevel(this)">
+              <input type="radio" name="ai_level" value="using_regularly">
+              <div class="ai-level-title">Using it regularly</div>
+              <div class="ai-level-desc">Have tools in my workflow</div>
+            </label>
+            <label class="ai-level-option" onclick="selectLevel(this)">
+              <input type="radio" name="ai_level" value="building">
+              <div class="ai-level-title">Building with it</div>
+              <div class="ai-level-desc">Creating custom solutions</div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Engagement Style -->
+        <div class="form-group">
+          <label class="form-group-label">How do you want to engage? (pick all that apply)</label>
+          <div class="engagement-options">
+            <label class="engagement-option" onclick="toggleEngagement(event, this)">
+              <input type="checkbox" value="async">
+              <div class="engagement-check"></div>
+              <span class="engagement-text">Quick async check-ins (Slack, text)</span>
+            </label>
+            <label class="engagement-option" onclick="toggleEngagement(event, this)">
+              <input type="checkbox" value="biweekly_call">
+              <div class="engagement-check"></div>
+              <span class="engagement-text">Bi-weekly video call</span>
+            </label>
+            <label class="engagement-option" onclick="toggleEngagement(event, this)">
+              <input type="checkbox" value="weekly_call">
+              <div class="engagement-check"></div>
+              <span class="engagement-text">Weekly video call</span>
+            </label>
+            <label class="engagement-option" onclick="toggleEngagement(event, this)">
+              <input type="checkbox" value="resources">
+              <div class="engagement-check"></div>
+              <span class="engagement-text">Share resources and articles</span>
+            </label>
+            <label class="engagement-option" onclick="toggleEngagement(event, this)">
+              <input type="checkbox" value="accountability">
+              <div class="engagement-check"></div>
+              <span class="engagement-text">Accountability partner — hold each other to goals</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Member -->
+        <div class="form-group">
+          <label class="form-group-label">Pavilion member?</label>
+          <div class="member-toggle">
+            <div class="member-btn" onclick="selectMember(this, 'yes')">Yes</div>
+            <div class="member-btn" onclick="selectMember(this, 'no')">No</div>
+          </div>
+        </div>
+
+        <!-- Slack display name (shows after selecting Yes for member) -->
+        <div class="form-group" id="slack-group" style="display:none;">
+          <label class="form-group-label">Slack display name <span style="color:var(--pav-muted);font-weight:400;text-transform:none;letter-spacing:0;">(so your buddy can message you directly)</span></label>
+          <input type="text" class="form-input" placeholder="e.g., jane.smith" id="slack_name">
+        </div>
+
+        <!-- Optional notes -->
+        <div class="form-group">
+          <label class="form-group-label">Anything specific you want help with? <span style="color:var(--pav-muted);font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <textarea class="form-input form-textarea" placeholder="e.g., I'm trying to figure out how to use AI for outbound prospecting..." id="notes"></textarea>
+        </div>
+
+        <button class="form-submit" onclick="handleSubmit()">Join the Waitlist →</button>
+        <p class="form-note">You'll be in the first batch when we launch. We'll email you when your match is ready.</p>
+      </div>
+    </div>
+
+    <div class="success-msg" id="success-msg">
+      <span class="success-icon">⚡</span>
+      <h3>You're on the list.</h3>
+      <p>We'll email you as soon as we hit 100 signups and your match is ready. Early signups get matched first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <h2 class="faq-h2">Questions.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">How long does a buddy pairing last?</div>
+        <div class="faq-a">As long as you want. We check in at 4 and 8 weeks to make sure it's working. After 8 weeks, you can keep your buddy, get a new match, or add a second one. Some pairs stay together for months. Your call.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Who are the buddies?</div>
+        <div class="faq-a">Other GTM operators — people in your function, at a similar company stage, figuring out AI at the same pace. This isn't mentorship. It's a peer who gets what you're dealing with.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this free?</div>
+        <div class="faq-a">Yes. The AI Buddy Program is included with Pavilion membership. Non-members can also join — it's a great way to experience the Pavilion community.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">When does it launch?</div>
+        <div class="faq-a">As soon as we hit 100 signups. We want enough people in the pool to make great matches from day one. Early signups get priority matching.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Pavilion</span>
+  <div class="footer-links">
+    <a href="#" class="footer-link">Privacy</a>
+    <a href="#" class="footer-link">Terms</a>
+    <a href="https://www.joinpavilion.com" class="footer-link" target="_blank">Join Pavilion</a>
+  </div>
+</footer>
+
+<script>
+  // ── CONFIG ─────────────────────────────────────────────────
+  // IMPORTANT: Deploy the Apps Script (see apps-script/Code.gs) and paste the URL here
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyeknbJf-FrvLi7HLl8ppgzQqD56u_zInDy50uSK4QK4XTdE-wTQw4HXQ69II3LjItf/exec';
+  const TARGET = 100;
+  let currentCount = 0;
+
+  // ── LIVE COUNTER ───────────────────────────────────────────
+  async function fetchCount() {
+    if (!APPS_SCRIPT_URL) return;
+    try {
+      const res = await fetch(APPS_SCRIPT_URL);
+      const data = await res.json();
+      currentCount = data.count || 0;
+      animateCounter(currentCount);
+    } catch (e) {
+      console.log('Could not fetch count:', e);
+    }
+  }
+
+  function animateCounter(target) {
+    const fill = document.getElementById('counter-fill');
+    const num = document.getElementById('counter-num');
+    const pct = Math.min((target / TARGET) * 100, 100);
+
+    setTimeout(() => { fill.style.width = pct + '%'; }, 300);
+
+    let current = 0;
+    const step = Math.max(1, Math.floor(target / 60));
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      num.textContent = current;
+      if (current >= target) clearInterval(timer);
+    }, 16);
+  }
+
+  fetchCount();
+
+  // ── AI LEVEL SELECTOR ──────────────────────────────────────
+  function selectLevel(el) {
+    document.querySelectorAll('.ai-level-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // ── ENGAGEMENT TOGGLE ──────────────────────────────────────
+  function toggleEngagement(event, el) {
+    event.preventDefault();
+    event.stopPropagation();
+    el.classList.toggle('selected');
+    const cb = el.querySelector('input[type="checkbox"]');
+    if (cb) cb.checked = el.classList.contains('selected');
+  }
+
+  // ── MEMBER TOGGLE ──────────────────────────────────────────
+  let memberValue = '';
+  function selectMember(el, val) {
+    document.querySelectorAll('.member-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    memberValue = val;
+    // Show Slack field for members
+    document.getElementById('slack-group').style.display = val === 'yes' ? 'flex' : 'none';
+  }
+
+  // ── FORM VALIDATION ────────────────────────────────────────
+  function validateForm() {
+    const required = ['fname', 'lname', 'email', 'company', 'city'];
+    for (const id of required) {
+      if (!document.getElementById(id).value.trim()) return false;
+    }
+    if (!document.getElementById('function').value) return false;
+    if (!document.getElementById('revenue').value) return false;
+    if (!document.getElementById('timezone').value) return false;
+    if (!document.querySelector('.ai-level-option.selected')) return false;
+    if (!document.querySelector('.engagement-option.selected')) return false;
+    if (!memberValue) return false;
+    return true;
+  }
+
+  // ── FORM SUBMIT ────────────────────────────────────────────
+  async function handleSubmit() {
+    if (!validateForm()) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+
+    // Gather AI level
+    const aiLevelEl = document.querySelector('.ai-level-option.selected input');
+    const aiLevelMap = {
+      'getting_started': 'Getting started',
+      'using_regularly': 'Using it regularly',
+      'building': 'Building with it',
+    };
+    const aiLevel = aiLevelMap[aiLevelEl?.value] || '';
+
+    // Gather engagement styles
+    const engagementEls = document.querySelectorAll('.engagement-option.selected .engagement-text');
+    const engagement = Array.from(engagementEls).map(el => el.textContent.trim());
+
+    const payload = {
+      first_name: document.getElementById('fname').value.trim(),
+      last_name: document.getElementById('lname').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      company: document.getElementById('company').value.trim(),
+      city: document.getElementById('city').value.trim(),
+      function: document.getElementById('function').value,
+      revenue: document.getElementById('revenue').value,
+      timezone: document.getElementById('timezone').value,
+      ai_level: aiLevel,
+      engagement: engagement,
+      is_member: memberValue === 'yes' ? 'Yes' : 'No',
+      notes: document.getElementById('notes').value.trim(),
+      slack_name: document.getElementById('slack_name').value.trim(),
+    };
+
+    try {
+      if (APPS_SCRIPT_URL) {
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (data.count) {
+          currentCount = data.count;
+          animateCounter(currentCount);
+        }
+      }
+    } catch (e) {
+      console.log('Submit error (form still accepted):', e);
+    }
+
+    // Show success regardless (don't let API failure block UX)
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+
+    // Update counter visually
+    currentCount++;
+    const num = document.getElementById('counter-num');
+    const fill = document.getElementById('counter-fill');
+    num.textContent = currentCount;
+    fill.style.width = Math.min((currentCount / TARGET) * 100, 100) + '%';
+  }
+
+  // ── SMOOTH SCROLL ──────────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>

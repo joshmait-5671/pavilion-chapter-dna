@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1080px;
+    overflow: hidden;
+    background: #0D0628;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+  }
+
+  .frame {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Animated background ── */
+  .bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+  }
+  .orb-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(223,40,91,0.4) 0%, transparent 70%);
+    top: -200px; left: -200px;
+    animation: orbFloat1 30s ease-in-out infinite;
+  }
+  .orb-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(43,24,135,0.6) 0%, transparent 70%);
+    bottom: -150px; right: -150px;
+    animation: orbFloat2 30s ease-in-out infinite;
+  }
+  .orb-3 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(223,40,91,0.2) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: orbPulse 30s ease-in-out infinite;
+  }
+
+  /* ── Persistent logo ── */
+  .logo {
+    position: absolute;
+    top: 32px; left: 32px;
+    z-index: 50;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 0.2s;
+  }
+  .logo img {
+    height: 36px;
+    filter: brightness(0) invert(1);
+  }
+
+  /* ── Scan lines ── */
+  .scanline {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #DF285B, transparent);
+    z-index: 40;
+    opacity: 0;
+    top: 50%;
+  }
+  .scan-1 { animation: scanDown 0.5s ease forwards 0.1s; }
+  .scan-2 { animation: scanDown 0.5s ease forwards 2.5s; }
+  .scan-3 { animation: scanDown 0.5s ease forwards 5.0s; }
+  .scan-4 { animation: scanDown 0.5s ease forwards 12.0s; }
+  .scan-5 { animation: scanDown 0.5s ease forwards 15.0s; }
+  .scan-6 { animation: scanDown 0.5s ease forwards 20.0s; }
+  .scan-7 { animation: scanDown 0.5s ease forwards 23.0s; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 1: HOOK (0-2.5s)
+     "Stop figuring out AI alone."
+     ═══════════════════════════════════════════ */
+  .scene-1 {
+    position: absolute; inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 0.05s,
+               hardCut 0.01s forwards 2.5s;
+  }
+  .hook-text {
+    font-size: 72px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.05;
+    opacity: 0;
+    transform: scale(3);
+    animation: zoomSlam 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+  }
+  .hook-text .accent { color: #DF285B; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 2: ASPIRATION (2.5-5s)
+     Counter + logo grid behind
+     ═══════════════════════════════════════════ */
+  .scene-2 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 2.55s,
+               hardCut 0.01s forwards 5.0s;
+  }
+  .counter {
+    font-size: 180px;
+    font-weight: 900;
+    color: #DF285B;
+    line-height: 0.85;
+    opacity: 0;
+    transform: scale(4);
+    animation: statSlam 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards 2.7s;
+  }
+  .counter-label {
+    font-size: 26px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-top: 12px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.25s ease forwards 3.1s;
+  }
+  .logo-strip {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin-top: 40px;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 3.4s;
+  }
+  .logo-strip img {
+    height: 24px;
+    opacity: 0.25;
+    filter: brightness(0) invert(1);
+  }
+
+  /* ═══════════════════════════════════════════
+     SCENE 3: THE BUNDLE (5-12s)
+     4 benefit cards
+     ═══════════════════════════════════════════ */
+  .scene-3 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 60px;
+    gap: 16px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 5.05s,
+               hardCut 0.01s forwards 12.0s;
+  }
+  .bundle-header {
+    font-size: 16px;
+    font-weight: 700;
+    color: #DF285B;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeIn 0.2s ease forwards 5.2s;
+  }
+
+  .benefit-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: rgba(255,255,255,0.05);
+    border-left: 4px solid #DF285B;
+    border-radius: 0 12px 12px 0;
+    padding: 22px 28px;
+    opacity: 0;
+    transform: translateX(-60px);
+    backdrop-filter: blur(8px);
+  }
+  .benefit-card .b-title {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+  .benefit-card .b-desc {
+    font-size: 17px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.3;
+  }
+
+  .bc-1 { animation: slideInLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 5.5s; }
+  .bc-1 { border-left-color: #DF285B; }
+
+  .bc-2 { animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 7.0s; }
+  .bc-2 { border-left-color: #7C3AED; }
+
+  .bc-3 { animation: slideInLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 8.5s; }
+  .bc-3 { border-left-color: #2B9F5B; }
+
+  .bc-4 { animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 10.0s; }
+  .bc-4 { border-left-color: #F59E0B; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 4: STATS (12-15s)
+     3 rapid stat slams
+     ═══════════════════════════════════════════ */
+  .scene-4 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 12.05s,
+               hardCut 0.01s forwards 15.0s;
+  }
+
+  .stat-group {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+  }
+  .stat-group .sg-num {
+    font-size: 200px;
+    font-weight: 900;
+    color: #DF285B;
+    line-height: 0.85;
+  }
+  .stat-group .sg-label {
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-top: 10px;
+  }
+
+  .sg-1 { animation: statSlam 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 12.2s,
+                      hardCut 0.01s forwards 13.0s; }
+  .sg-2 { animation: statSlam 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 13.05s,
+                      hardCut 0.01s forwards 14.0s; }
+  .sg-3 { animation: statSlam 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 14.05s,
+                      hardCut 0.01s forwards 14.95s; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 5: SOCIAL PROOF (15-20s)
+     2 testimonial cards with headshots
+     ═══════════════════════════════════════════ */
+  .scene-5 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 60px 70px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 15.05s,
+               hardCut 0.01s forwards 20.0s;
+  }
+
+  .testimonial {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    width: 100%;
+    opacity: 0;
+  }
+  .testimonial .t-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 3px solid rgba(255,255,255,0.15);
+  }
+  .testimonial .t-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .testimonial .t-content {
+    flex: 1;
+  }
+  .testimonial .t-quote {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #fff;
+  }
+  .testimonial .t-attr {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    margin-top: 10px;
+  }
+  .testimonial .t-attr span { color: #DF285B; font-weight: 600; }
+
+  .t-1 { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards 15.3s; }
+  .t-2 { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.5s; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 6: FOUNDER QUOTE (20-23s)
+     ═══════════════════════════════════════════ */
+  .scene-6 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 20.05s,
+               hardCut 0.01s forwards 23.0s;
+  }
+  .founder-quote {
+    font-size: 62px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.05;
+    opacity: 0;
+    transform: scale(0.7);
+    animation: zoomSlam 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards 20.2s;
+  }
+  .founder-quote .highlight { color: #DF285B; }
+  .founder-attr {
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 20.8s;
+  }
+
+  /* ═══════════════════════════════════════════
+     SCENE 7: CTA (23-30s)
+     ═══════════════════════════════════════════ */
+  .scene-7 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 23.05s;
+  }
+  .cta-text {
+    font-size: 60px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.1;
+    padding: 0 80px;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: zoomSlam 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards 23.3s;
+  }
+  .cta-divider {
+    width: 120px;
+    height: 3px;
+    background: #DF285B;
+    opacity: 0;
+    transform: scaleX(0);
+    animation: lineGrow 0.3s ease forwards 23.8s;
+  }
+  .cta-url {
+    font-size: 28px;
+    font-weight: 700;
+    color: #DF285B;
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 24.1s;
+  }
+  .cta-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 24.5s;
+  }
+  .cta-badge img {
+    height: 28px;
+    filter: brightness(0) invert(1);
+    opacity: 0.5;
+  }
+
+  /* ═══════════════════════════════════════════
+     KEYFRAMES
+     ═══════════════════════════════════════════ */
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes hardCut {
+    0% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+  }
+  @keyframes zoomSlam {
+    0% { opacity: 0; transform: scale(3); filter: blur(8px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+  }
+  @keyframes slideUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInLeft {
+    0% { opacity: 0; transform: translateX(-60px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideInRight {
+    0% { opacity: 0; transform: translateX(60px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes statSlam {
+    0% { opacity: 0; transform: scale(4) rotate(-3deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+  @keyframes popIn {
+    0% { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes lineGrow {
+    0% { opacity: 1; transform: scaleX(0); }
+    100% { opacity: 1; transform: scaleX(1); }
+  }
+  @keyframes scanDown {
+    0% { opacity: 0.8; top: 0; }
+    100% { opacity: 0; top: 100%; }
+  }
+  @keyframes orbFloat1 {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(200px, 150px); }
+    66% { transform: translate(-100px, 300px); }
+  }
+  @keyframes orbFloat2 {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(-200px, -100px); }
+    66% { transform: translate(100px, -200px); }
+  }
+  @keyframes orbPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+    50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <!-- Background -->
+  <div class="bg-grain"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Scan lines -->
+  <div class="scanline scan-1"></div>
+  <div class="scanline scan-2"></div>
+  <div class="scanline scan-3"></div>
+  <div class="scanline scan-4"></div>
+  <div class="scanline scan-5"></div>
+  <div class="scanline scan-6"></div>
+  <div class="scanline scan-7"></div>
+
+  <!-- Persistent logo -->
+  <div class="logo"><img src="{{LOGO_PATH}}" alt="Pavilion"></div>
+
+  <!-- SCENE 1: Hook -->
+  <div class="scene-1">
+    <div class="hook-text">Stop figuring out <span class="accent">AI</span> alone.</div>
+  </div>
+
+  <!-- SCENE 2: Aspiration -->
+  <div class="scene-2">
+    <div class="counter">2,000+</div>
+    <div class="counter-label">Executives deploying AI across GTM</div>
+    <div class="logo-strip">
+      {{LOGO_STRIP}}
+    </div>
+  </div>
+
+  <!-- SCENE 3: The Bundle -->
+  <div class="scene-3">
+    <div class="bundle-header">The AI in GTM Bundle</div>
+
+    <div class="benefit-card bc-1">
+      <div class="b-title">AI in GTM School</div>
+      <div class="b-desc">8-week program. Board-ready 90-day AI plan.</div>
+    </div>
+
+    <div class="benefit-card bc-2">
+      <div class="b-title">AI Buddy Program</div>
+      <div class="b-desc">Matched peer. Same challenges, no BS.</div>
+    </div>
+
+    <div class="benefit-card bc-3">
+      <div class="b-title">2,000+ Exec Network</div>
+      <div class="b-desc">Real answers from real operators. Under 1 hour.</div>
+    </div>
+
+    <div class="benefit-card bc-4">
+      <div class="b-title">VP+ Operator Dinners</div>
+      <div class="b-desc">Off-the-record. In person. No vendors.</div>
+    </div>
+  </div>
+
+  <!-- SCENE 4: Stats -->
+  <div class="scene-4">
+    <div class="stat-group sg-1">
+      <div class="sg-num">70%</div>
+      <div class="sg-label">VP-level or above</div>
+    </div>
+    <div class="stat-group sg-2">
+      <div class="sg-num">&lt;1hr</div>
+      <div class="sg-label">Average peer response</div>
+    </div>
+    <div class="stat-group sg-3">
+      <div class="sg-num">8 wks</div>
+      <div class="sg-label">To board-ready AI plan</div>
+    </div>
+  </div>
+
+  <!-- SCENE 5: Social Proof -->
+  <div class="scene-5">
+    <div class="testimonial t-1">
+      <div class="t-photo">{{HEADSHOT_1}}</div>
+      <div class="t-content">
+        <div class="t-quote">"The most no-BS and highly actionable GTM material I've absorbed."</div>
+        <div class="t-attr"><span>Steven Gerry</span> — VP Sales, Tidal Cyber</div>
+      </div>
+    </div>
+    <div class="testimonial t-2">
+      <div class="t-photo">{{HEADSHOT_2}}</div>
+      <div class="t-content">
+        <div class="t-quote">"Access to high quality conversations can really impact a career."</div>
+        <div class="t-attr"><span>Andrew Mahr</span> — CRO, Wpromote</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 6: Founder Quote -->
+  <div class="scene-6">
+    <div class="founder-quote">AI compresses time.<br><span class="highlight">Not wisdom.</span></div>
+    <div class="founder-attr">— Sam Jacobs, Founder</div>
+  </div>
+
+  <!-- SCENE 7: CTA -->
+  <div class="scene-7">
+    <div class="cta-text">Get in the room.</div>
+    <div class="cta-divider"></div>
+    <div class="cta-url">joinpavilion.com/ai-in-gtm</div>
+    <div class="cta-badge"><img src="{{LOGO_PATH}}" alt="Pavilion"></div>
+  </div>
+
+</div>
+</body>
+</html>

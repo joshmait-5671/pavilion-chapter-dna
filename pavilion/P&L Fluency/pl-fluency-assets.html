@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P&L Fluency — Class 2 Assets</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0a0a0a;
+  --white:#f5f2ee;
+  --blue:#2018c8;
+  --pink:#e8175d;
+  --gold:#f5c842;
+  --muted:#666;
+  --border:#222;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden}
+
+/* NAV */
+.top-bar{display:flex;align-items:center;justify-content:space-between;padding:24px 48px;border-bottom:1px solid #1a1a1a}
+.top-bar-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--white)}
+.top-bar-meta{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+
+/* HERO */
+.hero{padding:80px 48px 64px;border-bottom:1px solid #1a1a1a;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(32,24,200,.25) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-100px;left:200px;width:400px;height:400px;background:radial-gradient(circle,rgba(232,23,93,.12) 0%,transparent 65%);pointer-events:none}
+.hero-kicker{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--pink);margin-bottom:20px}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,10vw,140px);line-height:.9;letter-spacing:2px;margin-bottom:12px}
+.hero-title span{color:var(--blue)}
+.hero-sub{font-size:15px;font-weight:300;color:rgba(245,242,238,.5);letter-spacing:.5px;margin-top:16px}
+
+/* SECTION HEADERS */
+.section{padding:0 48px;margin:72px 0}
+.section-num{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:var(--pink);margin-bottom:8px}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,3.5vw,44px);color:var(--white);margin-bottom:40px;line-height:1.15}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,var(--blue),var(--pink),transparent);margin:0 48px;opacity:.4}
+
+/* ── COMMERCIAL SCRIPT ── */
+.script-wrapper{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:4px;overflow:hidden}
+.script-header{background:#111;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1e1e1e}
+.script-header-title{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.script-runtime{font-size:11px;font-weight:600;letter-spacing:2px;color:var(--gold);background:rgba(245,200,66,.08);padding:4px 12px;border-radius:2px}
+.scene{padding:28px 32px;border-bottom:1px solid #151515}
+.scene:last-child{border-bottom:none}
+.scene-time{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:var(--pink);margin-bottom:12px}
+.scene-direction{font-size:13px;font-weight:400;color:rgba(245,242,238,.4);font-style:italic;margin-bottom:8px;line-height:1.7}
+.scene-vo{font-size:16px;font-weight:500;color:var(--white);line-height:1.75;margin-bottom:8px;padding-left:20px;border-left:2px solid var(--blue)}
+.scene-title-card{background:#000;border:1px solid #333;padding:20px 28px;margin:12px 0;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:6px;color:var(--white)}
+.scene-title-card small{display:block;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:3px;color:var(--muted);font-weight:400;margin-top:6px;text-transform:uppercase}
+.music-note{background:rgba(32,24,200,.08);border:1px solid rgba(32,24,200,.2);border-radius:3px;padding:16px 24px;margin:0 32px 28px;font-size:12px;color:rgba(245,242,238,.5);line-height:1.7}
+.music-note strong{color:var(--blue);font-weight:600}
+
+/* ── STUDENT CALLOUTS ── */
+.callouts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.callout-card{border-radius:4px;padding:36px 28px;position:relative;overflow:hidden;min-height:320px;display:flex;flex-direction:column;justify-content:space-between}
+.callout-card.c1{background:var(--blue)}
+.callout-card.c2{background:#0a0a0a;border:1px solid #222}
+.callout-card.c3{background:var(--white);color:var(--black)}
+.callout-label{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;opacity:.5;margin-bottom:20px}
+.callout-quote{font-family:'DM Serif Display',serif;font-size:clamp(16px,1.6vw,20px);line-height:1.55;flex:1;margin-bottom:24px}
+.callout-card.c3 .callout-quote{color:var(--black)}
+.callout-name{font-size:13px;font-weight:700;letter-spacing:.5px}
+.callout-role{font-size:11px;font-weight:400;opacity:.55;margin-top:3px}
+.callout-card.c3 .callout-name,.callout-card.c3 .callout-role{color:var(--black)}
+.callout-accent{position:absolute;bottom:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:var(--pink);opacity:.15}
+.callout-card.c2 .callout-accent{background:var(--blue);opacity:.3}
+.callout-graphic-label{display:inline-block;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:5px 10px;border-radius:2px;margin-bottom:16px}
+.c1 .callout-graphic-label{background:rgba(255,255,255,.15);color:rgba(255,255,255,.7)}
+.c2 .callout-graphic-label{background:rgba(32,24,200,.2);color:var(--blue)}
+.c3 .callout-graphic-label{background:rgba(0,0,0,.08);color:rgba(0,0,0,.5)}
+
+/* ── THEME POSTS ── */
+.theme-posts{display:flex;flex-direction:column;gap:24px}
+.theme-post{border:1px solid #1e1e1e;border-radius:4px;overflow:hidden}
+.theme-post-header{background:#111;padding:18px 28px;display:flex;align-items:center;gap:16px;border-bottom:1px solid #1e1e1e}
+.theme-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--pink);line-height:1;min-width:36px}
+.theme-header-text{}
+.theme-tag{font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.theme-headline{font-size:15px;font-weight:600;color:var(--white)}
+.theme-body{padding:28px}
+.theme-block{margin-bottom:22px}
+.theme-block-label{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.theme-block-text{font-size:14px;font-weight:300;color:rgba(245,242,238,.7);line-height:1.85}
+.theme-pov{background:rgba(32,24,200,.06);border-left:3px solid var(--pink);padding:18px 22px;margin-top:6px}
+.theme-pov-text{font-size:14px;font-weight:500;color:var(--white);line-height:1.8;font-style:italic}
+
+/* ── SLACK PROMPTS ── */
+.slack-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.slack-col-header{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.slack-col-header::after{content:'';flex:1;height:1px;background:currentColor;opacity:.2}
+.slack-col.chill .slack-col-header{color:#4fc3f7}
+.slack-col.serious .slack-col-header{color:var(--pink)}
+.slack-prompt{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:3px;padding:20px 22px;margin-bottom:12px;position:relative;cursor:pointer;transition:border-color .2s}
+.slack-prompt:hover{border-color:#333}
+.slack-col.chill .slack-prompt:hover{border-color:rgba(79,195,247,.3)}
+.slack-col.serious .slack-prompt:hover{border-color:rgba(232,23,93,.3)}
+.slack-prompt-num{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:var(--muted);margin-bottom:8px}
+.slack-prompt-text{font-size:13px;font-weight:400;color:rgba(245,242,238,.75);line-height:1.75}
+.copy-btn{position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:transparent;border:1px solid #2a2a2a;color:var(--muted);padding:4px 10px;border-radius:2px;cursor:pointer;opacity:0;transition:opacity .2s}
+.slack-prompt:hover .copy-btn{opacity:1}
+.copy-btn:hover{background:#1a1a1a;color:var(--white)}
+.copy-btn.copied{color:var(--gold);border-color:rgba(245,200,66,.3)}
+
+/* FOOTER */
+footer{padding:48px;border-top:1px solid #1a1a1a;display:flex;align-items:center;justify-content:space-between;margin-top:72px}
+footer p{font-size:11px;color:var(--muted);letter-spacing:1px}
+
+@media(max-width:900px){
+  .callouts-grid{grid-template-columns:1fr}
+  .slack-grid{grid-template-columns:1fr}
+  .top-bar,.hero,.section{padding-left:24px;padding-right:24px}
+  .divider{margin:0 24px}
+  footer{padding:32px 24px;flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-logo">PAVILION</div>
+  <div class="top-bar-meta">P&L Fluency — Class 2 Assets</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-kicker">Pavilion University / Operator's View</div>
+  <div class="hero-title">P&L<br><span>FLUENCY</span></div>
+  <div class="hero-sub">Class 2 Content Assets &nbsp;·&nbsp; Unit Economics &nbsp;·&nbsp; 218 Operators</div>
+</div>
+
+<!-- 01 COMMERCIAL SCRIPT -->
+<div class="section">
+  <div class="section-num">01</div>
+  <div class="section-title">60-Second Commercial Script</div>
+
+  <div class="script-wrapper">
+    <div class="script-header">
+      <div class="script-header-title">Production Document / BMW Films Register</div>
+      <div class="script-runtime">:58 seconds</div>
+    </div>
+
+    <div class="scene">
+      <div class="scene-time">[0:00 – 0:04]</div>
+      <div class="scene-direction">BLACK SCREEN. Silence. White text appears one word at a time. No animation. No sound.</div>
+      <div class="scene-title-card">P&L<br><small style="font-size:22px;letter-spacing:8px">FLUENCY.</small></div>
+      <div class="scene-direction">Hold. Then:</div>
+      <div class="scene-title-card" style="font-size:16px;letter-spacing:5px;padding:14px 28px">Operator's View<small>Pavilion University</small></div>
+    </div>
+
+    <div class="scene">
+      <div class="scene-time">[0:04 – 0:12]</div>
+      <div class="scene-direction">CUT TO: Close-up. Fingers on a keyboard. Blue-white monitor glow. No face yet.</div>
+      <div class="scene-vo">"Most operators are hired to grow."</div>
+      <div class="scene-direction">CUT TO: Empty conference room. Glass walls. City at night.</div>
+      <div class="scene-vo">"Some of them are growing a business that doesn't want to grow."</div>
+    </div>
+
+    <div class="scene">
+      <div class="scene-time">[0:12 – 0:22]</div>
+      <div class="scene-direction">CUT TO: Whiteboard. The words CAC. LTV. GRR. Written fast. Hand exits frame.</div>
+      <div class="scene-vo">"The business tells you what it wants. In the math."</div>
+      <div class="scene-direction">CUT TO: Laptop screen. Spreadsheet. Numbers cascading.</div>
+      <div class="scene-vo">"Retention at 97%. That company can invest in growth."</div>
+      <div class="scene-vo">"Retention at 65%. That company needs to fix itself first."</div>
+    </div>
+
+    <div class="scene">
+      <div class="scene-time">[0:22 – 0:36]</div>
+      <div class="scene-direction">CUT TO: A room. 200 people. Heads down. Laptops open. Shoot from above. Cold overhead light.</div>
+      <div class="scene-vo">"This is not about being smarter than your CFO."</div>
+      <div class="scene-direction">CUT TO: Two people at a table. Calm. Data between them.</div>
+      <div class="scene-vo">"It's about walking in with the math."</div>
+      <div class="scene-direction">Beat.</div>
+      <div class="scene-vo">"It's not me. It's the business."</div>
+    </div>
+
+    <div class="scene">
+      <div class="scene-time">[0:36 – 0:48]</div>
+      <div class="scene-direction">RAPID SEQUENCE. Three seconds each.</div>
+      <div class="scene-direction">— A calculator. $640,000 on screen.<br>— A single line on a graph turning upward.<br>— Someone closing a laptop. Standing. Walking out.</div>
+      <div class="scene-vo">"Addition. Subtraction. Multiplication. Division."</div>
+      <div class="scene-direction">Beat.</div>
+      <div class="scene-vo">"That's all it ever was."</div>
+    </div>
+
+    <div class="scene">
+      <div class="scene-time">[0:48 – 0:58]</div>
+      <div class="scene-direction">BLACK SCREEN. Title card fades in slowly. White. Clean.</div>
+      <div class="scene-title-card">P&L FLUENCY<small>Pavilion University</small></div>
+      <div class="scene-direction">Pause. Then one final line:</div>
+      <div class="scene-title-card" style="font-size:14px;letter-spacing:4px;padding:12px 28px">218 operators. One course. This is Class 2.</div>
+    </div>
+
+    <div class="music-note">
+      <strong>MUSIC:</strong> Low-frequency electronic. Trent Reznor / Hans Zimmer register. Builds under the middle section. Cuts completely at "That's all it ever was." Silence holds through the title card.<br><br>
+      <strong>COLOR:</strong> Near-black backgrounds throughout. Cool blue monitor light. One warm tungsten source per shot. No soft fill lighting. No color grading warmth.
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 02 STUDENT CALLOUTS -->
+<div class="section">
+  <div class="section-num">02</div>
+  <div class="section-title">Student Callout Graphics</div>
+
+  <div class="callouts-grid">
+
+    <div class="callout-card c1">
+      <div>
+        <div class="callout-graphic-label">Class 2 Insight</div>
+        <div class="callout-quote">"She decreased CAC by 75% by building an advocacy program. Customers felt so embedded they stopped being customers and started being marketers."</div>
+      </div>
+      <div>
+        <div class="callout-name">Jan Young</div>
+        <div class="callout-role">CS Leader Coach</div>
+      </div>
+      <div class="callout-accent"></div>
+    </div>
+
+    <div class="callout-card c2">
+      <div>
+        <div class="callout-graphic-label">The Question Everyone Was Thinking</div>
+        <div class="callout-quote">"How do you tell a CFO the math says you need $8M when they're offering $2M?"</div>
+      </div>
+      <div>
+        <div class="callout-name">MJ Patent</div>
+        <div class="callout-role">GTM Executive</div>
+      </div>
+      <div class="callout-accent"></div>
+    </div>
+
+    <div class="callout-card c3">
+      <div>
+        <div class="callout-graphic-label">The Challenge That Made It Better</div>
+        <div class="callout-quote">"The model is limited to which gate the customer comes in. That's not the channel that convinced them to buy."</div>
+      </div>
+      <div>
+        <div class="callout-name">Winnie Palmer</div>
+        <div class="callout-role">Marketing Leader</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 03 THEME POSTS -->
+<div class="section">
+  <div class="section-num">03</div>
+  <div class="section-title">3 Key Themes — LinkedIn Ready</div>
+
+  <div class="theme-posts">
+
+    <div class="theme-post">
+      <div class="theme-post-header">
+        <div class="theme-num">1</div>
+        <div class="theme-header-text">
+          <div class="theme-tag">Theme Post</div>
+          <div class="theme-headline">A 17-to-1 LTV:CAC ratio is not a win. It's a warning.</div>
+        </div>
+      </div>
+      <div class="theme-body">
+        <div class="theme-block">
+          <div class="theme-block-label">The Question</div>
+          <div class="theme-block-text">If I have a strong LTV to CAC ratio, like 17 to 1, isn't that great news?</div>
+        </div>
+        <div class="theme-block">
+          <div class="theme-block-label">The Discussion</div>
+          <div class="theme-block-text">Sam pushed back hard. A 17-to-1 ratio signals the company is intentionally not investing in growth. The sweet spot he argued for is 5 to 1. Anything above 7 means you're leaving money on the table. MJ Patent followed with the real tension: how do you make that argument to a CFO focused on EBITDA? Sam's answer was to remove yourself from the argument. "It's not me. It's the business." The math decides what growth costs. You're just reading it aloud.</div>
+        </div>
+        <div class="theme-pov">
+          <div class="theme-block-label" style="margin-bottom:10px">POV</div>
+          <div class="theme-pov-text">Your job is not to want growth. It's to understand what growth costs and present that number without emotion. When a CFO pushes back, you're not defending yourself. You're showing them the machine and asking how fast they want it to run. The math is the argument. You just have to be fluent enough to make it.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-post">
+      <div class="theme-post-header">
+        <div class="theme-num">2</div>
+        <div class="theme-header-text">
+          <div class="theme-tag">Theme Post</div>
+          <div class="theme-headline">You cannot outgrow bad retention. The business won't let you.</div>
+        </div>
+      </div>
+      <div class="theme-body">
+        <div class="theme-block">
+          <div class="theme-block-label">The Question</div>
+          <div class="theme-block-text">Does retention really matter that much? Isn't growth more important right now?</div>
+        </div>
+        <div class="theme-block">
+          <div class="theme-block-label">The Discussion</div>
+          <div class="theme-block-text">Angela shared her company runs 97% gross retention. Sam used it as the anchor for the entire class. Moving from 75% to 90% retention takes customer lifetime from 4 years to 10. From 90% to 95% takes it to 20. That's not linear, it's exponential. Winnie Palmer challenged the channel attribution model, arguing that linear CAC analysis misses the complexity of real customer journeys. Sam agreed and called the class intentionally foundational. Directional clarity, not decimal-point precision.</div>
+        </div>
+        <div class="theme-pov">
+          <div class="theme-block-label" style="margin-bottom:10px">POV</div>
+          <div class="theme-pov-text">Below 85% gross retention, the business is telling you something. It's not telling you to hire more SDRs. It's telling you the product or customer or both need work before you spend another dollar on acquisition. The operators who ignore that message are the ones posting about their 18-month tenure.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-post">
+      <div class="theme-post-header">
+        <div class="theme-num">3</div>
+        <div class="theme-header-text">
+          <div class="theme-tag">Theme Post</div>
+          <div class="theme-headline">Blended LTV:CAC hides where the rot is.</div>
+        </div>
+      </div>
+      <div class="theme-body">
+        <div class="theme-block">
+          <div class="theme-block-label">The Question</div>
+          <div class="theme-block-text">If channels naturally degrade over time, how do you know when to stop investing in one?</div>
+        </div>
+        <div class="theme-block">
+          <div class="theme-block-label">The Discussion</div>
+          <div class="theme-block-text">Steven Gerry asked about lumpiness in CAC when you make large cohort hires. John Williams followed with the harder version: how do you distinguish expected decay from actual rot? Sam's answer was watch for sharp drops, not gradual trends. Most degradation is slow. A gradual 40% CAC increase over 6 months should be a running conversation, not a surprise. Casey Drake closed the section with the best question of the class: do you see more companies with bad unit economics overspending, or great unit economics underspending? Sam said almost always the former. Growth is the mandate. And the treadmill is hard to stop.</div>
+        </div>
+        <div class="theme-pov">
+          <div class="theme-block-label" style="margin-bottom:10px">POV</div>
+          <div class="theme-pov-text">You need channel-level analysis not to be precise, but to have the conversation. You want to walk into a budget meeting and say outbound CAC has increased 40% over 6 months, not that you have a feeling things are getting harder. Data doesn't make the decision. It ends the argument about whether there's a problem.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 04 SLACK PROMPTS -->
+<div class="section">
+  <div class="section-num">04</div>
+  <div class="section-title">Slack Prompts — Copy & Post</div>
+
+  <div class="slack-grid">
+
+    <div class="slack-col chill">
+      <div class="slack-col-header">Chill Take</div>
+
+      <div class="slack-prompt">
+        <div class="slack-prompt-num">01</div>
+        <div class="slack-prompt-text">Sam said the correct SDR to AE ratio is whatever the math says. No rule. Just the numbers. What ratio are you running right now and does it feel right?</div>
+        <button class="copy-btn" onclick="copyText(this, 'Sam said the correct SDR to AE ratio is whatever the math says. No rule. Just the numbers. What ratio are you running right now and does it feel right?')">Copy</button>
+      </div>
+
+      <div class="slack-prompt">
+        <div class="slack-prompt-num">02</div>
+        <div class="slack-prompt-text">If you had to pick one metric that tells you fastest whether a company is healthy, and you couldn't say ARR, what would it be?</div>
+        <button class="copy-btn" onclick="copyText(this, 'If you had to pick one metric that tells you fastest whether a company is healthy, and you couldn\'t say ARR, what would it be?')">Copy</button>
+      </div>
+
+      <div class="slack-prompt">
+        <div class="slack-prompt-num">03</div>
+        <div class="slack-prompt-text">Sam's heuristic: never increase a channel budget by more than 1.5x the prior year if you want predictability. Do you agree or is that too conservative for where you are?</div>
+        <button class="copy-btn" onclick="copyText(this, 'Sam\'s heuristic: never increase a channel budget by more than 1.5x the prior year if you want predictability. Do you agree or is that too conservative for where you are?')">Copy</button>
+      </div>
+
+      <div class="slack-prompt">
+        <div class="slack-prompt-num">04</div>
+        <div class="slack-prompt-text">Word of mouth is only a channel if you can spend money on it. Fair or not?</div>
+        <button class="copy-btn" onclick="copyText(this, 'Word of mouth is only a channel if you can spend money on it. Fair or not?')">Copy</button>
+      </div>
+
+      <div class="slack-prompt">
+        <div class="slack-prompt-num">05</div>
+        <div class="slack-prompt-text">Be honest: when you present CAC or LTV numbers to leadership, are you loading them fully or doing some version of "funny stuff"?</div>
+        <button class="copy-btn" onclick="copyText(this, 'Be honest: when you present CAC or LTV numbers to leadership, are you loading them fully or doing some version of \"funny stuff\"?')">Copy</button>
+      </div>
+    </div>
+
+    <div class="slack-col serious">
+      <div class="slack-col-header">Serious Shit Take</div>
+
+      <div class="slack-prompt">
+        <div class="slack-prompt-num">01</div>
+        <div class="slack-prompt-text">Sam said most companies with bad unit economics keep spending on growth because stopping feels like admitting failure. Have you been in that room? How did it go?</div>
+        <button class="copy-btn" onclick="copyText(this, 'Sam said most companies with bad unit economics keep spending on growth because stopping feels like admitting failure. Have you been in that room? How did it go?')">Copy</button>
+      </div>
+
+      <div class="slack-prompt">
+        <div class="slack-prompt-num">02</div>
+        <div class="slack-prompt-text">Below 65% GRR, the business doesn't want to grow. If you're sitting at a company with retention in that range right now, what do you actually do when no one above you will say it out loud?</div>
+        <button class="copy-btn" onclick="copyText(this, 'Below 65% GRR, the business doesn\'t want to grow. If you\'re sitting at a company with retention in that range right now, what do you actually do when no one above you will say it out loud?')">Copy</button>
+      </div>
+
+      <div class="slack-prompt">
+        <div class="slack-prompt-num">03</div>
+        <div class="slack-prompt-text">Average CXO tenure is 18 months. Sam says part of it is operators hired to grow a business that was never designed for growth. Structural problem or an operator problem for not doing the diligence before taking the job?</div>
+        <button class="copy-btn" onclick="copyText(this, 'Average CXO tenure is 18 months. Sam says part of it is operators hired to grow a business that was never designed for growth. Structural problem or an operator problem for not doing the diligence before taking the job?')">Copy</button>
+      </div>
+
+      <div class="slack-prompt">
+        <div class="slack-prompt-num">04</div>
+        <div class="slack-prompt-text">Winnie's challenge stands: channel-level CAC analysis can mislead board-level investment decisions. How do you use these models as a floor without letting them become the ceiling of the conversation?</div>
+        <button class="copy-btn" onclick="copyText(this, 'Winnie\'s challenge stands: channel-level CAC analysis can mislead board-level investment decisions. How do you use these models as a floor without letting them become the ceiling of the conversation?')">Copy</button>
+      </div>
+
+      <div class="slack-prompt">
+        <div class="slack-prompt-num">05</div>
+        <div class="slack-prompt-text">Sam said companies almost always over-invest in sales and under-invest in marketing. If that's true, why do most GTM orgs keep doing it?</div>
+        <button class="copy-btn" onclick="copyText(this, 'Sam said companies almost always over-invest in sales and under-invest in marketing. If that\'s true, why do most GTM orgs keep doing it?')">Copy</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Pavilion University &nbsp;·&nbsp; P&L Fluency Class 2 &nbsp;·&nbsp; 218 Operators</p>
+  <p style="color:#333">Generated for internal use</p>
+</footer>
+
+<script>
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

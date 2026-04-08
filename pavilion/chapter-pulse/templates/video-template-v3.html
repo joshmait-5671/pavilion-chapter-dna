@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1080px;
+    overflow: hidden;
+    background: #0D0628;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+  }
+
+  .frame {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Animated background ── */
+  .bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+  }
+  .orb-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(223,40,91,0.4) 0%, transparent 70%);
+    top: -200px; left: -200px;
+    animation: orbFloat1 30s ease-in-out infinite;
+  }
+  .orb-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(43,24,135,0.6) 0%, transparent 70%);
+    bottom: -150px; right: -150px;
+    animation: orbFloat2 30s ease-in-out infinite;
+  }
+  .orb-3 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(223,40,91,0.2) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: orbPulse 30s ease-in-out infinite;
+  }
+
+  /* ── Persistent logo — upper left like website ── */
+  .logo {
+    position: absolute;
+    top: 32px; left: 32px;
+    z-index: 50;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 0.2s;
+  }
+  .logo img {
+    height: 36px;
+    filter: brightness(0) invert(1);
+  }
+
+  /* ── Month tag — bottom left ── */
+  .month-tag {
+    position: absolute;
+    bottom: 32px; left: 32px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    z-index: 50;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 0.5s;
+  }
+
+  /* ── Scan lines — energy bursts on cuts ── */
+  .scanline {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #DF285B, transparent);
+    z-index: 40;
+    opacity: 0;
+    top: 50%;
+  }
+  .scan-1 { animation: scanDown 0.5s ease forwards 0.1s; }
+  .scan-2 { animation: scanDown 0.5s ease forwards 3.5s; }
+  .scan-3 { animation: scanDown 0.5s ease forwards 11.0s; }
+  .scan-4 { animation: scanDown 0.5s ease forwards 13.5s; }
+  .scan-5 { animation: scanDown 0.5s ease forwards 16.0s; }
+  .scan-6 { animation: scanDown 0.5s ease forwards 18.5s; }
+  .scan-7 { animation: scanDown 0.5s ease forwards 21.5s; }
+  .scan-8 { animation: scanDown 0.5s ease forwards 24.0s; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 1: COLD OPEN (0-1.5s)
+     ═══════════════════════════════════════════ */
+  .scene-1 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 0.05s,
+               hardCut 0.01s forwards 1.5s;
+  }
+  .city-name {
+    font-size: 200px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -8px;
+    line-height: 0.85;
+    opacity: 0;
+    transform: scale(3);
+    animation: zoomSlam 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+  }
+  .city-accent {
+    width: 100px;
+    height: 5px;
+    background: #DF285B;
+    margin-top: 15px;
+    opacity: 0;
+    transform: scaleX(0);
+    animation: lineGrow 0.25s ease forwards 0.6s;
+  }
+  .city-subtitle {
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-top: 20px;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: slideUp 0.3s ease forwards 0.8s;
+  }
+
+  /* ═══════════════════════════════════════════
+     SCENE 2: TENSION (1.5-3.5s)
+     ═══════════════════════════════════════════ */
+  .scene-2 {
+    position: absolute; inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 1.55s,
+               hardCut 0.01s forwards 3.5s;
+  }
+  .tension-text {
+    font-size: 64px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.7s;
+  }
+  .tension-text .accent { color: #DF285B; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 3: PROOF WALL (3.5-11s)
+     6 Slack messages, bigger images
+     ═══════════════════════════════════════════ */
+  .scene-3 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px 50px;
+    gap: 10px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 3.55s,
+               hardCut 0.01s forwards 11.0s;
+  }
+  .scene-3-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #DF285B;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: 0;
+    animation: fadeIn 0.2s ease forwards 3.7s;
+  }
+
+  .slack-msg {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: rgba(255,255,255,0.05);
+    border-left: 3px solid #DF285B;
+    border-radius: 0 10px 10px 0;
+    padding: 14px 20px;
+    opacity: 0;
+    transform: translateX(-50px);
+    backdrop-filter: blur(8px);
+  }
+  .slack-msg .msg-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .slack-msg .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .slack-msg .msg-name {
+    font-weight: 700;
+    font-size: 15px;
+    display: inline;
+  }
+  .slack-msg .msg-title {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    display: inline;
+    margin-left: 8px;
+  }
+  .slack-msg .msg-text {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: rgba(255,255,255,0.9);
+    margin-top: 4px;
+  }
+  .slack-msg .msg-image {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* Stagger: each msg ~1.2s apart */
+  .msg-1 { animation: slideInLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 3.8s; }
+  .msg-1 .avatar { background: #7C3AED; }
+
+  .msg-2 { animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 5.0s; }
+  .msg-2 { border-left-color: #7C3AED; }
+  .msg-2 .avatar { background: #DF285B; }
+
+  .msg-3 { animation: slideInLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 6.2s; }
+  .msg-3 { border-left-color: #2B9F5B; }
+  .msg-3 .avatar { background: #2B9F5B; }
+
+  .msg-4 { animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 7.4s; }
+  .msg-4 { border-left-color: #F59E0B; }
+  .msg-4 .avatar { background: #F59E0B; }
+
+  .msg-5 { animation: slideInLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 8.6s; }
+  .msg-5 { border-left-color: #3B82F6; }
+  .msg-5 .avatar { background: #3B82F6; }
+
+  .msg-6 { animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards 9.8s; }
+  .msg-6 { border-left-color: #EC4899; }
+  .msg-6 .avatar { background: #EC4899; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 4: STAT PUNCH (11-13.5s)
+     ═══════════════════════════════════════════ */
+  .scene-4 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 11.05s,
+               hardCut 0.01s forwards 13.5s;
+  }
+  .stat-big {
+    font-size: 240px;
+    font-weight: 900;
+    color: #DF285B;
+    line-height: 0.85;
+    opacity: 0;
+    transform: scale(4) rotate(-3deg);
+    animation: statSlam 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards 11.2s;
+  }
+  .stat-label {
+    font-size: 28px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-top: 12px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.25s ease forwards 11.6s;
+  }
+  .stat-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.3);
+    margin-top: 8px;
+    opacity: 0;
+    animation: fadeIn 0.2s ease forwards 11.9s;
+  }
+
+  /* ═══════════════════════════════════════════
+     SCENE 5: PHOTO MONTAGE (13.5-16s)
+     Full-bleed event photos with ken burns
+     ═══════════════════════════════════════════ */
+  .scene-5 {
+    position: absolute; inset: 0;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 13.55s,
+               hardCut 0.01s forwards 16.0s;
+  }
+  .montage-photo {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+  .montage-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .montage-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(13,6,40,0.3) 0%, rgba(13,6,40,0.7) 100%);
+  }
+  .montage-label {
+    position: absolute;
+    bottom: 60px;
+    left: 50px;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  /* 3 photos, ~0.8s each with crossfade + slow zoom */
+  .photo-1 {
+    animation: fadeIn 0.15s forwards 13.6s,
+               hardCut 0.01s forwards 14.4s;
+  }
+  .photo-1 img { animation: kenBurns 0.9s ease forwards 13.6s; }
+
+  .photo-2 {
+    animation: fadeIn 0.15s forwards 14.45s,
+               hardCut 0.01s forwards 15.25s;
+  }
+  .photo-2 img { animation: kenBurns 0.9s ease forwards 14.45s; }
+
+  .photo-3 {
+    animation: fadeIn 0.15s forwards 15.3s,
+               hardCut 0.01s forwards 15.95s;
+  }
+  .photo-3 img { animation: kenBurnsAlt 0.75s ease forwards 15.3s; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 6: AVATAR WALL (16-18.5s)
+     Profile photos popping up in a grid
+     ═══════════════════════════════════════════ */
+  .scene-6 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 16.05s,
+               hardCut 0.01s forwards 18.5s;
+  }
+  .avatar-wall-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeIn 0.2s ease forwards 16.15s;
+  }
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    max-width: 700px;
+  }
+  .avatar-cell {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0);
+    border: 3px solid rgba(255,255,255,0.15);
+  }
+  .avatar-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Rapid stagger pop — 25 avatars, ~0.06s apart */
+  .av-1  { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.2s; }
+  .av-2  { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.26s; }
+  .av-3  { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.32s; }
+  .av-4  { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.38s; }
+  .av-5  { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.44s; }
+  .av-6  { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.5s; }
+  .av-7  { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.56s; }
+  .av-8  { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.62s; }
+  .av-9  { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.68s; }
+  .av-10 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.74s; }
+  .av-11 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.8s; }
+  .av-12 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.86s; }
+  .av-13 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.92s; }
+  .av-14 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 16.98s; }
+  .av-15 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.04s; }
+  .av-16 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.1s; }
+  .av-17 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.16s; }
+  .av-18 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.22s; }
+  .av-19 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.28s; }
+  .av-20 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.34s; }
+  .av-21 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.4s; }
+  .av-22 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.46s; }
+  .av-23 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.52s; }
+  .av-24 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.58s; }
+  .av-25 { animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 17.64s; }
+
+  .avatar-wall-count {
+    margin-top: 30px;
+    text-align: center;
+    opacity: 0;
+    animation: slideUp 0.3s ease forwards 17.5s;
+  }
+  .avatar-wall-count .awc-num {
+    font-size: 48px;
+    font-weight: 900;
+    color: #DF285B;
+  }
+  .avatar-wall-count .awc-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* ═══════════════════════════════════════════
+     SCENE 7: TOPICS (18.5-21s)
+     ═══════════════════════════════════════════ */
+  .scene-7 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 18.55s,
+               hardCut 0.01s forwards 21.0s;
+  }
+  .scene-7-header {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    opacity: 0;
+    animation: fadeIn 0.2s ease forwards 18.7s;
+  }
+  .scene-7-header span { color: #DF285B; }
+
+  .topic-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    max-width: 850px;
+    padding: 0 40px;
+  }
+  .topic-pill {
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  .pill-1 { background: rgba(223,40,91,0.2); border: 1px solid rgba(223,40,91,0.4); animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 18.9s; }
+  .pill-2 { background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.4); animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 19.05s; }
+  .pill-3 { background: rgba(43,159,91,0.2); border: 1px solid rgba(43,159,91,0.4); animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 19.2s; }
+  .pill-4 { background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.4); animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 19.35s; }
+  .pill-5 { background: rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.4); animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 19.5s; }
+  .pill-6 { background: rgba(223,40,91,0.15); border: 1px solid rgba(223,40,91,0.3); animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 19.65s; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 8: MOMENTUM (21-23.5s)
+     ═══════════════════════════════════════════ */
+  .scene-8 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 60px 80px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 21.05s,
+               hardCut 0.01s forwards 23.5s;
+  }
+  .momentum-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 0.2s ease forwards 21.2s;
+  }
+  .big-quote {
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+  }
+  .big-quote .bq-text {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #fff;
+  }
+  .big-quote .bq-attr {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    margin-top: 12px;
+  }
+  .bq-1 { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards 21.3s; }
+  .bq-2 { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards 22.4s; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 9: HEADLINE (23.5-25.5s)
+     ═══════════════════════════════════════════ */
+  .scene-9 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 23.55s,
+               hardCut 0.01s forwards 25.5s;
+  }
+  .headline-text {
+    font-size: 68px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.05;
+    opacity: 0;
+    transform: scale(0.7);
+    animation: zoomSlam 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards 23.7s;
+  }
+  .headline-text .highlight { color: #DF285B; }
+
+  /* ═══════════════════════════════════════════
+     SCENE 10: CTA (25.5-30s)
+     ═══════════════════════════════════════════ */
+  .scene-10 {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.01s forwards 25.55s;
+  }
+  .cta-text {
+    font-size: 52px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.1;
+    padding: 0 80px;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: zoomSlam 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards 25.8s;
+  }
+  .cta-divider {
+    width: 120px;
+    height: 3px;
+    background: #DF285B;
+    opacity: 0;
+    transform: scaleX(0);
+    animation: lineGrow 0.3s ease forwards 26.3s;
+  }
+  .cta-url {
+    font-size: 34px;
+    font-weight: 700;
+    color: #DF285B;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 26.6s;
+  }
+  .cta-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards 27.0s;
+  }
+  .cta-badge img {
+    height: 28px;
+    filter: brightness(0) invert(1);
+    opacity: 0.5;
+  }
+
+  /* ═══════════════════════════════════════════
+     KEYFRAMES
+     ═══════════════════════════════════════════ */
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes hardCut {
+    0% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+  }
+  @keyframes zoomSlam {
+    0% { opacity: 0; transform: scale(3); filter: blur(8px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0); }
+  }
+  @keyframes slideUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInLeft {
+    0% { opacity: 0; transform: translateX(-60px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideInRight {
+    0% { opacity: 0; transform: translateX(60px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes statSlam {
+    0% { opacity: 0; transform: scale(4) rotate(-3deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+  @keyframes popIn {
+    0% { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes lineGrow {
+    0% { opacity: 1; transform: scaleX(0); }
+    100% { opacity: 1; transform: scaleX(1); }
+  }
+  @keyframes scanDown {
+    0% { opacity: 0.8; top: 0; }
+    100% { opacity: 0; top: 100%; }
+  }
+  @keyframes kenBurns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15); }
+  }
+  @keyframes kenBurnsAlt {
+    0% { transform: scale(1.1) translateX(-2%); }
+    100% { transform: scale(1.2) translateX(2%); }
+  }
+  @keyframes orbFloat1 {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(200px, 150px); }
+    66% { transform: translate(-100px, 300px); }
+  }
+  @keyframes orbFloat2 {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(-200px, -100px); }
+    66% { transform: translate(100px, -200px); }
+  }
+  @keyframes orbPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+    50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <!-- Background -->
+  <div class="bg-grain"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Scan lines -->
+  <div class="scanline scan-1"></div>
+  <div class="scanline scan-2"></div>
+  <div class="scanline scan-3"></div>
+  <div class="scanline scan-4"></div>
+  <div class="scanline scan-5"></div>
+  <div class="scanline scan-6"></div>
+  <div class="scanline scan-7"></div>
+  <div class="scanline scan-8"></div>
+
+  <!-- Persistent -->
+  <div class="logo"><img src="{{LOGO_PATH}}" alt="Pavilion"></div>
+  <div class="month-tag">{{MONTH}}</div>
+
+  <!-- SCENE 1: Cold Open -->
+  <div class="scene-1">
+    <div class="city-name">{{CHAPTER_NAME}}</div>
+    <div class="city-accent"></div>
+    <div class="city-subtitle">Something's happening</div>
+  </div>
+
+  <!-- SCENE 2: Tension -->
+  <div class="scene-2">
+    <div class="tension-text">{{TENSION}}</div>
+  </div>
+
+  <!-- SCENE 3: Proof Wall -->
+  <div class="scene-3">
+    <div class="scene-3-label">From The {{CHAPTER_NAME}} Slack Channel</div>
+
+    <div class="slack-msg msg-1">
+      <div class="avatar">{{Q1_INITIAL}}</div>
+      <div class="msg-content">
+        <div><span class="msg-name">{{Q1_NAME}}</span><span class="msg-title">{{Q1_TITLE}}</span></div>
+        <div class="msg-text">"{{Q1_TEXT}}"</div>
+        {{Q1_IMAGE}}
+      </div>
+    </div>
+
+    <div class="slack-msg msg-2">
+      <div class="avatar">{{Q2_INITIAL}}</div>
+      <div class="msg-content">
+        <div><span class="msg-name">{{Q2_NAME}}</span><span class="msg-title">{{Q2_TITLE}}</span></div>
+        <div class="msg-text">"{{Q2_TEXT}}"</div>
+        {{Q2_IMAGE}}
+      </div>
+    </div>
+
+    <div class="slack-msg msg-3">
+      <div class="avatar">{{Q3_INITIAL}}</div>
+      <div class="msg-content">
+        <div><span class="msg-name">{{Q3_NAME}}</span><span class="msg-title">{{Q3_TITLE}}</span></div>
+        <div class="msg-text">"{{Q3_TEXT}}"</div>
+        {{Q3_IMAGE}}
+      </div>
+    </div>
+
+    <div class="slack-msg msg-4">
+      <div class="avatar">{{Q4_INITIAL}}</div>
+      <div class="msg-content">
+        <div><span class="msg-name">{{Q4_NAME}}</span><span class="msg-title">{{Q4_TITLE}}</span></div>
+        <div class="msg-text">"{{Q4_TEXT}}"</div>
+        {{Q4_IMAGE}}
+      </div>
+    </div>
+
+    <div class="slack-msg msg-5">
+      <div class="avatar">{{Q5_INITIAL}}</div>
+      <div class="msg-content">
+        <div><span class="msg-name">{{Q5_NAME}}</span><span class="msg-title">{{Q5_TITLE}}</span></div>
+        <div class="msg-text">"{{Q5_TEXT}}"</div>
+        {{Q5_IMAGE}}
+      </div>
+    </div>
+
+    <div class="slack-msg msg-6">
+      <div class="avatar">{{Q6_INITIAL}}</div>
+      <div class="msg-content">
+        <div><span class="msg-name">{{Q6_NAME}}</span><span class="msg-title">{{Q6_TITLE}}</span></div>
+        <div class="msg-text">"{{Q6_TEXT}}"</div>
+        {{Q6_IMAGE}}
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 4: Stat Punch -->
+  <div class="scene-4">
+    <div class="stat-big">{{STAT_NUMBER}}</div>
+    <div class="stat-label">{{STAT_DESCRIPTOR}}</div>
+    <div class="stat-sub">{{CHAPTER_NAME}} · {{MONTH}}</div>
+  </div>
+
+  <!-- SCENE 5: Photo Montage (hidden if no real images) -->
+  <div class="scene-5" style="{{SCENE_5_DISPLAY}}">
+    <div class="montage-photo photo-1">
+      {{MONTAGE_1}}
+      <div class="montage-overlay"></div>
+      <div class="montage-label">{{CHAPTER_NAME}} Chapter</div>
+    </div>
+    <div class="montage-photo photo-2">
+      {{MONTAGE_2}}
+      <div class="montage-overlay"></div>
+    </div>
+    <div class="montage-photo photo-3">
+      {{MONTAGE_3}}
+      <div class="montage-overlay"></div>
+    </div>
+  </div>
+
+  <!-- SCENE 6: Avatar Wall (hidden if no real profile photos) -->
+  <div class="scene-6" style="{{SCENE_6_DISPLAY}}">
+    <div class="avatar-wall-label">Your community</div>
+    <div class="avatar-grid">
+      {{AVATAR_GRID}}
+    </div>
+    <div class="avatar-wall-count">
+      <div class="awc-num">{{STAT_NUMBER}}</div>
+      <div class="awc-label">active members</div>
+    </div>
+  </div>
+
+  <!-- SCENE 7: Topics -->
+  <div class="scene-7">
+    <div class="scene-7-header">What <span>{{CHAPTER_NAME}}</span> is talking about</div>
+    <div class="topic-grid">
+      <div class="topic-pill pill-1">{{TOPIC_1}}</div>
+      <div class="topic-pill pill-2">{{TOPIC_2}}</div>
+      <div class="topic-pill pill-3">{{TOPIC_3}}</div>
+      <div class="topic-pill pill-4">{{TOPIC_4}}</div>
+      <div class="topic-pill pill-5">{{TOPIC_5}}</div>
+      <div class="topic-pill pill-6">{{TOPIC_6}}</div>
+    </div>
+  </div>
+
+  <!-- SCENE 8: Momentum -->
+  <div class="scene-8">
+    <div class="momentum-label">And then this happened</div>
+    <div class="big-quote bq-1">
+      <div class="bq-text">"{{BQ1_TEXT}}"</div>
+      <div class="bq-attr">— {{BQ1_NAME}}, {{BQ1_TITLE}}</div>
+    </div>
+    <div class="big-quote bq-2">
+      <div class="bq-text">"{{BQ2_TEXT}}"</div>
+      <div class="bq-attr">— {{BQ2_NAME}}, {{BQ2_TITLE}}</div>
+    </div>
+  </div>
+
+  <!-- SCENE 9: Headline -->
+  <div class="scene-9">
+    <div class="headline-text">{{HEADLINE}}</div>
+  </div>
+
+  <!-- SCENE 10: CTA -->
+  <div class="scene-10">
+    <div class="cta-text">{{CTA_LINE}}</div>
+    <div class="cta-divider"></div>
+    <div class="cta-url">joinpavilion.com</div>
+    <div class="cta-badge"><img src="{{LOGO_PATH}}" alt="Pavilion"></div>
+  </div>
+
+</div>
+</body>
+</html>

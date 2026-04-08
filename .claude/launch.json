@@ -1,0 +1,104 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "recapper-web",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/recapper/web", "-l", "4200", "--no-clipboard"],
+      "port": 4200
+    },
+    {
+      "name": "roi-calculator",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/ROI Calculator", "-l", "4201", "--no-clipboard"],
+      "port": 4201
+    },
+    {
+      "name": "shape-the-room",
+      "runtimeExecutable": "ruby",
+      "runtimeArgs": ["-run", "-e", "httpd", "/Users/joshmait/Desktop/Claude/Shape The Room", "--port=4204"],
+      "port": 4204
+    },
+    {
+      "name": "ai-offer",
+      "runtimeExecutable": "ruby",
+      "runtimeArgs": ["-run", "-e", "httpd", "/Users/joshmait/Desktop/Claude/AI Offer", "--port=4202"],
+      "port": 4202
+    },
+    {
+      "name": "relationship-radar",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/relationship-radar", "-l", "4205", "--no-clipboard"],
+      "port": 4205
+    },
+    {
+      "name": "chapter-dna",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "/Users/joshmait/Desktop/Claude/chapter-dna", "--", "-p", "3001"],
+      "port": 3001
+    },
+    {
+      "name": "pulse",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/pulse/web", "-l", "4206", "--no-clipboard"],
+      "port": 4206
+    },
+    {
+      "name": "chat-analyzer",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/chat-analyzer", "-l", "4208", "--no-clipboard"],
+      "port": 4208
+    },
+    {
+      "name": "chapter-pulse-preview",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/chapter-pulse/output", "-l", "4207", "--no-clipboard"],
+      "port": 4207
+    },
+    {
+      "name": "lloyd-weather",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "/Users/joshmait/Desktop/Claude/personal/lloyd-weather/website", "--", "-p", "3002"],
+      "port": 3002
+    },
+    {
+      "name": "100yards",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/100yards", "-l", "4209", "--no-clipboard"],
+      "port": 4209
+    },
+    {
+      "name": "coinfully",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/100yards/coinfully", "--no-clipboard"],
+      "port": 4210,
+      "autoPort": true
+    },
+    {
+      "name": "digital-passport",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/digital-passport", "--no-clipboard"],
+      "port": 4211,
+      "autoPort": true
+    },
+    {
+      "name": "pavilion-for-teams",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/pavilion-for-teams", "--no-clipboard"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "member-store",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/member-store", "-l", "4212", "--no-clipboard"],
+      "port": 4212
+    },
+    {
+      "name": "gold-retreat",
+      "runtimeExecutable": "ruby",
+      "runtimeArgs": ["-run", "-e", "httpd", "/Users/joshmait/Desktop/Claude/pavilion/gold-retreat", "--port=4213"],
+      "port": 4213
+    }
+  ]
+}

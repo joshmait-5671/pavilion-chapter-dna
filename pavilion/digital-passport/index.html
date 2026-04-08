@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Passport — Pavilion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #060606;
+      --off-black: #0E0E0E;
+      --rule: #1C1C1C;
+      --gold: #C4A96B;
+      --gold-dim: #8A7245;
+      --white: #F5F0E8;
+      --muted: #6B6560;
+      --navy: #0D2B6B;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Inter', Helvetica, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── UTILITY ─────────────────────────────── */
+    .rule { border: none; border-top: 1px solid var(--rule); margin: 0; }
+    .gold { color: var(--gold); }
+    .serif { font-family: var(--serif); }
+
+    /* ─── MASTHEAD ───────────────────────────── */
+    .masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 56px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .masthead-logo {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      opacity: 0.9;
+    }
+    .masthead-logo span { color: var(--gold); }
+    .masthead-right {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── HERO ───────────────────────────────── */
+    .hero {
+      min-height: 94vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 56px 100px;
+      position: relative;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-kicker {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 40px;
+      font-weight: 500;
+    }
+
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(54px, 7.5vw, 112px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      max-width: 1000px;
+      margin-bottom: 48px;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-deck {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.75;
+      margin-bottom: 64px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: #D4B87A; transform: translateY(-1px); }
+
+    .hero-note {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .hero-aside {
+      position: absolute;
+      right: 56px;
+      bottom: 80px;
+      text-align: right;
+    }
+    .hero-price-big {
+      font-family: var(--serif);
+      font-size: 72px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+    }
+    .hero-price-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ─── MANIFESTO STRIP ─────────────────────── */
+    .manifesto {
+      padding: 80px 56px;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .manifesto-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-top: 6px;
+    }
+    .manifesto-body {
+      font-family: var(--serif);
+      font-size: clamp(22px, 2.4vw, 32px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--white);
+    }
+    .manifesto-body strong {
+      font-style: normal;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* ─── WHAT YOU GET ────────────────────────── */
+    .catalog {
+      padding: 100px 56px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .catalog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 64px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .catalog-title {
+      font-family: var(--serif);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .catalog-issue {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .catalog-item {
+      padding: 48px 40px 48px 0;
+      border-right: 1px solid var(--rule);
+    }
+    .catalog-item:last-child { border-right: none; }
+    .catalog-item:nth-child(2), .catalog-item:nth-child(3) { padding-left: 40px; }
+    /* Second row items */
+    .catalog-item:nth-child(4), .catalog-item:nth-child(5), .catalog-item:nth-child(6) {
+      padding-top: 48px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .catalog-num {
+      font-family: var(--serif);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--gold-dim);
+      margin-bottom: 20px;
+    }
+    .catalog-item-title {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--white);
+    }
+    .catalog-item-body {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #B8B2A8;
+      font-weight: 300;
+    }
+    .catalog-item-tag {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold-dim);
+      padding-bottom: 2px;
+    }
+
+    /* ─── BIG STATEMENT ───────────────────────── */
+    .statement {
+      padding: 120px 56px;
+      border-bottom: 1px solid var(--rule);
+      text-align: center;
+    }
+    .statement-text {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4.5vw, 64px);
+      font-weight: 900;
+      line-height: 1.15;
+      max-width: 900px;
+      margin: 0 auto 48px;
+      letter-spacing: -0.01em;
+    }
+    .statement-text em { font-style: italic; color: var(--gold); }
+    .statement-sub {
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── NUMBERS ─────────────────────────────── */
+    .numbers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--rule);
+    }
+    .number-item {
+      padding: 64px 40px;
+      border-right: 1px solid var(--rule);
+      text-align: center;
+    }
+    .number-item:last-child { border-right: none; }
+    .number-val {
+      font-family: var(--serif);
+      font-size: clamp(40px, 4vw, 64px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .number-val span { color: var(--gold); }
+    .number-label {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* ─── MOSAIC ──────────────────────────────── */
+    .mosaic-section {
+      position: relative;
+      width: 100%;
+      height: 640px;
+      overflow: hidden;
+    }
+    .mosaic-grid {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+      grid-auto-rows: 72px;
+      gap: 2px;
+      overflow: hidden;
+    }
+    .mosaic-cell {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #111;
+    }
+    .mosaic-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(30%) sepia(10%);
+      transition: filter 0.4s ease;
+    }
+    .mosaic-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(6,6,6,0.35) 0%,
+        rgba(6,6,6,0.72) 40%,
+        rgba(6,6,6,0.92) 100%
+      );
+      z-index: 1;
+    }
+    .mosaic-content {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 40px;
+    }
+    .mosaic-kicker {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .mosaic-headline {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.8vw, 58px);
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--white);
+      max-width: 820px;
+      margin-bottom: 48px;
+    }
+    .mosaic-headline em {
+      color: var(--gold);
+      font-style: italic;
+    }
+    .mosaic-play {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      background: rgba(196,169,107,0.12);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-bottom: 16px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .mosaic-play:hover {
+      background: rgba(196,169,107,0.28);
+      transform: scale(1.08);
+    }
+    .mosaic-play svg {
+      width: 22px;
+      height: 22px;
+      margin-left: 4px;
+    }
+    .mosaic-play-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    @media (max-width: 600px) {
+      .mosaic-section { height: 480px; }
+      .mosaic-grid { grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); grid-auto-rows: 56px; }
+    }
+
+    /* ─── TESTIMONIAL ────────────────────────── */
+    .testimonial-section {
+      position: relative;
+      width: 100%;
+      height: 520px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .testimonial-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=80&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center 30%;
+      filter: brightness(0.75);
+    }
+    .testimonial-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(6,6,6,0.95) 0%,
+        rgba(6,6,6,0.55) 55%,
+        rgba(6,6,6,0.15) 100%
+      );
+      z-index: 1;
+    }
+    .testimonial-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 80px 72px;
+      max-width: 900px;
+    }
+    .testimonial-quote-mark {
+      font-family: var(--serif);
+      font-size: 120px;
+      line-height: 0.6;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: block;
+      opacity: 0.7;
+    }
+    .testimonial-quote {
+      font-family: var(--serif);
+      font-size: clamp(20px, 2.4vw, 32px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--white);
+      margin: 0 0 32px;
+    }
+    .testimonial-attribution {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .testimonial-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+    .testimonial-title {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    @media (max-width: 768px) {
+      .testimonial-section { height: auto; padding-top: 260px; align-items: flex-end; }
+      .testimonial-content { padding: 0 32px 48px; }
+      .testimonial-quote-mark { font-size: 80px; }
+    }
+
+    /* ─── THE SIGNAL ──────────────────────────── */
+    .signal-section {
+      padding: 100px 56px;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 120px;
+      align-items: center;
+    }
+    .signal-left {}
+    .signal-kicker {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .signal-headline {
+      font-family: var(--serif);
+      font-size: clamp(32px, 3.5vw, 52px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 32px;
+    }
+    .signal-body {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--muted);
+      font-weight: 300;
+    }
+    .signal-right {}
+    .signal-pulls {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .signal-pull {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .signal-pull:first-child { border-top: 1px solid var(--rule); }
+    .signal-pull-q {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-style: italic;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .signal-pull-a {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ─── PRICING ─────────────────────────────── */
+    .pricing {
+      padding: 120px 56px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .pricing-title {
+      font-family: var(--serif);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .pricing-headline {
+      font-family: var(--serif);
+      font-size: clamp(32px, 3.5vw, 52px);
+      font-weight: 900;
+      line-height: 1.15;
+    }
+    .pricing-headline em { font-style: italic; color: var(--gold); }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--rule);
+    }
+    .pricing-card {
+      background: var(--off-black);
+      padding: 64px 56px;
+      position: relative;
+    }
+    .pricing-card.featured {
+      background: #0D1A0D;
+    }
+    .pricing-card-badge {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+    }
+    .pricing-card-price {
+      font-family: var(--serif);
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .pricing-card-period {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .pricing-card-features {
+      list-style: none;
+      margin-bottom: 48px;
+    }
+    .pricing-card-features li {
+      font-size: 14px;
+      color: var(--muted);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pricing-card-features li::before {
+      content: '—';
+      color: var(--gold-dim);
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .pricing-card-cta {
+      display: block;
+      text-align: center;
+      padding: 16px 32px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      transition: all 0.2s;
+    }
+    .pricing-card.featured .pricing-card-cta {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+    }
+    .pricing-card-cta:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .pricing-card.featured .pricing-card-cta:hover {
+      background: #D4B87A;
+    }
+    .pricing-save {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── CLOSING ─────────────────────────────── */
+    .closing {
+      padding: 120px 56px;
+      text-align: center;
+      border-bottom: 1px solid var(--rule);
+    }
+    .closing-headline {
+      font-family: var(--serif);
+      font-size: clamp(40px, 5vw, 80px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+    .closing-headline em { font-style: italic; color: var(--gold); }
+    .closing-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 460px;
+      margin: 0 auto 48px;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* ─── FOOTER ──────────────────────────────── */
+    .footer {
+      padding: 32px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .footer-note {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── FEEDBACK MODAL ──────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      padding: 0 0 0 0;
+    }
+    .modal-overlay.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: var(--off-black);
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+      border-right: 1px solid var(--rule);
+      width: 100%;
+      max-width: 680px;
+      padding: 56px;
+      transform: translateY(48px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .modal-overlay.visible .modal {
+      transform: translateY(0);
+    }
+    .modal-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: var(--white); }
+    .modal-kicker {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .modal-title {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .modal-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+    .modal-question {
+      margin-bottom: 28px;
+    }
+    .modal-question label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+    .modal-question .q-num {
+      color: var(--gold);
+      margin-right: 6px;
+      font-family: var(--serif);
+    }
+    /* Star rating */
+    .star-row {
+      display: flex;
+      gap: 8px;
+    }
+    .star {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--rule);
+      background: none;
+      color: var(--muted);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      font-family: var(--serif);
+      font-weight: 700;
+    }
+    .star:hover, .star.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(196,169,107,0.08);
+    }
+    .modal-input {
+      width: 100%;
+      background: var(--black);
+      border: 1px solid var(--rule);
+      border-radius: 0;
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 14px;
+      padding: 14px 16px;
+      resize: none;
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    .modal-input:focus { border-color: var(--gold-dim); }
+    .modal-input::placeholder { color: var(--muted); }
+    .modal-submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      padding: 18px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+      font-family: var(--sans);
+    }
+    .modal-submit:hover { background: #D4B87A; }
+    .modal-thanks {
+      text-align: center;
+      padding: 40px 0;
+      display: none;
+    }
+    .modal-thanks-icon {
+      font-family: var(--serif);
+      font-size: 48px;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .modal-thanks h3 {
+      font-family: var(--serif);
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .modal-thanks p { font-size: 14px; color: var(--muted); }
+
+    /* ─── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 1024px) {
+      .masthead, .hero, .manifesto, .catalog, .statement,
+      .signal-section, .pricing, .closing, .footer { padding-left: 32px; padding-right: 32px; }
+      .hero-aside { right: 32px; }
+      .catalog-grid { grid-template-columns: 1fr 1fr; }
+      .catalog-item:nth-child(2n) { border-right: none; }
+      .catalog-item:nth-child(3), .catalog-item:nth-child(4) { border-top: 1px solid var(--rule); }
+      .catalog-item:nth-child(3) { padding-left: 0; }
+      .numbers { grid-template-columns: repeat(2, 1fr); }
+      .number-item:nth-child(2) { border-right: none; }
+      .number-item:nth-child(3), .number-item:nth-child(4) { border-top: 1px solid var(--rule); }
+      .signal-section { grid-template-columns: 1fr; gap: 64px; }
+    }
+    @media (max-width: 768px) {
+      .masthead { padding: 20px 24px; }
+      .masthead-right { display: none; }
+      .hero { padding: 60px 24px 80px; min-height: 80vh; }
+      .hero-aside { display: none; }
+      .hero-headline { font-size: 42px; }
+      .manifesto { grid-template-columns: 1fr; gap: 24px; padding: 56px 24px; }
+      .catalog { padding: 64px 24px; }
+      .catalog-grid { grid-template-columns: 1fr; }
+      .catalog-item { border-right: none !important; border-top: 1px solid var(--rule) !important; padding-left: 0 !important; }
+      .catalog-item:first-child { border-top: none !important; }
+      .statement { padding: 72px 24px; }
+      .numbers { grid-template-columns: 1fr 1fr; padding: 0 24px; }
+      .number-item { padding: 40px 20px; }
+      .signal-section, .pricing, .closing { padding: 64px 24px; }
+      .pricing-cards { grid-template-columns: 1fr; }
+      .pricing-card { padding: 48px 32px; }
+      .footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+      .modal { padding: 40px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── MASTHEAD ─────────────────────────────── -->
+  <header class="masthead">
+    <div class="masthead-logo">Pavilion <span>·</span> Digital Passport</div>
+    <div class="masthead-right">Early Access &nbsp;·&nbsp; 2026</div>
+  </header>
+
+  <!-- ─── HERO ─────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-kicker">Pavilion Digital Passport &nbsp;·&nbsp; A new kind of membership</div>
+
+    <h1 class="hero-headline">
+      The best operators<br>
+      don't guess.<br>
+      <em>They check.</em>
+    </h1>
+
+    <p class="hero-deck">
+      Benchmarks, signal, and real operator intelligence — always on, always current. For the people running the hardest seats in go-to-market.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">Get Early Access</a>
+      <span class="hero-note">$69 / month &nbsp;·&nbsp; Cancel anytime</span>
+    </div>
+
+    <div class="hero-aside">
+      <div class="hero-price-big">$69</div>
+      <div class="hero-price-label">per month</div>
+    </div>
+  </section>
+
+  <!-- ─── MANIFESTO ─────────────────────────────── -->
+  <section class="manifesto">
+    <div class="manifesto-label">The Problem</div>
+    <div class="manifesto-body">
+      Your board is asking questions you're answering with instinct.
+      Your comp packages are based on memory. Your playbook is borrowed from a job you had in 2022.
+      <strong>The world moved. Nobody sent you the memo.</strong>
+      That's not a knowledge problem. It's a signal problem.
+    </div>
+  </section>
+
+  <!-- ─── CATALOG ───────────────────────────────── -->
+  <section class="catalog">
+    <div class="catalog-header">
+      <div class="catalog-title">What's in your Passport</div>
+      <div class="catalog-issue">Six pillars. Always on.</div>
+    </div>
+
+    <div class="catalog-grid">
+
+      <div class="catalog-item">
+        <div class="catalog-num">01</div>
+        <div class="catalog-item-title">Live Benchmarks</div>
+        <div class="catalog-item-body">Real comp data. Real quotas. Real org structures — from operators in verified seats at companies like yours. Not vendor research. Not a blog post. The number you can trust.</div>
+        <div class="catalog-item-tag">Always Current</div>
+      </div>
+
+      <div class="catalog-item">
+        <div class="catalog-num">02</div>
+        <div class="catalog-item-title">The Signal Feed</div>
+        <div class="catalog-item-body">What are 10,000 operators talking about this week? A curated, noise-free digest of the conversations that matter — pulled from the community, filtered by people who know the difference.</div>
+        <div class="catalog-item-tag">Weekly Curation</div>
+      </div>
+
+      <div class="catalog-item">
+        <div class="catalog-num">03</div>
+        <div class="catalog-item-title">The Library</div>
+        <div class="catalog-item-body">Playbooks, frameworks, and recorded sessions from operators who've already done the hard thing you're about to do. Searchable. Organized by stage and function. Actually useful.</div>
+        <div class="catalog-item-tag">Deep Catalog</div>
+      </div>
+
+      <div class="catalog-item">
+        <div class="catalog-num">04</div>
+        <div class="catalog-item-title">Ask the Room</div>
+        <div class="catalog-item-body">Post a question. Get answers from people who have been exactly where you are — not consultants, not vendors. Operators. The kind of answer you'd get over dinner if you knew the right people.</div>
+        <div class="catalog-item-tag">Peer Access</div>
+      </div>
+
+      <div class="catalog-item">
+        <div class="catalog-num">05</div>
+        <div class="catalog-item-title">Peer Connections</div>
+        <div class="catalog-item-body">Find your counterpart at a company one stage ahead of you. The person who just solved your exact problem — and is willing to talk. Real introductions, not a networking event.</div>
+        <div class="catalog-item-tag">Curated Intros</div>
+      </div>
+
+      <div class="catalog-item">
+        <div class="catalog-num">06</div>
+        <div class="catalog-item-title">The Briefing</div>
+        <div class="catalog-item-body">A monthly intelligence report — what shifted in go-to-market, what the data says, what the best operators are doing differently. The thing you forward to your team and look smart for finding.</div>
+        <div class="catalog-item-tag">Monthly Report</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── STATEMENT ─────────────────────────────── -->
+  <section class="statement">
+    <div class="statement-text">
+      It should feel like<br>
+      <em>someone already figured out</em><br>
+      the thing you're stuck on.
+    </div>
+    <div class="statement-sub">Because they did. And they're in here.</div>
+  </section>
+
+  <!-- ─── NUMBERS ───────────────────────────────── -->
+  <div class="numbers">
+    <div class="number-item">
+      <div class="number-val">10<span>K+</span></div>
+      <div class="number-label">Operators in the network</div>
+    </div>
+    <div class="number-item">
+      <div class="number-val">47<span>+</span></div>
+      <div class="number-label">Live benchmark studies</div>
+    </div>
+    <div class="number-item">
+      <div class="number-val">6<span>K+</span></div>
+      <div class="number-label">Curated playbooks & resources</div>
+    </div>
+    <div class="number-item">
+      <div class="number-val">$<span>0</span></div>
+      <div class="number-label">Cost of one bad hire</div>
+    </div>
+  </div>
+
+  <!-- ─── MOSAIC ──────────────────────────────────── -->
+  <section class="mosaic-section">
+    <div class="mosaic-grid" id="mosaicGrid"></div>
+    <div class="mosaic-overlay"></div>
+    <div class="mosaic-content">
+      <div class="mosaic-kicker">30,000+ revenue leaders</div>
+      <h2 class="mosaic-headline">"The smartest operators I know<br><em>all have one thing in common."</em></h2>
+      <button class="mosaic-play" aria-label="Watch the story">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="6,3 20,12 6,21" fill="currentColor"/>
+        </svg>
+      </button>
+      <div class="mosaic-play-label">Watch the story &nbsp;·&nbsp; 2 min</div>
+    </div>
+  </section>
+
+  <!-- ─── THE SIGNAL ────────────────────────────── -->
+  <section class="signal-section">
+    <div class="signal-left">
+      <div class="signal-kicker">The deeper thing</div>
+      <h2 class="signal-headline">You're not missing out.<br>You're <em>drifting.</em></h2>
+      <p class="signal-body">
+        FOMO is temporary. What operators actually feel is different — it's the quiet fear of gradual irrelevance. The world moves, assumptions age, and suddenly you're the person in the room with the outdated playbook.
+        <br><br>
+        Digital Passport isn't a community. It's calibration. The thing you check before you make a call, write a JD, or walk into a board meeting. The cheat code that makes you the most prepared person in every room — not because you studied, but because you're plugged in.
+      </p>
+    </div>
+    <div class="signal-right">
+      <div class="signal-pulls">
+        <div class="signal-pull">
+          <div class="signal-pull-q">"What are other Series B SaaS companies paying their VP Sales?"</div>
+          <div class="signal-pull-a">→ Answered. 847 data points. Updated this quarter.</div>
+        </div>
+        <div class="signal-pull">
+          <div class="signal-pull-q">"We're restructuring our CS team. What did you do?"</div>
+          <div class="signal-pull-a">→ 12 operators in your exact seat. 3 replied in 4 hours.</div>
+        </div>
+        <div class="signal-pull">
+          <div class="signal-pull-q">"My board is asking about AI strategy and I'm guessing."</div>
+          <div class="signal-pull-a">→ The Briefing. This month. 8-minute read.</div>
+        </div>
+        <div class="signal-pull">
+          <div class="signal-pull-q">"Is our churn rate normal for this stage?"</div>
+          <div class="signal-pull-a">→ Benchmark study. Your segment. Your vertical.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIAL ─────────────────────────────── -->
+  <section class="testimonial-section">
+    <div class="testimonial-bg"></div>
+    <div class="testimonial-gradient"></div>
+    <div class="testimonial-content">
+      <div class="testimonial-quote-mark">"</div>
+      <blockquote class="testimonial-quote">
+        I used to walk into board meetings hoping no one asked about benchmarks. Now I'm the one pulling them up. Digital Passport is the first thing I check and the last thing I'd cancel.
+      </blockquote>
+      <div class="testimonial-attribution">
+        <div class="testimonial-name">Sarah K.</div>
+        <div class="testimonial-title">VP Revenue, Series C SaaS &nbsp;·&nbsp; Pavilion Member since 2021</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PRICING ───────────────────────────────── -->
+  <section class="pricing" id="pricing">
+    <div class="pricing-header">
+      <div class="pricing-title">Choose your Passport</div>
+      <h2 class="pricing-headline">
+        Less than a dinner.<br>
+        <em>More than most consultants.</em>
+      </h2>
+    </div>
+
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <div class="pricing-card-badge">Monthly</div>
+        <div class="pricing-card-price">$69</div>
+        <div class="pricing-card-period">Per month &nbsp;·&nbsp; Cancel anytime</div>
+        <ul class="pricing-card-features">
+          <li>Live benchmark database</li>
+          <li>The Signal Feed (weekly)</li>
+          <li>Full content library</li>
+          <li>Ask the Room — peer Q&A</li>
+          <li>Curated peer connections</li>
+          <li>Monthly Briefing report</li>
+        </ul>
+        <a href="#" class="pricing-card-cta">Start Monthly</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="pricing-card-badge">Annual &nbsp;·&nbsp; Best Value</div>
+        <div class="pricing-card-price">$588</div>
+        <div class="pricing-card-period">Per year &nbsp;·&nbsp; $49/mo billed annually</div>
+        <ul class="pricing-card-features">
+          <li>Everything in Monthly</li>
+          <li>Save $240 per year</li>
+          <li>Priority Briefing delivery</li>
+          <li>Early access to new benchmarks</li>
+          <li>Annual operator review call</li>
+          <li>Founding Member status</li>
+        </ul>
+        <a href="#" class="pricing-card-cta">Start Annual — Save $240</a>
+      </div>
+    </div>
+
+    <div class="pricing-save">
+      Annual membership saves you $240. That's one bad vendor decision avoided — and you're ahead.
+    </div>
+  </section>
+
+  <!-- ─── CLOSING ───────────────────────────────── -->
+  <section class="closing">
+    <h2 class="closing-headline">
+      Every operator<br>
+      you respect<br>
+      <em>already has this open.</em>
+    </h2>
+    <p class="closing-sub">
+      Now you know what it is.
+    </p>
+    <a href="#pricing" class="btn-primary">Get Your Passport</a>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer-brand">Pavilion &nbsp;·&nbsp; Digital Passport</div>
+    <div class="footer-note">© 2026 Pavilion. Prototype — not for distribution. &nbsp;·&nbsp; joinpavilion.com</div>
+  </footer>
+
+
+  <!-- ─── FEEDBACK MODAL ────────────────────────── -->
+  <div class="modal-overlay" id="feedbackOverlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+
+      <div id="modalForm">
+        <div class="modal-kicker">Quick takes &nbsp;·&nbsp; 60 seconds</div>
+        <h2 class="modal-title" id="modalTitle">What do you think?</h2>
+        <p class="modal-sub">You've had a chance to look. Three quick questions — your honest take helps shape what this becomes.</p>
+
+        <div class="modal-question">
+          <label><span class="q-num">01</span> How compelling is Digital Passport on a scale of 1–5?</label>
+          <div class="star-row" id="starRow">
+            <button class="star" data-val="1">1</button>
+            <button class="star" data-val="2">2</button>
+            <button class="star" data-val="3">3</button>
+            <button class="star" data-val="4">4</button>
+            <button class="star" data-val="5">5</button>
+          </div>
+        </div>
+
+        <div class="modal-question">
+          <label><span class="q-num">02</span> What would make you subscribe today?</label>
+          <textarea class="modal-input" id="q2" rows="2" placeholder="e.g. The benchmarks alone. I need the comp data."></textarea>
+        </div>
+
+        <div class="modal-question">
+          <label><span class="q-num">03</span> What's missing or unclear?</label>
+          <textarea class="modal-input" id="q3" rows="2" placeholder="e.g. What does the Signal Feed actually look like day-to-day?"></textarea>
+        </div>
+
+        <button class="modal-submit" id="modalSubmit">Submit Feedback</button>
+      </div>
+
+      <div class="modal-thanks" id="modalThanks">
+        <div class="modal-thanks-icon">✦</div>
+        <h3>Thank you.</h3>
+        <p>This is exactly how Digital Passport gets built right.<br>We'll be in touch.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // ── FEEDBACK MODAL TIMER ──────────────────────
+    const overlay = document.getElementById('feedbackOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const modalSubmit = document.getElementById('modalSubmit');
+    const modalForm = document.getElementById('modalForm');
+    const modalThanks = document.getElementById('modalThanks');
+    const starButtons = document.querySelectorAll('.star');
+
+    let selectedRating = 0;
+    let modalShown = false;
+
+    // Show after 38 seconds
+    setTimeout(() => {
+      if (!modalShown) {
+        overlay.classList.add('visible');
+        modalShown = true;
+      }
+    }, 38000);
+
+    // Close on overlay click
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.classList.remove('visible');
+    });
+
+    // Close button
+    modalClose.addEventListener('click', () => overlay.classList.remove('visible'));
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') overlay.classList.remove('visible');
+    });
+
+    // Star rating
+    starButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedRating = parseInt(btn.dataset.val);
+        starButtons.forEach(b => {
+          b.classList.toggle('active', parseInt(b.dataset.val) <= selectedRating);
+        });
+      });
+    });
+
+    // Submit
+    modalSubmit.addEventListener('click', () => {
+      const q2 = document.getElementById('q2').value.trim();
+      const q3 = document.getElementById('q3').value.trim();
+
+      // Log responses (in production, POST to a form endpoint)
+      console.log('Digital Passport Feedback:', {
+        rating: selectedRating || '(not selected)',
+        subscribe_reason: q2 || '(blank)',
+        missing: q3 || '(blank)',
+        timestamp: new Date().toISOString()
+      });
+
+      modalForm.style.display = 'none';
+      modalThanks.style.display = 'block';
+
+      setTimeout(() => overlay.classList.remove('visible'), 3000);
+    });
+
+    // ── MOSAIC HEADSHOT GRID ──────────────────────
+    (function buildMosaic() {
+      const grid = document.getElementById('mosaicGrid');
+      if (!grid) return;
+      // Calculate how many cells fit the viewport
+      const cellSize = window.innerWidth <= 600 ? 58 : 74; // cell + gap
+      const cols = Math.ceil(window.innerWidth / cellSize) + 1;
+      const rows = Math.ceil(640 / cellSize) + 1;
+      const total = cols * rows;
+      // pravatar has 70 unique images (1–70); cycle through them
+      for (let i = 0; i < total; i++) {
+        const img = (i % 70) + 1;
+        const cell = document.createElement('div');
+        cell.className = 'mosaic-cell';
+        const picture = document.createElement('img');
+        picture.src = `https://i.pravatar.cc/80?img=${img}`;
+        picture.alt = '';
+        picture.loading = 'lazy';
+        cell.appendChild(picture);
+        grid.appendChild(cell);
+      }
+    })();
+
+    // ── SMOOTH SCROLL FOR CTA LINKS ───────────────
+    document.querySelectorAll('a[href="#pricing"]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        document.getElementById('pricing').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+
+</body>
+</html>

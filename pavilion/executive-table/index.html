@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Executive Table — B</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  @font-face { font-family: 'System'; src: local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI'); }
+
+  :root {
+    --bg: #000;
+    --white: #fff;
+    --red: #C23838;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--white);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--white); color: var(--bg); }
+  a { color: inherit; text-decoration: none; }
+
+  @keyframes reveal-up {
+    from { transform: translateY(100%); } to { transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes scan {
+    0% { top: -10%; } 100% { top: 110%; }
+  }
+
+  /* ========= SCREEN 1: THE WORD ========= */
+  .s1 {
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .s1-bg-word {
+    position: absolute;
+    font-size: clamp(200px, 30vw, 400px);
+    font-weight: 900; letter-spacing: -0.06em;
+    color: rgba(255,255,255,0.03);
+    text-transform: uppercase;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .s1-bg-word:nth-child(1) { top: 5%; left: -5%; }
+  .s1-bg-word:nth-child(2) { bottom: 5%; right: -5%; }
+  .s1-scanline {
+    position: absolute; left: 0; right: 0; height: 1px;
+    background: rgba(255,255,255,0.04);
+    animation: scan 8s linear infinite;
+    pointer-events: none;
+  }
+  .s1-content {
+    position: relative; z-index: 1; text-align: center;
+    animation: fade-in 2s ease both;
+  }
+  .s1-pre {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.4em;
+    text-transform: uppercase; color: rgba(255,255,255,0.7);
+    margin-bottom: 40px;
+  }
+  .s1 h1 {
+    font-size: clamp(64px, 10vw, 140px);
+    font-weight: 900; line-height: 0.88;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+  .s1 h1 .outline {
+    -webkit-text-stroke: 2px rgba(255,255,255,0.4);
+    color: transparent;
+  }
+  .s1 h1 .red { color: var(--red); }
+  .s1-after {
+    margin-top: 48px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.6); text-transform: uppercase;
+  }
+
+  /* ========= SCREEN 2: THE CUT ========= */
+  .s2 {
+    padding: 18vh 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .s2-text {
+    font-size: clamp(48px, 7vw, 100px);
+    font-weight: 900; letter-spacing: -0.05em;
+    text-transform: uppercase; line-height: 0.92;
+    white-space: nowrap;
+    color: rgba(255,255,255,0.04);
+    padding: 0 56px;
+  }
+  .s2-text .lit { color: var(--white); }
+  .s2-text .lit-red { color: var(--red); }
+  .s2-sub {
+    padding: 56px 56px 0;
+    max-width: 560px;
+    font-size: 15px; font-weight: 400; line-height: 1.8;
+    color: rgba(255,255,255,0.75);
+  }
+  .s2-sub strong { color: #fff; font-weight: 600; }
+
+  /* ========= SCREEN 3: THE IMAGE ========= */
+  .s3 {
+    height: 100vh; position: relative; overflow: hidden;
+  }
+  .s3 img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) contrast(1.4) brightness(0.3);
+  }
+  .s3-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 40%);
+  }
+  .s3-word {
+    position: absolute; bottom: 56px; left: 56px;
+    font-size: clamp(48px, 8vw, 120px);
+    font-weight: 900; letter-spacing: -0.05em;
+    text-transform: uppercase; line-height: 0.9;
+  }
+  .s3-word .outline {
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.4);
+    color: transparent;
+  }
+  .s3-word .red { color: var(--red); }
+  .s3-small {
+    position: absolute; bottom: 56px; right: 56px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.7); text-transform: uppercase;
+    text-align: right; line-height: 1.8;
+  }
+
+  /* ========= SCREEN 4: THE CLOSE ========= */
+  .s4 {
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .s4-bg {
+    position: absolute;
+    font-size: clamp(300px, 40vw, 600px);
+    font-weight: 900; letter-spacing: -0.06em;
+    color: rgba(255,255,255,0.015);
+    text-transform: uppercase;
+    user-select: none;
+  }
+  .s4-content {
+    position: relative; z-index: 1; text-align: center;
+    max-width: 520px;
+  }
+  .s4-content p {
+    font-size: 14px; font-weight: 400;
+    color: rgba(255,255,255,0.75); line-height: 1.9;
+    margin-bottom: 56px;
+    letter-spacing: 0.02em;
+  }
+  .s4-btn {
+    display: inline-block; padding: 20px 64px;
+    border: 1px solid rgba(255,255,255,0.4);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #fff;
+    transition: all 0.4s;
+  }
+  .s4-btn:hover {
+    background: var(--white); color: var(--bg);
+    border-color: var(--white);
+  }
+  .s4-detail {
+    display: inline-block; margin-top: 24px;
+    font-size: 12px; font-weight: 400; letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.5);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 3px;
+    transition: all 0.3s;
+  }
+  .s4-detail:hover { color: #fff; border-color: #fff; }
+  .s4-fine {
+    margin-top: 32px;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .footer {
+    padding: 20px 56px;
+    border-top: 1px solid rgba(255,255,255,0.03);
+    display: flex; justify-content: space-between;
+    font-size: 10px; font-weight: 400;
+    color: rgba(255,255,255,0.35); letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    .s1 h1 { font-size: 56px; }
+    .s1-bg-word { font-size: 120px; }
+    .s2-text { font-size: 36px; padding: 0 28px; }
+    .s2-sub { padding: 40px 28px 0; }
+    .s3-word { left: 28px; bottom: 32px; font-size: 44px; }
+    .s3-small { right: 28px; bottom: 32px; display: none; }
+    .s4-bg { font-size: 180px; }
+    .footer { padding: 16px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1 -->
+<section class="s1">
+  <div class="s1-bg-word">BLIND</div>
+  <div class="s1-bg-word">BLIND</div>
+  <div class="s1-scanline"></div>
+  <div class="s1-content">
+    <div class="s1-pre">The Executive Table &mdash; Pavilion</div>
+    <h1><span class="outline">YOU'RE</span><br><span class="outline">OPERATING</span><br><span class="red">BLIND.</span></h1>
+    <div class="s1-after">Up to five seats per company &bull; Enrollment is selective</div>
+  </div>
+</section>
+
+<!-- SCREEN 2 -->
+<section class="s2">
+  <div class="s2-text"><span class="lit">ONE</span> DATA SET. <span class="lit">ONE</span> PERSPECTIVE. <span class="lit-red">ONE</span> BLIND SPOT.</div>
+  <p class="s2-sub"><strong>Your leadership team has exactly one source of truth: themselves.</strong> The teams you're losing to are sharing real comp data, real pipeline math, real playbooks across a table your team isn't sitting at. That's the variable.</p>
+</section>
+
+<!-- SCREEN 3 -->
+<section class="s3">
+  <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600&q=85" alt="">
+  <div class="s3-overlay"></div>
+  <div class="s3-word">UP TO<br><span class="outline">FIVE.</span><br><span class="red">ONE</span> TABLE.</div>
+  <div class="s3-small">CRO. CMO. CS.<br>RevOps. Your call.</div>
+</section>
+
+<!-- SCREEN 4 -->
+<section class="s4" id="in">
+  <div class="s4-bg">TABLE</div>
+  <div class="s4-content">
+    <p>The Executive Table by Pavilion. Up to five seats per company. Enrollment is selective.</p>
+    <a href="#in" class="s4-btn">Request a table</a>
+    <a href="detail.html" class="s4-detail">See what's inside &darr;</a>
+    <div class="s4-fine">Pavilion &mdash; est. 2016</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>Pavilion</span>
+  <span>&copy; 2026</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply to Pavilion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0f0f0f;
+  --white: #fafaf8;
+  --cream: #f3f0ea;
+  --warm: #e8e3d9;
+  --accent: #b85c2a;
+  --accent-light: #d4723f;
+  --muted: #7a7570;
+  --light: #c4bfb8;
+  --border: #e0dbd2;
+}
+
+html, body {
+  height: 100%;
+  background: var(--white);
+  color: var(--black);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* SCREENS */
+.screen {
+  display: none;
+  min-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.screen.active {
+  display: flex;
+  flex-direction: column;
+}
+.screen.visible { opacity: 1; }
+
+/* PROGRESS BAR */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--border);
+  z-index: 100;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* NAV */
+.app-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(250,250,248,0.95);
+  backdrop-filter: blur(8px);
+}
+.nav-logo {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--black);
+}
+.nav-stage {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+.nav-back {
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-back:hover { color: var(--black); }
+.nav-back svg { width: 14px; height: 14px; }
+
+/* STAGE 1 */
+#stage1 {
+  align-items: center;
+  justify-content: center;
+  padding: 100px 24px 60px;
+  min-height: 100vh;
+}
+
+.stage1-inner {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stage-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.stage-eyebrow::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.stage1-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 6vw, 60px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.stage1-h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.stage1-sub {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 48px;
+  max-width: 420px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+.input-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.app-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--black);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+}
+.app-input:focus {
+  border-color: var(--black);
+  box-shadow: 0 0 0 3px rgba(15,15,15,0.06);
+}
+.app-input::placeholder { color: var(--light); }
+
+.app-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 4.5L11 1' stroke='%23aaa' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 17px 28px;
+  background: var(--black);
+  color: white;
+  border: none;
+  border-radius: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 8px;
+}
+.btn-primary:hover { background: #222; }
+.btn-primary:active { transform: scale(0.99); }
+
+.form-note {
+  font-size: 12px;
+  color: var(--light);
+  text-align: center;
+  margin-top: 16px;
+  line-height: 1.6;
+}
+
+/* STAGE 2 */
+#stage2 {
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+.s2-left {
+  width: 45%;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 64px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.s2-left::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; right: -100px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,92,42,0.2) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.s2-greeting {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 24px;
+}
+
+.s2-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(34px, 3.5vw, 50px);
+  font-weight: 500;
+  color: white;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+}
+
+.s2-h2 em {
+  font-style: italic;
+  color: var(--accent-light);
+}
+
+.s2-body {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.proof-quote {
+  border-left: 2px solid var(--accent);
+  padding-left: 20px;
+  margin-top: 40px;
+}
+
+.proof-quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.proof-quote-attr {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+}
+
+.s2-right {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 80px 80px 72px;
+  overflow-y: auto;
+}
+
+.s2-outcomes {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+.outcome-block {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.outcome-block.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.outcome-icon {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.outcome-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.outcome-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.outcome-body {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.outcome-body strong {
+  color: var(--black);
+  font-weight: 500;
+}
+
+.s2-proof {
+  background: var(--cream);
+  border-radius: 2px;
+  padding: 28px 32px;
+  margin-bottom: 40px;
+  border-left: 3px solid var(--accent);
+}
+
+.s2-proof-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.s2-proof-text {
+  font-size: 14px;
+  color: var(--black);
+  line-height: 1.7;
+}
+
+.s2-cta-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-continue {
+  padding: 17px 28px;
+  background: var(--black);
+  color: white;
+  border: none;
+  border-radius: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-continue:hover { background: #222; }
+.btn-continue svg { width: 16px; height: 16px; stroke: white; fill: none; stroke-width: 1.5; }
+
+.btn-text {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: color 0.2s;
+}
+.btn-text:hover { color: var(--black); }
+
+/* STAGE 3 */
+#stage3 {
+  align-items: center;
+  justify-content: flex-start;
+  padding: 100px 24px 80px;
+}
+
+.stage3-inner {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.s3-header {
+  margin-bottom: 56px;
+}
+
+.s3-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5vw, 56px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.s3-h2 em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.s3-sub {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+.quotes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.member-quote {
+  background: var(--cream);
+  padding: 28px;
+  border-radius: 2px;
+  position: relative;
+}
+
+.member-quote::before {
+  content: '\201C';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  color: var(--accent);
+  opacity: 0.4;
+  line-height: 1;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.member-quote-text {
+  font-size: 14px;
+  color: var(--black);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.member-quote-attr {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.pricing-block {
+  background: var(--black);
+  border-radius: 2px;
+  padding: 48px;
+  margin-bottom: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.price-left {}
+
+.price-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 16px;
+}
+
+.price-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
+  font-weight: 600;
+  color: white;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.price-period {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 20px;
+}
+
+.price-reframe {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+}
+
+.price-reframe strong {
+  color: white;
+  font-weight: 500;
+}
+
+.price-right {}
+
+.price-includes-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 20px;
+}
+
+.price-includes-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.price-includes-item {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+
+.price-includes-item::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.insurance-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--muted);
+  text-align: center;
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+/* STAGE 4 SWIPE */
+#stage4 {
+  align-items: center;
+  justify-content: center;
+  padding: 100px 24px 60px;
+  background: var(--black);
+  min-height: 100vh;
+}
+
+.stage4-inner {
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.s4-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 24px;
+}
+
+.s4-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5vw, 56px);
+  font-weight: 500;
+  color: white;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.s4-h2 em {
+  font-style: italic;
+  color: var(--accent-light);
+}
+
+.s4-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+  max-width: 420px;
+  margin: 0 auto 56px;
+}
+
+/* SWIPE COMPONENT */
+.swipe-container {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.swipe-track {
+  background: rgba(255,255,255,0.07);
+  border-radius: 60px;
+  height: 72px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+}
+
+.swipe-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
+  border-radius: 60px;
+  width: 72px;
+  transition: width 0.1s linear;
+}
+
+.swipe-thumb {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.1s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+.swipe-thumb:active { cursor: grabbing; }
+
+.swipe-thumb svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: opacity 0.2s;
+}
+
+.swipe-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  pointer-events: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.s4-note {
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.s4-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: rgba(255,255,255,0.2);
+  margin-top: 32px;
+  letter-spacing: 0.02em;
+}
+
+.card-form {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 32px;
+}
+
+.card-form-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 6px;
+}
+
+.card-summary-line {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.card-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.card-field-full { width: 100%; }
+
+.card-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card-input-wrap {
+  position: relative;
+}
+
+.card-input {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+  color: white !important;
+}
+
+.card-input:focus {
+  border-color: rgba(255,255,255,0.35) !important;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.04) !important;
+}
+
+.card-input::placeholder { color: rgba(255,255,255,0.2) !important; }
+
+.card-icons {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  opacity: 0.6;
+}
+
+.card-secure-note {
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.5;
+}
+
+/* SUCCESS SCREEN */
+#stage5 {
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  background: var(--black);
+  min-height: 100vh;
+  text-align: center;
+}
+
+.s5-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.s5-mark {
+  width: 64px;
+  height: 64px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.s5-mark svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.s5-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5vw, 52px);
+  font-weight: 500;
+  color: white;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.s5-h2 em {
+  font-style: italic;
+  color: var(--accent-light);
+}
+
+.s5-body {
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  margin-bottom: 48px;
+}
+
+.s5-detail {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px;
+  padding: 28px 32px;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.s5-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 13px;
+}
+.s5-detail-row:last-child { border-bottom: none; padding-bottom: 0; }
+.s5-detail-row:first-child { padding-top: 0; }
+
+.s5-detail-label { color: rgba(255,255,255,0.35); }
+.s5-detail-value { color: white; font-weight: 400; }
+
+.s5-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.anim-fade-up { animation: fadeUp 0.6s ease forwards; }
+.anim-fade-up-2 { animation: fadeUp 0.6s 0.1s ease forwards; opacity: 0; }
+.anim-fade-up-3 { animation: fadeUp 0.6s 0.2s ease forwards; opacity: 0; }
+.anim-fade-up-4 { animation: fadeUp 0.6s 0.35s ease forwards; opacity: 0; }
+.anim-scale { animation: scaleIn 0.5s ease forwards; }
+
+/* RESPONSIVE */
+@media (max-width: 860px) {
+  #stage2 { flex-direction: column; }
+  .s2-left { width: 100%; padding: 80px 32px 48px; }
+  .s2-right { width: 100%; padding: 48px 32px 64px; }
+  .quotes-grid { grid-template-columns: 1fr; }
+  .pricing-block { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
+  .app-nav { padding: 18px 24px; }
+}
+
+/* STAGE 2 OPT-OUT */
+.s2-optout {
+  margin-top: 12px;
+  text-align: center;
+}
+.s2-optout-btn {
+  font-size: 12px;
+  color: var(--light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: color 0.2s;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.s2-optout-btn:hover { color: var(--muted); }
+
+/* EMAIL CAPTURE MODAL */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,15,15,0.7);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--white);
+  max-width: 440px;
+  width: 90%;
+  padding: 48px;
+  border-radius: 2px;
+  position: relative;
+  animation: fadeUp 0.3s ease forwards;
+}
+.modal-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--light);
+  font-size: 20px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--black); }
+.modal-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.modal-h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.modal-body {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.modal-input-wrap {
+  display: flex;
+  gap: 10px;
+}
+.modal-input {
+  flex: 1;
+  padding: 13px 16px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--black);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.modal-input:focus { border-color: var(--black); }
+.modal-input::placeholder { color: var(--light); }
+.modal-submit {
+  padding: 13px 20px;
+  background: var(--black);
+  color: white;
+  border: none;
+  border-radius: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.modal-submit:hover { background: #222; }
+.modal-sent {
+  display: none;
+  text-align: center;
+  padding: 16px 0;
+}
+.modal-sent-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.modal-sent-sub {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* MEMBER FACES - Stage 3 */
+.faces-section {
+  margin-bottom: 48px;
+}
+.faces-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.faces-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.faces-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.face-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+.face-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: white;
+}
+.face-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.3;
+}
+.face-role {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* FAQ - Stage 3 */
+.faq-section {
+  margin-bottom: 48px;
+}
+.faq-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.faq-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-item:first-of-type { border-top: 1px solid var(--border); }
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 18px 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--black);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  transition: color 0.2s;
+}
+.faq-question:hover { color: var(--accent); }
+.faq-chevron {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transition: transform 0.25s ease;
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.25s ease;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.faq-item.open .faq-answer {
+  max-height: 200px;
+  padding-bottom: 18px;
+}
+/* OFFER SCREEN */
+#stageOffer {
+  flex-direction: row;
+  min-height: 100vh;
+}
+.offer-inner {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+.offer-left {
+  width: 40%;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 56px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.offer-left::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; right: -80px;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,92,42,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+.offer-right {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 100px 72px 80px 64px;
+  background: var(--white);
+}
+.offer-options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.offer-option {
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  padding: 24px 28px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.1s;
+  background: white;
+}
+.offer-option:hover { border-color: var(--black); transform: translateY(-1px); }
+.offer-option.selected { border-color: var(--accent); background: #fdf7f3; }
+.offer-option-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+.offer-radio {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 3px;
+  transition: border-color 0.2s;
+  position: relative;
+}
+.offer-radio::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: transform 0.2s ease;
+}
+.offer-option.selected .offer-radio { border-color: var(--accent); }
+.offer-option.selected .offer-radio::after { transform: translate(-50%,-50%) scale(1); }
+.offer-option-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 3px;
+}
+.offer-option-price {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.offer-option-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  padding-left: 34px;
+}
+@media (max-width: 860px) {
+  #stageOffer { flex-direction: column; }
+  .offer-inner { flex-direction: column; }
+  .offer-left { width: 100%; padding: 80px 32px 48px; }
+  .offer-right { width: 100%; padding: 48px 32px 64px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS -->
+<div class="progress-bar" id="progressBar" style="display:none">
+  <div class="progress-fill" id="progressFill" style="width:25%"></div>
+</div>
+
+<!-- EMAIL CAPTURE MODAL -->
+<div class="modal-overlay" id="optOutModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeOptOutModal()">×</button>
+    <div class="modal-eyebrow">Before you go</div>
+    <h3 class="modal-h3">Save your place.<br>Come back when ready.</h3>
+    <p class="modal-body">Timing matters. Leave your email and we will send you a link to pick up exactly where you left off. No pressure, no sequence.</p>
+    <div id="modal-form-wrap">
+      <div class="modal-input-wrap">
+        <input type="email" class="modal-input" id="modalEmail" placeholder="your@email.com">
+        <button class="modal-submit" onclick="submitOptOut()">Save my spot</button>
+      </div>
+    </div>
+    <div class="modal-sent" id="modal-sent">
+      <p class="modal-sent-text">We'll be here.</p>
+      <p class="modal-sent-sub">Check your inbox. Your application link will arrive shortly.</p>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="app-nav" id="appNav">
+  <span class="nav-logo">Pavilion</span>
+  <span class="nav-stage" id="navStage"></span>
+  <button class="nav-back" id="navBack" style="visibility:hidden" onclick="goBack()">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10 3L5 8l5 5"/></svg>
+    Back
+  </button>
+</nav>
+
+<!-- ═══════════════════════════════════ STAGE 1 ═══ -->
+<div class="screen" id="stage1">
+  <div class="stage1-inner">
+    <div class="stage-eyebrow anim-fade-up">Executive Membership</div>
+    <h1 class="stage1-h1 anim-fade-up-2">
+      Apply to<br><em>Pavilion.</em>
+    </h1>
+    <p class="stage1-sub anim-fade-up-3">
+      The community for revenue operators who take their careers seriously. Takes about 60 seconds to get started.
+    </p>
+
+    <div class="form-group anim-fade-up-4">
+      <div class="form-row-2">
+        <div>
+          <label class="input-label">First Name</label>
+          <input type="text" class="app-input" id="firstName" placeholder="Sarah">
+        </div>
+        <div>
+          <label class="input-label">Last Name</label>
+          <input type="text" class="app-input" id="lastName" placeholder="Chen">
+        </div>
+      </div>
+      <div>
+        <label class="input-label">Work Email</label>
+        <input type="email" class="app-input" id="email" placeholder="sarah@company.com">
+      </div>
+      <div>
+        <label class="input-label">Company</label>
+        <input type="text" class="app-input" id="company" placeholder="Acme Corp">
+      </div>
+      <div class="form-row-2">
+        <div>
+          <label class="input-label">Function</label>
+          <select class="app-input app-select" id="title">
+            <option value="" disabled selected>Select your function</option>
+            <option value="sales">Sales</option>
+            <option value="marketing">Marketing</option>
+            <option value="cs">Customer Success</option>
+            <option value="revops">Revenue Operations</option>
+            <option value="partnerships">Partnerships</option>
+          </select>
+        </div>
+        <div>
+          <label class="input-label">Years in Revenue</label>
+          <select class="app-input app-select" id="tenure">
+            <option value="" disabled selected>Select tenure</option>
+            <option value="early">Under 5 years</option>
+            <option value="mid">5–10 years</option>
+            <option value="senior">10+ years</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="goToStage2()">Apply to Pavilion →</button>
+      <p class="form-note">No commitment required at this step.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ STAGE 2 ═══ -->
+<div class="screen" id="stage2">
+  <div class="s2-left">
+    <div class="s2-greeting" id="s2Greeting">Good to meet you.</div>
+    <h2 class="s2-h2" id="s2Headline"></h2>
+    <p class="s2-body" id="s2Body"></p>
+    <div class="proof-quote">
+      <p class="proof-quote-text" id="s2Quote"></p>
+      <p class="proof-quote-attr" id="s2QuoteAttr"></p>
+    </div>
+  </div>
+  <div class="s2-right">
+    <div class="s2-outcomes" id="s2Outcomes"></div>
+    <div class="s2-proof" id="s2Proof">
+      <div class="s2-proof-label">In Practice</div>
+      <p class="s2-proof-text" id="s2ProofText"></p>
+    </div>
+    <div class="s2-cta-area">
+      <button class="btn-continue" onclick="goToStage3()">
+        See membership details
+        <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+      <button class="btn-text" onclick="goToStage3()">Continue to pricing →</button>
+    </div>
+    <div class="s2-optout">
+      <button class="s2-optout-btn" onclick="openOptOutModal()">Not the right fit right now</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ STAGE 3 ═══ -->
+<div class="screen" id="stage3">
+  <div class="stage3-inner">
+    <div class="s3-header">
+      <div class="stage-eyebrow">Membership Details</div>
+      <h2 class="s3-h2">The investment.<br><em>And what it returns.</em></h2>
+      <p class="s3-sub">Pavilion is not cheap. It is a deliberate investment in your career, your network, and your ability to operate at the highest level. Here is what that investment looks like.</p>
+    </div>
+
+    <div class="quotes-grid">
+      <div class="member-quote">
+        <p class="member-quote-text">Most of my closest operator relationships don't work at my company. Pavilion is where I talk to people who get my job but aren't caught up in my internal politics.</p>
+        <p class="member-quote-attr">VP of Sales, Series C SaaS</p>
+      </div>
+      <div class="member-quote">
+        <p class="member-quote-text">When something goes sideways, Pavilion gives me a bigger net. I don't spiral as long because I can pressure-test things with people who've been through it before.</p>
+        <p class="member-quote-attr">VP of Customer Success, 400-person company</p>
+      </div>
+      <div class="member-quote">
+        <p class="member-quote-text">The conversations aren't theoretical. They're about things I'm dealing with right now — board pressure, missed numbers, org design, comp plans, tough people calls.</p>
+        <p class="member-quote-attr">SVP of Marketing, B2B Software</p>
+      </div>
+      <div class="member-quote">
+        <p class="member-quote-text">I have become a better GTM leader. Not by learning new frameworks, but by seeing how other operators actually run their teams and do things.</p>
+        <p class="member-quote-attr">VP of Revenue Operations</p>
+      </div>
+    </div>
+
+    <div class="faces-section">
+      <div class="faces-label">Members you will be in the room with</div>
+      <div class="faces-grid">
+        <div class="face-card">
+          <div class="face-avatar" style="background:linear-gradient(135deg,#2d4a6e,#4a7ab5)">JR</div>
+          <div class="face-name">James Rivera</div>
+          <div class="face-role">SVP Sales, Lattice</div>
+        </div>
+        <div class="face-card">
+          <div class="face-avatar" style="background:linear-gradient(135deg,#6b3a2a,#b85c2a)">SK</div>
+          <div class="face-name">Sarah Kim</div>
+          <div class="face-role">VP Marketing, Deel</div>
+        </div>
+        <div class="face-card">
+          <div class="face-avatar" style="background:linear-gradient(135deg,#2a4a3a,#3d7a5a)">MT</div>
+          <div class="face-name">Marcus Thompson</div>
+          <div class="face-role">VP Customer Success, Rippling</div>
+        </div>
+        <div class="face-card">
+          <div class="face-avatar" style="background:linear-gradient(135deg,#4a2d6e,#7a4ab5)">AL</div>
+          <div class="face-name">Anika Lowe</div>
+          <div class="face-role">VP RevOps, Gong</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing-block">
+      <div class="price-left">
+        <div class="price-label">Executive Membership</div>
+        <div class="price-amount">$2,700</div>
+        <div class="price-period">per year</div>
+        <p class="price-reframe">
+          <strong>One better hire. One sharper comp negotiation. One partnership introduction.</strong> Most members say Pavilion paid for itself in the first 90 days.
+        </p>
+      </div>
+      <div class="price-right">
+        <div class="price-includes-label">What's included</div>
+        <ul class="price-includes-list">
+          <li class="price-includes-item">Access to 7,500+ revenue operators across 40+ cities</li>
+          <li class="price-includes-item">Quarterly operator-led programs and working groups</li>
+          <li class="price-includes-item">In-market events and operator dinners in your city</li>
+          <li class="price-includes-item">Benchmarking data on comp, team structure, and GTM models</li>
+          <li class="price-includes-item">Executive Compensation Committee access</li>
+          <li class="price-includes-item">Annual GTM conference (GTM2026, NYC)</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="insurance-line">You would be a different operator in 12 months. The question is whether you build that alone.</p>
+
+    <div class="faq-section">
+      <div class="faq-label">Common questions</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can my company pay for this?
+          <svg class="faq-chevron" viewBox="0 0 16 16"><path d="M3 6l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer">Yes. Pavilion membership is commonly expensed as professional development. We can provide an invoice in whatever format your finance team requires. Most members have this approved in a single conversation with their manager.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What if I change jobs mid-membership?
+          <svg class="faq-chevron" viewBox="0 0 16 16"><path d="M3 6l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer">Your membership stays with you, not your company. In fact, a career transition is one of the moments Pavilion is most useful. Members consistently say the community was instrumental in their next move — both in finding opportunities and negotiating better terms.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is the cancellation policy?
+          <svg class="faq-chevron" viewBox="0 0 16 16"><path d="M3 6l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer">Annual memberships are non-refundable, but if something changes, we always want to talk first. Our team will reach out before any renewal to make sure Pavilion is still working for you. We have never wanted anyone to stay who is not getting value.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is there a trial period?
+          <svg class="faq-chevron" viewBox="0 0 16 16"><path d="M3 6l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer">There is no trial, but this application process is designed to help you self-qualify before committing. If you have gone through all four stages and still have doubts, reach out directly. We would rather answer your questions before you join than after.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How much time does it actually take?
+          <svg class="faq-chevron" viewBox="0 0 16 16"><path d="M3 6l5 5 5-5"/></svg>
+        </button>
+        <div class="faq-answer">As much or as little as you want. Members who lean in get more out of it. The minimum viable commitment is showing up to one event or one conversation per quarter. The members who get the most out of it treat it like a genuine professional habit, not a subscription they check occasionally.</div>
+      </div>
+    </div>
+
+    <button class="btn-primary" style="max-width:400px;margin:0 auto;display:block;" onclick="goToStage4()">Join Pavilion →</button>
+    <p style="text-align:center;margin-top:16px;">
+      <button class="s2-optout-btn" onclick="goToOffer()">I'm interested but not quite ready</button>
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ OFFER ═══ -->
+<div class="screen" id="stageOffer">
+  <div class="offer-inner">
+    <div class="offer-left">
+      <div class="stage-eyebrow" style="color:var(--accent-light);margin-bottom:24px;">A different path in</div>
+      <h2 class="s2-h2">Not quite ready.<br><em>Here is what<br>we can do.</em></h2>
+      <p class="s2-body">Making it to this point means you see the value. We want to make sure the mechanics work for you too. Three options, no discount, no pressure.</p>
+      <div class="proof-quote" style="margin-top:40px;">
+        <p class="proof-quote-text">The members who get the most out of Pavilion are the ones who committed before they felt fully ready.</p>
+        <p class="proof-quote-attr">Observation from 10 years of community building</p>
+      </div>
+    </div>
+    <div class="offer-right">
+      <div class="offer-options">
+
+        <div class="offer-option" id="offer-opt-1" onclick="selectOffer(1)">
+          <div class="offer-option-header">
+            <div class="offer-radio" id="offer-radio-1"></div>
+            <div>
+              <div class="offer-option-title">Quarterly payments</div>
+              <div class="offer-option-price">$675 / quarter &nbsp;·&nbsp; same $2,700 total</div>
+            </div>
+          </div>
+          <p class="offer-option-body">Same membership, same access, same community. Spread across four payments so it fits within a single budget cycle. No interest, no markup.</p>
+        </div>
+
+        <div class="offer-option" id="offer-opt-2" onclick="selectOffer(2)">
+          <div class="offer-option-header">
+            <div class="offer-radio" id="offer-radio-2"></div>
+            <div>
+              <div class="offer-option-title">90-day relationship guarantee</div>
+              <div class="offer-option-price">Full year &nbsp;·&nbsp; $2,700</div>
+            </div>
+          </div>
+          <p class="offer-option-body">Join today. At 90 days, a Pavilion team member personally checks in to make sure you are getting value. If you are not, we will work with you to fix it. Not a refund. A relationship.</p>
+        </div>
+
+        <div class="offer-option" id="offer-opt-3" onclick="selectOffer(3)">
+          <div class="offer-option-header">
+            <div class="offer-radio" id="offer-radio-3"></div>
+            <div>
+              <div class="offer-option-title">Defer your start date</div>
+              <div class="offer-option-price">Lock in today's rate &nbsp;·&nbsp; start next quarter</div>
+            </div>
+          </div>
+          <p class="offer-option-body">Timing is off but the decision is right. Lock in your membership at today's rate and choose a start date up to 90 days out. Your year begins when you are ready.</p>
+        </div>
+
+      </div>
+
+      <button class="btn-continue" id="offerCta" onclick="goToStage4()" style="opacity:0.4;pointer-events:none;margin-top:8px;">
+        Continue with selected option
+        <svg viewBox="0 0 16 16" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </button>
+      <p style="text-align:center;margin-top:12px;">
+        <button class="s2-optout-btn" onclick="openOptOutModal()">Save my place and come back later</button>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ STAGE 4 ═══ -->
+<div class="screen" id="stage4">
+  <div class="stage4-inner">
+    <div class="s4-eyebrow anim-fade-up">You're almost in.</div>
+    <h2 class="s4-h2 anim-fade-up-2">
+      7,500 operators.<br><em>One decision.</em>
+    </h2>
+    <p class="s4-sub anim-fade-up-3">
+      You are about to join a community of revenue leaders who take their careers as seriously as you do. Someone from our team will reach out within 24 hours to welcome you and get you oriented.
+    </p>
+
+    <div class="card-form anim-fade-up-3">
+      <div class="card-form-label">Payment Details</div>
+      <div class="card-summary-line">Executive Membership &nbsp;·&nbsp; $2,700 / year</div>
+      <div class="card-fields">
+        <div class="card-field-full">
+          <label class="input-label" style="color:rgba(255,255,255,0.4)">Card Number</label>
+          <div class="card-input-wrap">
+            <input type="text" class="app-input card-input" placeholder="4242 4242 4242 4242" maxlength="19" oninput="formatCardNumber(this)">
+            <div class="card-icons">
+              <svg viewBox="0 0 38 24" width="32"><rect width="38" height="24" rx="4" fill="#1a1f71"/><rect y="7" width="38" height="7" fill="#f7b600"/></svg>
+              <svg viewBox="0 0 38 24" width="32"><rect width="38" height="24" rx="4" fill="#eb001b" opacity="0.9"/><rect x="14" width="10" height="24" fill="#f79e1b" opacity="0.8"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-field-row">
+          <div>
+            <label class="input-label" style="color:rgba(255,255,255,0.4)">Expiry</label>
+            <input type="text" class="app-input card-input" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)">
+          </div>
+          <div>
+            <label class="input-label" style="color:rgba(255,255,255,0.4)">CVC</label>
+            <input type="text" class="app-input card-input" placeholder="···" maxlength="4">
+          </div>
+        </div>
+        <div class="card-field-full">
+          <label class="input-label" style="color:rgba(255,255,255,0.4)">Name on Card</label>
+          <input type="text" class="app-input card-input" placeholder="Sarah Chen">
+        </div>
+      </div>
+      <div class="card-secure-note">
+        <svg viewBox="0 0 16 16" width="12" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="7" width="10" height="8" rx="1"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
+        Secured by Stripe. This is a prototype — no real charge will occur.
+      </div>
+    </div>
+
+    <div class="swipe-container anim-fade-up-4">
+      <div class="swipe-track" id="swipeTrack">
+        <div class="swipe-fill" id="swipeFill"></div>
+        <div class="swipe-thumb" id="swipeThumb">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+        <div class="swipe-label" id="swipeLabel">Swipe to join Pavilion</div>
+      </div>
+    </div>
+
+    <p class="s4-note anim-fade-up-4">By joining, you agree to Pavilion's membership terms and community standards.</p>
+    <p class="s4-tagline">Carry the job alone. Live this life together.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ STAGE 5: SUCCESS ═══ -->
+<div class="screen" id="stage5">
+  <div class="s5-inner">
+    <div class="s5-mark anim-scale">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg>
+    </div>
+    <h2 class="s5-h2 anim-fade-up">Welcome to<br><em>Pavilion.</em></h2>
+    <p class="s5-body anim-fade-up-2">You're in. Someone from our team will reach out within 24 hours to welcome you personally and get you oriented in the community.</p>
+
+    <div class="s5-detail anim-fade-up-3">
+      <div class="s5-detail-row">
+        <span class="s5-detail-label">Member</span>
+        <span class="s5-detail-value" id="s5Name"></span>
+      </div>
+      <div class="s5-detail-row">
+        <span class="s5-detail-label">Membership</span>
+        <span class="s5-detail-value">Executive</span>
+      </div>
+      <div class="s5-detail-row">
+        <span class="s5-detail-label">Annual Investment</span>
+        <span class="s5-detail-value">$2,700</span>
+      </div>
+      <div class="s5-detail-row">
+        <span class="s5-detail-label">Next Step</span>
+        <span class="s5-detail-value">Team reaches out within 24hrs</span>
+      </div>
+    </div>
+
+    <p class="s5-line anim-fade-up-4">Carry the job alone. Live this life together.</p>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────
+const functionData = {
+  sales: {
+    headline: "You run a number that\n<em>never stops moving.</em>",
+    body: "Most of the advice available to you is too theoretical or comes from people who left the seat years ago. You need peers who are running the same plays right now, in similar markets, at similar scale.",
+    quote: "Most of my closest operator relationships don't work at my company. Pavilion is where I talk to people who get my job but aren't caught up in my internal politics.",
+    quoteAttr: "VP of Sales, Series C SaaS",
+    outcomes: [
+      {
+        icon: `<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>`,
+        title: "Career Leverage",
+        body: "<strong>Better employment terms over your career</strong> because you know what peers at similar companies are making, how their comp is structured, and what the real market looks like. Job opportunities come through people who have seen you operate."
+      },
+      {
+        icon: `<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>`,
+        title: "Build Teams Faster",
+        body: "Access a vetted bench of operators when you need to hire. <strong>Pavilion members refer differently</strong> because they have seen each other work. No cold LinkedIn searches. Actual operator judgment."
+      },
+      {
+        icon: `<path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>`,
+        title: "Operator-Led Learning",
+        body: "Quarterly programs run by people doing the work today. <strong>Comp plan benchmarks, pipeline methodology, org design</strong> from operators at companies like yours, not consultants theorizing about yours."
+      }
+    ],
+    proof: "A VP of Sales at a 200-person SaaS company used a Pavilion peer session to restructure her comp plan in three weeks. She had been sitting on the problem for six months. One conversation, right room, right people."
+  },
+  marketing: {
+    headline: "Prove attribution.\n<em>With people who believe you.</em>",
+    body: "You are being asked to do more with less while justifying every dollar to a CFO who does not fully trust the model. Most marketing communities are full of people selling something. You need peers who will tell you what is actually working.",
+    quote: "The conversations aren't theoretical. They're about things I'm dealing with right now — board pressure, missed numbers, org design, comp plans, tough people calls.",
+    quoteAttr: "SVP of Marketing, B2B Software",
+    outcomes: [
+      {
+        icon: `<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>`,
+        title: "Career Leverage",
+        body: "<strong>Sharper judgment on the decisions that define your career.</strong> Rebrands, budget reallocation, org restructuring. The operators you need to pressure-test those decisions with are in this community."
+      },
+      {
+        icon: `<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>`,
+        title: "In-Market Intelligence",
+        body: "<strong>Benchmarks that actually apply to your company size, stage, and motion.</strong> What are peers spending on demand gen? How are they structuring the team post-layoffs? Pavilion gives you the real numbers."
+      },
+      {
+        icon: `<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>`,
+        title: "Network as an Asset",
+        body: "VPs and SVPs of Marketing across B2B SaaS, services, and mid-market. <strong>Demand gen, brand, and product marketing all represented.</strong> People who will tell you when your strategy is wrong before you take it to the CEO."
+      }
+    ],
+    proof: "A VP of Marketing used Pavilion to pressure-test a rebrand before presenting to his CEO. The feedback from three peers who had navigated the same decision saved him from a costly misstep. The reframe took 72 hours."
+  },
+  cs: {
+    headline: "CS is a revenue function.\n<em>Act like it.</em>",
+    body: "You are managing retention, expansion, and headcount justification simultaneously while still fighting for your seat at the revenue table. The operators who understand that pressure are rare. Most of them are in Pavilion.",
+    quote: "When something goes sideways, Pavilion gives me a bigger net. I don't spiral as long because I can pressure-test things with people who've been through it before.",
+    quoteAttr: "VP of Customer Success, 400-person company",
+    outcomes: [
+      {
+        icon: `<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>`,
+        title: "Career Leverage",
+        body: "<strong>Build the business case that changes your trajectory.</strong> Comp benchmarks, org positioning, reporting structure. Pavilion members have navigated every version of the CS-to-CRO conversation. You don't have to figure it out alone."
+      },
+      {
+        icon: `<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>`,
+        title: "Build Retention Teams Faster",
+        body: "When you need to hire, <strong>Pavilion gives you a vetted bench of CS operators</strong> who have been seen in action by people you trust. No guesswork. Actual operator referrals from people who know the difference between good and great."
+      },
+      {
+        icon: `<path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>`,
+        title: "Operator-Led Programs",
+        body: "Quarterly programs on the real problems: <strong>churn analysis, expansion motion, QBR design, CS compensation</strong>. Led by operators at companies comparable to yours. Not recycled playbooks."
+      }
+    ],
+    proof: "A VP of CS used a Pavilion working group to build the business case that moved her team under the CRO instead of Support. That repositioning changed her trajectory. She had the framework built and approved in six weeks."
+  },
+  revops: {
+    headline: "You sit at the intersection\n<em>of everything.</em>",
+    body: "Every system. Every team. Every data question in the business. Most organizations still do not fully understand what you do. The ones who do are in Pavilion, and they are the only people worth talking to.",
+    quote: "I have become a better GTM leader. Not by learning new frameworks, but by seeing how other operators actually run their teams and do things.",
+    quoteAttr: "VP of Revenue Operations",
+    outcomes: [
+      {
+        icon: `<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>`,
+        title: "Career Leverage",
+        body: "<strong>RevOps is still defining itself as a discipline.</strong> The operators shaping what the function looks like and what it pays are in this community. Pavilion puts you in those rooms before those decisions are made."
+      },
+      {
+        icon: `<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>`,
+        title: "Benchmark Everything",
+        body: "Tech stack, team structure, comp, attribution models. <strong>Pavilion members share data that does not exist anywhere else</strong> because they trust the room. That intelligence compresses what would take months into days."
+      },
+      {
+        icon: `<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>`,
+        title: "Network as an Asset",
+        body: "RevOps leaders from companies at every stage. <strong>People who built the function from scratch and people who inherited someone else's mess.</strong> Both perspectives in the same room."
+      }
+    ],
+    proof: "A VP of RevOps used Pavilion to benchmark his tech stack against 40 comparable companies in two days. That data gave him the confidence to cut three tools and reallocate $180K in annual spend. It would have taken months to gather otherwise."
+  },
+  partnerships: {
+    headline: "The playbook is still\n<em>being written.</em>",
+    body: "Partnerships is the most underleveraged function in most businesses and the hardest to get right. You are building something your colleagues do not fully understand. The people who have done it before are in Pavilion.",
+    quote: "Most of my closest operator relationships don't work at my company. Pavilion is where I talk to people who get my job but aren't caught up in my internal politics.",
+    quoteAttr: "VP of Partnerships, SaaS Platform",
+    outcomes: [
+      {
+        icon: `<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>`,
+        title: "Career Leverage",
+        body: "<strong>Partnerships leaders who navigate this well build network advantages that compound for a decade.</strong> Pavilion accelerates that. Every city becomes a potential co-sell conversation or a referral relationship."
+      },
+      {
+        icon: `<path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>`,
+        title: "Partnership Pipeline",
+        body: "Exclusive access to top technology partners and co-sell opportunities that come through the community. <strong>Pavilion creates introductions that take years to manufacture on your own.</strong>"
+      },
+      {
+        icon: `<path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>`,
+        title: "Operators Who Understand You",
+        body: "Early-stage channel builders and mature ecosystem leaders both in the room. <strong>Find the three people who have already made the mistakes you are about to make</strong> and compress years of trial and error into a single conversation."
+      }
+    ],
+    proof: "A VP of Partnerships used Pavilion to find three peers who had already navigated the transition from reseller to co-sell motion. That access saved her an estimated year of trial and error and gave her a framework her CEO bought immediately."
+  }
+};
+
+// ─── STATE ──────────────────────────────────────────────────────
+let currentStage = 1;
+let applicantData = {};
+
+// ─── NAVIGATION ─────────────────────────────────────────────────
+function showScreen(id, progress, stageLabel, showBack) {
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active', 'visible');
+  });
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  setTimeout(() => el.classList.add('visible'), 10);
+
+  document.getElementById('progressBar').style.display = progress > 0 ? 'block' : 'none';
+  document.getElementById('progressFill').style.width = progress + '%';
+  document.getElementById('navStage').textContent = stageLabel;
+  document.getElementById('navBack').style.visibility = showBack ? 'visible' : 'hidden';
+}
+
+function goBack() {
+  if (currentStage === 2) { currentStage = 1; showScreen('stage1', 0, '', false); }
+  else if (currentStage === 3) { currentStage = 2; showScreen('stage2', 50, 'Step 2 of 4', true); revealOutcomes(); }
+  else if (currentStage === 'offer') { currentStage = 3; showScreen('stage3', 75, 'Step 3 of 4', true); }
+  else if (currentStage === 4) { currentStage = 3; showScreen('stage3', 75, 'Step 3 of 4', true); }
+}
+
+// ─── STAGE 1 → 2 ────────────────────────────────────────────────
+function goToStage2() {
+  const fn = document.getElementById('firstName').value.trim();
+  const ln = document.getElementById('lastName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const company = document.getElementById('company').value.trim();
+  const title = document.getElementById('title').value;
+  const tenure = document.getElementById('tenure').value;
+
+  if (!fn || !email || !title) {
+    alert('Please fill in at least your first name, email, and title to continue.');
+    return;
+  }
+
+  applicantData = { firstName: fn, lastName: ln, email, company, title, tenure };
+  populateStage2(title, fn);
+  currentStage = 2;
+  showScreen('stage2', 50, 'Step 2 of 4', true);
+  setTimeout(revealOutcomes, 300);
+}
+
+function populateStage2(fn_key, firstName) {
+  const d = functionData[fn_key] || functionData['sales'];
+
+  document.getElementById('s2Greeting').textContent = `Good to meet you, ${firstName}.`;
+  document.getElementById('s2Headline').innerHTML = d.headline.replace(/\n/g, '<br>');
+  document.getElementById('s2Body').textContent = d.body;
+  document.getElementById('s2Quote').textContent = d.quote;
+  document.getElementById('s2QuoteAttr').textContent = d.quoteAttr;
+  document.getElementById('s2ProofText').textContent = d.proof;
+
+  const container = document.getElementById('s2Outcomes');
+  container.innerHTML = '';
+  d.outcomes.forEach((o, i) => {
+    const div = document.createElement('div');
+    div.className = 'outcome-block';
+    div.style.transitionDelay = (i * 0.12) + 's';
+    div.innerHTML = `
+      <div class="outcome-icon">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">${o.icon}</svg>
+      </div>
+      <div>
+        <div class="outcome-title">${o.title}</div>
+        <p class="outcome-body">${o.body}</p>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function revealOutcomes() {
+  document.querySelectorAll('.outcome-block').forEach((b, i) => {
+    setTimeout(() => b.classList.add('revealed'), i * 120);
+  });
+}
+
+// ─── STAGE 2 → 3 ────────────────────────────────────────────────
+function goToStage3() {
+  currentStage = 3;
+  showScreen('stage3', 75, 'Step 3 of 4', true);
+}
+
+// ─── STAGE 3 → 4 ────────────────────────────────────────────────
+function goToStage4() {
+  currentStage = 4;
+  showScreen('stage4', 90, 'Step 4 of 4', true);
+  initSwipe();
+}
+
+// ─── SWIPE MECHANIC ──────────────────────────────────────────────
+function initSwipe() {
+  const track = document.getElementById('swipeTrack');
+  const thumb = document.getElementById('swipeThumb');
+  const fill = document.getElementById('swipeFill');
+  const label = document.getElementById('swipeLabel');
+
+  const trackW = track.offsetWidth;
+  const thumbW = 72;
+  const maxX = trackW - thumbW;
+
+  let dragging = false;
+  let startX = 0;
+  let currentX = 0;
+
+  function getClientX(e) {
+    return e.touches ? e.touches[0].clientX : e.clientX;
+  }
+
+  function onStart(e) {
+    dragging = true;
+    startX = getClientX(e) - currentX;
+    thumb.style.transition = 'none';
+    fill.style.transition = 'none';
+  }
+
+  function onMove(e) {
+    if (!dragging) return;
+    e.preventDefault();
+    let x = getClientX(e) - startX;
+    x = Math.max(0, Math.min(x, maxX));
+    currentX = x;
+    thumb.style.left = (6 + x) + 'px';
+    const pct = x / maxX;
+    fill.style.width = (72 + x) + 'px';
+    label.style.opacity = Math.max(0, 1 - pct * 2);
+
+    if (x >= maxX * 0.95) {
+      onComplete();
+    }
+  }
+
+  function onEnd() {
+    if (!dragging) return;
+    dragging = false;
+    if (currentX < maxX * 0.95) {
+      thumb.style.transition = 'left 0.3s cubic-bezier(0.4,0,0.2,1)';
+      fill.style.transition = 'width 0.3s cubic-bezier(0.4,0,0.2,1)';
+      thumb.style.left = '6px';
+      fill.style.width = '72px';
+      label.style.opacity = 1;
+      currentX = 0;
+    }
+  }
+
+  function onComplete() {
+    dragging = false;
+    thumb.style.transition = 'left 0.3s ease';
+    fill.style.transition = 'width 0.3s ease';
+    thumb.style.left = (6 + maxX) + 'px';
+    fill.style.width = trackW + 'px';
+    label.style.opacity = 0;
+    thumb.querySelector('svg').style.opacity = 0;
+
+    setTimeout(() => {
+      goToStage5();
+    }, 400);
+  }
+
+  thumb.addEventListener('mousedown', onStart);
+  thumb.addEventListener('touchstart', onStart, { passive: true });
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('mouseup', onEnd);
+  document.addEventListener('touchend', onEnd);
+
+  // Click to complete on mobile tap
+  track.addEventListener('click', (e) => {
+    const rect = track.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    if (x > trackW * 0.5) onComplete();
+  });
+}
+
+// ─── STAGE 5: SUCCESS ───────────────────────────────────────────
+function goToStage5() {
+  const name = [applicantData.firstName, applicantData.lastName].filter(Boolean).join(' ') || 'Member';
+  document.getElementById('s5Name').textContent = name;
+  currentStage = 5;
+  showScreen('stage5', 100, 'Complete', false);
+}
+
+// ─── OFFER SCREEN ────────────────────────────────────────────────
+function goToOffer() {
+  currentStage = 'offer';
+  showScreen('stageOffer', 80, 'Alternative options', true);
+}
+
+function selectOffer(n) {
+  [1,2,3].forEach(i => {
+    document.getElementById('offer-opt-' + i).classList.remove('selected');
+  });
+  document.getElementById('offer-opt-' + n).classList.add('selected');
+  const cta = document.getElementById('offerCta');
+  cta.style.opacity = '1';
+  cta.style.pointerEvents = 'auto';
+}
+
+// ─── OPT-OUT MODAL ───────────────────────────────────────────────
+function openOptOutModal() {
+  document.getElementById('optOutModal').classList.add('open');
+  document.getElementById('modalEmail').focus();
+}
+
+function closeOptOutModal() {
+  document.getElementById('optOutModal').classList.remove('open');
+}
+
+function submitOptOut() {
+  const email = document.getElementById('modalEmail').value.trim();
+  if (!email) { document.getElementById('modalEmail').focus(); return; }
+  document.getElementById('modal-form-wrap').style.display = 'none';
+  document.getElementById('modal-sent').style.display = 'block';
+  setTimeout(() => closeOptOutModal(), 2800);
+}
+
+// Close modal on overlay click
+document.getElementById('optOutModal').addEventListener('click', function(e) {
+  if (e.target === this) closeOptOutModal();
+});
+
+// ─── FAQ ACCORDION ───────────────────────────────────────────────
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ─── CARD FORMATTING ─────────────────────────────────────────────
+function formatCardNumber(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 16);
+  input.value = v.replace(/(.{4})/g, '$1 ').trim();
+}
+
+function formatExpiry(input) {
+  let v = input.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length >= 2) v = v.substring(0,2) + ' / ' + v.substring(2);
+  input.value = v;
+}
+
+// ─── INIT ────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  showScreen('stage1', 0, '', false);
+});
+</script>
+</body>
+</html>

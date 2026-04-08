@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Executive Compensation & Negotiation — Pavilion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pav-pink:     #DF285B;
+    --pav-pink-200: #FFEDF2;
+    --pav-blue:     #180A5C;
+    --pav-blue-600: #2B1887;
+    --pav-white:    #FFFFFF;
+    --pav-body:     #404040;
+    --pav-muted:    #6B7280;
+    --pav-gray-200: #EFEFEF;
+    --font:         'Poppins', Arial, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--pav-white);
+    color: var(--pav-body);
+    font-family: var(--font);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ────────────────────────────────────────────────── */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: var(--pav-blue);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+  }
+  .nav-cta {
+    display: inline-block;
+    padding: 10px 24px;
+    background: var(--pav-pink);
+    color: white;
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 100px;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero {
+    background: var(--pav-blue);
+    padding: 80px 48px 96px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .hero-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 28px;
+  }
+  .hero-h1 {
+    font-size: clamp(38px, 4vw, 56px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  .hero-h1 em { font-style: normal; color: var(--pav-pink); }
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.75;
+    margin-bottom: 40px;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 44px;
+    text-align: left;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+  }
+  .hero-bullet::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--pav-pink);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* ── BUTTONS ─────────────────────────────────────────────── */
+  .btn-primary {
+    display: inline-block;
+    padding: 16px 36px;
+    background: var(--pav-pink);
+    color: white;
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: 100px;
+    transition: opacity 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost {
+    display: inline-block;
+    padding: 16px 36px;
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 100px;
+    transition: opacity 0.2s;
+  }
+  .btn-ghost:hover { opacity: 0.7; }
+  .btn-outline {
+    display: inline-block;
+    padding: 16px 36px;
+    background: transparent;
+    color: var(--pav-blue-600);
+    text-decoration: none;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: 1.5px solid var(--pav-blue-600);
+    border-radius: 100px;
+    transition: opacity 0.2s;
+  }
+  .btn-outline:hover { opacity: 0.65; }
+
+  /* ── SHARED SECTION STYLES ───────────────────────────────── */
+  .section {
+    padding: 96px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--pav-pink);
+    border-radius: 2px;
+  }
+  .section-h2 {
+    font-size: clamp(30px, 3.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--pav-blue-600);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .section-h2 em { font-style: normal; color: var(--pav-pink); }
+  .section-sub {
+    font-size: 16px;
+    color: var(--pav-muted);
+    line-height: 1.75;
+    max-width: 580px;
+    margin-bottom: 56px;
+  }
+
+  /* ── TRUTH SECTION ──────────────────────────────────────── */
+  .truth-section {
+    padding: 72px 48px;
+    border-bottom: 1px solid var(--pav-gray-200);
+  }
+  .truth-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .truth-text {
+    font-size: 18px;
+    color: var(--pav-body);
+    line-height: 1.85;
+    font-weight: 400;
+  }
+  .truth-text strong { color: var(--pav-blue-600); font-weight: 600; }
+
+  /* ── COACHING SECTION ───────────────────────────────────── */
+  .coaching-section {
+    padding: 96px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .coaching-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 56px;
+  }
+  .coaching-body {
+    font-size: 16px;
+    color: var(--pav-muted);
+    line-height: 1.85;
+  }
+  .coaching-body p { margin-bottom: 20px; }
+  .coaching-body p:last-child { margin-bottom: 0; }
+  .coaching-body strong { color: var(--pav-blue-600); font-weight: 600; }
+  .coach-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--pav-gray-200);
+    border: 1px solid var(--pav-gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .coach-card {
+    background: white;
+    padding: 28px 32px;
+  }
+  .coach-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--pav-blue-600);
+    margin-bottom: 4px;
+  }
+  .coach-role {
+    font-size: 13px;
+    color: var(--pav-muted);
+    line-height: 1.5;
+  }
+  .coaching-cta {
+    margin-top: 32px;
+  }
+
+  /* ── FOUNDER NOTE ────────────────────────────────────────── */
+  .founder-note-section {
+    background: #FAFAF8;
+    border-bottom: 1px solid var(--pav-gray-200);
+    padding: 72px 48px 64px;
+  }
+  .founder-note-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-left: 28px;
+    border-left: 3px solid var(--pav-pink);
+  }
+  .founder-note-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pav-pink);
+    margin-bottom: 24px;
+  }
+  .founder-note-text {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.9;
+    color: var(--pav-body);
+    margin-bottom: 36px;
+  }
+  .founder-sig-name {
+    display: block;
+    font-family: 'Dancing Script', cursive;
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--pav-blue-600);
+    line-height: 1.15;
+  }
+  .founder-sig-title {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--pav-muted);
+    margin-top: 4px;
+  }
+
+  /* ── CLASS SECTION ──────────────────────────────────────── */
+  .class-section {
+    background: var(--pav-pink-200);
+    padding: 96px 48px;
+  }
+  .class-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .class-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .class-check-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: var(--pav-body);
+    line-height: 1.55;
+  }
+  .class-check-item::before {
+    content: '✓';
+    color: var(--pav-pink);
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .class-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(223,40,91,0.12);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .class-meta-item { background: white; padding: 22px 24px; }
+  .class-meta-key {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pav-muted);
+    margin-bottom: 6px;
+  }
+  .class-meta-val {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--pav-blue-600);
+    line-height: 1.3;
+  }
+
+  /* ── DATA SECTION ───────────────────────────────────────── */
+  .data-section {
+    background: var(--pav-blue);
+    padding: 96px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .data-section::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .data-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .data-section .section-label {
+    justify-content: center;
+  }
+  .data-h2 {
+    font-size: clamp(30px, 3.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: white;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .data-h2 em { font-style: normal; color: var(--pav-pink); }
+  .data-body {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.8;
+    margin-bottom: 44px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .data-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 44px;
+  }
+  .data-feature {
+    background: rgba(255,255,255,0.05);
+    padding: 36px 28px;
+    text-align: center;
+  }
+  .data-feature-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 6px;
+  }
+  .data-feature-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+  }
+
+  /* ── COMMUNITY SECTION ──────────────────────────────────── */
+  .community-section {
+    padding: 72px 48px;
+    border-bottom: 1px solid var(--pav-gray-200);
+  }
+  .community-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .community-inner .section-label {
+    justify-content: center;
+  }
+  .community-h3 {
+    font-size: clamp(24px, 2.5vw, 32px);
+    font-weight: 700;
+    color: var(--pav-blue-600);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .community-body {
+    font-size: 16px;
+    color: var(--pav-muted);
+    line-height: 1.8;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* ── FINAL CTA ───────────────────────────────────────────── */
+  .final-cta {
+    background: var(--pav-blue);
+    padding: 96px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: -100px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(223,40,91,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .final-cta-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .final-h2 {
+    font-size: clamp(32px, 4vw, 50px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: white;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .final-h2 em { font-style: normal; color: var(--pav-pink); }
+  .final-body {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.75;
+    margin-bottom: 44px;
+  }
+  .final-prospect {
+    display: block;
+    margin-top: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+  }
+  .final-prospect a {
+    color: var(--pav-pink);
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+  .final-prospect a:hover { opacity: 0.7; }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer {
+    padding: 36px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--pav-gray-200);
+  }
+  .footer-logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pav-blue-600);
+  }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-link { font-size: 12px; color: var(--pav-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-link:hover { color: var(--pav-blue); }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .nav { padding: 16px 24px; }
+    .hero { padding: 64px 24px 72px; }
+    .truth-section { padding: 56px 24px; }
+    .coaching-section { padding: 72px 24px; }
+    .coaching-grid { grid-template-columns: 1fr; gap: 44px; }
+    .founder-note-section { padding: 64px 24px 56px; }
+    .founder-note-inner { padding-left: 20px; }
+    .founder-note-text { font-size: 15px; }
+    .class-section { padding: 72px 24px; }
+    .class-inner { grid-template-columns: 1fr; gap: 44px; }
+    .class-meta-grid { grid-template-columns: 1fr; }
+    .data-section { padding: 72px 24px; }
+    .data-features { grid-template-columns: 1fr; }
+    .community-section { padding: 56px 24px; }
+    .final-cta { padding: 72px 24px; }
+    footer { padding: 28px 24px; flex-direction: column; gap: 20px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="https://www.joinpavilion.com" class="nav-logo" target="_blank">Pavilion</a>
+  <a href="#book" class="nav-cta">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Executive Compensation & Negotiation</div>
+    <h1 class="hero-h1">Know your number.<br>Then go <em>get it.</em></h1>
+    <p class="hero-sub">Your compensation defines your career. Whether it's a new role, an annual review, or an exit — we make sure you never negotiate alone.</p>
+    <ul class="hero-bullets">
+      <li class="hero-bullet">1-on-1 coaching with former operating executives</li>
+      <li class="hero-bullet">3-week live class, runs every quarter</li>
+      <li class="hero-bullet">Executive comp benchmark reports from real member data</li>
+      <li class="hero-bullet">A community of peers navigating the same conversations</li>
+    </ul>
+    <a href="#book" class="btn-primary">Book a Call →</a>
+  </div>
+</section>
+
+<!-- THE TRUTH -->
+<section class="truth-section">
+  <div class="truth-inner">
+    <p class="truth-text">Most executives negotiate their compensation alone — without data, without coaching, without preparation. <strong>The difference between good and great negotiation isn't talent. It's process.</strong></p>
+  </div>
+</section>
+
+<!-- 1-ON-1 COACHING -->
+<section class="coaching-section">
+  <div class="section-label">1-on-1 Coaching</div>
+  <h2 class="section-h2">A former exec<br>in your <em>corner.</em></h2>
+  <p class="section-sub">These aren't career coaches. They're former operating executives who've been in the seat, negotiated their own packages, and know what good looks like.</p>
+  <div class="coaching-grid">
+    <div class="coaching-body">
+      <p><strong>Hundreds of Pavilion members</strong> have sat down with our coaching team to prepare for the conversations that define their careers — new offers, annual reviews, equity negotiations, and exit events.</p>
+      <p>In a session, your coach will review your offer or situation, help you script the ask, model out equity vs. base tradeoffs, and prepare you to walk into the room with clarity and confidence.</p>
+      <p>This isn't about playing games or bluffing. It's about <strong>knowing your worth, understanding the leverage, and having the language</strong> to get what you've earned.</p>
+      <div class="coaching-cta">
+        <a href="#book" class="btn-primary">Book Your Session →</a>
+      </div>
+    </div>
+    <div class="coach-cards">
+      <div class="coach-card">
+        <div class="coach-name">Sam Jacobs</div>
+        <div class="coach-role">Founder & CEO, Pavilion · Hundreds of coaching sessions with members</div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-name">Russ Macowski</div>
+        <div class="coach-role">Former Operating Executive · Pavilion Coach</div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-name">Fred Mather</div>
+        <div class="coach-role">Former Operating Executive · Pavilion Coach</div>
+      </div>
+      <div class="coach-card">
+        <div class="coach-name">Butch Langwa</div>
+        <div class="coach-role">Founding Toronto Chapter Head · Pavilion Coach</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER NOTE -->
+<section class="founder-note-section">
+  <div class="founder-note-inner">
+    <div class="founder-note-label">A note from our founder</div>
+    <p class="founder-note-text">
+      Over the last 10 years running Pavilion, I've held hundreds of coaching calls with members — helping them negotiate more effectively, plan for the future, and make sure that if there's any kind of exit, acquisition, or wealth creation event, they're positioned to benefit. This isn't a side project. It's one of the most important things we do. Your compensation isn't just a number. It's how you participate in the value you create. We built this program to make sure you never leave that to chance.
+    </p>
+    <div class="founder-sig">
+      <span class="founder-sig-name">Sam Jacobs</span>
+      <span class="founder-sig-title">Founder & CEO, Pavilion</span>
+    </div>
+  </div>
+</section>
+
+<!-- THE CLASS -->
+<section class="class-section">
+  <div class="class-inner">
+    <div>
+      <div class="section-label">The Class</div>
+      <h2 class="section-h2">Three weeks that change<br>how you think about <em>money.</em></h2>
+      <p class="section-sub" style="margin-bottom: 0;">Executive Compensation & Negotiation is a 3-week live cohort that runs every quarter. Led by Sam Jacobs and the coaching team — the same people who've guided hundreds of members through real negotiations.</p>
+      <ul class="class-checklist">
+        <li class="class-check-item">Calibrate your success based on your market value</li>
+        <li class="class-check-item">The essence of negotiation — how to take yes for an answer</li>
+        <li class="class-check-item">Cash compensation and benefits aligned to outcomes you'll drive</li>
+        <li class="class-check-item">The role of equity and how to increase the likelihood it turns into cash</li>
+        <li class="class-check-item">Role play to stress test your approach before the real thing</li>
+      </ul>
+      <a href="#book" class="btn-primary">Join the Next Class →</a>
+    </div>
+    <div class="class-meta-grid">
+      <div class="class-meta-item">
+        <div class="class-meta-key">Next cohort</div>
+        <div class="class-meta-val">Coming soon</div>
+      </div>
+      <div class="class-meta-item">
+        <div class="class-meta-key">Duration</div>
+        <div class="class-meta-val">3 weeks · Live sessions</div>
+      </div>
+      <div class="class-meta-item">
+        <div class="class-meta-key">Led by</div>
+        <div class="class-meta-val">Sam Jacobs & coaching team</div>
+      </div>
+      <div class="class-meta-item">
+        <div class="class-meta-key">Included with</div>
+        <div class="class-meta-val">Pavilion membership</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE DATA -->
+<section class="data-section">
+  <div class="data-inner">
+    <div class="section-label">The Data</div>
+    <h2 class="data-h2">Know your number before<br>you walk in the <em>room.</em></h2>
+    <p class="data-body">Pavilion produces executive compensation benchmark reports based on direct survey data from members. Real numbers from people in the same roles, at the same stage companies, facing the same decisions you are.</p>
+    <div class="data-features">
+      <div class="data-feature">
+        <div class="data-feature-title">Comp by Role</div>
+        <div class="data-feature-sub">Base, OTE, and total comp ranges by title and level</div>
+      </div>
+      <div class="data-feature">
+        <div class="data-feature-title">Equity Benchmarks</div>
+        <div class="data-feature-sub">Options, RSUs, and equity packages by stage and role</div>
+      </div>
+      <div class="data-feature">
+        <div class="data-feature-title">Benefits & Perks</div>
+        <div class="data-feature-sub">What top companies are offering beyond cash</div>
+      </div>
+    </div>
+    <a href="#book" class="btn-primary">Get the Report →</a>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community-section">
+  <div class="community-inner">
+    <div class="section-label">The Community</div>
+    <h3 class="community-h3">You're not the only one having this conversation.</h3>
+    <p class="community-body">Pavilion members support each other through comp negotiations, role transitions, and career decisions. When you're preparing for a big conversation, you have hundreds of peers who've been there — and who will tell you the truth.</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="book">
+  <div class="final-cta-inner">
+    <h2 class="final-h2">Your next negotiation<br>is <em>coming.</em></h2>
+    <p class="final-body">Whether it's a new role, an annual review, or an exit — the preparation starts now.</p>
+    <a href="#" class="btn-primary" id="calendly-cta">Book a Call →</a>
+    <span class="final-prospect">Not a member? <a href="https://www.joinpavilion.com" target="_blank">Join Pavilion →</a></span>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Pavilion</span>
+  <div class="footer-links">
+    <a href="#" class="footer-link">Privacy</a>
+    <a href="#" class="footer-link">Terms</a>
+    <a href="https://www.joinpavilion.com" class="footer-link" target="_blank">Join Pavilion</a>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>

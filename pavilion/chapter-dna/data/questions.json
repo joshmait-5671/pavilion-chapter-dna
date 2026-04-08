@@ -1,0 +1,242 @@
+[
+  {
+    "id": "q1",
+    "number": 1,
+    "text": "When you show up to this chapter, what do you expect most?",
+    "cardType": "text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q1_a", "text": "Sharp debate" },
+      { "id": "q1_b", "text": "Practical advice" },
+      { "id": "q1_c", "text": "Warm support" },
+      { "id": "q1_d", "text": "Big ambition" },
+      { "id": "q1_e", "text": "Strong personalities" },
+      { "id": "q1_f", "text": "Easy chemistry" }
+    ]
+  },
+  {
+    "id": "q2",
+    "number": 2,
+    "text": "What is this chapter best at?",
+    "cardType": "text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q2_a", "text": "Making useful intros" },
+      { "id": "q2_b", "text": "Sharing real tactics" },
+      { "id": "q2_c", "text": "Calling bullshit" },
+      { "id": "q2_d", "text": "Welcoming new people" },
+      { "id": "q2_e", "text": "Pushing each other higher" },
+      { "id": "q2_f", "text": "Getting honest fast" }
+    ]
+  },
+  {
+    "id": "q3",
+    "number": 3,
+    "text": "Which best describes the people in this chapter?",
+    "cardType": "icon-text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q3_a", "text": "Experienced operators", "icon": "⚙️" },
+      { "id": "q3_b", "text": "Natural connectors", "icon": "🔗" },
+      { "id": "q3_c", "text": "Ambitious climbers", "icon": "📈" },
+      { "id": "q3_d", "text": "Thoughtful builders", "icon": "🏗️" },
+      { "id": "q3_e", "text": "Big personalities", "icon": "⚡" },
+      { "id": "q3_f", "text": "Low ego pros", "icon": "🎯" }
+    ]
+  },
+  {
+    "id": "q4",
+    "number": 4,
+    "text": "What kind of energy does this chapter have?",
+    "cardType": "text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q4_a", "text": "Intense" },
+      { "id": "q4_b", "text": "Generous" },
+      { "id": "q4_c", "text": "Polished" },
+      { "id": "q4_d", "text": "Scrappy" },
+      { "id": "q4_e", "text": "Curious" },
+      { "id": "q4_f", "text": "Calm confidence" }
+    ]
+  },
+  {
+    "id": "q5",
+    "number": 5,
+    "text": "What makes this chapter different from others?",
+    "cardType": "icon-text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q5_a", "text": "No fluff", "icon": "✂️" },
+      { "id": "q5_b", "text": "Strong local pride", "icon": "🏙️" },
+      { "id": "q5_c", "text": "Deep operator bench", "icon": "💪" },
+      { "id": "q5_d", "text": "Real relationships", "icon": "🤝" },
+      { "id": "q5_e", "text": "Smartest room energy", "icon": "🧠" },
+      { "id": "q5_f", "text": "People actually follow up", "icon": "✓" }
+    ]
+  },
+  {
+    "id": "q6",
+    "number": 6,
+    "text": "What kind of event feels most on brand for this chapter?",
+    "cardType": "image-text",
+    "autoAdvance": true,
+    "options": [
+      {
+        "id": "q6_a",
+        "text": "Private dinner",
+        "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Elegant private dining"
+      },
+      {
+        "id": "q6_b",
+        "text": "Tactical workshop",
+        "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Workshop session"
+      },
+      {
+        "id": "q6_c",
+        "text": "Hard-hitting panel",
+        "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Panel discussion"
+      },
+      {
+        "id": "q6_d",
+        "text": "Casual happy hour",
+        "image": "https://images.unsplash.com/photo-1575444758702-4a6b9222336e?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Happy hour"
+      },
+      {
+        "id": "q6_e",
+        "text": "Member roundtable",
+        "image": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Roundtable discussion"
+      },
+      {
+        "id": "q6_f",
+        "text": "Off the record fireside",
+        "image": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Fireside chat"
+      }
+    ]
+  },
+  {
+    "id": "q7",
+    "number": 7,
+    "text": "What is this chapter secretly proud of?",
+    "cardType": "icon-text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q7_a", "text": "How smart the people are", "icon": "🧠" },
+      { "id": "q7_b", "text": "How welcoming it is", "icon": "🤗" },
+      { "id": "q7_c", "text": "How direct people are", "icon": "🎯" },
+      { "id": "q7_d", "text": "How strong the network is", "icon": "🔗" },
+      { "id": "q7_e", "text": "How ambitious the room feels", "icon": "🚀" },
+      { "id": "q7_f", "text": "Conversations continue after the event", "icon": "💬" }
+    ]
+  },
+  {
+    "id": "q8",
+    "number": 8,
+    "text": "What is this chapter most likely to say?",
+    "cardType": "text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q8_a", "text": "\"Get to the point\"" },
+      { "id": "q8_b", "text": "\"Who do you need to meet?\"" },
+      { "id": "q8_c", "text": "\"Sounds good, but will it work?\"" },
+      { "id": "q8_d", "text": "\"Let's make it useful\"" },
+      { "id": "q8_e", "text": "\"Say the thing you really mean\"" },
+      { "id": "q8_f", "text": "\"Someone here has solved this\"" }
+    ]
+  },
+  {
+    "id": "q9",
+    "number": 9,
+    "text": "If this chapter had a drink, what would it be?",
+    "cardType": "image-text",
+    "autoAdvance": true,
+    "options": [
+      {
+        "id": "q9_a",
+        "text": "Martini",
+        "image": "https://images.unsplash.com/photo-1575023782549-62ca0d244b39?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Martini"
+      },
+      {
+        "id": "q9_b",
+        "text": "Whiskey neat",
+        "image": "https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Whiskey"
+      },
+      {
+        "id": "q9_c",
+        "text": "Spicy margarita",
+        "image": "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Margarita"
+      },
+      {
+        "id": "q9_d",
+        "text": "IPA",
+        "image": "https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Craft beer"
+      },
+      {
+        "id": "q9_e",
+        "text": "Natural wine",
+        "image": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Wine"
+      },
+      {
+        "id": "q9_f",
+        "text": "Black coffee",
+        "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Coffee"
+      }
+    ]
+  },
+  {
+    "id": "q10",
+    "number": 10,
+    "text": "If this chapter had a default meeting spot, where would it be?",
+    "cardType": "image-text",
+    "autoAdvance": false,
+    "options": [
+      {
+        "id": "q10_a",
+        "text": "Steakhouse private room",
+        "image": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Steakhouse"
+      },
+      {
+        "id": "q10_b",
+        "text": "Neighborhood bar",
+        "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Bar"
+      },
+      {
+        "id": "q10_c",
+        "text": "Hotel lobby",
+        "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Hotel lobby"
+      },
+      {
+        "id": "q10_d",
+        "text": "Great coffee shop",
+        "image": "https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Coffee shop"
+      },
+      {
+        "id": "q10_e",
+        "text": "Someone's office",
+        "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Office"
+      },
+      {
+        "id": "q10_f",
+        "text": "Dinner party at a member's house",
+        "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80&auto=format&fit=crop",
+        "imageAlt": "Dinner party"
+      }
+    ]
+  }
+]

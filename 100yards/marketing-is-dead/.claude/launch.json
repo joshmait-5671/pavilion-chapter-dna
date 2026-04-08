@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "marketing-deck",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/100yards/marketing-is-dead", "-l", "4201"],
+      "port": 4201
+    }
+  ]
+}

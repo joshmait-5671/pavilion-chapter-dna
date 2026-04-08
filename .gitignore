@@ -1,0 +1,26 @@
+# Local Netlify folder
+.netlify
+
+# Node
+node_modules/
+
+# Mac
+.DS_Store
+
+# Auth / secrets
+auth/
+*token*.json
+*token*.pickle
+*.env
+.env*
+
+# Large binary / media (case studies)
+*.m4a
+
+# Superpowers brainstorm artifacts
+.superpowers/
+
+# System
+*.plist
+keep-awake.plist
+launch-claude.plist

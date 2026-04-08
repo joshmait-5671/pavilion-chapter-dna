@@ -46,10 +46,9 @@
         <img src="assets/logo-coinfully-dark.png" alt="Coinfully" height="32" style="height:32px;width:auto;display:block;">
       </a>
       <ul class="nav__links">
-        <li><a href="#inheritors">Inheritors</a></li>
-        <li><a href="#investors">Investors</a></li>
         <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#stories">Stories</a></li>
+        <li><a href="#photo-appraisal">Photo Appraisal</a></li>
+        <li><a href="#at-home">At-Home Visit</a></li>
         <li><a href="#bullion">Bullion</a></li>
         <li><a href="https://coinfully.com/blog">Blog</a></li>
       </ul>
@@ -66,7 +65,9 @@
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- ============================================================
+       1. HERO
+       ============================================================ -->
   <section class="hero">
     <div class="hero__bg"></div>
     <div class="hero__overlay"></div>
@@ -80,57 +81,19 @@
         Everyone wants to get to the right decision —<br>
         <strong>Fast. Friendly. No runaround.</strong>
       </p>
-      <p class="hero__scroll-hint">↓ Where do you start?</p>
-    </div>
-  </section>
-
-  <!-- LIFESTYLE BRIDGE -->
-  <section class="lifestyle-bridge">
-    <div class="lifestyle-bridge__img">
-      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1600&q=80" alt="Trusted advisor helping a client with their collection" loading="lazy">
-      <div class="lifestyle-bridge__overlay"></div>
-      <div class="container lifestyle-bridge__content">
-        <p class="lifestyle-bridge__kicker">Coinfully</p>
-        <h2 class="lifestyle-bridge__headline">The coin experts families and collectors trust when it matters.</h2>
-        <p class="lifestyle-bridge__sub">Professional appraisals. Fair offers. Real people who know this world inside and out — from a single coin to a six-figure collection.</p>
+      <div class="hero__ctas">
+        <a href="https://coinfully.com/appraisal" class="btn btn-primary">Get a Free Appraisal</a>
+        <a href="#coin-scan" class="btn btn-outline-white">Instant Value Guide →</a>
       </div>
+      <p class="hero__scroll-hint">↓ How it works</p>
     </div>
   </section>
 
-  <!-- PERSONA CARDS -->
-  <section class="persona-cards" id="start">
-    <div class="container">
-      <p class="label persona-cards__label">Choose your path</p>
-      <div class="persona-cards__grid">
-        <a href="#inheritors" class="persona-card persona-card--inheritor">
-          <div class="persona-card__icon">
-            <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M5 17L19 5L33 17V34H24V24H14V34H5V17Z" fill="#F5C342" stroke="#F5C342" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 17L19 5L33 17" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="14" y="24" width="10" height="10" rx="1" stroke="white" stroke-width="2" fill="none"/></svg>
-          </div>
-          <div class="persona-card__label">I inherited a collection</div>
-          <p class="persona-card__desc">You're not sure what you have. Maybe you've been dreading this for years. That's exactly where we start.</p>
-          <span class="persona-card__cta">Start here →</span>
-        </a>
-        <a href="#investors" class="persona-card persona-card--investor">
-          <div class="persona-card__icon">
-            <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><rect x="4" y="22" width="8" height="12" rx="1" fill="#F5C342"/><rect x="15" y="14" width="8" height="20" rx="1" fill="#F5C342"/><rect x="26" y="6" width="8" height="28" rx="1" fill="#F5C342"/><line x1="4" y1="35" x2="34" y2="35" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <div class="persona-card__label">I'm managing an investment</div>
-          <p class="persona-card__desc">You know coins. You want to know what your collection is actually worth today — and who will pay a fair price for it.</p>
-          <span class="persona-card__cta">Start here →</span>
-        </a>
-      </div>
-      <p class="persona-cards__tertiary">
-        Working through an estate sale or legal process?
-        <a href="#estate">We can help →</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- TRUST BAR -->
+  <!-- ============================================================
+       2. TRUST BAR — one hit, done
+       ============================================================ -->
   <section class="trust-bar">
     <div class="container trust-bar__inner">
-
-      <!-- G2 Badge — data attributes wired for live API swap -->
       <a href="https://www.g2.com/products/coinfully/reviews" target="_blank" rel="noopener" class="trust-bar__item trust-bar__g2">
         <div class="g2-logo" aria-label="G2">G2</div>
         <div class="trust-bar__g2-detail">
@@ -141,9 +104,7 @@
           <span class="trust-bar__g2-count" data-g2-count="200">200+ verified reviews</span>
         </div>
       </a>
-
       <div class="trust-bar__divider"></div>
-
       <div class="trust-bar__item">
         <div class="trust-bar__text">
           <strong>ANA Member</strong>
@@ -160,14 +121,231 @@
       <div class="trust-bar__divider"></div>
       <div class="trust-bar__item">
         <div class="trust-bar__text">
-          <strong>As Seen In</strong>
-          <span>VoyageRaleigh · Charlotte Observer</span>
+          <strong>As Seen On</strong>
+          <span>Fox News · Charlotte Observer</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- GOLD TICKER -->
+  <!-- ============================================================
+       3. HOW IT WORKS — orient before selling
+       ============================================================ -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <!-- Nightcrawler BAMF -->
+      <svg width="48" height="28" viewBox="0 0 48 28" fill="none" style="margin-bottom:var(--space-xs);"><text x="2" y="24" font-family="'Impact','Arial Black',sans-serif" font-size="26" font-weight="900" font-style="italic" fill="#F5C342" letter-spacing="-1">BAMF</text><text x="3" y="25" font-family="'Impact','Arial Black',sans-serif" font-size="26" font-weight="900" font-style="italic" fill="#D4A520" letter-spacing="-1" opacity="0.3">BAMF</text></svg>
+      <p class="label">Simple Process</p>
+      <h2 class="headline-lg" style="margin:var(--space-sm) 0 var(--space-lg);">Three steps. No surprises.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step__num">1</div>
+          <h3 class="headline-sm">Tell us about your collection</h3>
+          <p>A few photos. A quick description. That's all we need to get started. No expertise required on your end.</p>
+        </div>
+        <div class="step__arrow">→</div>
+        <div class="step">
+          <div class="step__num">2</div>
+          <h3 class="headline-sm">We assess, authenticate, value</h3>
+          <p>Our team reviews everything. We know what we're looking at. You get a real number — not a guess.</p>
+        </div>
+        <div class="step__arrow">→</div>
+        <div class="step">
+          <div class="step__num">3</div>
+          <h3 class="headline-sm">Accept the offer. Get paid.</h3>
+          <p>If you're happy with the offer, payment is issued in minutes. No delays, no waiting, no chasing anyone down.</p>
+        </div>
+      </div>
+      <p class="steps__note">For significant collections, we travel to you — anywhere in the US. <a href="#at-home">Learn about our at-home service →</a></p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4. WHO WE SERVE — persona identification
+       ============================================================ -->
+  <section class="persona-cards">
+    <div class="container">
+      <p class="label persona-cards__label">Who we work with</p>
+      <div class="persona-cards__grid">
+        <div class="persona-card persona-card--inheritor">
+          <div class="persona-card__icon">
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M5 17L19 5L33 17V34H24V24H14V34H5V17Z" fill="#F5C342" stroke="#F5C342" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 17L19 5L33 17" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="14" y="24" width="10" height="10" rx="1" stroke="white" stroke-width="2" fill="none"/></svg>
+          </div>
+          <div class="persona-card__label">The coin is not the hard part. The decision is.</div>
+          <p class="persona-card__desc">You inherited something. Maybe it's valuable. Maybe you've been dreading this for years. Maybe your parents were sold something they shouldn't have been. Probably all of it. Here's what you need to know.</p>
+        </div>
+        <div class="persona-card persona-card--investor">
+          <div class="persona-card__icon">
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><rect x="4" y="22" width="8" height="12" rx="1" fill="#F5C342"/><rect x="15" y="14" width="8" height="20" rx="1" fill="#F5C342"/><rect x="26" y="6" width="8" height="28" rx="1" fill="#F5C342"/><line x1="4" y1="35" x2="34" y2="35" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="persona-card__label">You built this. Let's find out what it's really worth.</div>
+          <p class="persona-card__desc">You know the market. You've done this before. What you need is someone who moves fast, pays fair, and doesn't waste your time with coin shop games.</p>
+        </div>
+      </div>
+      <p class="persona-cards__tertiary">
+        Working through an estate sale or legal process?
+        <a href="#estate">We can help →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       5. PRODUCT BAND: PHOTO APPRAISAL — the process
+       ============================================================ -->
+  <section class="section section--cream" id="photo-appraisal" style="position:relative;">
+    <a href="#at-home" class="skip-arrow">
+      <span class="skip-arrow__label">SKIP TO AT-HOME</span>
+      <span class="skip-arrow__icon"></span>
+    </a>
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);align-items:start;">
+        <div>
+          <div style="margin-bottom:var(--space-sm);">
+            <!-- Cyclops visor -->
+            <svg width="48" height="48" viewBox="0 0 40 40" fill="none"><path d="M2 20C2 20 6 14 20 14C34 14 38 20 38 20C38 20 34 26 20 26C6 26 2 20 2 20Z" fill="#F5C342" opacity="0.12"/><path d="M3 20C3 20 8 15 20 15C32 15 37 20 37 20C37 20 32 25 20 25C8 25 3 20 3 20Z" fill="#F5C342"/><rect x="6" y="18" width="28" height="4" rx="2" fill="#D4A520"/><rect x="15" y="16" width="10" height="8" rx="2" fill="#fff" opacity="0.3"/></svg>
+          </div>
+          <p class="label">Photo Appraisal</p>
+          <h2 class="headline-lg" style="margin:var(--space-sm) 0 var(--space-md);">
+            Start from your phone.<br>
+            <span class="accent">Know what you have by tomorrow.</span>
+          </h2>
+          <p style="font-size:17px;color:var(--gray-dark);line-height:1.7;margin-bottom:var(--space-md);">
+            Send us photos of your collection. We'll tell you exactly what you have, what it's worth, and what we'd do if we were you. Once we agree on value, you ship fully insured — and get paid the moment we verify.
+          </p>
+          <p style="font-size:14px;color:var(--gray-mid);margin-bottom:var(--space-lg);">Free · No obligation · No follow-up unless you want one</p>
+          <a href="https://coinfully.com/appraisal" class="btn btn-primary">Get a Free Appraisal →</a>
+        </div>
+        <div>
+          <div style="background:var(--white);border:1px solid rgba(0,0,0,0.08);border-radius:var(--radius-lg);padding:var(--space-lg);">
+            <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray-mid);margin-bottom:var(--space-md);">The Process</p>
+            <div style="display:flex;flex-direction:column;gap:var(--space-md);">
+              <div style="display:flex;align-items:flex-start;gap:14px;">
+                <span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--yellow);color:var(--black);font-size:14px;font-weight:800;border-radius:50%;flex-shrink:0;">1</span>
+                <div>
+                  <p style="font-weight:700;margin-bottom:2px;">Snap a few photos</p>
+                  <p style="font-size:14px;color:var(--gray-dark);">Group shots of your collection from your phone. That's all we need to start.</p>
+                </div>
+              </div>
+              <div style="width:1px;height:16px;background:rgba(0,0,0,0.1);margin-left:15px;"></div>
+              <div style="display:flex;align-items:flex-start;gap:14px;">
+                <span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--yellow);color:var(--black);font-size:14px;font-weight:800;border-radius:50%;flex-shrink:0;">2</span>
+                <div>
+                  <p style="font-weight:700;margin-bottom:2px;">We assess and build your offer</p>
+                  <p style="font-size:14px;color:var(--gray-dark);">Expert condition assessment, authentication, and a real market-rate valuation. Not a guess.</p>
+                </div>
+              </div>
+              <div style="width:1px;height:16px;background:rgba(0,0,0,0.1);margin-left:15px;"></div>
+              <div style="display:flex;align-items:flex-start;gap:14px;">
+                <span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--yellow);color:var(--black);font-size:14px;font-weight:800;border-radius:50%;flex-shrink:0;">3</span>
+                <div>
+                  <p style="font-weight:700;margin-bottom:2px;">Ship insured. Get paid on arrival.</p>
+                  <p style="font-size:14px;color:var(--gray-dark);">Accept the offer, ship through Lloyd's of London insurance, and get paid the moment we verify.</p>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:var(--space-md);padding-top:var(--space-sm);border-top:1px solid rgba(0,0,0,0.07);font-size:13px;color:var(--gray-mid);">⏱ Most collections appraised within 24 hours</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ask Wyatt -->
+      <div class="travis-block" id="travis-inheritor" style="margin-top:var(--space-xl);">
+        <div class="travis-block__avatar">
+          <div class="travis-placeholder"></div>
+        </div>
+        <div class="travis-block__content">
+          <p class="travis-block__prompt">Not sure where to start?</p>
+          <p class="travis-block__name">Ask Wyatt.</p>
+          <p class="travis-block__desc">Four quick questions and you'll know exactly where you stand. No sales pitch — just answers.</p>
+          <button class="btn btn-primary travis-trigger" data-persona="inheritor">Start a conversation →</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       5. PRODUCT BAND: AT-HOME VISIT — the person
+       ============================================================ -->
+  <section class="section section--black" id="at-home" style="position:relative;overflow:hidden;">
+    <!-- Background: traveling to a home -->
+    <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600&q=80');background-size:cover;background-position:center;opacity:0.12;"></div>
+    <a href="#bullion" class="skip-arrow" style="border-color:rgba(255,255,255,0.15);z-index:2;">
+      <span class="skip-arrow__label" style="color:rgba(255,255,255,0.35);">SKIP TO BULLION</span>
+      <span class="skip-arrow__icon" style="background:rgba(255,255,255,0.35);"></span>
+    </a>
+    <div class="container" style="position:relative;z-index:2;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);align-items:center;">
+        <!-- Left: the pitch -->
+        <div>
+          <div style="margin-bottom:var(--space-sm);">
+            <!-- Wolverine claws from fist -->
+            <svg width="48" height="48" viewBox="0 0 40 40" fill="none">
+              <rect x="8" y="24" width="24" height="14" rx="6" fill="#F5C342"/>
+              <line x1="14" y1="27" x2="14" y2="35" stroke="#D4A520" stroke-width="1"/>
+              <line x1="20" y1="26" x2="20" y2="36" stroke="#D4A520" stroke-width="1"/>
+              <line x1="26" y1="27" x2="26" y2="35" stroke="#D4A520" stroke-width="1"/>
+              <rect x="12" y="2" width="3" height="24" rx="1.5" fill="#C0C0C0"/>
+              <rect x="12" y="2" width="3" height="24" rx="1.5" fill="#F5C342" opacity="0.5"/>
+              <rect x="18.5" y="0" width="3" height="26" rx="1.5" fill="#C0C0C0"/>
+              <rect x="18.5" y="0" width="3" height="26" rx="1.5" fill="#F5C342" opacity="0.5"/>
+              <rect x="25" y="2" width="3" height="24" rx="1.5" fill="#C0C0C0"/>
+              <rect x="25" y="2" width="3" height="24" rx="1.5" fill="#F5C342" opacity="0.5"/>
+              <rect x="13" y="4" width="1" height="8" rx="0.5" fill="#fff" opacity="0.35"/>
+              <rect x="19.5" y="2" width="1" height="8" rx="0.5" fill="#fff" opacity="0.35"/>
+              <rect x="26" y="4" width="1" height="8" rx="0.5" fill="#fff" opacity="0.35"/>
+            </svg>
+          </div>
+          <p class="label" style="color:var(--yellow);">At-Home Visit</p>
+          <h2 class="headline-lg" style="color:var(--white);margin:var(--space-sm) 0 var(--space-md);">
+            We show up.<br>You get answers.
+          </h2>
+          <p style="font-size:17px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:var(--space-md);">
+            Our experts travel to your home — anywhere in the US. They assess everything on-site, make a fair offer, and pay you before they leave. No packing. No post office. No shipping risk. Same day, start to finish.
+          </p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:var(--space-lg);">
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,0.6);"><span style="color:var(--yellow);font-weight:800;">✓</span> 9 out of 10 visits close same day</div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,0.6);"><span style="color:var(--yellow);font-weight:800;">✓</span> Anywhere in the US — international for exceptional collections</div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,0.6);"><span style="color:var(--yellow);font-weight:800;">✓</span> Nothing leaves your home until you say so</div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,0.6);"><span style="color:var(--yellow);font-weight:800;">✓</span> Payment before we walk out the door</div>
+          </div>
+          <a href="https://coinfully.com/at-home" class="btn btn-primary">See If You Qualify →</a>
+        </div>
+        <!-- Right: the people -->
+        <div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-lg);overflow:hidden;">
+            <!-- Team photo placeholder -->
+            <div style="background:rgba(255,255,255,0.06);height:220px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(255,255,255,0.08);">
+              <div style="display:flex;gap:var(--space-md);align-items:center;">
+                <div style="text-align:center;">
+                  <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:2px solid rgba(245,195,66,0.4);margin:0 auto var(--space-xs);">
+                    <img src="assets/travis-photo.png" alt="Travis" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+                  </div>
+                  <p style="font-size:12px;font-weight:700;color:var(--white);">Travis</p>
+                  <p style="font-size:10px;color:rgba(255,255,255,0.4);">CEO</p>
+                </div>
+                <div style="text-align:center;">
+                  <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;border:2px solid rgba(245,195,66,0.4);margin:0 auto var(--space-xs);">
+                    <img src="assets/wyatt-photo.png" alt="Wyatt" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+                  </div>
+                  <p style="font-size:12px;font-weight:700;color:var(--white);">Wyatt</p>
+                  <p style="font-size:10px;color:rgba(255,255,255,0.4);">Head Numismatist</p>
+                </div>
+              </div>
+            </div>
+            <div style="padding:var(--space-md);">
+              <p style="font-size:15px;font-style:italic;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:var(--space-sm);">"They came to my house and it was done the same day. I couldn't believe how easy it was."</p>
+              <p style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.3);">— James R., Charlotte NC</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       8. GOLD TICKER
+       ============================================================ -->
   <section class="gold-ticker" id="bullion">
     <div class="container gold-ticker__inner">
       <div class="gold-ticker__prices">
@@ -185,327 +363,41 @@
         <span class="gold-ticker__updated" id="goldUpdated">Updated today</span>
       </div>
       <div class="gold-ticker__cta-wrap">
+        <!-- Gambit card -->
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style="margin-bottom:6px;"><rect x="7" y="5" width="18" height="24" rx="2" stroke="#F5C342" stroke-width="2" transform="rotate(-12 16 17)"/><path d="M16 12L19 17L16 22L13 17Z" fill="#F5C342"/></svg>
         <p class="gold-ticker__hook">Selling gold or silver? Skip the coin talk.</p>
         <a href="tel:17046214893" class="btn btn-primary gold-ticker__btn">Get Today's Price →</a>
       </div>
     </div>
   </section>
 
-  <!-- OFFICE TOUR -->
-  <section class="office-tour">
-    <div class="container">
-      <div class="office-tour__head">
-        <p class="label">Charlotte, NC · HQ</p>
-        <h2 class="headline-md">Not your grandfather's coin shop.</h2>
-        <p class="office-tour__sub">Click the <span class="hotspot-inline">1</span> numbers to look around.</p>
-      </div>
-    </div>
-    <div class="office-tour__scroll-wrap">
-      <div class="office-tour__track">
-
-        <!-- Photo 1: Desk / Wyatt's workspace -->
-        <figure class="office-photo">
-          <div class="office-photo__frame">
-            <img src="assets/office-1.jpg" alt="Coinfully workspace" loading="lazy">
-            <button class="hotspot" style="left:22%;top:58%" data-tip="Wyatt's desk. The green Stanley hasn't moved since 2022.">1</button>
-            <button class="hotspot" style="left:70%;top:28%" data-tip="Where every incoming collection gets photographed and logged before we make a single offer.">2</button>
-          </div>
-        </figure>
-
-        <!-- Photo 2: Hallway / Tron + awards -->
-        <figure class="office-photo">
-          <div class="office-photo__frame">
-            <img src="assets/office-2.jpg" alt="Coinfully HQ hallway" loading="lazy">
-            <button class="hotspot" style="left:9%;top:42%" data-tip="Douglas Winter's industry awards. He's written 12 books on numismatics. He works here.">1</button>
-            <button class="hotspot" style="left:55%;top:52%" data-tip="The Tron cabinet. Technically decorative. Very motivational.">2</button>
-            <button class="hotspot" style="left:28%;top:18%" data-tip="Los Angeles directional sign. Nobody is sure why it points that way. Nobody asks anymore.">3</button>
-          </div>
-        </figure>
-
-        <!-- Photo 3: Secure storage -->
-        <figure class="office-photo">
-          <div class="office-photo__frame">
-            <img src="assets/office-3.jpg" alt="Coinfully secure storage" loading="lazy">
-            <button class="hotspot" style="left:25%;top:45%" data-tip="Collections worth six figures pass through this room every week.">1</button>
-            <button class="hotspot" style="left:74%;top:36%" data-tip="Secure coin storage. Locked. Climate-aware. We've never lost one.">2</button>
-          </div>
-        </figure>
-
-        <!-- Photo 4: Kitchen + Mortal Kombat -->
-        <figure class="office-photo">
-          <div class="office-photo__frame">
-            <img src="assets/office-4.jpg" alt="Coinfully break room" loading="lazy">
-            <button class="hotspot" style="left:18%;top:50%" data-tip="Mortal Kombat. Travis calls it 'active thinking.' We don't argue with Travis.">1</button>
-            <button class="hotspot" style="left:62%;top:32%" data-tip="Original Pepsi sign is Travis's. The Grateful Dead poster belongs to Douglas. Obviously.">2</button>
-          </div>
-        </figure>
-
-        <!-- Photo 5: Main floor -->
-        <figure class="office-photo">
-          <div class="office-photo__frame">
-            <img src="assets/office-5.jpg" alt="Coinfully operations floor" loading="lazy">
-            <button class="hotspot" style="left:22%;top:36%" data-tip="Where the real work happens. Three monitors minimum, or you're not trying hard enough.">1</button>
-            <button class="hotspot" style="left:36%;top:74%" data-tip="A grateful collector sent us the Iron Man helmet. The Thrasher mag belongs to Wyatt.">2</button>
-            <button class="hotspot" style="left:80%;top:42%" data-tip="Yes, that's a second arcade cabinet. We know what we are.">3</button>
-          </div>
-        </figure>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- INHERITOR SECTION -->
-  <section class="section section--cream journey" id="inheritors">
-    <div class="container">
-      <p class="label">For Inheritors</p>
-      <h2 class="headline-lg journey__headline">
-        The coin is not the hard part.<br>
-        <span class="accent">The decision is.</span>
-      </h2>
-      <p class="journey__intro">
-        You inherited something. Maybe it's valuable. Maybe you've been dreading this for years.
-        Maybe your parents were sold something they shouldn't have been.
-        Probably all of it. Here's what you need to know.
-      </p>
-
-      <div class="journey__three-cols">
-        <div class="journey__col">
-          <div class="journey__col-num">01</div>
-          <h3 class="headline-sm">What do you have?</h3>
-          <p>Most people have no idea — and that's completely normal. We help you understand your collection without jargon, pressure, or guesswork.</p>
-        </div>
-        <div class="journey__col">
-          <div class="journey__col-num">02</div>
-          <h3 class="headline-sm">What might it be worth?</h3>
-          <p>Market-leading appraisals from people who actually know this field. Not a coin shop offer. Not an auction house estimate. A real number.</p>
-        </div>
-        <div class="journey__col">
-          <div class="journey__col-num">03</div>
-          <h3 class="headline-sm">What should you do next?</h3>
-          <p>That's your call. We give you the information and the options. No pressure. No sales pitch. Just clarity so you can decide with confidence.</p>
-        </div>
-      </div>
-
-      <!-- Social proof strip — Inheritor -->
-      <div class="journey__proof-strip">
-        <div class="journey__proof-quote">
-          <span class="journey__proof-stars">★★★★★</span>
-          <p>"I had no idea what to do or who to trust. Within 24 hours I had a full appraisal and an offer I felt good about."</p>
-          <span class="journey__proof-attr">— Sandra K., Dallas TX</span>
-        </div>
-        <div class="journey__proof-stat">
-          <span class="journey__proof-stat-num">24 hrs</span>
-          <span class="journey__proof-stat-label">average time to first appraisal</span>
-        </div>
-        <div class="journey__proof-stat">
-          <span class="journey__proof-stat-num">4.9★</span>
-          <span class="journey__proof-stat-label">average G2 rating from verified reviews</span>
-        </div>
-      </div>
-
-    <!-- Travis AI Component — Inheritor -->
-      <div class="travis-block" id="travis-inheritor">
-        <div class="travis-block__avatar">
-          <div class="travis-placeholder"></div>
-        </div>
-        <div class="travis-block__content">
-          <p class="travis-block__prompt">Not sure where to start?</p>
-          <p class="travis-block__name">Ask Travis.</p>
-          <p class="travis-block__desc">He's been doing this his whole career. Four quick questions and you'll know exactly where you stand.</p>
-          <button class="btn btn-primary travis-trigger" data-persona="inheritor">Start a conversation →</button>
-        </div>
-      </div>
-
-      <!-- Product options — Inheritor -->
-      <div class="product-spots">
-
-        <div class="product-spot">
-          <div class="product-spot__header">
-            <div class="product-spot__icon">📬</div>
-            <div>
-              <div class="product-spot__label">Mail-In Appraisal</div>
-              <div class="product-spot__tag">Free · No obligation · Ships both ways</div>
-            </div>
-          </div>
-          <p class="product-spot__lede">The easiest way to start. Send us photos — or the coins themselves — and we'll tell you exactly what you have and what it's worth.</p>
-          <div class="product-spot__steps">
-            <div class="product-spot__step"><span class="product-spot__step-num">1</span>Take a few photos of the collection and send them our way</div>
-            <div class="product-spot__step"><span class="product-spot__step-num">2</span>Our team reviews, authenticates, and values everything</div>
-            <div class="product-spot__step"><span class="product-spot__step-num">3</span>We send you a full written appraisal and a fair offer</div>
-          </div>
-          <ul class="product-spot__bullets">
-            <li>Full written appraisal — yours to keep regardless</li>
-            <li>Authentication and grading by certified numismatists</li>
-            <li>Market-rate offer if you decide to sell</li>
-            <li>No pressure. Accept, decline, or just use the appraisal.</li>
-          </ul>
-          <div class="product-spot__timeline">⏱ Most collections appraised within 24 hours</div>
-          <a href="https://coinfully.com/appraisal" class="btn btn-primary">Get a Free Appraisal →</a>
-        </div>
-
-        <div class="product-spot product-spot--premium product-spot--featured">
-          <div class="product-spot__featured-label">Most Complete Service</div>
-          <div class="product-spot__header">
-            <div class="product-spot__icon">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 14L16 4L28 14V28H20V20H12V28H4V14Z" fill="#F5C342"/><path d="M4 14L16 4L28 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="12" y="20" width="8" height="8" rx="1" stroke="white" stroke-width="1.5" fill="none"/></svg>
-            </div>
-            <div>
-              <div class="product-spot__label">We Come to You</div>
-              <div class="product-spot__tag">At-Home Visit · By Appointment</div>
-            </div>
-          </div>
-          <p class="product-spot__lede">Our experts travel to your home or estate. No packing. No shipping risk. No strangers handling things before you've decided anything.</p>
-          <div class="product-spot__stat-callout">
-            <span class="product-spot__stat-num">9/10</span>
-            <span class="product-spot__stat-label">on-site visits end in a deal that same day</span>
-          </div>
-          <div class="product-spot__steps">
-            <div class="product-spot__step"><span class="product-spot__step-num">1</span>Tell us about the collection — we'll confirm it qualifies</div>
-            <div class="product-spot__step"><span class="product-spot__step-num">2</span>We schedule a visit, usually within a week</div>
-            <div class="product-spot__step"><span class="product-spot__step-num">3</span>On-site assessment, written offer, and same-day payment if you accept</div>
-          </div>
-          <ul class="product-spot__bullets">
-            <li>Expert authentication done at your kitchen table</li>
-            <li>Best for collections of $25,000+ or large estates</li>
-            <li>We handle all logistics — you just open the door</li>
-            <li>No shipping, no risk, nothing leaves until you say so</li>
-          </ul>
-          <div class="product-spot__timeline">📍 We travel to you — Charlotte, surrounding states, and beyond</div>
-          <a href="https://coinfully.com/at-home" class="btn btn-primary">See If You Qualify →</a>
-          <div class="product-spot__proof">"They came on a Friday. By Monday it was done." — James R., Charlotte NC</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- INVESTOR SECTION -->
-  <section class="section journey" id="investors">
-    <div class="container">
-      <p class="label">For Investors</p>
-      <h2 class="headline-lg journey__headline">
-        You built this.<br>
-        <span class="accent">Let's find out what it's really worth.</span>
-      </h2>
-      <p class="journey__intro">
-        Market-leading offers. No coin shop lowballs. No auction house delays.
-        When you're ready to convert your collection, we move fast.
-      </p>
-
-      <div class="investor-props">
-        <div class="investor-prop">
-          <div class="investor-prop__icon">⚡</div>
-          <h3 class="headline-sm">We move fast</h3>
-          <p>Most collections wrapped in a day. Largest ones in 2–3 days. Payment issued in minutes when you accept.</p>
-        </div>
-        <div class="investor-prop">
-          <div class="investor-prop__icon">🔍</div>
-          <h3 class="headline-sm">You'll know exactly what you have</h3>
-          <p>Authenticated, graded, and valued by experts who have spent their careers in this field. No guesswork.</p>
-        </div>
-        <div class="investor-prop">
-          <div class="investor-prop__icon">💰</div>
-          <h3 class="headline-sm">We write the check</h3>
-          <p>Coin shops pay 40% of market value. We don't. We buy your entire collection in one transaction — no splitting, no waiting, no middlemen.</p>
-        </div>
-      </div>
-
-      <!-- Social proof strip — Investor -->
-      <div class="journey__proof-strip">
-        <div class="journey__proof-quote">
-          <span class="journey__proof-stars">★★★★★</span>
-          <p>"They knew what every coin was worth before I finished showing them. Offer was fair. Payment was immediate."</p>
-          <span class="journey__proof-attr">— David K., Atlanta GA</span>
-        </div>
-        <div class="journey__proof-stat">
-          <span class="journey__proof-stat-num">1 day</span>
-          <span class="journey__proof-stat-label">average time to close most collections</span>
-        </div>
-        <div class="journey__proof-stat">
-          <span class="journey__proof-stat-num">9/10</span>
-          <span class="journey__proof-stat-label">at-home visits close same day</span>
-        </div>
-      </div>
-
-    <!-- Travis AI Component — Investor -->
-      <div class="travis-block travis-block--dark" id="travis-investor">
-        <div class="travis-block__avatar">
-          <div class="travis-placeholder"></div>
-        </div>
-        <div class="travis-block__content">
-          <p class="travis-block__prompt">What kind of collection are you working with?</p>
-          <p class="travis-block__name">Ask Travis.</p>
-          <p class="travis-block__desc">He'll tell you exactly what to expect — pricing, process, and timeline — in under two minutes.</p>
-          <button class="btn btn-primary travis-trigger" data-persona="investor">Start a conversation →</button>
-        </div>
-      </div>
-
-      <!-- Product options — Investor -->
-      <div class="product-spots">
-
-        <div class="product-spot">
-          <div class="product-spot__header">
-            <div class="product-spot__icon">📋</div>
-            <div>
-              <div class="product-spot__label">Remote Appraisal &amp; Offer</div>
-              <div class="product-spot__tag">Fast · Market-rate · No coin shop nonsense</div>
-            </div>
-          </div>
-          <p class="product-spot__lede">Send us your inventory list, photos, or a description. We'll come back with a real offer — not a lowball. Payment in minutes when you accept.</p>
-          <div class="product-spot__steps">
-            <div class="product-spot__step"><span class="product-spot__step-num">1</span>Submit photos, a list, or as much as you know</div>
-            <div class="product-spot__step"><span class="product-spot__step-num">2</span>We review the full collection and build your offer</div>
-            <div class="product-spot__step"><span class="product-spot__step-num">3</span>Accept and get paid — wire transfer or check, same day</div>
-          </div>
-          <ul class="product-spot__bullets">
-            <li>Full collection purchased in one transaction — no cherry-picking</li>
-            <li>Bullion priced at or near spot. Rare coins at actual market value.</li>
-            <li>No auction delays, no consignment, no waiting 6 months</li>
-            <li>Payment issued in minutes after acceptance</li>
-          </ul>
-          <div class="product-spot__timeline">⏱ Offer in hand within 24 hours of submission</div>
-          <a href="https://coinfully.com/appraisal" class="btn btn-primary">Get Your Offer →</a>
-        </div>
-
-        <div class="product-spot product-spot--premium product-spot--featured">
-          <div class="product-spot__featured-label">Highest Offer Potential</div>
-          <div class="product-spot__header">
-            <div class="product-spot__icon">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M4 14L16 4L28 14V28H20V20H12V28H4V14Z" fill="#F5C342"/><path d="M4 14L16 4L28 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="12" y="20" width="8" height="8" rx="1" stroke="white" stroke-width="1.5" fill="none"/></svg>
-            </div>
-            <div>
-              <div class="product-spot__label">At-Home Visit</div>
-              <div class="product-spot__tag">On-Site · Same-Day Offer · We Travel to You</div>
-            </div>
-          </div>
-          <p class="product-spot__lede">For larger collections, nothing beats having our team there in person. We assess on-site, offer on the spot, and pay before we leave.</p>
-          <div class="product-spot__stat-callout">
-            <span class="product-spot__stat-num">9/10</span>
-            <span class="product-spot__stat-label">on-site visits close the same day</span>
-          </div>
-          <div class="product-spot__steps">
-            <div class="product-spot__step"><span class="product-spot__step-num">1</span>Share what you have — we'll confirm qualification</div>
-            <div class="product-spot__step"><span class="product-spot__step-num">2</span>We schedule and travel to you, usually within a week</div>
-            <div class="product-spot__step"><span class="product-spot__step-num">3</span>Full on-site assessment, same-day offer, immediate payment</div>
-          </div>
-          <ul class="product-spot__bullets">
-            <li>Best for collections valued at $25,000+</li>
-            <li>We bring the expertise, you bring the collection</li>
-            <li>No shipping, no insurance headaches, no risk on your end</li>
-            <li>Payment issued before we walk out the door</li>
-          </ul>
-          <div class="product-spot__timeline">📍 We travel nationally — most visits scheduled within 5–7 days</div>
-          <a href="https://coinfully.com/at-home" class="btn btn-primary">Schedule a Visit →</a>
-          <div class="product-spot__proof">"They knew exactly what everything was worth. Offer made, accepted, and paid — same afternoon." — David K., Atlanta GA</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- TEAM SECTION -->
+  <!-- ============================================================
+       9. TEAM — credibility
+       ============================================================ -->
   <section class="section section--black">
     <div class="container">
+      <!-- Colossus figure — metal -->
+      <svg width="48" height="48" viewBox="0 0 40 40" fill="none" style="margin-bottom:var(--space-xs);">
+        <circle cx="20" cy="8" r="5" fill="#F5C342"/>
+        <line x1="15" y1="8" x2="25" y2="8" stroke="#D4A520" stroke-width="1"/>
+        <path d="M12 14H28V28H12Z" fill="#F5C342"/>
+        <line x1="12" y1="18" x2="28" y2="18" stroke="#D4A520" stroke-width="1"/>
+        <line x1="12" y1="22" x2="28" y2="22" stroke="#D4A520" stroke-width="1"/>
+        <line x1="12" y1="26" x2="28" y2="26" stroke="#D4A520" stroke-width="1"/>
+        <line x1="20" y1="14" x2="20" y2="28" stroke="#D4A520" stroke-width="1"/>
+        <rect x="6" y="14" width="5" height="16" rx="2" fill="#F5C342"/>
+        <line x1="6" y1="20" x2="11" y2="20" stroke="#D4A520" stroke-width="1"/>
+        <line x1="6" y1="26" x2="11" y2="26" stroke="#D4A520" stroke-width="1"/>
+        <rect x="29" y="14" width="5" height="16" rx="2" fill="#F5C342"/>
+        <line x1="29" y1="20" x2="34" y2="20" stroke="#D4A520" stroke-width="1"/>
+        <line x1="29" y1="26" x2="34" y2="26" stroke="#D4A520" stroke-width="1"/>
+        <rect x="13" y="29" width="6" height="8" rx="2" fill="#F5C342"/>
+        <line x1="13" y1="33" x2="19" y2="33" stroke="#D4A520" stroke-width="1"/>
+        <rect x="21" y="29" width="6" height="8" rx="2" fill="#F5C342"/>
+        <line x1="21" y1="33" x2="27" y2="33" stroke="#D4A520" stroke-width="1"/>
+        <rect x="15" y="15" width="4" height="2" rx="1" fill="#fff" opacity="0.2"/>
+        <rect x="8" y="16" width="2" height="2" rx="1" fill="#fff" opacity="0.2"/>
+      </svg>
       <p class="label" style="color:rgba(255,255,255,0.4)">The people you're working with</p>
       <h2 class="headline-lg" style="color:var(--white);margin:var(--space-sm) 0 var(--space-xs);">
         Second-generation numismatists.<br>Trusted since day one.
@@ -540,76 +432,74 @@
     </div>
   </section>
 
-  <!-- HOME VISIT STORIES -->
-  <section class="section section--cream" id="stories">
+  <!-- ============================================================
+       10. OFFICE TOUR — supports team credibility
+       ============================================================ -->
+  <section class="office-tour">
     <div class="container">
-      <p class="label">Real Stories</p>
-      <h2 class="headline-lg" style="margin:var(--space-sm) 0 var(--space-xs);">Every collection has a story.</h2>
-      <p class="subhead" style="margin-bottom:var(--space-lg);">The people behind them trusted us with something that mattered.</p>
-      <div class="stories-grid">
-        <div class="story-card">
-          <div class="story-card__thumb">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" alt="Margaret's story" loading="lazy">
-            <div class="story-card__play"><span>▶</span></div>
+      <div class="office-tour__head">
+        <p class="label">Charlotte, NC · Headquarters</p>
+        <h2 class="headline-md">Not your grandfather's coin shop.</h2>
+        <p class="office-tour__sub">Click the <span class="hotspot-inline">1</span> numbers to look around.</p>
+      </div>
+    </div>
+    <div class="office-tour__scroll-wrap">
+      <div class="office-tour__track">
+
+        <!-- Photo 1: Desk / Wyatt's workspace -->
+        <figure class="office-photo">
+          <div class="office-photo__frame">
+            <img src="assets/office-1.jpg" alt="Coinfully workspace" loading="lazy">
+            <button class="hotspot" style="left:22%;top:58%" data-tip="Wyatt's desk. The green Stanley hasn't moved since 2022.">1</button>
+            <button class="hotspot" style="left:70%;top:28%" data-tip="Where every incoming collection gets photographed and logged before we make a single offer.">2</button>
           </div>
-          <div class="story-card__body">
-            <p class="story-card__name">Margaret · Dallas, TX</p>
-            <p class="story-card__teaser">"I had no idea what my father left behind. Coinfully changed everything."</p>
+        </figure>
+
+        <!-- Photo 2: Hallway / awards -->
+        <figure class="office-photo">
+          <div class="office-photo__frame">
+            <img src="assets/office-2.jpg" alt="Coinfully HQ hallway" loading="lazy">
+            <button class="hotspot" style="left:9%;top:42%" data-tip="Douglas Winter's industry awards. He's written 12 books on numismatics. He advises our team.">1</button>
+            <button class="hotspot" style="left:55%;top:52%" data-tip="Yeah, there's an arcade cabinet. We work long hours.">2</button>
+            <button class="hotspot" style="left:28%;top:18%" data-tip="The hallway between appraisal and operations. Most collections pass through here within a day.">3</button>
           </div>
-        </div>
-        <div class="story-card">
-          <div class="story-card__thumb">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Robert's story" loading="lazy">
-            <div class="story-card__play"><span>▶</span></div>
+        </figure>
+
+        <!-- Photo 3: Secure storage -->
+        <figure class="office-photo">
+          <div class="office-photo__frame">
+            <img src="assets/office-3.jpg" alt="Coinfully secure storage" loading="lazy">
+            <button class="hotspot" style="left:25%;top:45%" data-tip="Collections worth six figures pass through this room every week.">1</button>
+            <button class="hotspot" style="left:74%;top:36%" data-tip="Lloyd's of London-insured storage. Military-grade security. That's all we'll say.">2</button>
           </div>
-          <div class="story-card__body">
-            <p class="story-card__name">Robert · Charlotte, NC</p>
-            <p class="story-card__teaser">"I'd been sitting on my dad's collection for three years. I finally made the call."</p>
+        </figure>
+
+        <!-- Photo 4: Kitchen -->
+        <figure class="office-photo">
+          <div class="office-photo__frame">
+            <img src="assets/office-4.jpg" alt="Coinfully break room" loading="lazy">
+            <button class="hotspot" style="left:18%;top:50%" data-tip="Break room. Where the team recharges between six-figure appraisals.">1</button>
+            <button class="hotspot" style="left:62%;top:32%" data-tip="Original Pepsi sign and vintage finds. The team's been collecting more than coins.">2</button>
           </div>
-        </div>
-        <div class="story-card">
-          <div class="story-card__thumb">
-            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&q=80" alt="Linda's story" loading="lazy">
-            <div class="story-card__play"><span>▶</span></div>
+        </figure>
+
+        <!-- Photo 5: Main floor -->
+        <figure class="office-photo">
+          <div class="office-photo__frame">
+            <img src="assets/office-5.jpg" alt="Coinfully operations floor" loading="lazy">
+            <button class="hotspot" style="left:22%;top:36%" data-tip="Where the real work happens. Three monitors minimum, or you're not trying hard enough.">1</button>
+            <button class="hotspot" style="left:36%;top:74%" data-tip="Gifts from collectors over the years. People remember how you treated them.">2</button>
+            <button class="hotspot" style="left:80%;top:42%" data-tip="Operations floor. Three monitors minimum, or you're not trying hard enough.">3</button>
           </div>
-          <div class="story-card__body">
-            <p class="story-card__name">Linda · Houston, TX</p>
-            <p class="story-card__teaser">"My parents bought coins for years. I needed someone I could actually trust."</p>
-          </div>
-        </div>
+        </figure>
+
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="section" id="how-it-works">
-    <div class="container">
-      <p class="label">Simple Process</p>
-      <h2 class="headline-lg" style="margin:var(--space-sm) 0 var(--space-lg);">Three steps. No surprises.</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step__num">1</div>
-          <h3 class="headline-sm">Tell us about your collection</h3>
-          <p>A few photos. A quick description. That's all we need to get started. No expertise required on your end.</p>
-        </div>
-        <div class="step__arrow">→</div>
-        <div class="step">
-          <div class="step__num">2</div>
-          <h3 class="headline-sm">We appraise, authenticate, value</h3>
-          <p>Our team reviews everything. We know what we're looking at. You get a real number — not a guess.</p>
-        </div>
-        <div class="step__arrow">→</div>
-        <div class="step">
-          <div class="step__num">3</div>
-          <h3 class="headline-sm">Accept the offer. Get paid.</h3>
-          <p>If you're happy with the offer, payment is issued in minutes. No delays, no waiting, no chasing anyone down.</p>
-        </div>
-      </div>
-      <p class="steps__note">For large or significant collections, we travel to you. <a href="https://coinfully.com/at-home">Learn about our at-home service →</a></p>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
+  <!-- ============================================================
+       11. TESTIMONIALS — one strong section
+       ============================================================ -->
   <section class="section section--cream">
     <div class="container">
       <p class="label">What people say after.</p>
@@ -624,7 +514,7 @@
         </div>
         <div class="testimonial">
           <div class="testimonial__stars">★★★★★</div>
-          <p class="testimonial__quote">"They came to my house on a Friday. By Monday it was done. I couldn't believe how easy it was. I'd been dreading this for three years."</p>
+          <p class="testimonial__quote">"They came to my house and it was done the same day. I couldn't believe how easy it was. I'd been dreading this for three years."</p>
           <div class="testimonial__author">
             <strong>James R.</strong>
             <span>Charlotte, NC — At-Home Appraisal</span>
@@ -647,15 +537,19 @@
     </div>
   </section>
 
-  <!-- COIN SCANNER WIDGET -->
+  <!-- ============================================================
+       12. COIN SCANNER WIDGET
+       ============================================================ -->
   <section class="coin-scan" id="coin-scan">
     <div class="container">
       <div class="coin-scan__inner">
 
         <div class="coin-scan__copy">
-          <p class="label coin-scan__label">Free Coin Read</p>
-          <h2 class="headline-lg coin-scan__headline">One photo.<br>One honest answer.<br>No sales call.</h2>
-          <p class="coin-scan__desc">Drop a photo of your coin — front or back, whatever you have. Wyatt and the team will tell you what it is, what it might be worth, and what they'd do if they were you. Back in your inbox within 24 hours.</p>
+          <!-- Cerebro helmet -->
+          <svg width="48" height="48" viewBox="0 0 32 32" fill="none" style="margin-bottom:var(--space-xs);"><path d="M4 20C4 12 9 5 16 5C23 5 28 12 28 20" stroke="#F5C342" stroke-width="2" stroke-linecap="round"/><line x1="4" y1="20" x2="28" y2="20" stroke="#F5C342" stroke-width="2"/><circle cx="16" cy="14" r="3" fill="#F5C342" opacity="0.4"/><line x1="16" y1="11" x2="16" y2="5" stroke="#F5C342" stroke-width="1.5"/></svg>
+          <p class="label coin-scan__label">Free Collection Read</p>
+          <h2 class="headline-lg coin-scan__headline">A few photos.<br>One honest answer.<br>No sales call.</h2>
+          <p class="coin-scan__desc">Drop a few photos of your collection — group shots work great. Wyatt and the team will tell you what you have, what it might be worth, and what they'd do if they were you. Back in your inbox within 24 hours.</p>
           <p class="coin-scan__fine">No pitch. No follow-up unless you want one.</p>
         </div>
 
@@ -669,13 +563,13 @@
                 <circle cx="24" cy="24" r="13" stroke="currentColor" stroke-width="2" opacity="0.5"/>
                 <path d="M24 16v16M17 23l7-7 7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              <p class="coin-drop__prompt">Tap to choose a photo<br><span class="coin-drop__prompt-desktop">or drop one here</span></p>
+              <p class="coin-drop__prompt">Tap to choose photos<br><span class="coin-drop__prompt-desktop">or drop them here</span></p>
               <p class="coin-drop__hint">JPG, PNG, or HEIC · any size</p>
             </label>
             <div class="coin-drop__selected" id="coinSelected" style="display:none">
               <div class="coin-drop__selected-icon">✓</div>
               <p class="coin-drop__selected-name" id="coinFileName"></p>
-              <button type="button" class="coin-drop__remove" id="coinRemove">Change photo</button>
+              <button type="button" class="coin-drop__remove" id="coinRemove">Change photos</button>
             </div>
           </div>
 
@@ -704,7 +598,9 @@
     </div>
   </section>
 
-  <!-- CONTENT SECTION -->
+  <!-- ============================================================
+       13. CONTENT / BLOG
+       ============================================================ -->
   <section class="section" id="blog">
     <div class="container">
       <p class="label">Things Worth Knowing</p>
@@ -730,7 +626,9 @@
     </div>
   </section>
 
-  <!-- ESTATE CTA BAND -->
+  <!-- ============================================================
+       14. ESTATE CTA BAND
+       ============================================================ -->
   <section class="estate-band" id="estate">
     <div class="container estate-band__inner">
       <div>
@@ -742,18 +640,22 @@
     </div>
   </section>
 
-  <!-- FOOTER HERO -->
+  <!-- ============================================================
+       15. FOOTER HERO
+       ============================================================ -->
   <section class="footer-hero">
     <div class="container footer-hero__inner">
       <h2 class="headline-lg" style="color:var(--white);">Ready to find out<br>what yours is worth?</h2>
       <div class="footer-hero__ctas">
         <a href="https://coinfully.com/appraisal" class="btn btn-primary">Get a Free Appraisal</a>
-        <button class="btn btn-outline-white travis-trigger" data-persona="inheritor">Ask Travis</button>
+        <button class="btn btn-outline-white travis-trigger" data-persona="inheritor">Ask Wyatt</button>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ============================================================
+       16. FOOTER
+       ============================================================ -->
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
@@ -761,11 +663,12 @@
         <p style="font-size:13px;color:var(--gray-mid);margin-top:4px;">Knowledgeable. Transparent. Fair.</p>
       </div>
       <div class="footer__links">
+        <a href="#how-it-works">How It Works</a>
         <a href="#inheritors">For Inheritors</a>
         <a href="#investors">For Investors</a>
+        <a href="#at-home">At-Home Visits</a>
         <a href="https://coinfully.com/about">About Us</a>
         <a href="https://coinfully.com/blog">Blog</a>
-        <a href="https://coinfully.com/locations">Locations</a>
         <a href="https://coinfully.com/contact">Contact</a>
       </div>
       <p class="footer__legal">© 2026 Coinfully. All rights reserved. &nbsp;|&nbsp; <a href="https://coinfully.com/privacy">Privacy Policy</a></p>

@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavilion — Operator Dinner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --white: #FAFAFA;
+  --cream: #F5F3EE;
+  --accent: #C9A227;
+  --accent-dim: rgba(201,162,39,0.4);
+  --gray: #666;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', -apple-system, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--black);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+
+/* UTILITY */
+.frame { min-height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden; }
+.frame--short { min-height: auto; padding: 120px 0; }
+.frame--tall { min-height: 120vh; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%; }
+.container--narrow { max-width: 800px; }
+.container--wide { max-width: 1400px; }
+
+/* PHOTO TREATMENT */
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1);
+  transition: filter 0.6s ease;
+}
+.photo--color { filter: grayscale(30%) contrast(1.05); }
+.photo-frame {
+  overflow: hidden;
+  position: relative;
+  background: #111;
+}
+.photo-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+
+/* TYPOGRAPHY */
+.editorial {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.editorial--bold {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+.mono {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.accent { color: var(--accent); }
+
+/* TECH OVERLAY */
+.overlay-tag {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 8px 16px;
+  border: 1px solid var(--accent-dim);
+  display: inline-block;
+  backdrop-filter: blur(8px);
+  background: rgba(10,10,10,0.6);
+}
+.overlay-tag--solid {
+  background: var(--accent);
+  color: var(--black);
+  border: none;
+  font-weight: 700;
+}
+.overlay-meta {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  line-height: 2;
+}
+
+/* DIVIDER */
+.divider {
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  margin: 40px 0;
+}
+.divider--center { margin: 40px auto; }
+
+/* ============================================================
+   FRAME 1: HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 80px;
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+}
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.15) brightness(0.45);
+}
+.hero__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,10,10,0) 0%,
+    rgba(10,10,10,0.3) 40%,
+    rgba(10,10,10,0.95) 100%
+  );
+}
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+.hero__tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.hero__headline {
+  font-family: var(--serif);
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+}
+.hero__sub {
+  font-size: 17px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  max-width: 420px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+.hero__scroll {
+  position: absolute;
+  bottom: 32px;
+  right: 40px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  writing-mode: vertical-rl;
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.5; }
+}
+
+/* ============================================================
+   FRAME 2: THE ARRIVAL
+   ============================================================ */
+.arrival {
+  position: relative;
+  padding: 0;
+}
+.arrival__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+.arrival__photo {
+  position: relative;
+  overflow: hidden;
+}
+.arrival__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1) brightness(0.7);
+}
+.arrival__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 80px;
+  position: relative;
+}
+.arrival__venue-tag {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+}
+
+/* ============================================================
+   FRAME 3: CLOSE-UP MOMENT
+   ============================================================ */
+.closeup {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.closeup__bg {
+  position: absolute;
+  inset: 0;
+}
+.closeup__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.2) brightness(0.35);
+}
+.closeup__content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  padding: 40px;
+}
+.closeup__quote {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+/* ============================================================
+   FRAME 4: THE ROOM
+   ============================================================ */
+.room__mosaic {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  height: 100vh;
+}
+.room__mosaic .photo-frame:nth-child(1) { grid-row: 1 / 3; }
+.room__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10,10,10,0.7);
+  z-index: 2;
+  pointer-events: none;
+}
+.room__text {
+  text-align: center;
+  max-width: 600px;
+  padding: 40px;
+}
+.room__headline {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* ============================================================
+   FRAME 5: WHAT MAKES THIS DIFFERENT
+   ============================================================ */
+.different {
+  background: var(--black);
+}
+.different__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+}
+.different__item {
+  padding: 64px 40px;
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+}
+.different__num {
+  font-family: var(--serif);
+  font-size: 64px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.04);
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  line-height: 1;
+}
+.different__label {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+.different__desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ============================================================
+   FRAME 6: THE HUG
+   ============================================================ */
+.embrace {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.embrace__bg {
+  position: absolute;
+  inset: 0;
+}
+.embrace__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1) brightness(0.5);
+}
+.embrace__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, transparent 60%);
+}
+.embrace__content {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 80px;
+}
+
+/* ============================================================
+   FRAME 7: CTA
+   ============================================================ */
+.cta-frame {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.cta__headline {
+  font-family: var(--serif);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+.cta__sub {
+  font-size: 16px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 40px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+.cta__btn {
+  display: inline-block;
+  padding: 18px 48px;
+  background: var(--accent);
+  color: var(--black);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.cta__btn:hover {
+  background: var(--white);
+}
+
+/* FOOTER STRIP */
+.footer-strip {
+  padding: 40px;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ============================================================
+   SCROLL ANIMATIONS
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+  .arrival__grid { grid-template-columns: 1fr; }
+  .arrival__photo { height: 50vh; }
+  .arrival__content { padding: 48px 24px; }
+  .room__mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; height: auto; }
+  .room__mosaic .photo-frame:nth-child(1) { grid-row: auto; }
+  .room__mosaic .photo-frame { height: 40vh; }
+  .different__grid { grid-template-columns: 1fr; }
+  .hero { padding-bottom: 48px; }
+  .hero__scroll { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     FRAME 1: HERO — The invitation
+     ============================================================ -->
+<section class="hero">
+  <div class="hero__bg">
+    <!-- Long table, candlelit, end of service. Shot from far end. -->
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=80" alt="" class="photo">
+    <div class="hero__gradient"></div>
+  </div>
+  <div style="position:absolute;top:32px;left:40px;z-index:10;">
+    <span style="font-family:var(--sans);font-size:14px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.9);">Pavilion</span>
+  </div>
+  <div class="container hero__content">
+    <div class="hero__tags reveal">
+      <span class="overlay-tag">Pavilion New York</span>
+      <span class="overlay-tag">Operators Only</span>
+      <span class="overlay-tag">14 Seats</span>
+    </div>
+    <h1 class="hero__headline reveal reveal-delay-1">
+      Dinner with<br>friends.
+    </h1>
+    <p class="hero__sub reveal reveal-delay-2">
+      The way things should be.
+    </p>
+  </div>
+  <div class="hero__scroll">Scroll</div>
+</section>
+
+<!-- ============================================================
+     FRAME 2: THE ARRIVAL — Split frame
+     ============================================================ -->
+<section class="arrival">
+  <div class="arrival__grid">
+    <div class="arrival__photo">
+      <!-- Someone walking into a dimly lit restaurant entrance -->
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80" alt="" class="photo">
+    </div>
+    <div class="arrival__content">
+      <span class="overlay-tag reveal" style="margin-bottom:32px;">7:14 PM</span>
+      <div class="divider reveal reveal-delay-1"></div>
+      <p class="overlay-meta reveal reveal-delay-1">The Arrival</p>
+      <h2 class="editorial editorial--bold reveal reveal-delay-2" style="font-size:clamp(28px,4vw,44px);line-height:1.1;margin-top:16px;">
+        Don't network.<br>
+        <span class="accent">Just arrive.</span>
+      </h2>
+      <p style="font-size:15px;color:rgba(255,255,255,0.4);line-height:1.8;margin-top:24px;font-weight:300;max-width:380px;" class="reveal reveal-delay-3">
+        Fourteen operators. Hand-selected. The host knows every name before the first drink is poured.
+      </p>
+      <div class="arrival__venue-tag">
+        <span class="overlay-meta">Venue</span><br>
+        <span style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);letter-spacing:1px;">The Waverly Inn</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FRAME 3: CLOSE-UP — The rules
+     ============================================================ -->
+<section class="closeup">
+  <div class="closeup__bg">
+    <!-- Someone standing, addressing a table. Close-up, gesturing. -->
+    <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1800&q=80" alt="" class="photo">
+  </div>
+  <div class="closeup__content">
+    <span class="overlay-tag overlay-tag--solid reveal" style="margin-bottom:32px;">The Rules</span>
+    <p class="closeup__quote reveal reveal-delay-1">
+      "Nothing leaves this room.<br>Say what you actually think."
+    </p>
+    <p class="overlay-meta reveal reveal-delay-2">Chatham House Rule · Every Dinner · No Exceptions</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FRAME 4: THE ROOM — Photo mosaic
+     ============================================================ -->
+<section style="position:relative;">
+  <div class="room__mosaic">
+    <div class="photo-frame">
+      <!-- Wide shot: full table, mid-conversation, candles -->
+      <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200&q=80" alt="" class="photo">
+    </div>
+    <div class="photo-frame">
+      <!-- Two people leaning in, talking close -->
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80" alt="" class="photo">
+    </div>
+    <div class="photo-frame">
+      <!-- Close-up: hands holding a glass, or a plate being set down -->
+      <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=800&q=80" alt="" class="photo">
+    </div>
+    <div class="photo-frame">
+      <!-- Candid laugh, mid-sentence -->
+      <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&q=80" alt="" class="photo">
+    </div>
+    <div class="photo-frame">
+      <!-- Detail: menu card, place setting, or coat check tag -->
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80" alt="" class="photo">
+    </div>
+  </div>
+  <div class="room__overlay">
+    <div class="room__text">
+      <p class="overlay-meta reveal" style="margin-bottom:16px;">The Conversation</p>
+      <h2 class="room__headline reveal reveal-delay-1">
+        The room<br>does the work.
+      </h2>
+      <div class="divider divider--center reveal reveal-delay-2"></div>
+      <p style="font-size:15px;color:rgba(255,255,255,0.45);line-height:1.8;font-weight:300;" class="reveal reveal-delay-3">
+        People are amazing conversationalists by nature —<br>
+        we just don't get enough opportunities to show off our skills.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FRAME 5: WHAT MAKES THIS DIFFERENT
+     ============================================================ -->
+<section class="frame--short different">
+  <div class="container--wide" style="margin:0 auto;">
+    <div style="padding:0 40px 48px;">
+      <p class="overlay-meta reveal">What Makes This Different</p>
+    </div>
+    <div class="different__grid">
+      <div class="different__item reveal">
+        <div class="different__num">01</div>
+        <div class="different__label">Curated.</div>
+        <p class="different__desc">Every seat is a decision. We build rooms.</p>
+      </div>
+      <div class="different__item reveal reveal-delay-1">
+        <div class="different__num">02</div>
+        <div class="different__label">Operators.</div>
+        <p class="different__desc">Everyone at this table has built something. Raised something. Lost something. That's the price of entry.</p>
+      </div>
+      <div class="different__item reveal reveal-delay-2">
+        <div class="different__num">03</div>
+        <div class="different__label">Off the<br>record.</div>
+        <p class="different__desc">What happens at the table stays at the table.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FRAME 5.5: IN THE ROOM
+     ============================================================ -->
+<section style="padding:64px 0;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);">
+  <div class="container" style="text-align:center;">
+    <p class="overlay-meta reveal">Recently In The Room Together</p>
+    <p style="font-size:13px;color:rgba(255,255,255,0.25);margin-top:8px;font-weight:300;letter-spacing:0.5px;" class="reveal reveal-delay-1">GTM leadership at</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0;margin-top:32px;max-width:900px;margin-left:auto;margin-right:auto;">
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Klaviyo</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">ClickUp</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Zuora</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Docebo</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Clio</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Socure</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Salesloft</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Gong</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Braze</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">6sense</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Lattice</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Freshworks</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">MongoDB</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Outreach</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">ZoomInfo</span>
+      <span class="reveal" style="font-family:var(--sans);font-size:13px;font-weight:500;color:rgba(255,255,255,0.35);padding:8px 20px;letter-spacing:0.5px;">Datadog</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FRAME 6: TOPIC + CITY STRIP
+     ============================================================ -->
+<section class="frame--short" style="border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);">
+  <div class="container" style="text-align:center;">
+    <p class="overlay-meta reveal">Upcoming Dinners</p>
+    <div style="display:flex;justify-content:center;gap:12px;margin-top:32px;flex-wrap:wrap;">
+      <span class="overlay-tag reveal reveal-delay-1">New York · May 14</span>
+      <span class="overlay-tag reveal reveal-delay-1">San Francisco · May 28</span>
+      <span class="overlay-tag reveal reveal-delay-2">London · June 11</span>
+      <span class="overlay-tag reveal reveal-delay-2">Austin · June 24</span>
+    </div>
+    <div style="display:flex;justify-content:center;gap:12px;margin-top:12px;flex-wrap:wrap;">
+      <span class="overlay-tag reveal reveal-delay-3" style="border-color:rgba(255,255,255,0.08);color:rgba(255,255,255,0.3);">AI + Revenue · Pricing Under Pressure · The Founder Exit</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FRAME 7: THE EMBRACE — End of night
+     ============================================================ -->
+<section class="embrace">
+  <div class="embrace__bg">
+    <!-- Two women hugging goodbye outside a restaurant at night -->
+    <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=1800&q=80" alt="" class="photo photo--color">
+    <div class="embrace__gradient"></div>
+  </div>
+  <div class="container embrace__content">
+    <p class="overlay-meta reveal">11:47 PM</p>
+    <h2 class="editorial editorial--bold reveal reveal-delay-1" style="font-size:clamp(28px,4vw,44px);line-height:1.1;margin-top:12px;">
+      Nobody wants<br>to leave.
+    </h2>
+    <p style="font-size:15px;color:rgba(255,255,255,0.4);line-height:1.8;margin-top:20px;font-weight:300;max-width:400px;" class="reveal reveal-delay-2">
+      That's how you know it worked.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FRAME 8: CTA
+     ============================================================ -->
+<section class="cta-frame">
+  <div class="container--narrow" style="margin:0 auto;padding:0 40px;">
+    <p class="overlay-meta reveal" style="margin-bottom:24px;">Pavilion Operator Dinners</p>
+    <h2 class="cta__headline reveal reveal-delay-1">
+      You'll have<br>to apply.
+    </h2>
+    <p class="cta__sub reveal reveal-delay-2">
+      Membership required. Seats are limited. We'll tell you if it's right.
+    </p>
+    <a href="https://www.joinpavilion.com" class="cta__btn reveal reveal-delay-3">Request an Invitation</a>
+  </div>
+</section>
+
+<div class="footer-strip">
+  Pavilion &middot; Operator Dinners &middot; 2026
+</div>
+
+<!-- ============================================================
+     SCROLL REVEAL
+     ============================================================ -->
+<script>
+(function() {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+})();
+</script>
+
+</body>
+</html>

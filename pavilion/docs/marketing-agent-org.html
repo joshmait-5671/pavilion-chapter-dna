@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavilion Marketing — Agent Org Structure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --white: #FFFFFF;
+  --cream: #FAF9F6;
+  --gold: #C9A227;
+  --gold-light: rgba(201,162,39,0.1);
+  --gold-glow: rgba(201,162,39,0.25);
+  --gray: #6B6B6B;
+  --gray-light: #E8E6E1;
+  --gray-dark: #2A2A2A;
+  --blue: #3B82F6;
+  --green: #22C55E;
+  --amber: #F59E0B;
+  --red: #EF4444;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(201,162,39,0.08) 0%, transparent 60%);
+}
+.hero__content { position: relative; max-width: 700px; }
+.hero__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.hero__title {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+.hero__sub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.5);
+  max-width: 500px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+.hero__meta {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+}
+
+/* SECTION */
+.section { padding: 96px 32px; }
+.section--cream { background: var(--cream); color: var(--black); }
+.section--dark { background: #111; }
+.container { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+/* HUMANS */
+.humans-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.human-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.human-card:hover { border-color: var(--gold); }
+.human-card__initial {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  border: 2px solid rgba(201,162,39,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--gold);
+  margin: 0 auto 16px;
+}
+.human-card__name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.human-card__role { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+/* AGENT CARDS */
+.agents-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 48px;
+}
+.agent-card {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--gray-light);
+  transition: box-shadow 0.2s;
+}
+.agent-card:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.06); }
+.agent-card__header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 32px;
+  cursor: pointer;
+  user-select: none;
+}
+.agent-card__num {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--black);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.agent-card__title-wrap { flex: 1; }
+.agent-card__name { font-size: 18px; font-weight: 800; color: var(--black); }
+.agent-card__subtitle { font-size: 13px; color: var(--gray); margin-top: 2px; }
+.agent-card__badges { display: flex; gap: 8px; flex-shrink: 0; }
+.agent-card__badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+.badge--auto { background: rgba(34,197,94,0.1); color: #16a34a; }
+.badge--approve { background: rgba(245,158,11,0.1); color: #d97706; }
+.badge--human { background: rgba(59,130,246,0.1); color: #2563eb; }
+.agent-card__toggle {
+  font-size: 18px;
+  color: var(--gray);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.agent-card.is-open .agent-card__toggle { transform: rotate(180deg); }
+.agent-card__body {
+  display: none;
+  padding: 0 32px 32px;
+  border-top: 1px solid var(--gray-light);
+}
+.agent-card.is-open .agent-card__body { display: block; padding-top: 24px; }
+.agent-card__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.agent-card__col h4 {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 10px;
+}
+.agent-card__col p, .agent-card__col li {
+  font-size: 14px;
+  color: var(--gray-dark);
+  line-height: 1.6;
+}
+.agent-card__col ul { list-style: none; }
+.agent-card__col li { padding-left: 16px; position: relative; margin-bottom: 6px; }
+.agent-card__col li::before { content: '->'; position: absolute; left: 0; color: var(--gold); font-weight: 700; font-size: 12px; }
+.agent-card__flow {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: var(--cream);
+  border-radius: 10px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  color: var(--gray-dark);
+  line-height: 1.8;
+  overflow-x: auto;
+}
+
+/* SPECTRUM */
+.spectrum { margin-top: 48px; }
+.spectrum-row {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+.spectrum-label {
+  width: 180px;
+  flex-shrink: 0;
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  border-radius: 8px 0 0 8px;
+}
+.spectrum-label--auto { background: rgba(34,197,94,0.15); color: #16a34a; }
+.spectrum-label--approve { background: rgba(245,158,11,0.15); color: #d97706; }
+.spectrum-label--human { background: rgba(59,130,246,0.15); color: #2563eb; }
+.spectrum-items {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.spectrum-item {
+  padding: 14px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--black);
+  border-radius: 0 8px 8px 0;
+  flex: 1;
+  min-width: 160px;
+}
+.spectrum-item--auto { background: rgba(34,197,94,0.06); }
+.spectrum-item--approve { background: rgba(245,158,11,0.06); }
+.spectrum-item--human { background: rgba(59,130,246,0.06); }
+
+/* HIERARCHY */
+.hierarchy {
+  margin-top: 48px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 14px;
+  line-height: 2;
+  color: rgba(255,255,255,0.7);
+  padding: 32px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow-x: auto;
+}
+.hierarchy .name { color: var(--white); font-weight: 700; }
+.hierarchy .agent { color: var(--gold); }
+.hierarchy .note { color: rgba(255,255,255,0.3); }
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 48px 32px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+@media (max-width: 768px) {
+  .humans-grid { grid-template-columns: 1fr 1fr; }
+  .agent-card__header { flex-wrap: wrap; }
+  .agent-card__badges { width: 100%; margin-top: 8px; }
+  .agent-card__grid { grid-template-columns: 1fr; }
+  .spectrum-row { flex-direction: column; }
+  .spectrum-label { width: 100%; border-radius: 8px 8px 0 0; }
+  .spectrum-item { border-radius: 0 0 8px 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__content">
+    <p class="hero__label">Pavilion</p>
+    <h1 class="hero__title">Marketing +<br>Membership.</h1>
+    <p class="hero__sub">11 AI agents. 6 humans. One machine that acquires, engages, retains, and amplifies — with humans driving taste and strategy.</p>
+    <p class="hero__meta">Josh Mait · Head of Marketing · April 2026</p>
+  </div>
+</section>
+
+<!-- THE HUMANS -->
+<section class="section section--dark">
+  <div class="container">
+    <p class="section-label">The Humans</p>
+    <h2 class="section-title" style="color:var(--white);">Four people. Ten agents.<br>Everyone has a lane.</h2>
+    <div class="humans-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="human-card">
+        <div class="human-card__initial">JM</div>
+        <div class="human-card__name">Josh Mait</div>
+        <div class="human-card__role">Creative direction, brand, strategy, builds things</div>
+      </div>
+      <div class="human-card">
+        <div class="human-card__initial">K</div>
+        <div class="human-card__name">Kyler</div>
+        <div class="human-card__role">Execution, deployment, enablement, field intel</div>
+      </div>
+      <div class="human-card">
+        <div class="human-card__initial">L</div>
+        <div class="human-card__name">Laura</div>
+        <div class="human-card__role">Design, UX, digital, analytics</div>
+      </div>
+      <div class="human-card">
+        <div class="human-card__initial">M</div>
+        <div class="human-card__name">Melanie</div>
+        <div class="human-card__role">Events, chapter dinners, sponsorships, IRL</div>
+      </div>
+      <div class="human-card" style="border-color:var(--gold);border-style:dashed;">
+        <div class="human-card__initial" style="opacity:0.6;">?</div>
+        <div class="human-card__name">TBD — Member Experience</div>
+        <div class="human-card__role">Classes, Slack engagement, content programming. The bridge between product and members.</div>
+      </div>
+      <div class="human-card" style="border-color:var(--gold);border-style:dashed;">
+        <div class="human-card__initial" style="opacity:0.6;">?</div>
+        <div class="human-card__name">TBD — Events Ops</div>
+        <div class="human-card__role">Melanie's hire. Logistics, sponsor deliverables, chapter dinner ops. Runs the machine.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE AGENTS -->
+<section class="section section--cream">
+  <div class="container">
+    <p class="section-label" style="color:var(--gold);">The Agents</p>
+    <h2 class="section-title">Each one has a job, a trigger,<br>and a level of autonomy.</h2>
+
+    <div class="agents-grid">
+
+      <!-- 1 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">01</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">Sydney — Member Promotion</div>
+            <div class="agent-card__subtitle">Scout + packager · Kyler nominates, agent enriches, Josh picks</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--human">Human Drives</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Input</h4>
+              <ul>
+                <li>Kyler's nominations (name + why)</li>
+                <li>Engagement data, chapter activity</li>
+                <li>Event participation, LinkedIn signals</li>
+              </ul>
+            </div>
+            <div class="agent-card__col">
+              <h4>Output</h4>
+              <ul>
+                <li>Weekly shortlist (5 names + case)</li>
+                <li>Draft assets on Josh's approval</li>
+              </ul>
+            </div>
+          </div>
+          <div class="agent-card__flow">KYLER (nominates) --> AGENT (validates + enriches + ranks) --> JOSH (picks + greenlights)</div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">02</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">Don — The Build Engine</div>
+            <div class="agent-card__subtitle">Creative interrogator + production multiplier · Josh's brain, agent's hands</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--human">Human Drives</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Phase 1: Intake</h4>
+              <p>40-question deep conversational flow built for Josh. Adaptive. Pulls the campaign out of his head — audience, fear, belief, tone, format, emotional arc. Produces a creative brief richer than any human strategist would write.</p>
+            </div>
+            <div class="agent-card__col">
+              <h4>Phase 2: Build</h4>
+              <p>One brief becomes: email, landing page, LinkedIn post, ad copy, one-pager, deck slide. Multi-format production from a single creative source.</p>
+            </div>
+          </div>
+          <div class="agent-card__flow">JOSH (intake flow) --> BRIEF --> AGENT (builds all formats) --> JOSH (reviews + ships)</div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">03</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">Susie — Deployment + Monitoring</div>
+            <div class="agent-card__subtitle">Scheduler + watchdog + optimizer · Kyler owns channels, email is priority lane</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--auto">Autonomous</span><span class="agent-card__badge badge--approve">New Campaigns: Kyler</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Autonomous Actions</h4>
+              <ul>
+                <li>Deploy on calendar</li>
+                <li>Send time optimization</li>
+                <li>Subject line variant testing</li>
+                <li>Audience segment tweaks</li>
+              </ul>
+            </div>
+            <div class="agent-card__col">
+              <h4>Alerts to Kyler</h4>
+              <ul>
+                <li>Open rate below threshold</li>
+                <li>Unsubscribe spikes</li>
+                <li>3 alternatives per alert</li>
+                <li>Daily digest of all actions</li>
+              </ul>
+            </div>
+          </div>
+          <div class="agent-card__flow">CM1 (assets) --> SUSIE (deploys + monitors + optimizes) --> KYLER (daily digest, strategic shifts only)</div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">04</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">Condor — Market Intelligence</div>
+            <div class="agent-card__subtitle">Scanner + filter · Fully autonomous, no human in the loop</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--auto">Fully Autonomous</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Sources</h4>
+              <ul>
+                <li>Reddit (AI, GTM, community)</li>
+                <li>LinkedIn / industry publications</li>
+                <li>Competitor sites</li>
+                <li>Internal Slack / community</li>
+              </ul>
+            </div>
+            <div class="agent-card__col">
+              <h4>Output</h4>
+              <p>Weekly brief. Max 1 page. 3 "consider this" prompts ranked by urgency. Monday morning delivery to Josh + Kyler. Not a firehose — a filter.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">05</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">Flash — Website Manager</div>
+            <div class="agent-card__subtitle">Optimizer + implementer · Laura reviews changelog, doesn't gatekeep</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--auto">Low-Traffic: Auto</span><span class="agent-card__badge badge--approve">High-Traffic: Laura</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Autonomous</h4>
+              <ul>
+                <li>Copy + CTA changes on low-traffic pages</li>
+                <li>A/B tests on non-critical pages</li>
+                <li>Daily changelog to Laura</li>
+              </ul>
+            </div>
+            <div class="agent-card__col">
+              <h4>Requires Approval</h4>
+              <ul>
+                <li>Homepage changes</li>
+                <li>Pricing page changes</li>
+                <li>New page creation</li>
+              </ul>
+            </div>
+          </div>
+          <div class="agent-card__flow">ANALYTICS --> AGENT (identifies + fixes) --> LAURA (reviews changelog, overrides when needed)</div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">06</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">Gonzo — Performance Oversight</div>
+            <div class="agent-card__subtitle">Dashboard + alarm + tactical coordinator · The layer above</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--auto">Tactical: Auto</span><span class="agent-card__badge badge--human">Strategic: Josh</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Ingests From</h4>
+              <ul>
+                <li>Susie's channel performance</li>
+                <li>Website Manager's site metrics</li>
+                <li>Market Intel's trend reports</li>
+                <li>Pipeline / revenue data</li>
+              </ul>
+            </div>
+            <div class="agent-card__col">
+              <h4>Acts On</h4>
+              <ul>
+                <li>Tells Susie to test new subject lines</li>
+                <li>Tells Website to swap a CTA</li>
+                <li>Logs every decision</li>
+                <li>Flags strategic shifts to Josh</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">07</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">Nancy — Sales + Success Enablement</div>
+            <div class="agent-card__subtitle">Builder + feedback processor · Kyler owns the tools</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--auto">Updates: Auto</span><span class="agent-card__badge badge--approve">New Assets: Kyler</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Fed By</h4>
+              <ul>
+                <li>Rep feedback ("lost because...")</li>
+                <li>Market Intel weekly brief</li>
+                <li>Win/loss data</li>
+              </ul>
+            </div>
+            <div class="agent-card__col">
+              <h4>Produces</h4>
+              <ul>
+                <li>Competitive one-pagers</li>
+                <li>ROI calculators</li>
+                <li>Talk tracks + objection docs</li>
+                <li>Monthly gap analysis</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">08</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">Charlie — Instagram Gold</div>
+            <div class="agent-card__subtitle">Calendar + content production · Josh approves the weekly queue</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--approve">Human Approves</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Input</h4>
+              <ul>
+                <li>Emily + Sam submit moments</li>
+                <li>Photo + 1 sentence context</li>
+                <li>Josh's editorial direction</li>
+              </ul>
+            </div>
+            <div class="agent-card__col">
+              <h4>Output</h4>
+              <ul>
+                <li>2-week rolling calendar</li>
+                <li>Drafted captions + hashtags</li>
+                <li>Story vs. feed recommendation</li>
+                <li>Scheduled publishing</li>
+              </ul>
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--gray);margin-top:16px;font-style:italic;">Curated lifestyle magazine feel. Not a content mill — a point of view.</p>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">09</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">Melanie — IRL Engine</div>
+            <div class="agent-card__subtitle">Event ops + sponsor tracker · Melanie drives, agent tracks</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--auto">Logistics: Auto</span><span class="agent-card__badge badge--approve">Sponsors: Melanie</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Owns</h4>
+              <ul>
+                <li>Event logistics tracking</li>
+                <li>Sponsor deliverable checklists</li>
+                <li>Chapter dinner coordination</li>
+                <li>Post-event follow-up sequences</li>
+              </ul>
+            </div>
+            <div class="agent-card__col">
+              <h4>Triggers</h4>
+              <ul>
+                <li>Event milestone dates</li>
+                <li>Sponsor contract deadlines</li>
+                <li>T-minus countdowns</li>
+                <li>Post-event 48hr follow-up</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">10</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">Harriet — Member Health + Retention</div>
+            <div class="agent-card__subtitle">Churn radar + engagement watchdog · Watching the back door</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--auto">Monitoring: Auto</span><span class="agent-card__badge badge--approve">Outreach: Approval</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Watches</h4>
+              <ul>
+                <li>Login frequency decay</li>
+                <li>Event attendance drops</li>
+                <li>Slack activity decline</li>
+                <li>NPS signals</li>
+                <li>60/30 days before renewal</li>
+              </ul>
+            </div>
+            <div class="agent-card__col">
+              <h4>Feeds</h4>
+              <ul>
+                <li>Sales Enablement (save plays)</li>
+                <li>Performance Oversight (trends)</li>
+                <li>Member Promotion (re-engage)</li>
+                <li>Weekly at-risk list</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="agent-card">
+        <div class="agent-card__header" onclick="this.parentElement.classList.toggle('is-open')">
+          <div class="agent-card__num">11</div>
+          <div class="agent-card__title-wrap">
+            <div class="agent-card__name">TBD — Member Experience</div>
+            <div class="agent-card__subtitle">Program amplifier + engagement curator · New hire owns the lane</div>
+          </div>
+          <div class="agent-card__badges"><span class="agent-card__badge badge--auto">Internal Comms: Auto</span><span class="agent-card__badge badge--approve">Positioning: Human</span></div>
+          <div class="agent-card__toggle">&#x25BC;</div>
+        </div>
+        <div class="agent-card__body">
+          <div class="agent-card__grid">
+            <div class="agent-card__col">
+              <h4>Pulls From</h4>
+              <ul>
+                <li>Susie (deploys internal member comms)</li>
+                <li>Harriet (engagement data, program health)</li>
+                <li>Condor (what members ask for in Slack)</li>
+                <li>Charlie (promotes standout moments)</li>
+                <li>Sydney (members who crushed it)</li>
+              </ul>
+            </div>
+            <div class="agent-card__col">
+              <h4>Output</h4>
+              <ul>
+                <li>Internal promotion calendar</li>
+                <li>Program health dashboard</li>
+                <li>"What's happening" member comms</li>
+                <li>Underperforming program alerts</li>
+              </ul>
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--gray);margin-top:16px;font-style:italic;">No great class dies in silence. No member wonders what they're paying for.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- AUTONOMY SPECTRUM -->
+<section class="section section--dark">
+  <div class="container">
+    <p class="section-label">Autonomy Spectrum</p>
+    <h2 class="section-title" style="color:var(--white);">How much leash does each agent get?</h2>
+
+    <div class="spectrum">
+      <div class="spectrum-row">
+        <div class="spectrum-label spectrum-label--auto">Fully Autonomous</div>
+        <div class="spectrum-items">
+          <div class="spectrum-item spectrum-item--auto">Condor (market intel)</div>
+          <div class="spectrum-item spectrum-item--auto">Flash (low-traffic pages)</div>
+          <div class="spectrum-item spectrum-item--auto">Gonzo (tactical)</div>
+          <div class="spectrum-item spectrum-item--auto">Susie (routine deploys)</div>
+          <div class="spectrum-item spectrum-item--auto">Nancy (asset updates)</div>
+          <div class="spectrum-item spectrum-item--auto">Harriet (monitoring)</div>
+        </div>
+      </div>
+      <div class="spectrum-row">
+        <div class="spectrum-label spectrum-label--approve">Human Approves</div>
+        <div class="spectrum-items">
+          <div class="spectrum-item spectrum-item--approve">Flash (high-traffic pages)</div>
+          <div class="spectrum-item spectrum-item--approve">Charlie (weekly queue)</div>
+          <div class="spectrum-item spectrum-item--approve">Nancy (new assets)</div>
+          <div class="spectrum-item spectrum-item--approve">Melanie (sponsors)</div>
+          <div class="spectrum-item spectrum-item--approve">Harriet (outreach)</div>
+        </div>
+      </div>
+      <div class="spectrum-row">
+        <div class="spectrum-label spectrum-label--human">Human Drives</div>
+        <div class="spectrum-items">
+          <div class="spectrum-item spectrum-item--human">Don (builds from Josh)</div>
+          <div class="spectrum-item spectrum-item--human">Sydney (Josh picks)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIERARCHY -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">Reporting Lines</p>
+    <h2 class="section-title">Who talks to whom.</h2>
+    <div class="hierarchy">
+<span class="name">JOSH</span> <span class="note">(brand, creative, strategy)</span>
+  <span class="agent">|-- Don</span> <span class="note">builds what Josh briefs</span>
+  <span class="agent">|-- Sydney</span> <span class="note">Kyler nominates, agent enriches, Josh picks</span>
+  <span class="agent">|-- Charlie</span> <span class="note">Josh approves weekly queue</span>
+  <span class="agent">|-- Gonzo</span> <span class="note">strategic flags to Josh</span>
+
+<span class="name">KYLER</span> <span class="note">(execution, deployment, enablement, field intel)</span>
+  <span class="agent">|-- Susie</span> <span class="note">Kyler owns channels</span>
+  <span class="agent">|-- Nancy</span> <span class="note">Kyler owns tools</span>
+  <span class="agent">|-- Sydney</span> <span class="note">Kyler is the nomination source</span>
+
+<span class="name">LAURA</span> <span class="note">(website, analytics, UX, retention)</span>
+  <span class="agent">|-- Flash</span> <span class="note">Laura reviews changelog</span>
+  <span class="agent">|-- Gonzo</span> <span class="note">Laura reviews tactical log</span>
+  <span class="agent">|-- Harriet</span> <span class="note">Laura reviews at-risk list</span>
+
+<span class="name">MELANIE</span> <span class="note">(events, IRL, sponsorships)</span>
+  <span class="agent">|-- Melanie agent</span> <span class="note">logistics + sponsor tracking</span>
+  <span class="note">|-- TBD hire</span> <span class="note">events ops, runs the machine</span>
+
+<span class="name">TBD HIRE</span> <span class="note">(member experience, classes, Slack, programming)</span>
+  <span class="agent">|-- Member Experience agent</span> <span class="note">program amplification + curation</span>
+  <span class="agent">|-- Harriet</span> <span class="note">engagement data feeds program health</span>
+
+<span class="name">AUTONOMOUS</span>
+  <span class="agent">|-- Condor</span> <span class="note">feeds everyone, no human owner</span>
+    </div>
+  </div>
+</section>
+
+<!-- THE MAP -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">The Map</p>
+    <h2 class="section-title">How the team actually works.</h2>
+    <p style="color:rgba(255,255,255,0.4);margin-bottom:48px;font-size:15px;">Humans and agents. Every arrow is a real data flow or decision handoff. Hover any node to see its connections.</p>
+    <canvas id="mapCanvas" style="width:100%;height:700px;border-radius:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);cursor:grab;"></canvas>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Pavilion Marketing + Membership · Josh Mait · April 2026</p>
+  <p style="margin-top:8px;">Built by 100 Yards</p>
+</footer>
+
+<script>
+(function() {
+  const canvas = document.getElementById('mapCanvas');
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); draw(); });
+
+  // Nodes: humans + agents
+  const nodes = [
+    // Humans (larger, white)
+    { id: 'josh', label: 'Josh', type: 'human', x: 0.18, y: 0.12 },
+    { id: 'kyler', label: 'Kyler', type: 'human', x: 0.50, y: 0.12 },
+    { id: 'laura', label: 'Laura', type: 'human', x: 0.75, y: 0.12 },
+    { id: 'melanie', label: 'Melanie', type: 'human', x: 0.92, y: 0.35 },
+    { id: 'tbd_mx', label: 'TBD\nMember Exp', type: 'hire', x: 0.92, y: 0.65 },
+    { id: 'tbd_events', label: 'TBD\nEvents Ops', type: 'hire', x: 0.92, y: 0.50 },
+
+    // Agents (smaller, gold)
+    { id: 'don', label: 'Don', type: 'agent', x: 0.08, y: 0.32 },
+    { id: 'sydney', label: 'Sydney', type: 'agent', x: 0.30, y: 0.28 },
+    { id: 'charlie', label: 'Charlie', type: 'agent', x: 0.08, y: 0.52 },
+    { id: 'susie', label: 'Susie', type: 'agent', x: 0.42, y: 0.38 },
+    { id: 'nancy', label: 'Nancy', type: 'agent', x: 0.55, y: 0.55 },
+    { id: 'condor', label: 'Condor', type: 'agent', x: 0.50, y: 0.80 },
+    { id: 'flash', label: 'Flash', type: 'agent', x: 0.70, y: 0.38 },
+    { id: 'gonzo', label: 'Gonzo', type: 'agent', x: 0.55, y: 0.22 },
+    { id: 'harriet', label: 'Harriet', type: 'agent', x: 0.75, y: 0.60 },
+    { id: 'melanie_agent', label: 'Melanie\nAgent', type: 'agent', x: 0.85, y: 0.42 },
+    { id: 'mx_agent', label: 'Member\nExp Agent', type: 'agent', x: 0.82, y: 0.75 },
+  ];
+
+  // Edges: [from, to, label]
+  const edges = [
+    // Josh's agents
+    ['josh', 'don', 'briefs'],
+    ['josh', 'sydney', 'picks'],
+    ['josh', 'charlie', 'approves queue'],
+    ['josh', 'gonzo', 'strategic flags'],
+
+    // Kyler's agents
+    ['kyler', 'susie', 'owns channels'],
+    ['kyler', 'nancy', 'owns tools'],
+    ['kyler', 'sydney', 'nominates'],
+
+    // Laura's agents
+    ['laura', 'flash', 'reviews changelog'],
+    ['laura', 'gonzo', 'tactical review'],
+    ['laura', 'harriet', 'retention signals'],
+
+    // Melanie
+    ['melanie', 'melanie_agent', 'drives strategy'],
+    ['melanie', 'tbd_events', 'manages'],
+
+    // TBD hires
+    ['tbd_mx', 'mx_agent', 'owns lane'],
+
+    // Agent-to-agent flows
+    ['don', 'susie', 'assets'],
+    ['susie', 'gonzo', 'performance data'],
+    ['susie', 'don', 'what worked'],
+    ['condor', 'josh', 'weekly brief'],
+    ['condor', 'kyler', 'weekly brief'],
+    ['condor', 'nancy', 'competitive shifts'],
+    ['condor', 'mx_agent', 'member asks'],
+    ['gonzo', 'flash', 'CTA swaps'],
+    ['gonzo', 'susie', 'test new approaches'],
+    ['harriet', 'nancy', 'save plays'],
+    ['harriet', 'gonzo', 'churn trends'],
+    ['harriet', 'sydney', 're-engage'],
+    ['harriet', 'mx_agent', 'program health'],
+    ['melanie_agent', 'charlie', 'event content'],
+    ['melanie_agent', 'sydney', 'member stories'],
+    ['melanie_agent', 'gonzo', 'event pipeline'],
+    ['mx_agent', 'susie', 'internal comms'],
+    ['mx_agent', 'charlie', 'moments'],
+    ['mx_agent', 'sydney', 'standout members'],
+  ];
+
+  let hoveredNode = null;
+
+  function getPos(node) {
+    const w = canvas.width / dpr;
+    const h = canvas.height / dpr;
+    return { x: node.x * w, y: node.y * h };
+  }
+
+  function draw() {
+    const w = canvas.width / dpr;
+    const h = canvas.height / dpr;
+    ctx.clearRect(0, 0, w, h);
+
+    // Draw edges
+    edges.forEach(([fromId, toId, label]) => {
+      const from = nodes.find(n => n.id === fromId);
+      const to = nodes.find(n => n.id === toId);
+      if (!from || !to) return;
+      const p1 = getPos(from);
+      const p2 = getPos(to);
+
+      const isHighlighted = hoveredNode && (hoveredNode.id === fromId || hoveredNode.id === toId);
+      const isDimmed = hoveredNode && !isHighlighted;
+
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.strokeStyle = isHighlighted ? 'rgba(201,162,39,0.7)' : isDimmed ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = isHighlighted ? 2 : 1;
+      ctx.stroke();
+
+      // Arrow
+      if (isHighlighted) {
+        const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+        const midX = (p1.x + p2.x) / 2;
+        const midY = (p1.y + p2.y) / 2;
+        ctx.beginPath();
+        ctx.moveTo(midX + 6 * Math.cos(angle), midY + 6 * Math.sin(angle));
+        ctx.lineTo(midX - 6 * Math.cos(angle - 0.5), midY - 6 * Math.sin(angle - 0.5));
+        ctx.lineTo(midX - 6 * Math.cos(angle + 0.5), midY - 6 * Math.sin(angle + 0.5));
+        ctx.fillStyle = 'rgba(201,162,39,0.7)';
+        ctx.fill();
+
+        // Edge label
+        ctx.font = '500 10px Inter, sans-serif';
+        ctx.fillStyle = 'rgba(201,162,39,0.6)';
+        ctx.textAlign = 'center';
+        ctx.fillText(label, midX, midY - 8);
+      }
+    });
+
+    // Draw nodes
+    nodes.forEach(node => {
+      const p = getPos(node);
+      const isHovered = hoveredNode && hoveredNode.id === node.id;
+      const isConnected = hoveredNode && edges.some(([f, t]) =>
+        (f === hoveredNode.id && t === node.id) || (t === hoveredNode.id && f === node.id)
+      );
+      const isDimmed = hoveredNode && !isHovered && !isConnected;
+
+      const r = node.type === 'human' ? 28 : node.type === 'hire' ? 24 : 22;
+
+      // Glow
+      if (isHovered) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, r + 8, 0, Math.PI * 2);
+        ctx.fillStyle = node.type === 'human' ? 'rgba(255,255,255,0.06)' : 'rgba(201,162,39,0.12)';
+        ctx.fill();
+      }
+
+      // Circle
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+      if (node.type === 'human') {
+        ctx.fillStyle = isDimmed ? 'rgba(255,255,255,0.08)' : '#fff';
+      } else if (node.type === 'hire') {
+        ctx.fillStyle = isDimmed ? 'rgba(201,162,39,0.05)' : 'transparent';
+        ctx.strokeStyle = isDimmed ? 'rgba(201,162,39,0.1)' : 'rgba(201,162,39,0.5)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      } else {
+        ctx.fillStyle = isDimmed ? 'rgba(201,162,39,0.08)' : '#C9A227';
+      }
+      ctx.fill();
+
+      // Label
+      const lines = node.label.split('\n');
+      ctx.textAlign = 'center';
+      if (node.type === 'human') {
+        ctx.font = '700 12px Inter, sans-serif';
+        ctx.fillStyle = isDimmed ? 'rgba(10,10,10,0.2)' : '#0A0A0A';
+      } else if (node.type === 'hire') {
+        ctx.font = '600 9px Inter, sans-serif';
+        ctx.fillStyle = isDimmed ? 'rgba(201,162,39,0.15)' : 'rgba(201,162,39,0.8)';
+      } else {
+        ctx.font = '700 11px Inter, sans-serif';
+        ctx.fillStyle = isDimmed ? 'rgba(10,10,10,0.2)' : '#0A0A0A';
+      }
+
+      if (lines.length === 1) {
+        ctx.fillText(lines[0], p.x, p.y + 4);
+      } else {
+        ctx.fillText(lines[0], p.x, p.y - 2);
+        ctx.font = '500 8px Inter, sans-serif';
+        ctx.fillText(lines[1], p.x, p.y + 10);
+      }
+    });
+  }
+
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const w = canvas.width / dpr;
+    const h = canvas.height / dpr;
+
+    hoveredNode = null;
+    for (const node of nodes) {
+      const p = getPos(node);
+      const r = node.type === 'human' ? 28 : 22;
+      if (Math.hypot(mx - p.x, my - p.y) < r + 5) {
+        hoveredNode = node;
+        break;
+      }
+    }
+    canvas.style.cursor = hoveredNode ? 'pointer' : 'grab';
+    draw();
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    hoveredNode = null;
+    draw();
+  });
+
+  draw();
+})();
+</script>
+
+</body>
+</html>

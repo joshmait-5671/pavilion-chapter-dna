@@ -1112,6 +1112,172 @@ img { max-width: 100%; display: block; }
 .footer__legal { font-size: 12px; color: rgba(255,255,255,0.25); }
 .footer__legal a { color: rgba(255,255,255,0.35); }
 
+/* SKIP ARROW */
+.skip-arrow {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  z-index: 5;
+  transition: opacity 0.15s ease;
+}
+.skip-arrow:hover { opacity: 0.7; }
+.skip-arrow__label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  white-space: nowrap;
+}
+.skip-arrow__icon {
+  width: 1px;
+  height: 28px;
+  background: var(--gray-mid);
+  position: relative;
+}
+.skip-arrow__icon::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--gray-mid);
+}
+@media (max-width: 768px) {
+  .skip-arrow {
+    top: var(--space-sm);
+    right: var(--space-sm);
+  }
+  .skip-arrow__label { font-size: 8px; }
+  .skip-arrow__icon { height: 20px; }
+}
+
+/* AT-HOME PERSON CARD */
+.person-card {
+  background: var(--black);
+  border: 1px solid rgba(245,195,66,0.3);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+.person-card__photo {
+  width: 220px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+}
+.person-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+.person-card__photo-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.15);
+  font-size: 48px;
+}
+.person-card__body {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex: 1;
+}
+.person-card__badge {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  align-self: flex-start;
+}
+.person-card__label {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.person-card__desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.65;
+}
+.person-card__quote {
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(255,255,255,0.4);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: var(--space-sm);
+  margin-top: auto;
+  line-height: 1.5;
+}
+.person-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.person-card__detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+.person-card__detail-check {
+  color: var(--yellow);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.person-card .btn {
+  align-self: flex-start;
+}
+@media (max-width: 768px) {
+  .person-card { flex-direction: column; }
+  .person-card__photo { width: 100%; height: 200px; }
+  .person-card__photo-placeholder { min-height: 160px; }
+}
+
+/* HERO CTAs */
+.hero__ctas {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+/* AT-HOME VISIT GRID */
+.at-home-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  max-width: 900px;
+}
+@media (max-width: 768px) {
+  .at-home-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 768px) {
   .content-grid { grid-template-columns: 1fr; }
   .estate-band__inner { flex-direction: column; }

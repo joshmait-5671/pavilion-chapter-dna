@@ -1,15 +1,14 @@
+functionsDirectory = "/Users/joshmait/Desktop/Claude/100yards/coinfully/netlify/functions"
+functionsDirectoryOrigin = "config-v1"
 plugins = []
 headers = []
 redirects = []
 
-[functions]
-
-[functions."*"]
-
 [build]
 publish = "/Users/joshmait/Desktop/Claude/100yards/coinfully"
-publishOrigin = "default"
+publishOrigin = "config"
 base = "/Users/joshmait/Desktop/Claude/100yards/coinfully"
+functions = "/Users/joshmait/Desktop/Claude/100yards/coinfully/netlify/functions"
 
 [build.environment]
 
@@ -24,3 +23,8 @@ base = "/Users/joshmait/Desktop/Claude/100yards/coinfully"
 [build.processing.js]
 
 [build.services]
+
+[functions]
+
+[functions."*"]
+node_bundler = "esbuild"

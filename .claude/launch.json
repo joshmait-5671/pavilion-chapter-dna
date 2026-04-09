@@ -99,6 +99,12 @@
       "runtimeExecutable": "ruby",
       "runtimeArgs": ["-run", "-e", "httpd", "/Users/joshmait/Desktop/Claude/pavilion/gold-retreat", "--port=4213"],
       "port": 4213
+    },
+    {
+      "name": "brand-marks",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/pavilion/brand-marks", "-l", "4214", "--no-clipboard"],
+      "port": 4214
     }
   ]
 }

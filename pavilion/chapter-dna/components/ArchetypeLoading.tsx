@@ -49,10 +49,10 @@ export default function ArchetypeLoading({ chapterName, onComplete }: ArchetypeL
   }, [onComplete])
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-dvh bg-[#180A5C] px-8">
+    <div className="flex flex-col items-center justify-center min-h-dvh bg-cw-bg px-8">
       {/* Chapter name */}
       <p
-        className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-12 text-pav-purple-400/60 animate-fade-in"
+        className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-12 text-white/40 animate-fade-in"
       >
         {chapterName}
       </p>

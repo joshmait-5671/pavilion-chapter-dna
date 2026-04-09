@@ -55,7 +55,7 @@ export default function SurveyQuestion({
   const isImageGrid = question.cardType === 'image-text'
 
   return (
-    <div className="flex flex-col min-h-dvh bg-[#180A5C]">
+    <div className="flex flex-col min-h-dvh bg-cw-bg">
       {/* Progress bar */}
       <ProgressBar current={questionIndex + 1} total={totalQuestions} />
 
@@ -75,7 +75,7 @@ export default function SurveyQuestion({
           Back
         </button>
 
-        <p className="text-[12px] font-medium tracking-wider text-pav-purple-400/60 uppercase">
+        <p className="text-[12px] font-medium tracking-wider text-white/30 uppercase">
           {questionIndex + 1} / {totalQuestions}
         </p>
 

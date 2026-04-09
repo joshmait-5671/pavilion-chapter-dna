@@ -33,7 +33,7 @@ export default function AnswerCard({
           flex items-center justify-between
           px-5 py-5 min-h-[72px]
           ${isSelected
-            ? 'bg-pav-pink/15 border-pav-pink'
+            ? 'bg-pav-pink/15 border-pav-pink animate-pulse-select'
             : 'bg-white/8 border-white/10 hover:bg-white/12 hover:border-white/20 active:scale-[0.98]'
           }
         `}
@@ -58,7 +58,7 @@ export default function AnswerCard({
           flex items-center gap-3
           px-4 py-5 min-h-[72px]
           ${isSelected
-            ? 'bg-pav-pink/15 border-pav-pink'
+            ? 'bg-pav-pink/15 border-pav-pink animate-pulse-select'
             : 'bg-white/8 border-white/10 hover:bg-white/12 hover:border-white/20 active:scale-[0.98]'
           }
         `}
@@ -85,13 +85,13 @@ export default function AnswerCard({
       className={`
         ${baseCard}
         overflow-hidden h-[160px]
-        ${isSelected ? 'border-pav-pink ring-1 ring-pav-pink/30' : 'border-white/10 hover:border-white/25 active:scale-[0.98]'}
+        ${isSelected ? 'border-pav-pink ring-1 ring-pav-pink/30 animate-pulse-select' : 'border-white/10 hover:border-white/25 active:scale-[0.98]'}
       `}
       style={{
         backgroundImage: `url(${option.image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundColor: '#2B1887',
+        backgroundColor: '#0a0a0f',
       }}
     >
       {/* Dark overlay */}
@@ -99,8 +99,8 @@ export default function AnswerCard({
         className="absolute inset-0"
         style={{
           background: isSelected
-            ? 'linear-gradient(to top, rgba(24,10,92,0.92) 0%, rgba(24,10,92,0.35) 60%, rgba(24,10,92,0.15) 100%)'
-            : 'linear-gradient(to top, rgba(24,10,92,0.85) 0%, rgba(24,10,92,0.3) 60%, rgba(24,10,92,0.1) 100%)',
+            ? 'linear-gradient(to top, rgba(10,10,15,0.92) 0%, rgba(10,10,15,0.35) 60%, rgba(10,10,15,0.15) 100%)'
+            : 'linear-gradient(to top, rgba(10,10,15,0.85) 0%, rgba(10,10,15,0.3) 60%, rgba(10,10,15,0.1) 100%)',
         }}
       />
 

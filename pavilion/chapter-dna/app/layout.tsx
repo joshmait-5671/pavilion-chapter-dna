@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Poppins } from 'next/font/google'
+import { Inter, Poppins, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({
@@ -15,19 +15,26 @@ const poppins = Poppins({
   display: 'swap',
 })
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
-  title: 'Chapter DNA',
-  description: 'Discover what makes your Pavilion chapter tick.',
+  title: 'Chapter Wars by Pavilion',
+  description: '15 cities. 6 archetypes. One winner.',
   metadataBase: new URL('https://chapter-dna.vercel.app'),
   openGraph: {
-    title: 'Chapter DNA',
-    description: 'Discover what makes your Pavilion chapter tick.',
+    title: 'Chapter Wars by Pavilion',
+    description: '15 cities. 6 archetypes. One winner.',
     type: 'website',
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#180A5C',
+  themeColor: '#0a0a0f',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -40,8 +47,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
-      <body className="bg-[#180A5C] text-white font-sans">
+    <html lang="en" className={`${inter.variable} ${poppins.variable} ${spaceGrotesk.variable}`}>
+      <body className="bg-cw-bg text-white font-sans">
         <main className="mx-auto max-w-md min-h-dvh">
           {children}
         </main>

@@ -62,13 +62,12 @@
 
     renderProgress(index);
 
-    // Exit old step
-    const old = container.querySelector('.step');
-    if (old) {
+    // Exit old steps — remove ALL to prevent orphans from double-navigation
+    container.querySelectorAll('.step').forEach(old => {
       old.classList.remove('active');
       old.classList.add(direction === 'back' ? 'back-exiting' : 'exiting');
       setTimeout(() => old.remove(), 250);
-    }
+    });
 
     // Build new step element
     const el = document.createElement('div');
@@ -162,7 +161,7 @@
           </div>
           <span class="avatar-text">${city}</span>
         </div>
-        <button class="welcome-cta" data-action="cta">Let's set you up →</button>
+        <button class="welcome-cta">Let's set you up →</button>
       </div>
     `;
   }

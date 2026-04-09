@@ -109,7 +109,7 @@
     {
       "name": "new-member-onboarding",
       "runtimeExecutable": "ruby",
-      "runtimeArgs": ["-run", "-e", "httpd", "/Users/joshmait/Desktop/Claude/pavilion/new-member-onboarding", "--port=4215"],
+      "runtimeArgs": ["-run", "-e", "httpd", "/tmp/pav-onboarding", "--port=4215"],
       "port": 4215
     }
   ]

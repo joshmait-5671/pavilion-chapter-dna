@@ -105,6 +105,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["serve", "/Users/joshmait/Desktop/Claude/pavilion/brand-marks", "-l", "4214", "--no-clipboard"],
       "port": 4214
+    },
+    {
+      "name": "new-member-onboarding",
+      "runtimeExecutable": "ruby",
+      "runtimeArgs": ["-run", "-e", "httpd", "/Users/joshmait/Desktop/Claude/pavilion/new-member-onboarding", "--port=4215"],
+      "port": 4215
     }
   ]
 }

@@ -15,68 +15,8 @@
     ]
   },
   {
-    "id": "q2",
-    "number": 2,
-    "text": "What is this chapter best at?",
-    "cardType": "text",
-    "autoAdvance": true,
-    "options": [
-      { "id": "q2_a", "text": "Making useful intros" },
-      { "id": "q2_b", "text": "Sharing real tactics" },
-      { "id": "q2_c", "text": "Calling bullshit" },
-      { "id": "q2_d", "text": "Welcoming new people" },
-      { "id": "q2_e", "text": "Pushing each other higher" },
-      { "id": "q2_f", "text": "Getting honest fast" }
-    ]
-  },
-  {
-    "id": "q3",
-    "number": 3,
-    "text": "Which best describes the people in this chapter?",
-    "cardType": "icon-text",
-    "autoAdvance": true,
-    "options": [
-      { "id": "q3_a", "text": "Experienced operators", "icon": "⚙️" },
-      { "id": "q3_b", "text": "Natural connectors", "icon": "🔗" },
-      { "id": "q3_c", "text": "Ambitious climbers", "icon": "📈" },
-      { "id": "q3_d", "text": "Thoughtful builders", "icon": "🏗️" },
-      { "id": "q3_e", "text": "Big personalities", "icon": "⚡" },
-      { "id": "q3_f", "text": "Low ego pros", "icon": "🎯" }
-    ]
-  },
-  {
-    "id": "q4",
-    "number": 4,
-    "text": "What kind of energy does this chapter have?",
-    "cardType": "text",
-    "autoAdvance": true,
-    "options": [
-      { "id": "q4_a", "text": "Intense" },
-      { "id": "q4_b", "text": "Generous" },
-      { "id": "q4_c", "text": "Polished" },
-      { "id": "q4_d", "text": "Scrappy" },
-      { "id": "q4_e", "text": "Curious" },
-      { "id": "q4_f", "text": "Calm confidence" }
-    ]
-  },
-  {
-    "id": "q5",
-    "number": 5,
-    "text": "What makes this chapter different from others?",
-    "cardType": "icon-text",
-    "autoAdvance": true,
-    "options": [
-      { "id": "q5_a", "text": "No fluff", "icon": "✂️" },
-      { "id": "q5_b", "text": "Strong local pride", "icon": "🏙️" },
-      { "id": "q5_c", "text": "Deep operator bench", "icon": "💪" },
-      { "id": "q5_d", "text": "Real relationships", "icon": "🤝" },
-      { "id": "q5_e", "text": "Smartest room energy", "icon": "🧠" },
-      { "id": "q5_f", "text": "People actually follow up", "icon": "✓" }
-    ]
-  },
-  {
     "id": "q6",
-    "number": 6,
+    "number": 2,
     "text": "What kind of event feels most on brand for this chapter?",
     "cardType": "image-text",
     "autoAdvance": true,
@@ -120,38 +60,38 @@
     ]
   },
   {
-    "id": "q7",
-    "number": 7,
-    "text": "What is this chapter secretly proud of?",
-    "cardType": "icon-text",
-    "autoAdvance": true,
-    "options": [
-      { "id": "q7_a", "text": "How smart the people are", "icon": "🧠" },
-      { "id": "q7_b", "text": "How welcoming it is", "icon": "🤗" },
-      { "id": "q7_c", "text": "How direct people are", "icon": "🎯" },
-      { "id": "q7_d", "text": "How strong the network is", "icon": "🔗" },
-      { "id": "q7_e", "text": "How ambitious the room feels", "icon": "🚀" },
-      { "id": "q7_f", "text": "Conversations continue after the event", "icon": "💬" }
-    ]
-  },
-  {
-    "id": "q8",
-    "number": 8,
-    "text": "What is this chapter most likely to say?",
+    "id": "q2",
+    "number": 3,
+    "text": "What is this chapter best at?",
     "cardType": "text",
     "autoAdvance": true,
     "options": [
-      { "id": "q8_a", "text": "\"Get to the point\"" },
-      { "id": "q8_b", "text": "\"Who do you need to meet?\"" },
-      { "id": "q8_c", "text": "\"Sounds good, but will it work?\"" },
-      { "id": "q8_d", "text": "\"Let's make it useful\"" },
-      { "id": "q8_e", "text": "\"Say the thing you really mean\"" },
-      { "id": "q8_f", "text": "\"Someone here has solved this\"" }
+      { "id": "q2_a", "text": "Making useful intros" },
+      { "id": "q2_b", "text": "Sharing real tactics" },
+      { "id": "q2_c", "text": "Calling bullshit" },
+      { "id": "q2_d", "text": "Welcoming new people" },
+      { "id": "q2_e", "text": "Pushing each other higher" },
+      { "id": "q2_f", "text": "Getting honest fast" }
+    ]
+  },
+  {
+    "id": "q3",
+    "number": 4,
+    "text": "Which best describes the people in this chapter?",
+    "cardType": "icon-text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q3_a", "text": "Experienced operators", "icon": "⚙️" },
+      { "id": "q3_b", "text": "Natural connectors", "icon": "🔗" },
+      { "id": "q3_c", "text": "Ambitious climbers", "icon": "📈" },
+      { "id": "q3_d", "text": "Thoughtful builders", "icon": "🏗️" },
+      { "id": "q3_e", "text": "Big personalities", "icon": "⚡" },
+      { "id": "q3_f", "text": "Low ego pros", "icon": "🎯" }
     ]
   },
   {
     "id": "q9",
-    "number": 9,
+    "number": 5,
     "text": "If this chapter had a drink, what would it be?",
     "cardType": "image-text",
     "autoAdvance": true,
@@ -192,6 +132,66 @@
         "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80&auto=format&fit=crop",
         "imageAlt": "Coffee"
       }
+    ]
+  },
+  {
+    "id": "q4",
+    "number": 6,
+    "text": "What kind of energy does this chapter have?",
+    "cardType": "text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q4_a", "text": "Intense" },
+      { "id": "q4_b", "text": "Generous" },
+      { "id": "q4_c", "text": "Polished" },
+      { "id": "q4_d", "text": "Scrappy" },
+      { "id": "q4_e", "text": "Curious" },
+      { "id": "q4_f", "text": "Calm confidence" }
+    ]
+  },
+  {
+    "id": "q5",
+    "number": 7,
+    "text": "What makes this chapter different from others?",
+    "cardType": "icon-text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q5_a", "text": "No fluff", "icon": "✂️" },
+      { "id": "q5_b", "text": "Strong local pride", "icon": "🏙️" },
+      { "id": "q5_c", "text": "Deep operator bench", "icon": "💪" },
+      { "id": "q5_d", "text": "Real relationships", "icon": "🤝" },
+      { "id": "q5_e", "text": "Smartest room energy", "icon": "🧠" },
+      { "id": "q5_f", "text": "People actually follow up", "icon": "✓" }
+    ]
+  },
+  {
+    "id": "q7",
+    "number": 8,
+    "text": "What is this chapter secretly proud of?",
+    "cardType": "icon-text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q7_a", "text": "How smart the people are", "icon": "🧠" },
+      { "id": "q7_b", "text": "How welcoming it is", "icon": "🤗" },
+      { "id": "q7_c", "text": "How direct people are", "icon": "🎯" },
+      { "id": "q7_d", "text": "How strong the network is", "icon": "🔗" },
+      { "id": "q7_e", "text": "How ambitious the room feels", "icon": "🚀" },
+      { "id": "q7_f", "text": "Conversations continue after the event", "icon": "💬" }
+    ]
+  },
+  {
+    "id": "q8",
+    "number": 9,
+    "text": "What is this chapter most likely to say?",
+    "cardType": "text",
+    "autoAdvance": true,
+    "options": [
+      { "id": "q8_a", "text": "\"Get to the point\"" },
+      { "id": "q8_b", "text": "\"Who do you need to meet?\"" },
+      { "id": "q8_c", "text": "\"Sounds good, but will it work?\"" },
+      { "id": "q8_d", "text": "\"Let's make it useful\"" },
+      { "id": "q8_e", "text": "\"Say the thing you really mean\"" },
+      { "id": "q8_f", "text": "\"Someone here has solved this\"" }
     ]
   },
   {

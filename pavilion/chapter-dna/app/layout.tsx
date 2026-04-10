@@ -17,7 +17,7 @@ const poppins = Poppins({
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-space-grotesk',
   display: 'swap',
 })
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0a0a0f',
+  themeColor: '#FFE135',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -48,7 +48,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${spaceGrotesk.variable}`}>
-      <body className="bg-cw-bg text-white font-sans">
+      <body className="bg-cw-charcoal text-white font-sans">
         <main className="mx-auto max-w-md min-h-dvh">
           {children}
         </main>

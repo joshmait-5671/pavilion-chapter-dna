@@ -23,11 +23,7 @@ export default function ChapterCard({ result, chapter, onRestart }: ChapterCardP
     try {
       const { downloadCard } = await import('@/components/SocialCardExport')
       await downloadCard(result, chapter, 'instagram')
-    } catch {
-      // silent fail
-    } finally {
-      setSharingIG(false)
-    }
+    } catch { /* silent */ } finally { setSharingIG(false) }
   }
 
   const handleLinkedIn = async () => {
@@ -36,50 +32,100 @@ export default function ChapterCard({ result, chapter, onRestart }: ChapterCardP
     try {
       const { downloadCard } = await import('@/components/SocialCardExport')
       await downloadCard(result, chapter, 'linkedin')
-    } catch {
-      // silent fail
-    } finally {
-      setSharingLI(false)
-    }
+    } catch { /* silent */ } finally { setSharingLI(false) }
   }
 
   return (
     <div
       className="flex flex-col min-h-dvh px-5 pt-12 pb-10"
-      style={{
-        background: `linear-gradient(to bottom, ${theme.gradient[0]}, ${theme.gradient[1]})`,
-      }}
+      style={{ background: theme.bg, position: 'relative', overflow: 'hidden' }}
     >
-      {/* Eyebrow */}
-      <p
-        className="text-[10px] font-bold tracking-[0.28em] uppercase mb-3"
-        style={{ color: theme.accent }}
+
+      {/* Concentric circles bg texture */}
+      <svg
+        aria-hidden
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.07, pointerEvents: 'none' }}
+        viewBox="0 0 400 800"
+        preserveAspectRatio="xMidYMid slice"
       >
-        Your Chapter Is
+        {[100, 190, 290, 400, 520, 650].map(r => (
+          <circle key={r} cx="200" cy="500" r={r} fill="none" stroke="white" strokeWidth="1.5" />
+        ))}
+      </svg>
+
+      {/* Top label */}
+      <p style={{
+        fontSize: '10px',
+        fontWeight: 800,
+        letterSpacing: '0.25em',
+        textTransform: 'uppercase',
+        color: `${theme.text}99`,
+        marginBottom: '4px',
+        position: 'relative',
+        zIndex: 1,
+      }}>
+        {chapter.name} is —
       </p>
 
-      {/* Archetype name */}
-      <h1
-        className="font-display font-bold text-white leading-[1.0] tracking-[-0.03em] mb-3"
-        style={{ fontSize: 'clamp(48px, 14vw, 64px)' }}
-      >
-        {archetype.name}
+      {/* Archetype eyebrow */}
+      <p style={{
+        fontSize: '11px',
+        fontWeight: 700,
+        letterSpacing: '0.14em',
+        textTransform: 'uppercase',
+        color: `${theme.text}66`,
+        marginBottom: '8px',
+        position: 'relative',
+        zIndex: 1,
+      }}>
+        Your archetype
+      </p>
+
+      {/* THE [ARCHETYPE NAME] — giant */}
+      <h1 style={{
+        fontSize: 'clamp(48px, 14vw, 64px)',
+        fontWeight: 900,
+        color: theme.text,
+        lineHeight: 0.87,
+        letterSpacing: '-0.04em',
+        marginBottom: '24px',
+        fontFamily: 'var(--font-space-grotesk)',
+        position: 'relative',
+        zIndex: 1,
+      }}>
+        THE<br />{archetype.name.toUpperCase().replace('THE ', '')}
       </h1>
 
+      {/* Rule */}
+      <div style={{ width: '40px', height: '3px', background: `${theme.text}50`, marginBottom: '20px', position: 'relative', zIndex: 1 }} />
+
       {/* Tagline */}
-      <p className="text-[18px] text-white/55 italic mb-6 leading-snug">
+      <p style={{
+        fontSize: '16px',
+        color: `${theme.text}CC`,
+        lineHeight: 1.55,
+        fontWeight: 500,
+        marginBottom: '28px',
+        maxWidth: '300px',
+        position: 'relative',
+        zIndex: 1,
+      }}>
         {archetype.tagline}
       </p>
 
       {/* Trait pills */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '28px', position: 'relative', zIndex: 1 }}>
         {archetype.traits.map(trait => (
           <span
             key={trait}
-            className="text-[11px] font-semibold px-3 py-1.5 rounded-full"
             style={{
-              background: theme.accent,
-              color: '#0a0a0f',
+              fontSize: '11px',
+              fontWeight: 700,
+              padding: '6px 14px',
+              borderRadius: '999px',
+              border: `1.5px solid ${theme.text}40`,
+              color: theme.text,
+              background: `${theme.text}15`,
             }}
           >
             {trait}
@@ -87,85 +133,74 @@ export default function ChapterCard({ result, chapter, onRestart }: ChapterCardP
         ))}
       </div>
 
-      {/* Divider */}
-      <div className="h-px bg-white/10 mb-6" />
-
-      {/* Manifesto */}
-      <div className="flex flex-col gap-3 mb-6">
-        {archetype.manifesto.map((line, i) => (
-          <div key={i} className="flex items-baseline gap-3">
-            <span
-              className="text-[10px] font-bold flex-shrink-0"
-              style={{ color: theme.accent }}
-            >
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <p className="text-[15px] font-semibold text-white/85 leading-snug italic">
-              {line}
-            </p>
+      {/* Flavor */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '32px', position: 'relative', zIndex: 1 }}>
+        {[{ emoji: '🥃', value: drink }, { emoji: '📍', value: spot }, { emoji: '💬', value: says }].map(({ emoji, value }) => (
+          <div key={emoji} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+            <span style={{ fontSize: '16px', flexShrink: 0, lineHeight: 1.4 }}>{emoji}</span>
+            <span style={{ fontSize: '14px', color: `${theme.text}BB`, lineHeight: 1.45, fontWeight: 500 }}>{value}</span>
           </div>
         ))}
       </div>
 
-      {/* Divider */}
-      <div className="h-px bg-white/10 mb-6" />
-
-      {/* Flavor text */}
-      <div className="flex flex-col gap-3 mb-8">
-        {[
-          { emoji: '🥃', value: drink },
-          { emoji: '📍', value: spot },
-          { emoji: '💬', value: says },
-        ].map(({ emoji, value }) => (
-          <div key={emoji} className="flex items-center gap-3">
-            <span className="text-[18px]">{emoji}</span>
-            <span className="text-[14px] text-white/70">{value}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Share section */}
-      <div className="mb-2">
-        <p className="text-[9px] font-bold tracking-[0.22em] uppercase text-white/25 text-center mb-4">
-          Share Your Result
-        </p>
-
-        {/* Instagram button */}
+      {/* Share buttons */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '16px', position: 'relative', zIndex: 1 }}>
         <button
           onClick={handleInstagram}
           disabled={sharingIG}
-          className="w-full py-4 bg-pav-pink text-white font-semibold text-[15px] rounded-full
-                     hover:bg-pav-pink-800 active:scale-[0.98] transition-all duration-150 mb-3
-                     disabled:opacity-50"
+          style={{
+            padding: '14px 8px',
+            background: `${theme.text}20`,
+            border: `1.5px solid ${theme.text}40`,
+            borderRadius: '8px',
+            fontSize: '12px',
+            fontWeight: 800,
+            color: theme.text,
+            cursor: 'pointer',
+            letterSpacing: '0.04em',
+            opacity: sharingIG ? 0.6 : 1,
+          }}
         >
-          {sharingIG ? 'Saving…' : '📸  Save for Instagram'}
+          {sharingIG ? 'Saving…' : '📸 Instagram'}
         </button>
-
-        {/* LinkedIn button */}
         <button
           onClick={handleLinkedIn}
           disabled={sharingLI}
-          className="w-full py-4 text-white font-semibold text-[15px] rounded-full
-                     border border-white/20 hover:border-white/40
-                     active:scale-[0.98] transition-all duration-150 mb-6
-                     disabled:opacity-50"
-          style={{ background: 'rgba(255,255,255,0.05)' }}
+          style={{
+            padding: '14px 8px',
+            background: theme.text,
+            border: `1.5px solid ${theme.text}`,
+            borderRadius: '8px',
+            fontSize: '12px',
+            fontWeight: 800,
+            color: theme.bg,
+            cursor: 'pointer',
+            letterSpacing: '0.04em',
+            opacity: sharingLI ? 0.6 : 1,
+          }}
         >
-          {sharingLI ? 'Saving…' : '💼  Save for LinkedIn'}
+          {sharingLI ? 'Saving…' : '💼 LinkedIn'}
         </button>
-
-        {/* iOS note */}
-        <p className="text-[11px] text-white/25 text-center mb-6 leading-relaxed">
-          On iPhone: tap and hold the image to save.
-        </p>
       </div>
 
-      {/* Take it again */}
+      {/* Restart */}
       <button
         onClick={onRestart}
-        className="text-[13px] text-white/30 hover:text-white/60 transition-colors duration-150 mx-auto"
+        style={{
+          width: '100%',
+          padding: '14px',
+          background: 'transparent',
+          border: `1.5px solid ${theme.text}30`,
+          borderRadius: '8px',
+          fontSize: '13px',
+          fontWeight: 600,
+          color: `${theme.text}80`,
+          cursor: 'pointer',
+          position: 'relative',
+          zIndex: 1,
+        }}
       >
-        Take it again
+        Try a Different City
       </button>
     </div>
   )

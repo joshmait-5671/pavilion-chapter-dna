@@ -1,7 +1,7 @@
 'use client'
 
 import { ArchetypeResult } from '@/lib/archetype'
-import { ARCHETYPE_THEMES } from '@/lib/archetypeThemes'
+import { ARCHETYPE_THEMES, type ArchetypeTheme } from '@/lib/archetypeThemes'
 import { COMPETITION_LABEL } from '@/lib/config'
 import { Chapter } from '@/types'
 
@@ -48,7 +48,8 @@ function drawPill(
   text: string,
   cx: number,
   cy: number,
-  accentColor: string
+  pillBg: string,
+  pillText: string
 ) {
   ctx.font = '600 18px "Space Grotesk", system-ui'
   const tw = ctx.measureText(text).width
@@ -57,11 +58,11 @@ function drawPill(
   const px = cx - pw / 2
   const py = cy - ph / 2
 
-  ctx.fillStyle = accentColor
+  ctx.fillStyle = pillBg
   roundedRect(ctx, px, py, pw, ph, 16)
   ctx.fill()
 
-  ctx.fillStyle = '#0a0a0f'
+  ctx.fillStyle = pillText
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
   ctx.fillText(text, cx, cy + 1)
@@ -75,11 +76,8 @@ function drawCard(
   const SIZE = 1080
   const theme = ARCHETYPE_THEMES[result.archetype.id]
 
-  // Background gradient
-  const grad = ctx.createLinearGradient(0, 0, 0, SIZE)
-  grad.addColorStop(0, theme.gradient[0])
-  grad.addColorStop(1, theme.gradient[1])
-  ctx.fillStyle = grad
+  // Solid background
+  ctx.fillStyle = theme.bg
   ctx.fillRect(0, 0, SIZE, SIZE)
 
   // Subtle radial burst
@@ -91,20 +89,20 @@ function drawCard(
 
   // Top-left: "PAVILION CHAPTER WARS"
   ctx.font = '700 26px "Space Grotesk", system-ui'
-  ctx.fillStyle = theme.accent
+  ctx.fillStyle = theme.text + '99'
   ctx.textAlign = 'left'
   ctx.textBaseline = 'alphabetic'
   ctx.fillText('PAVILION CHAPTER WARS', 60, 76)
 
   // Top-right: competition label
   ctx.font = '400 19px "Space Grotesk", system-ui'
-  ctx.fillStyle = 'rgba(255,255,255,0.35)'
+  ctx.fillStyle = theme.text + 'BB'
   ctx.textAlign = 'right'
   ctx.fillText(COMPETITION_LABEL, SIZE - 60, 76)
 
   // Center: archetype name
   ctx.font = '700 120px "Space Grotesk", system-ui'
-  ctx.fillStyle = '#ffffff'
+  ctx.fillStyle = theme.text
   ctx.textAlign = 'center'
   ctx.textBaseline = 'alphabetic'
 
@@ -118,7 +116,7 @@ function drawCard(
 
   // Below: tagline
   ctx.font = 'italic 700 34px "Space Grotesk", system-ui'
-  ctx.fillStyle = 'rgba(255,255,255,0.55)'
+  ctx.fillStyle = theme.text + 'BB'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'alphabetic'
   ctx.fillText(result.archetype.tagline, SIZE / 2, 590)
@@ -128,12 +126,12 @@ function drawCard(
   const pillY = 900
   const spacing = SIZE / (traits.length + 1)
   traits.forEach((trait, i) => {
-    drawPill(ctx, trait, spacing * (i + 1), pillY, theme.accent)
+    drawPill(ctx, trait, spacing * (i + 1), pillY, theme.text + '20', theme.text)
   })
 
   // Bottom-right: pavilion wordmark
   ctx.font = '400 20px "Space Grotesk", system-ui'
-  ctx.fillStyle = 'rgba(255,255,255,0.25)'
+  ctx.fillStyle = theme.text + '40'
   ctx.textAlign = 'right'
   ctx.textBaseline = 'alphabetic'
   ctx.fillText('pavilion', SIZE - 60, SIZE - 40)

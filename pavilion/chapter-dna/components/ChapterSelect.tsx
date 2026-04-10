@@ -1,7 +1,6 @@
 'use client'
 
 import { Chapter } from '@/types'
-import { COMPETITION_LABEL } from '@/lib/config'
 
 interface ChapterSelectProps {
   chapters: Chapter[]
@@ -10,74 +9,96 @@ interface ChapterSelectProps {
 
 export default function ChapterSelect({ chapters, onSelect }: ChapterSelectProps) {
   return (
-    <div className="flex flex-col min-h-dvh bg-cw-bg px-5 pb-10">
+    <div className="flex flex-col min-h-dvh px-5 pb-10 relative overflow-hidden"
+         style={{ background: '#FFE135' }}>
 
-      {/* Hero section with radial glow */}
+      {/* Ghost letter bg decoration */}
       <div
-        className="relative pt-14 pb-10 text-center"
+        aria-hidden
         style={{
-          background: 'radial-gradient(ellipse 80% 50% at 50% 40%, rgba(223,40,91,0.15) 0%, transparent 70%)',
+          position: 'absolute',
+          bottom: '-40px',
+          right: '-20px',
+          fontSize: 'clamp(200px, 55vw, 280px)',
+          fontWeight: 900,
+          color: 'rgba(0,0,0,0.05)',
+          lineHeight: 1,
+          letterSpacing: '-0.05em',
+          pointerEvents: 'none',
+          userSelect: 'none',
+          fontFamily: 'var(--font-space-grotesk)',
         }}
       >
-        {/* Eyebrow */}
-        <p className="text-[10px] font-bold tracking-[0.28em] uppercase text-pav-pink mb-5">
-          Pavilion Chapter Wars
-        </p>
-
-        {/* Headline */}
-        <h1 className="font-display font-bold text-white leading-[1.05] tracking-[-0.03em] mb-4"
-            style={{ fontSize: 'clamp(48px, 12vw, 68px)' }}>
-          15 cities.<br />
-          6 archetypes.<br />
-          One winner.
-        </h1>
-
-        {/* Competition dates */}
-        <p className="text-[13px] text-white/40 mb-6 tracking-wide">
-          {COMPETITION_LABEL}
-        </p>
-
-        {/* Divider */}
-        <div className="w-12 h-px bg-white/10 mx-auto mb-6" />
-
-        {/* Setup paragraph */}
-        <p className="text-[14px] text-white/55 leading-[1.75] max-w-[320px] mx-auto mb-8">
-          Every Pavilion chapter has a personality. Some rooms run on ambition.
-          Others run on execution. This is your chance to find out what yours
-          is made of — and prove it.
-        </p>
-
-        {/* Scroll CTA */}
-        <button
-          onClick={() => {
-            document.getElementById('city-grid')?.scrollIntoView({ behavior: 'smooth' })
-          }}
-          className="w-full max-w-[320px] py-4 bg-pav-pink text-white font-semibold text-[15px] rounded-full
-                     hover:bg-pav-pink-800 active:scale-[0.98] transition-all duration-150"
-        >
-          Find Your Archetype →
-        </button>
+        W
       </div>
 
-      {/* City grid */}
-      <div id="city-grid" className="pt-4">
-        <p className="text-[10px] font-bold tracking-[0.24em] uppercase text-white/25 text-center mb-4">
-          Select Your City
+      {/* Pavilion eyebrow */}
+      <p style={{
+        fontSize: '10px',
+        fontWeight: 800,
+        letterSpacing: '0.22em',
+        textTransform: 'uppercase',
+        color: 'rgba(0,0,0,0.4)',
+        paddingTop: '48px',
+        marginBottom: 'auto',
+      }}>
+        Pavilion
+      </p>
+
+      {/* Hero type */}
+      <div style={{ marginTop: 'auto', position: 'relative', zIndex: 1 }}>
+        <h1 style={{
+          fontSize: 'clamp(52px, 14vw, 72px)',
+          fontWeight: 900,
+          color: '#111111',
+          lineHeight: 0.88,
+          letterSpacing: '-0.04em',
+          marginBottom: '16px',
+          fontFamily: 'var(--font-space-grotesk)',
+        }}>
+          CHAPTER<br />WARS
+        </h1>
+        <p style={{
+          fontSize: '14px',
+          fontWeight: 500,
+          color: 'rgba(0,0,0,0.5)',
+          lineHeight: 1.5,
+          marginBottom: '28px',
+        }}>
+          Which archetype is your chapter?
         </p>
 
-        <div className="grid grid-cols-3 gap-2">
+        {/* City grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '8px',
+          marginBottom: '16px',
+        }}>
           {chapters.map(chapter => (
             <button
               key={chapter.id}
               onClick={() => onSelect(chapter)}
-              className="
-                relative py-3 px-2 rounded-xl text-center
-                bg-cw-surface border border-white/[0.06]
-                text-[13px] font-semibold text-white/80
-                hover:border-pav-pink/50 hover:bg-cw-surface2 hover:text-white hover:scale-[1.03]
-                active:scale-[0.97]
-                transition-all duration-150
-              "
+              style={{
+                padding: '10px 6px',
+                background: 'rgba(0,0,0,0.08)',
+                border: '2px solid rgba(0,0,0,0.12)',
+                borderRadius: '8px',
+                fontSize: '12px',
+                fontWeight: 700,
+                color: '#111111',
+                cursor: 'pointer',
+                transition: 'background 0.12s, border-color 0.12s, transform 0.12s',
+                fontFamily: 'var(--font-space-grotesk)',
+              }}
+              onMouseEnter={e => {
+                ;(e.currentTarget as HTMLButtonElement).style.background = 'rgba(0,0,0,0.15)'
+                ;(e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(0,0,0,0.3)'
+              }}
+              onMouseLeave={e => {
+                ;(e.currentTarget as HTMLButtonElement).style.background = 'rgba(0,0,0,0.08)'
+                ;(e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(0,0,0,0.12)'
+              }}
             >
               {chapter.name}
             </button>

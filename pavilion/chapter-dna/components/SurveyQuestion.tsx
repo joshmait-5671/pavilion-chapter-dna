@@ -55,7 +55,7 @@ export default function SurveyQuestion({
   const isImageGrid = question.cardType === 'image-text'
 
   return (
-    <div className="flex flex-col min-h-dvh bg-cw-bg">
+    <div className="flex flex-col min-h-dvh" style={{ background: '#111111' }}>
       {/* Progress bar */}
       <ProgressBar current={questionIndex + 1} total={totalQuestions} />
 
@@ -129,8 +129,18 @@ export default function SurveyQuestion({
           <button
             onClick={onNext}
             disabled={!selectedId}
-            className="w-full py-4 bg-pav-pink text-white font-semibold text-[15px] rounded-xl
-                       hover:bg-pav-pink-800 active:scale-[0.98] transition-all duration-150 disabled:opacity-40"
+            style={{
+              width: '100%',
+              padding: '16px',
+              background: selectedId ? '#FFFFFF' : 'rgba(255,255,255,0.2)',
+              color: selectedId ? '#111111' : 'rgba(255,255,255,0.4)',
+              border: 'none',
+              borderRadius: '12px',
+              fontSize: '15px',
+              fontWeight: 700,
+              cursor: selectedId ? 'pointer' : 'default',
+              transition: 'background 0.2s, color 0.2s',
+            }}
           >
             Submit
           </button>

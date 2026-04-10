@@ -2,17 +2,19 @@
 import { ArchetypeId } from '@/lib/archetype'
 
 export interface ArchetypeTheme {
-  primary:  string            // dominant color (borders, highlights)
-  accent:   string            // high-contrast color (eyebrows, pills, canvas accents)
-  cardBg:   string            // darkest bg — top of gradient
-  gradient: [string, string]  // [top, bottom] top-to-bottom linear gradient
+  /** Full-bleed solid bg color for result card */
+  bg: string
+  /** Text color for on-color content (almost always white) */
+  text: string
+  /** Accent for secondary elements (share button outlines, etc.) */
+  accent: string
 }
 
 export const ARCHETYPE_THEMES: Record<ArchetypeId, ArchetypeTheme> = {
-  inner_circle:   { primary: '#8B1A1A', accent: '#C9A84C', cardBg: '#1a0a0a', gradient: ['#1a0a0a', '#0a0a0f'] },
-  operators:      { primary: '#1A3A5C', accent: '#E8EEF4', cardBg: '#0a1220', gradient: ['#0a1220', '#0a0a0f'] },
-  insurgents:     { primary: '#CC1A1A', accent: '#FF6B6B', cardBg: '#1a0505', gradient: ['#1a0505', '#0a0a0f'] },
-  climbers:       { primary: '#1A5C2A', accent: '#D4E84C', cardBg: '#061208', gradient: ['#061208', '#0a0a0f'] },
-  intelligentsia: { primary: '#2D1A5C', accent: '#C4C4D4', cardBg: '#0d0a1a', gradient: ['#0d0a1a', '#0a0a0f'] },
-  builders:       { primary: '#8B4A1A', accent: '#F0A050', cardBg: '#1a0e05', gradient: ['#1a0e05', '#0a0a0f'] },
+  inner_circle:   { bg: '#FF0080', text: '#FFFFFF', accent: 'rgba(255,255,255,0.25)' },
+  operators:      { bg: '#1246FF', text: '#FFFFFF', accent: 'rgba(255,255,255,0.25)' },
+  insurgents:     { bg: '#FF4D00', text: '#FFFFFF', accent: 'rgba(255,255,255,0.25)' },
+  climbers:       { bg: '#FFE135', text: '#111111', accent: 'rgba(0,0,0,0.15)'        },
+  intelligentsia: { bg: '#9B00FF', text: '#FFFFFF', accent: 'rgba(255,255,255,0.25)' },
+  builders:       { bg: '#00C853', text: '#111111', accent: 'rgba(0,0,0,0.15)'        },
 }

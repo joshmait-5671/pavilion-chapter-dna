@@ -9,12 +9,14 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
   const pct = (current / total) * 100
 
   return (
-    <div className="w-full h-[2px] bg-white/[0.06]">
+    <div style={{ width: '100%', height: '3px', background: 'rgba(255,255,255,0.12)' }}>
       <div
-        className="h-full bg-pav-pink transition-all duration-300 ease-out"
         style={{
+          height: '100%',
           width: `${pct}%`,
-          boxShadow: '0 0 8px #DF285B, 0 0 16px rgba(223,40,91,0.4)',
+          background: '#FFFFFF',
+          borderRadius: '0 2px 2px 0',
+          transition: 'width 300ms ease-out',
         }}
       />
     </div>

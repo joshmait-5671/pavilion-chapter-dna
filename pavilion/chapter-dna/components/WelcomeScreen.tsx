@@ -7,44 +7,97 @@ interface WelcomeScreenProps {
 
 export default function WelcomeScreen({ chapterName, onStart }: WelcomeScreenProps) {
   return (
-    <div className="flex flex-col min-h-dvh bg-cw-bg px-5 pt-14 pb-10">
+    <div className="flex flex-col min-h-dvh px-5 pb-10 relative overflow-hidden"
+         style={{ background: '#FFE135' }}>
+
+      {/* Ghost letter — first letter of city name */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          bottom: '-40px',
+          right: '-20px',
+          fontSize: 'clamp(200px, 55vw, 280px)',
+          fontWeight: 900,
+          color: 'rgba(0,0,0,0.05)',
+          lineHeight: 1,
+          letterSpacing: '-0.05em',
+          pointerEvents: 'none',
+          userSelect: 'none',
+          fontFamily: 'var(--font-space-grotesk)',
+        }}
+      >
+        {chapterName.charAt(0).toUpperCase()}
+      </div>
 
       {/* Eyebrow */}
-      <p className="text-[10px] font-bold tracking-[0.28em] uppercase text-pav-pink mb-3">
+      <p style={{
+        fontSize: '10px',
+        fontWeight: 800,
+        letterSpacing: '0.22em',
+        textTransform: 'uppercase',
+        color: 'rgba(0,0,0,0.4)',
+        paddingTop: '48px',
+        marginBottom: '8px',
+      }}>
         Chapter Wars
       </p>
 
-      {/* Chapter name */}
-      <p className="text-[13px] font-semibold text-white/50 mb-10 tracking-wide">
+      {/* Chapter name badge */}
+      <p style={{
+        fontSize: '13px',
+        fontWeight: 700,
+        color: 'rgba(0,0,0,0.5)',
+        marginBottom: 'auto',
+      }}>
         {chapterName} Chapter
       </p>
 
-      {/* Hero copy */}
-      <div className="flex-1">
-        <h1 className="font-display font-bold text-white leading-[1.1] tracking-[-0.025em] mb-6"
-            style={{ fontSize: 'clamp(32px, 9vw, 42px)' }}>
-          You&apos;re representing<br />
-          <span className="text-pav-pink">{chapterName}.</span>
+      {/* Hero */}
+      <div style={{ position: 'relative', zIndex: 1, marginTop: 'auto' }}>
+        <h1 style={{
+          fontSize: 'clamp(40px, 11vw, 56px)',
+          fontWeight: 900,
+          color: '#111111',
+          lineHeight: 0.95,
+          letterSpacing: '-0.04em',
+          marginBottom: '20px',
+          fontFamily: 'var(--font-space-grotesk)',
+        }}>
+          You&apos;re<br />representing<br />{chapterName}.
         </h1>
 
-        <p className="text-[15px] text-white/55 leading-relaxed max-w-sm mb-8">
-          Answer 10 questions about your chapter&apos;s personality. We&apos;ll tell you exactly
-          what archetype defines it — and where you rank against every other city.
+        <p style={{
+          fontSize: '14px',
+          fontWeight: 500,
+          color: 'rgba(0,0,0,0.5)',
+          lineHeight: 1.6,
+          marginBottom: '32px',
+          maxWidth: '280px',
+        }}>
+          10 questions. 90 seconds. Find out what your chapter is made of.
         </p>
 
-        <p className="text-[13px] text-white/35">
-          Takes 90 seconds. Results are meant to be shared.
-        </p>
+        <button
+          onClick={onStart}
+          style={{
+            width: '100%',
+            padding: '16px 20px',
+            background: '#111111',
+            color: '#FFE135',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: 800,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            fontFamily: 'var(--font-space-grotesk)',
+          }}
+        >
+          Start the Assessment →
+        </button>
       </div>
-
-      {/* CTA */}
-      <button
-        onClick={onStart}
-        className="w-full py-4 bg-pav-pink text-white font-semibold text-[15px] rounded-full
-                   hover:bg-pav-pink-800 active:scale-[0.98] transition-all duration-150 mt-10"
-      >
-        Start the Assessment →
-      </button>
     </div>
   )
 }

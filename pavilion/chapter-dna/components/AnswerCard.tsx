@@ -28,21 +28,32 @@ export default function AnswerCard({
     return (
       <button
         onClick={onSelect}
-        className={`
-          ${baseCard}
-          flex items-center justify-between
-          px-5 py-5 min-h-[72px]
-          ${isSelected
-            ? 'bg-pav-pink/15 border-pav-pink animate-pulse-select'
-            : 'bg-white/8 border-white/10 hover:bg-white/12 hover:border-white/20 active:scale-[0.98]'
-          }
-        `}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '16px 20px',
+          minHeight: '72px',
+          borderRadius: '12px',
+          border: isSelected ? '2px solid rgba(255,255,255,0.9)' : '1.5px solid rgba(255,255,255,0.12)',
+          background: isSelected ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.08)',
+          cursor: isDisabled ? 'default' : 'pointer',
+          transition: 'background 0.12s, border-color 0.12s',
+          width: '100%',
+          textAlign: 'left',
+          pointerEvents: isDisabled ? 'none' : 'auto',
+        }}
       >
-        <span className={`text-[15px] font-medium leading-snug text-left ${isSelected ? 'text-white' : 'text-white/80'}`}>
+        <span style={{
+          fontSize: '15px',
+          fontWeight: 500,
+          lineHeight: 1.35,
+          color: isSelected ? '#111111' : 'rgba(255,255,255,0.8)',
+        }}>
           {option.text}
         </span>
-        <span className={`ml-3 flex-shrink-0 transition-opacity duration-150 ${isSelected ? 'opacity-100' : 'opacity-0'}`}>
-          <CheckIcon />
+        <span style={{ marginLeft: '12px', flexShrink: 0, opacity: isSelected ? 1 : 0, transition: 'opacity 0.12s' }}>
+          <CheckIcon color={isSelected ? '#111111' : '#ffffff'} />
         </span>
       </button>
     )
@@ -53,25 +64,36 @@ export default function AnswerCard({
     return (
       <button
         onClick={onSelect}
-        className={`
-          ${baseCard}
-          flex items-center gap-3
-          px-4 py-5 min-h-[72px]
-          ${isSelected
-            ? 'bg-pav-pink/15 border-pav-pink animate-pulse-select'
-            : 'bg-white/8 border-white/10 hover:bg-white/12 hover:border-white/20 active:scale-[0.98]'
-          }
-        `}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          padding: '16px',
+          minHeight: '72px',
+          borderRadius: '12px',
+          border: isSelected ? '2px solid rgba(255,255,255,0.9)' : '1.5px solid rgba(255,255,255,0.12)',
+          background: isSelected ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.08)',
+          cursor: isDisabled ? 'default' : 'pointer',
+          transition: 'background 0.12s, border-color 0.12s',
+          width: '100%',
+          textAlign: 'left',
+          pointerEvents: isDisabled ? 'none' : 'auto',
+        }}
       >
-        <span className="text-xl flex-shrink-0 leading-none" role="img" aria-label="">
+        <span style={{ fontSize: '20px', flexShrink: 0, lineHeight: 1 }} role="img" aria-label="">
           {option.icon}
         </span>
-        <span className={`text-[14px] font-medium leading-snug text-left ${isSelected ? 'text-white' : 'text-white/80'}`}>
+        <span style={{
+          fontSize: '14px',
+          fontWeight: 500,
+          lineHeight: 1.35,
+          color: isSelected ? '#111111' : 'rgba(255,255,255,0.8)',
+        }}>
           {option.text}
         </span>
         {isSelected && (
-          <span className="ml-auto flex-shrink-0">
-            <CheckIcon />
+          <span style={{ marginLeft: 'auto', flexShrink: 0 }}>
+            <CheckIcon color="#111111" />
           </span>
         )}
       </button>
@@ -85,13 +107,13 @@ export default function AnswerCard({
       className={`
         ${baseCard}
         overflow-hidden h-[160px]
-        ${isSelected ? 'border-pav-pink ring-1 ring-pav-pink/30 animate-pulse-select' : 'border-white/10 hover:border-white/25 active:scale-[0.98]'}
+        ${isSelected ? 'border-white/90 ring-1 ring-white/30 animate-pulse-select' : 'border-white/10 hover:border-white/25 active:scale-[0.98]'}
       `}
       style={{
         backgroundImage: `url(${option.image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundColor: '#0a0a0f',
+        backgroundColor: '#111111',
       }}
     >
       {/* Dark overlay */}
@@ -106,13 +128,13 @@ export default function AnswerCard({
 
       {/* Selected ring overlay */}
       {isSelected && (
-        <div className="absolute inset-0 bg-pav-pink/8" />
+        <div className="absolute inset-0 bg-white/10" />
       )}
 
       {/* Check badge */}
       {isSelected && (
-        <div className="absolute top-2.5 right-2.5 bg-pav-pink rounded-full p-0.5">
-          <CheckIcon className="text-white" size={12} />
+        <div className="absolute top-2.5 right-2.5 bg-white rounded-full p-0.5">
+          <CheckIcon color="#111111" size={12} />
         </div>
       )}
 
@@ -127,7 +149,7 @@ export default function AnswerCard({
 }
 
 // ── Internal check icon ────────────────────────────────────────────────────────
-function CheckIcon({ className = 'text-white', size = 14 }: { className?: string; size?: number }) {
+function CheckIcon({ color = '#ffffff', size = 14 }: { color?: string; size?: number; className?: string }) {
   return (
     <svg
       width={size}
@@ -135,11 +157,10 @@ function CheckIcon({ className = 'text-white', size = 14 }: { className?: string
       viewBox="0 0 14 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
     >
       <path
         d="M2.5 7L5.5 10L11.5 4"
-        stroke="currentColor"
+        stroke={color}
         strokeWidth="1.75"
         strokeLinecap="round"
         strokeLinejoin="round"

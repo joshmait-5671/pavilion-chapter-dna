@@ -49,7 +49,7 @@ export default function ArchetypeLoading({ chapterName, onComplete }: ArchetypeL
   }, [onComplete])
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-dvh bg-cw-bg px-8">
+    <div className="flex flex-col items-center justify-center min-h-dvh bg-[#111111] px-8">
       {/* Chapter name */}
       <p
         className="text-[11px] font-semibold tracking-[0.22em] uppercase mb-12 text-white/40 animate-fade-in"
@@ -74,7 +74,7 @@ export default function ArchetypeLoading({ chapterName, onComplete }: ArchetypeL
       {/* Progress bar */}
       <div className="w-48 h-[3px] rounded-full overflow-hidden bg-white/10">
         <div
-          className="h-full rounded-full bg-pav-pink transition-all duration-75"
+          className="h-full rounded-full bg-white transition-all duration-75"
           style={{ width: `${progress}%` }}
         />
       </div>

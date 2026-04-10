@@ -14,7 +14,7 @@ export default function CompletionScreen({
   onRestart,
 }: CompletionScreenProps) {
   return (
-    <div className="flex flex-col min-h-dvh bg-[#080808] px-5 py-12">
+    <div className="flex flex-col min-h-dvh bg-[#111111] px-5 py-12">
       {/* Top spacer */}
       <div className="flex-1" />
 
